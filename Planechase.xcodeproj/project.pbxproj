@@ -8,21 +8,59 @@
 
 /* Begin PBXBuildFile section */
 		DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */; };
-		DB5098DD29A388DA0058FCCB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098DC29A388DA0058FCCB /* ContentView.swift */; };
+		DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */; };
 		DB5098DF29A388DE0058FCCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB5098DE29A388DE0058FCCB /* Assets.xcassets */; };
 		DB5098E229A388DE0058FCCB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB5098E129A388DE0058FCCB /* Preview Assets.xcassets */; };
+		DB5098E929A392880058FCCB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098E829A392880058FCCB /* Extensions.swift */; };
+		DB5098EC29A3940B0058FCCB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098EB29A3940B0058FCCB /* Card.swift */; };
+		DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098EE29A39D880058FCCB /* ContentManagerViewModel.swift */; };
+		DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */; };
+		DB5098F929A3A1880058FCCB /* PlanechaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098F829A3A1880058FCCB /* PlanechaseTests.swift */; };
+		DBA02CEC29A3B6A2004E94BC /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CEB29A3B6A2004E94BC /* DownloadManager.swift */; };
+		DBA02CEE29A3E886004E94BC /* SaveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CED29A3E886004E94BC /* SaveManager.swift */; };
+		DBA02CF129A419D1004E94BC /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CF029A419D1004E94BC /* MainMenuView.swift */; };
+		DBA02CF329A41BB7004E94BC /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CF229A41BB7004E94BC /* GameView.swift */; };
+		DBA02CF529A4CC4A004E94BC /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CF429A4CC4A004E94BC /* GameViewModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DB5098FA29A3A1880058FCCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB5098CF29A388DA0058FCCB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB5098D629A388DA0058FCCB;
+			remoteInfo = Planechase;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DB5098D729A388DA0058FCCB /* Planechase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Planechase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanechaseApp.swift; sourceTree = "<group>"; };
-		DB5098DC29A388DA0058FCCB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManagerView.swift; sourceTree = "<group>"; };
 		DB5098DE29A388DE0058FCCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB5098E129A388DE0058FCCB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DB5098E829A392880058FCCB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DB5098EB29A3940B0058FCCB /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		DB5098EE29A39D880058FCCB /* ContentManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManagerViewModel.swift; sourceTree = "<group>"; };
+		DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerViewModel+Scryfall.swift"; sourceTree = "<group>"; };
+		DB5098F629A3A1880058FCCB /* PlanechaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanechaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB5098F829A3A1880058FCCB /* PlanechaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanechaseTests.swift; sourceTree = "<group>"; };
+		DBA02CEB29A3B6A2004E94BC /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		DBA02CED29A3E886004E94BC /* SaveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveManager.swift; sourceTree = "<group>"; };
+		DBA02CF029A419D1004E94BC /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		DBA02CF229A41BB7004E94BC /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		DBA02CF429A4CC4A004E94BC /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DB5098D429A388DA0058FCCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB5098F329A3A1880058FCCB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -36,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5098D929A388DA0058FCCB /* Planechase */,
+				DB5098F729A3A1880058FCCB /* PlanechaseTests */,
 				DB5098D829A388DA0058FCCB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5098D729A388DA0058FCCB /* Planechase.app */,
+				DB5098F629A3A1880058FCCB /* PlanechaseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -51,10 +91,14 @@
 		DB5098D929A388DA0058FCCB /* Planechase */ = {
 			isa = PBXGroup;
 			children = (
-				DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */,
-				DB5098DC29A388DA0058FCCB /* ContentView.swift */,
+				DBA02CF429A4CC4A004E94BC /* GameViewModel.swift */,
+				DBA02CEF29A419BA004E94BC /* View */,
+				DB5098ED29A39D730058FCCB /* ContentManager */,
+				DB5098EA29A393F70058FCCB /* Commons */,
 				DB5098DE29A388DE0058FCCB /* Assets.xcassets */,
 				DB5098E029A388DE0058FCCB /* Preview Content */,
+				DB5098E829A392880058FCCB /* Extensions.swift */,
+				DBA02CEB29A3B6A2004E94BC /* DownloadManager.swift */,
 			);
 			path = Planechase;
 			sourceTree = "<group>";
@@ -65,6 +109,43 @@
 				DB5098E129A388DE0058FCCB /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DB5098EA29A393F70058FCCB /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				DB5098EB29A3940B0058FCCB /* Card.swift */,
+			);
+			path = Commons;
+			sourceTree = "<group>";
+		};
+		DB5098ED29A39D730058FCCB /* ContentManager */ = {
+			isa = PBXGroup;
+			children = (
+				DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */,
+				DB5098EE29A39D880058FCCB /* ContentManagerViewModel.swift */,
+				DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */,
+				DBA02CED29A3E886004E94BC /* SaveManager.swift */,
+			);
+			path = ContentManager;
+			sourceTree = "<group>";
+		};
+		DB5098F729A3A1880058FCCB /* PlanechaseTests */ = {
+			isa = PBXGroup;
+			children = (
+				DB5098F829A3A1880058FCCB /* PlanechaseTests.swift */,
+			);
+			path = PlanechaseTests;
+			sourceTree = "<group>";
+		};
+		DBA02CEF29A419BA004E94BC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */,
+				DBA02CF029A419D1004E94BC /* MainMenuView.swift */,
+				DBA02CF229A41BB7004E94BC /* GameView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +168,24 @@
 			productReference = DB5098D729A388DA0058FCCB /* Planechase.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DB5098F529A3A1880058FCCB /* PlanechaseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB5098FC29A3A1880058FCCB /* Build configuration list for PBXNativeTarget "PlanechaseTests" */;
+			buildPhases = (
+				DB5098F229A3A1880058FCCB /* Sources */,
+				DB5098F329A3A1880058FCCB /* Frameworks */,
+				DB5098F429A3A1880058FCCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB5098FB29A3A1880058FCCB /* PBXTargetDependency */,
+			);
+			name = PlanechaseTests;
+			productName = PlanechaseTests;
+			productReference = DB5098F629A3A1880058FCCB /* PlanechaseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -99,6 +198,10 @@
 				TargetAttributes = {
 					DB5098D629A388DA0058FCCB = {
 						CreatedOnToolsVersion = 14.1;
+					};
+					DB5098F529A3A1880058FCCB = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = DB5098D629A388DA0058FCCB;
 					};
 				};
 			};
@@ -116,6 +219,7 @@
 			projectRoot = "";
 			targets = (
 				DB5098D629A388DA0058FCCB /* Planechase */,
+				DB5098F529A3A1880058FCCB /* PlanechaseTests */,
 			);
 		};
 /* End PBXProject section */
@@ -130,6 +234,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB5098F429A3A1880058FCCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -137,12 +248,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB5098DD29A388DA0058FCCB /* ContentView.swift in Sources */,
+				DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */,
+				DB5098E929A392880058FCCB /* Extensions.swift in Sources */,
+				DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */,
+				DBA02CF529A4CC4A004E94BC /* GameViewModel.swift in Sources */,
+				DBA02CF129A419D1004E94BC /* MainMenuView.swift in Sources */,
+				DBA02CF329A41BB7004E94BC /* GameView.swift in Sources */,
 				DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */,
+				DB5098EC29A3940B0058FCCB /* Card.swift in Sources */,
+				DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */,
+				DBA02CEE29A3E886004E94BC /* SaveManager.swift in Sources */,
+				DBA02CEC29A3B6A2004E94BC /* DownloadManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB5098F229A3A1880058FCCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB5098F929A3A1880058FCCB /* PlanechaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DB5098FB29A3A1880058FCCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB5098D629A388DA0058FCCB /* Planechase */;
+			targetProxy = DB5098FA29A3A1880058FCCB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DB5098E329A388DE0058FCCB /* Debug */ = {
@@ -275,6 +411,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,6 +441,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -314,6 +452,42 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DB5098FD29A3A1880058FCCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LXUS44RH3Q;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Loic.PlanechaseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Planechase.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Planechase";
+			};
+			name = Debug;
+		};
+		DB5098FE29A3A1880058FCCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LXUS44RH3Q;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Loic.PlanechaseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Planechase.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Planechase";
 			};
 			name = Release;
 		};
@@ -334,6 +508,15 @@
 			buildConfigurations = (
 				DB5098E629A388DE0058FCCB /* Debug */,
 				DB5098E729A388DE0058FCCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB5098FC29A3A1880058FCCB /* Build configuration list for PBXNativeTarget "PlanechaseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB5098FD29A3A1880058FCCB /* Debug */,
+				DB5098FE29A3A1880058FCCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
