@@ -21,6 +21,9 @@
 		DBA02CF129A419D1004E94BC /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CF029A419D1004E94BC /* MainMenuView.swift */; };
 		DBA02CF329A41BB7004E94BC /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CF229A41BB7004E94BC /* GameView.swift */; };
 		DBA02CF529A4CC4A004E94BC /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CF429A4CC4A004E94BC /* GameViewModel.swift */; };
+		DBA02CF729A4FDB8004E94BC /* Coord.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CF629A4FDB8004E94BC /* Coord.swift */; };
+		DBA02CFB29A4FFA7004E94BC /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFA29A4FFA7004E94BC /* DiceView.swift */; };
+		DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFD29A50500004E94BC /* ZoomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,9 @@
 		DBA02CF029A419D1004E94BC /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		DBA02CF229A41BB7004E94BC /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		DBA02CF429A4CC4A004E94BC /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		DBA02CF629A4FDB8004E94BC /* Coord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coord.swift; sourceTree = "<group>"; };
+		DBA02CFA29A4FFA7004E94BC /* DiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceView.swift; sourceTree = "<group>"; };
+		DBA02CFD29A50500004E94BC /* ZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +97,7 @@
 		DB5098D929A388DA0058FCCB /* Planechase */ = {
 			isa = PBXGroup;
 			children = (
+				DBA02CFC29A504E6004E94BC /* GameView */,
 				DBA02CF429A4CC4A004E94BC /* GameViewModel.swift */,
 				DBA02CEF29A419BA004E94BC /* View */,
 				DB5098ED29A39D730058FCCB /* ContentManager */,
@@ -115,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5098EB29A3940B0058FCCB /* Card.swift */,
+				DBA02CF629A4FDB8004E94BC /* Coord.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -143,9 +151,18 @@
 			children = (
 				DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */,
 				DBA02CF029A419D1004E94BC /* MainMenuView.swift */,
-				DBA02CF229A41BB7004E94BC /* GameView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DBA02CFC29A504E6004E94BC /* GameView */ = {
+			isa = PBXGroup;
+			children = (
+				DBA02CF229A41BB7004E94BC /* GameView.swift */,
+				DBA02CFA29A4FFA7004E94BC /* DiceView.swift */,
+				DBA02CFD29A50500004E94BC /* ZoomView.swift */,
+			);
+			path = GameView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBA02CFB29A4FFA7004E94BC /* DiceView.swift in Sources */,
 				DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */,
 				DB5098E929A392880058FCCB /* Extensions.swift in Sources */,
 				DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */,
@@ -257,8 +275,10 @@
 				DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */,
 				DB5098EC29A3940B0058FCCB /* Card.swift in Sources */,
 				DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */,
+				DBA02CF729A4FDB8004E94BC /* Coord.swift in Sources */,
 				DBA02CEE29A3E886004E94BC /* SaveManager.swift in Sources */,
 				DBA02CEC29A3B6A2004E94BC /* DownloadManager.swift in Sources */,
+				DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

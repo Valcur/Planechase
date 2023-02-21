@@ -11,12 +11,15 @@ class GameViewModel: ObservableObject {
     
     var deck: [Card] = []
     @Published var map: [[Card?]]
+    private let center = Coord(x: 2, y: 2)
+    @Published var cardToZoomIn: Card?
     
     init() {
         map = [[Card?]](
             repeating: [Card?](repeating: nil, count: 5),
             count: 5
            )
+        cardToZoomIn = nil
     }
     
     func startGame(withDeck: [Card]) {
@@ -28,9 +31,16 @@ class GameViewModel: ObservableObject {
             repeating: [Card?](repeating: nil, count: 5),
             count: 5
            )
+        cardToZoomIn = nil
         
-        let center = Coord(x: 2, y: 2)
         addCardAtCoord(card: deck.removeFirst(), center)
+        let centerNeighbors = center.getNeighborCoordinates()
+        
+        for coord in centerNeighbors {
+            let card = deck.removeFirst()
+            card.state = .showed
+            addCardAtCoord(card: card, coord)
+        }
     }
     
     func addCardAtCoord(card: Card, _ coord: Coord) {
@@ -38,9 +48,3 @@ class GameViewModel: ObservableObject {
         map[coord.x][coord.y] = card
     }
 }
-
-struct Coord {
-    let x: Int
-    let y: Int
-}
-

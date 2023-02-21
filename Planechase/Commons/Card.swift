@@ -53,6 +53,16 @@ class Card: ObservableObject {
     func new() -> Card {
         return Card(id: self.id, image: self.image, imageURL: self.imageURL, state: self.state)
     }
+    
+    static func heightForWidth(_ width: CGFloat) -> CGFloat {
+        // Width 12.5 for height 9
+        return width * 0.72
+    }
+    
+    static func widthtForHeight(_ height: CGFloat) -> CGFloat {
+        // Width 12.5 for height 9
+        return height * 1.38
+    }
 }
 
 enum CardState: Int, Codable {
