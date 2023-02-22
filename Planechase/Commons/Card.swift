@@ -9,11 +9,11 @@ import SwiftUI
 
 class Card: ObservableObject {    
     var id: String
-    var image: Image?
+    var image: UIImage?
     var imageURL: String?
     var state: CardState
     
-    init( id: String, image: Image? = nil, imageURL: String? = nil, state: CardState) {
+    init( id: String, image: UIImage? = nil, imageURL: String? = nil, state: CardState) {
         self.state = state
         self.image = image
         self.imageURL = imageURL
@@ -39,14 +39,6 @@ class Card: ObservableObject {
                     self.objectWillChange.send()
                 }
             }
-        }
-    }
-    
-    func visual() -> AnyView {
-        if image == nil {
-            return AnyView(Color.black)
-        } else {
-            return AnyView(image!.resizable())
         }
     }
     

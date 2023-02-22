@@ -5,7 +5,7 @@
 //  Created by Loic D on 20/02/2023.
 //
 
-import Foundation
+import SwiftUI
 
 class ContentManagerViewModel: ObservableObject {
     
@@ -58,5 +58,27 @@ class ContentManagerViewModel: ObservableObject {
         selectedCards = selectedCards.map({ $0.new() })
         print("User has \(selectedCards.count)/\(cardCollection.count) cards in his deck")
         return selectedCards
+    }
+    
+    func removeCardFromCollection(_ card: Card) {
+        cardCollection.removeAll(where: { $0.id == card.id })
+        if card.imageURL == nil {
+            SaveManager.deleteCustomImageFromCard(card)
+        }
+        applyChangesToCollection()
+    }
+    
+    func importNewImageToCollection(image: UIImage) {
+        let newCard = Card(id: createIdForNewImportedCard(), image: image, state: .selected)
+        addToCollection([newCard])
+    }
+    
+    private func createIdForNewImportedCard() -> String {
+        var id = 1
+        while cardCollection.contains(where: { $0.id == "\(id)" }) {
+            id += 1
+        }
+        print("nid for new card : \(id)")
+        return "\(id)"
     }
 }

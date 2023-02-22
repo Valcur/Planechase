@@ -18,7 +18,7 @@ class DownloadManager: ObservableObject {
         self.card = card
     }
     
-    func startDownloading(completion: @escaping (Image) -> Void) {
+    func startDownloading(completion: @escaping (UIImage) -> Void) {
         guard card.imageURL != nil else { return }
         
         guard let url = URL(string: card.imageURL!) else { return }
@@ -29,7 +29,7 @@ class DownloadManager: ObservableObject {
                 DispatchQueue.main.async {
                     if data != nil {
                         self.data = data! as Data
-                        completion(Image(uiImage: (UIImage(data: self.data) ?? UIImage(named: "NoCard")!).rotate(radians: .pi/2)!))
+                        completion((UIImage(data: self.data) ?? UIImage(named: "NoCard")!).rotate(radians: .pi/2)!)
                     }
                 }
             }

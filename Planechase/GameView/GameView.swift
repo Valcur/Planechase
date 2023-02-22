@@ -95,7 +95,7 @@ struct GameView: View {
                             card.cardAppears()
                         }
                 } else {
-                    card.image!
+                    Image(uiImage: card.image!)
                         .resizable()
                         .frame(width: CardSizes.map.width, height: CardSizes.map.height)
                         .cornerRadius(CardSizes.map.cornerRadius)

@@ -69,7 +69,7 @@ struct ZoomView: View {
                         card.cardAppears()
                     }
             } else {
-                card.image!
+                Image(uiImage: card.image!)
                     .resizable()
                     .frame(width: width, height: height)
                     .cornerRadius(width / 25)
