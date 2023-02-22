@@ -59,6 +59,7 @@ struct DiceView: View {
     
     func rollDice() {
         withAnimation(.spring()) {
+            gameVM.focusCenterToggler.toggle()
             diceResult = Int.random(in: 1...6)
         }
     }

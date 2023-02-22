@@ -12,14 +12,15 @@ class GameViewModel: ObservableObject {
     var deck: [Card] = []                       // The current cards pool to draw from
     var deckFull: [Card] = []                   // The whole card pool selected by the user
     @Published var map: [[Card?]]               // The eternities map board
-    private let center = Coord(x: 2, y: 2)      // The center coordinate of the map where should always be the selected plane
+    private let center = Coord(x: 3, y: 3)      // The center coordinate of the map where should always be the selected plane
     @Published var travelModeEnable: Bool       // Has the user rolled a 6 and need to change plane
     @Published var cardToZoomIn: Card?          // nil if no card to zoom in, else show the card to fit the whole screen
+    @Published var focusCenterToggler: Bool = false
     
     init() {
         map = [[Card?]](
-            repeating: [Card?](repeating: nil, count: 5),
-            count: 5
+            repeating: [Card?](repeating: nil, count: 7),
+            count: 7
            )
         cardToZoomIn = nil
         travelModeEnable = false
@@ -32,8 +33,8 @@ class GameViewModel: ObservableObject {
         deck.shuffle()
         
         map = [[Card?]](
-            repeating: [Card?](repeating: nil, count: 5),
-            count: 5
+            repeating: [Card?](repeating: nil, count: 7),
+            count: 7
            )
         cardToZoomIn = nil
         travelModeEnable = false
@@ -71,6 +72,10 @@ class GameViewModel: ObservableObject {
         }
     }
     
+    func getCenter() -> Card {
+        return mapAt(center)!
+    }
+    
     private func mapAt(_ coord: Coord) -> Card? {
         guard isCoordinateInRange(coord: coord) else { return nil }
         return map[coord.x][coord.y]
@@ -105,8 +110,47 @@ class GameViewModel: ObservableObject {
                 }
             }
         }
+        
         withAnimation(.easeInOut(duration: 0.5)) {
             map = mapTmp
+            removePlanesFarAway()
+        }
+    }
+    
+    // Remove planes 4 block in distance from the center
+    private func removePlanesFarAway() {
+        let farCoords = [
+            Coord(x: 0, y: 0),
+            Coord(x: 1, y: 0),
+            Coord(x: 2, y: 0),
+            Coord(x: 0, y: 1),
+            Coord(x: 1, y: 1),
+            Coord(x: 0, y: 2),
+            
+            Coord(x: 0, y: 6),
+            Coord(x: 1, y: 6),
+            Coord(x: 2, y: 6),
+            Coord(x: 0, y: 5),
+            Coord(x: 1, y: 5),
+            Coord(x: 0, y: 4),
+            
+            Coord(x: 6, y: 0),
+            Coord(x: 5, y: 0),
+            Coord(x: 4, y: 0),
+            Coord(x: 6, y: 1),
+            Coord(x: 5, y: 1),
+            Coord(x: 6, y: 2),
+            
+            Coord(x: 6, y: 6),
+            Coord(x: 5, y: 6),
+            Coord(x: 4, y: 6),
+            Coord(x: 6, y: 5),
+            Coord(x: 5, y: 5),
+            Coord(x: 6, y: 4),
+        ]
+        
+        for coord in farCoords {
+            map[coord.x][coord.y] = nil
         }
     }
 }

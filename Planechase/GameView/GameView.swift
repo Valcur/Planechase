@@ -41,28 +41,41 @@ struct GameView: View {
     struct BoardView: View {
         @EnvironmentObject var gameVM: GameViewModel
         
+        private var mapSize: Int {
+            gameVM.map.endIndex
+        }
         private var gridItemLayout: [GridItem]  {
-            Array(repeating: .init(.fixed(CardSizes.map.width), spacing: 10), count: 5)
+            Array(repeating: .init(.fixed(CardSizes.map.width), spacing: 10), count: mapSize)
         }
         
         var body: some View {
-            ScrollView([.horizontal, .vertical], showsIndicators: false) {
-                LazyVGrid(columns: gridItemLayout) {
-                    ForEach(0..<gameVM.map.joined().count, id: \.self) { i in
-                        ZStack {
-                            if let card = gameVM.map[i % 5][i / 5] {
-                                CardView(card: card, coord: Coord(x: i % 5, y: i / 5)).transition(.scale.combined(with: .opacity))
-                            } else {
-                                EmptyCardView()
-                            }
-                        }.id(cardId(i))
+            ScrollViewReader { focus in
+                ScrollView([.horizontal, .vertical], showsIndicators: false) {
+                    LazyVGrid(columns: gridItemLayout) {
+                        ForEach(0..<gameVM.map.joined().count, id: \.self) { i in
+                            ZStack {
+                                if let card = gameVM.map[i % mapSize][i / mapSize] {
+                                    CardView(card: card, coord: Coord(x: i % mapSize, y: i / mapSize)).transition(.scale.combined(with: .opacity))
+                                } else {
+                                    EmptyCardView()
+                                }
+                            }.id(cardId(i))
+                        }
+                    }
+                    .onChange(of: gameVM.focusCenterToggler) { _ in
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            focus.scrollTo(gameVM.getCenter().id, anchor: .center)
+                        }
+                    }
+                    .onAppear() {
+                        focus.scrollTo(gameVM.getCenter().id, anchor: .center)
                     }
                 }
             }
         }
         
         func cardId(_ i: Int) -> String {
-            return gameVM.map[i % 5][i / 5]?.id ?? "\(i)"
+            return gameVM.map[i % mapSize][i / mapSize]?.id ?? "\(i)"
         }
     }
     
