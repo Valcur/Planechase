@@ -53,7 +53,7 @@ struct DiceView: View {
         .background(
             VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
                 .cornerRadius(10)
-                .shadow(color: Color.black, radius: 4, x: 0, y: 4)
+                .shadowed()
         )
     }
     

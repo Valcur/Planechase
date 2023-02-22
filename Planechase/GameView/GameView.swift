@@ -91,6 +91,7 @@ struct GameView: View {
                         .opacity(0.0000001)
                         .frame(width: CardSizes.map.width, height: CardSizes.map.height)
                         .cornerRadius(CardSizes.map.cornerRadius)
+                        .shadowed(radius: 8)
                         .onAppear {
                             card.cardAppears()
                         }
@@ -99,6 +100,7 @@ struct GameView: View {
                         .resizable()
                         .frame(width: CardSizes.map.width, height: CardSizes.map.height)
                         .cornerRadius(CardSizes.map.cornerRadius)
+                        .shadowed(radius: 8)
                 }
             }
             .padding(5)
@@ -126,6 +128,7 @@ struct GameView: View {
     struct EmptyCardView: View {
         var body: some View {
             Color.black
+                .opacity(0.0000001)
                 .frame(width: CardSizes.map.width, height: CardSizes.map.height)
                 .cornerRadius(CardSizes.map.cornerRadius)
                 .padding(5)

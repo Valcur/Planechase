@@ -9,18 +9,20 @@ import SwiftUI
 
 struct ContentManagerView: View {
     @EnvironmentObject var contentManagerVM: ContentManagerViewModel
+    @State var smallGridModEnable = true
     private var gridItemLayout: [GridItem]  {
-        Array(repeating: .init(.adaptive(minimum: CardSizes.contentManager.width + 50)), count: 2)
+        Array(repeating: .init(.fixed(CardSizes.contentManager.width + 50)), count: 2)
+    }
+    private var smallGridItemLayout: [GridItem]  {
+        Array(repeating: .init(.fixed(CardSizes.contentManager.width * 0.7 + 50)), count: 3)
     }
     
     var body: some View {
         ZStack {
             GradientView(gradientId: 1)
             
-            VStack {
+            VStack(spacing: 8) {
                 HStack {
-                    Text("\(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
-                    
                     Button(action: {
                         contentManagerVM.downloadPlanechaseCardsFromScryfall()
                     }, label: {
@@ -29,16 +31,50 @@ struct ContentManagerView: View {
                     })
                     
                     ImportButton()
-                }
+                    
+                    Spacer()
+                    
+                    Text("Deck size : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
+                        .headline()
+                    
+                    Spacer()
+                    
+                    HStack {
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                smallGridModEnable = true
+                            }
+                        }, label: {
+                            Image(systemName: "rectangle.grid.3x2")
+                                .font(.title)
+                                .foregroundColor(.white)
+                        }).opacity(smallGridModEnable ? 1 : 0.6)
+                        
+                        Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
+                        
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                smallGridModEnable = false
+                            }
+                        }, label: {
+                            Image(systemName: "rectangle.grid.2x2")
+                                .font(.title)
+                                .foregroundColor(.white)
+                        }).opacity(smallGridModEnable ? 0.6 : 1)
+                    }
+                }.padding(.horizontal, 15)
                 
                 Text("Tap to add/remove a card from your deck. Hold to delete from your collection.")
+                    .headline().padding(5)
                 
                 ScrollView {
-                    LazyVGrid(columns: gridItemLayout, spacing: 20) {
+                    LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
                         ForEach(contentManagerVM.cardCollection, id: \.id) { card in
                             CardView(card: card)
+                                .scaleEffect(smallGridModEnable ? 0.7 : 1)
+                                .frame(height: smallGridModEnable ? CardSizes.contentManager.height * 0.7 : CardSizes.contentManager.height)
                         }
-                    }.padding(5)
+                    }.padding(.vertical, 10).padding(.vertical, 5)
                 }
             }
         }

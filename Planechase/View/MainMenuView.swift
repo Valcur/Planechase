@@ -15,7 +15,10 @@ struct MainMenuView: View {
             GradientView(gradientId: 1)
             
             VStack {
+                Text("Eternities map")
+                    .title()
                 Text("You need at least 40 cards selected")
+                    .headline()
                 
                 Button(action: {
                     planechaseVM.togglePlaying()

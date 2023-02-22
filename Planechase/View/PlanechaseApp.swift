@@ -11,6 +11,10 @@ import SwiftUI
 struct PlanechaseApp: App {
     @ObservedObject var planechaseVM = PlanechaseViewModel()
     
+    init() {
+        UITabBar.appearance().barTintColor = .black
+    }
+    
     var body: some Scene {
         WindowGroup {
             if planechaseVM.isPlaying {
@@ -22,14 +26,14 @@ struct PlanechaseApp: App {
                     MainMenuView()
                         .environmentObject(planechaseVM)
                         .tabItem {
-                            Image(systemName: "calendar")
-                            Text(NSLocalizedString("tab_week", comment: "My week"))
+                            Image(systemName: "play.fill")
+                            Text("Play")
                         }
                     ContentManagerView()
                         .environmentObject(planechaseVM.contentManagerVM)
                         .tabItem {
-                            Image(systemName: "calendar")
-                            Text(NSLocalizedString("tab_week", comment: "My week"))
+                            Image(systemName: "list.dash")
+                            Text("Manage Collection")
                         }
                 }
             }

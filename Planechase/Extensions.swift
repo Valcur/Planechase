@@ -12,6 +12,11 @@ extension View {
         self
         // NIENFJENJ
     }
+    
+    func shadowed(radius: CGFloat = 4, y: CGFloat = 4) -> some View {
+        self
+            .shadow(color: Color("ShadowColor"), radius: radius, x: 0, y: y)
+    }
 }
 
 extension Text {
@@ -24,9 +29,23 @@ extension Text {
             .background(
                 VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
                     .cornerRadius(40)
-                    .shadow(color: Color.black, radius: 4, x: 0, y: 4)
+                    .shadowed()
             )
             .padding(5)
+    }
+    
+    func title() -> some View {
+        self
+            .font(.title)
+            .foregroundColor(.white)
+            .fontWeight(.bold)
+    }
+    
+    func headline() -> some View {
+        self
+            .font(.subheadline)
+            .foregroundColor(.white)
+            .fontWeight(.bold)
     }
 }
 
