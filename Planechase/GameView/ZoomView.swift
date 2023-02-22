@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ZoomView: View {
     @EnvironmentObject var gameVM: GameViewModel
-    @State var card: Card
+    let card: Card?
     private let spacing: CGFloat = 60
     
     func cardWidth(_ screenHeight: CGFloat) -> CGFloat {
@@ -23,31 +23,35 @@ struct ZoomView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                HStack {
-                    ZoomCardView(card: card,
-                                 width: cardWidth(geo.size.height),
-                                 height: cardHeight(geo.size.height))
+                if let card = card {
+                    HStack {
+                        ZoomCardView(card: card,
+                                     width: cardWidth(geo.size.height),
+                                     height: cardHeight(geo.size.height))
                         .rotationEffect(.degrees(90))
                         .offset(x: (cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
-                    Spacer()
-                    ZoomCardView(card: card,
-                                 width: cardWidth(geo.size.height),
-                                 height: cardHeight(geo.size.height))
+                        Spacer()
+                        ZoomCardView(card: card,
+                                     width: cardWidth(geo.size.height),
+                                     height: cardHeight(geo.size.height))
                         .rotationEffect(.degrees(-90))
                         .offset(x: -(cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                    }
                 }
                 Button(action: {
-                    gameVM.cardToZoomIn = nil
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        gameVM.cardToZoomIn = nil
+                    }
                 }, label: {
                     Text("Hide")
                         .buttonLabel()
-                })
+                }).disabled(card == nil)
             }.frame(width: geo.size.width, height: geo.size.height)
             .background(
                 VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
                     .cornerRadius(10)
                     .shadow(color: Color.black, radius: 4, x: 0, y: 4)
-            )
+            ).opacity(card == nil ? 0 : 1)
         }.ignoresSafeArea()
     }
     

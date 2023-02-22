@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DiceView: View {
+    @EnvironmentObject var gameVM: GameViewModel
     @Binding var diceResult: Int
     var diceResultDescription: String {
         if diceResult == 1 {
@@ -47,6 +48,7 @@ struct DiceView: View {
                 }
             }
         })
+        .disabled(gameVM.travelModeEnable)
         .frame(width: 120, height: 120)
         .background(
             VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
@@ -65,6 +67,7 @@ struct DiceView: View {
 struct DiceView_Previews: PreviewProvider {
     static var previews: some View {
         DicePreviewBinder()
+            .environmentObject(GameViewModel())
     }
     
     struct DicePreviewBinder: View {

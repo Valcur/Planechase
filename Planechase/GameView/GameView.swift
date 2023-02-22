@@ -25,41 +25,52 @@ struct GameView: View {
                     Text("<").buttonLabel()
                 }).position(x: 50, y: 50)
                 
-                if gameVM.cardToZoomIn != nil {
-                    ZoomView(card: gameVM.cardToZoomIn!)
-                }
+                ZoomView(card: gameVM.cardToZoomIn)
                 
                 DiceView(diceResult: $diceResult)
                     .position(x: geo.size.width / 2, y:  50)
             }.frame(width: geo.size.width, height: geo.size.height)
+        }
+        .onChange(of: diceResult) { _ in
+            //if diceResult == 6 {
+                gameVM.toggleTravelMode()
+            //}
         }
     }
     
     struct BoardView: View {
         @EnvironmentObject var gameVM: GameViewModel
         
+        private var gridItemLayout: [GridItem]  {
+            Array(repeating: .init(.fixed(70), spacing: 190), count: 5)
+        }
+        
         var body: some View {
             ScrollView([.horizontal, .vertical], showsIndicators: false) {
-                VStack {
-                    ForEach(0..<gameVM.map.endIndex, id: \.self) { i in
-                         HStack {
-                             ForEach(0..<gameVM.map.endIndex, id: \.self) { j in
-                                 if let card = gameVM.map[i][j] {
-                                     CardView(card: card)
-                                 } else {
-                                     EmptyCardView()
-                                 }
-                             }
-                         }
+                LazyVGrid(columns: gridItemLayout) {
+                    ForEach(0..<gameVM.map.joined().count, id: \.self) { i in
+                        ZStack {
+                            if let card = gameVM.map[i % 5][i / 5] {
+                                CardView(card: card, coord: Coord(x: i % 5, y: i / 5)).transition(.scale.combined(with: .opacity))
+                            } else {
+                                EmptyCardView()
+                            }
+                        }.id(cardId(i))
+                        
                     }
                 }
             }
+        }
+        
+        func cardId(_ i: Int) -> String {
+            return gameVM.map[i % 5][i / 5]?.id ?? "\(i)"
         }
     }
     
     struct CardView: View {
         @EnvironmentObject var gameVM: GameViewModel
         @ObservedObject var card: Card
+        var coord: Coord
         
         var body: some View {
             ZStack {
@@ -80,8 +91,12 @@ struct GameView: View {
             }
             .padding(5)
             .overlay(
-                RoundedRectangle(cornerRadius: 19)
-                    .stroke(card.state == .selected ? .white : .clear, lineWidth: 4)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 19)
+                        .stroke((card.state == .selected && !gameVM.travelModeEnable) ? .white : .clear, lineWidth: 4)
+                    RoundedRectangle(cornerRadius: 19)
+                        .stroke((card.state == .pickable && gameVM.travelModeEnable) ? .white : .clear, lineWidth: 4)
+                }
             )
             .onTapGesture {
                 withAnimation(.easeInOut(duration: 0.3)) {
@@ -89,7 +104,9 @@ struct GameView: View {
                 }
             }
             .onLongPressGesture(minimumDuration: 0.5) {
-                
+                if gameVM.travelModeEnable && card.state == .pickable {
+                    gameVM.travelTo(coord)
+                }
             }
         }
     }
