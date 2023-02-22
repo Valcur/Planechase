@@ -11,7 +11,7 @@ struct ContentManagerView: View {
     @EnvironmentObject var contentManagerVM: ContentManagerViewModel
     
     private var gridItemLayout: [GridItem]  {
-        Array(repeating: .init(.adaptive(minimum: 300)), count: 4)
+        Array(repeating: .init(.adaptive(minimum: CardSizes.contentManager.width + 50)), count: 2)
     }
     
     var body: some View {
@@ -66,21 +66,23 @@ struct ContentManagerView: View {
             }, label: {
                 if card.image == nil {
                     Color.black
-                        .frame(width: 250, height: 180)
-                        .cornerRadius(15)
+                        .frame(width: CardSizes.contentManager.width,
+                               height: CardSizes.contentManager.height)
+                        .cornerRadius(CardSizes.contentManager.cornerRadius)
                         .onAppear {
                             card.cardAppears()
                         }
                 } else {
                     card.image!
                         .resizable()
-                        .frame(width: 250, height: 180)
-                        .cornerRadius(15)
+                        .frame(width: CardSizes.contentManager.width,
+                               height: CardSizes.contentManager.height)
+                        .cornerRadius(CardSizes.contentManager.cornerRadius)
                 }
             })
             .padding(5)
             .overlay(
-                RoundedRectangle(cornerRadius: 19)
+                RoundedRectangle(cornerRadius: CardSizes.contentManager.cornerRadius + 4)
                     .stroke(card.state == .selected ? .white : .clear, lineWidth: 4)
             )
         }

@@ -24,6 +24,7 @@
 		DBA02CF729A4FDB8004E94BC /* Coord.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CF629A4FDB8004E94BC /* Coord.swift */; };
 		DBA02CFB29A4FFA7004E94BC /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFA29A4FFA7004E94BC /* DiceView.swift */; };
 		DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFD29A50500004E94BC /* ZoomView.swift */; };
+		DBA02D0029A61E42004E94BC /* Card+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFF29A61E42004E94BC /* Card+Size.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		DBA02CF629A4FDB8004E94BC /* Coord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coord.swift; sourceTree = "<group>"; };
 		DBA02CFA29A4FFA7004E94BC /* DiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceView.swift; sourceTree = "<group>"; };
 		DBA02CFD29A50500004E94BC /* ZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
+		DBA02CFF29A61E42004E94BC /* Card+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Size.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			children = (
 				DB5098EB29A3940B0058FCCB /* Card.swift */,
 				DBA02CF629A4FDB8004E94BC /* Coord.swift */,
+				DBA02CFF29A61E42004E94BC /* Card+Size.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				DBA02CFB29A4FFA7004E94BC /* DiceView.swift in Sources */,
 				DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */,
 				DB5098E929A392880058FCCB /* Extensions.swift in Sources */,
+				DBA02D0029A61E42004E94BC /* Card+Size.swift in Sources */,
 				DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */,
 				DBA02CF529A4CC4A004E94BC /* GameViewModel.swift in Sources */,
 				DBA02CF129A419D1004E94BC /* MainMenuView.swift in Sources */,

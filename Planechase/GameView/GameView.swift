@@ -42,7 +42,7 @@ struct GameView: View {
         @EnvironmentObject var gameVM: GameViewModel
         
         private var gridItemLayout: [GridItem]  {
-            Array(repeating: .init(.fixed(70), spacing: 190), count: 5)
+            Array(repeating: .init(.fixed(CardSizes.map.width), spacing: 10), count: 5)
         }
         
         var body: some View {
@@ -56,7 +56,6 @@ struct GameView: View {
                                 EmptyCardView()
                             }
                         }.id(cardId(i))
-                        
                     }
                 }
             }
@@ -77,24 +76,24 @@ struct GameView: View {
                 if card.image == nil {
                     Color.black
                         .opacity(0.0000001)
-                        .frame(width: 250, height: 180)
-                        .cornerRadius(15)
+                        .frame(width: CardSizes.map.width, height: CardSizes.map.height)
+                        .cornerRadius(CardSizes.map.cornerRadius)
                         .onAppear {
                             card.cardAppears()
                         }
                 } else {
                     card.image!
                         .resizable()
-                        .frame(width: 250, height: 180)
-                        .cornerRadius(15)
+                        .frame(width: CardSizes.map.width, height: CardSizes.map.height)
+                        .cornerRadius(CardSizes.map.cornerRadius)
                 }
             }
             .padding(5)
             .overlay(
                 ZStack {
-                    RoundedRectangle(cornerRadius: 19)
+                    RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
                         .stroke((card.state == .selected && !gameVM.travelModeEnable) ? .white : .clear, lineWidth: 4)
-                    RoundedRectangle(cornerRadius: 19)
+                    RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
                         .stroke((card.state == .pickable && gameVM.travelModeEnable) ? .white : .clear, lineWidth: 4)
                 }
             )
@@ -114,8 +113,8 @@ struct GameView: View {
     struct EmptyCardView: View {
         var body: some View {
             Color.black
-                .frame(width: 250, height: 180)
-                .cornerRadius(15)
+                .frame(width: CardSizes.map.width, height: CardSizes.map.height)
+                .cornerRadius(CardSizes.map.cornerRadius)
                 .padding(5)
         }
     }

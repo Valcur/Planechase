@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class Card: ObservableObject {
+class Card: ObservableObject {    
     var id: String
     var image: Image?
     var imageURL: String?
