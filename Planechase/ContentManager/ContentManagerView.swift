@@ -20,6 +20,8 @@ struct ContentManagerView: View {
             
             VStack {
                 HStack {
+                    Text("\(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
+                    
                     Button(action: {
                         contentManagerVM.downloadPlanechaseCardsFromScryfall()
                     }, label: {
@@ -62,7 +64,7 @@ struct ContentManagerView: View {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     card.objectWillChange.send()
                 }
-                contentManagerVM.saveCollection()
+                contentManagerVM.applyChangesToCollection()
             }, label: {
                 if card.image == nil {
                     Color.black

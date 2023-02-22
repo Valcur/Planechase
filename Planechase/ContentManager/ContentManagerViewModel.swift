@@ -10,9 +10,11 @@ import Foundation
 class ContentManagerViewModel: ObservableObject {
     
     @Published var cardCollection: [Card]
+    @Published var selectedCardsInCollection: Int = 0
     
     init() {
         cardCollection = SaveManager.getSavedCardArray()
+        selectedCardsInCollection = cardCollection.filter({ $0.state == .selected }).count
     }
     
     func downloadPlanechaseCardsFromScryfall() {
@@ -26,18 +28,27 @@ class ContentManagerViewModel: ObservableObject {
         return cardCollection
     }
     
+    private func updateSelectedCardsCountInCollection() {
+        selectedCardsInCollection = cardCollection.filter({ $0.state == .selected }).count
+    }
+    
     func addToCollection(_ cards: [Card]) {
         DispatchQueue.main.async {
             for card in cards {
-                if !self.cardCollection.contains(where: { $0.imageURL == card.imageURL }) {
+                if !self.cardCollection.contains(where: { $0.id == card.id }) {
                     self.cardCollection.append(card)
                 }
             }
-            self.saveCollection()
+            self.applyChangesToCollection()
         }
     }
     
-    func saveCollection() {
+    func applyChangesToCollection() {
+        updateSelectedCardsCountInCollection()
+        saveCollection()
+    }
+    
+    private func saveCollection() {
         SaveManager.saveCardArray(cardCollection)
     }
     

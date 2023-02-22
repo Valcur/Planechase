@@ -9,8 +9,8 @@ import Foundation
 
 extension ContentManagerViewModel {
     func addAllPlanechaseCardsFromScryfall() {
-        //fetchCardsImageURLForSet("OHOP")
-        //fetchCardsImageURLForSet("OPCA")
+        fetchCardsImageURLForSet("OHOP")
+        fetchCardsImageURLForSet("OPCA")
         fetchCardsImageURLForSet("OPC2")
     }
     
@@ -109,8 +109,8 @@ extension ContentManagerViewModel {
         let finishes: [Finish]
         let oversized, promo, reprint, variation: Bool
         let setID: String
-        let datumSet: Set
-        let setName: SetName
+        let datumSet: String
+        let setName: String
         let setType: SetType
         let setURI, setSearchURI, scryfallSetURI, rulingsURI: String
         let printsSearchURI: String
@@ -196,10 +196,6 @@ extension ContentManagerViewModel {
         case black = "black"
     }
 
-    enum Set: String, Codable {
-        case opc2 = "opc2"
-    }
-
     enum Finish: String, Codable {
         case nonfoil = "nonfoil"
     }
@@ -271,10 +267,6 @@ extension ContentManagerViewModel {
             case tcgplayerInfiniteDecks = "tcgplayer_infinite_decks"
             case edhrec
         }
-    }
-
-    enum SetName: String, Codable {
-        case planechase2012Planes = "Planechase 2012 Planes"
     }
 
     enum SetType: String, Codable {
