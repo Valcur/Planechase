@@ -19,17 +19,20 @@ struct PlanechaseApp: App {
         WindowGroup {
             if planechaseVM.isPlaying {
                 GameView()
+                    .statusBar(hidden: true)
                     .environmentObject(planechaseVM)
                     .environmentObject(planechaseVM.gameVM)
             } else {
                 TabView {
                     MainMenuView()
+                        .statusBar(hidden: true)
                         .environmentObject(planechaseVM)
                         .tabItem {
                             Image(systemName: "play.fill")
                             Text("Play")
                         }
                     ContentManagerView()
+                        .statusBar(hidden: true)
                         .environmentObject(planechaseVM)
                         .environmentObject(planechaseVM.contentManagerVM)
                         .tabItem {
@@ -37,6 +40,7 @@ struct PlanechaseApp: App {
                             Text("Collection")
                         }
                     OptionsMenuView()
+                        .statusBar(hidden: true)
                         .environmentObject(planechaseVM)
                         .tabItem {
                             Image(systemName: "gear")
