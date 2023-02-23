@@ -48,6 +48,8 @@ struct OptionsMenuView: View {
     }
     
     struct OptionsPanel: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
+        
         var body: some View {
             VStack {
                 Text("Background Color")
@@ -65,7 +67,48 @@ struct OptionsMenuView: View {
                         MenuCustomBackgroundColorChoiceView(gradientId: 8)
                     }
                 }
+                
+                HStack {
+                    Text("Zoom type")
+                        .headline()
+                    
+                    Spacer()
+                    
+                    ZoomViewTypeView(zoomType: .one)
+                    
+                    Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
+                    
+                    ZoomViewTypeView(zoomType: .two)
+                    
+                    Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
+                    
+                    ZoomViewTypeView(zoomType: .four)
+                }
             }.scrollablePanel()
+        }
+        
+        struct ZoomViewTypeView: View {
+            @EnvironmentObject var planechaseVM: PlanechaseViewModel
+            let zoomType: ZoomViewType
+            var imageName: String {
+                if zoomType == .one {
+                    return "square"
+                } else if zoomType == .two {
+                    return "rectangle.grid.1x2"
+                } else {
+                    return "square.grid.2x2"
+                }
+            }
+            
+            var body: some View {
+                Button(action: {
+                    planechaseVM.setZoomViewType(zoomType)
+                }, label: {
+                    Image(systemName: imageName)
+                        .font(.title)
+                        .foregroundColor(.white)
+                }).opacity(planechaseVM.zoomViewType == zoomType ? 1 : 0.6)
+            }
         }
         
         struct MenuCustomBackgroundColorChoiceView: View {
@@ -77,7 +120,7 @@ struct OptionsMenuView: View {
                     print("Changing background color to \(gradientId)")
                     planechaseVM.setGradientId(gradientId)
                 }, label: {
-                    GradientView(gradientId: gradientId).cornerRadius(15).frame(width: 150, height: 150).overlay(
+                    GradientView(gradientId: gradientId).cornerRadius(15).frame(width: 120, height: 120).overlay(
                         RoundedRectangle(cornerRadius: 19).stroke(planechaseVM.gradientId == gradientId ? .white : .clear, lineWidth: 4)).padding(10)
                 })
             }
@@ -89,6 +132,8 @@ struct OptionsMenuView: View {
             VStack {
                 Text("Thanks")
                     .title()
+                Text("Hellride image by upklyak from Freepik")
+                    .headline()
             }.scrollablePanel()
         }
     }

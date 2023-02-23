@@ -98,3 +98,28 @@ class SaveManager {
         var state: CardState
     }
 }
+
+// Options
+extension SaveManager {
+    static func saveOptions_ZoomType(_ zoomViewType: ZoomViewType) {
+        if let encoded = try? JSONEncoder().encode(zoomViewType) {
+            UserDefaults.standard.set(encoded, forKey: "ZoomViewType")
+        }
+    }
+    
+    static func getOptions_ZoomType() -> ZoomViewType {
+        if let data = UserDefaults.standard.object(forKey: "ZoomViewType") as? Data,
+           let zoom = try? JSONDecoder().decode(ZoomViewType.self, from: data) {
+            return zoom
+        }
+        return .two
+    }
+    
+    static func saveOptions_GradientId(_ gradientId: Int) {
+        UserDefaults.standard.set(gradientId, forKey: "GradientId")
+    }
+    
+    static func getOptions_GradientId() -> Int {
+        return UserDefaults.standard.object(forKey: "GradientId") as? Int ?? 1
+    }
+}

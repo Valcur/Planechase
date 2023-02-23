@@ -28,7 +28,7 @@ extension Image {
             .padding()
             .background(
                 VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-                    .cornerRadius(40)
+                    .cornerRadius(15)
                     .shadowed()
             )
             .padding(5)

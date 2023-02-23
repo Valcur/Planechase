@@ -53,11 +53,13 @@ class PlanechaseViewModel: ObservableObject {
     var gameVM: GameViewModel
     @Published var isPlaying = false
     @Published var gradientId: Int
+    @Published var zoomViewType: ZoomViewType
     
     init() {
         contentManagerVM = ContentManagerViewModel()
         gameVM = GameViewModel()
-        gradientId = 1
+        gradientId = SaveManager.getOptions_GradientId()
+        zoomViewType = SaveManager.getOptions_ZoomType()
     }
     
     func togglePlaying() {
@@ -74,5 +76,19 @@ class PlanechaseViewModel: ObservableObject {
         withAnimation(.easeInOut(duration: 0.3)) {
             gradientId = gradient
         }
+        SaveManager.saveOptions_GradientId(gradient)
     }
+    
+    func setZoomViewType(_ zoomType: ZoomViewType) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            zoomViewType = zoomType
+        }
+        SaveManager.saveOptions_ZoomType(zoomType)
+    }
+}
+
+enum ZoomViewType: Codable {
+    case one
+    case two
+    case four
 }

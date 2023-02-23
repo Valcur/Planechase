@@ -20,7 +20,7 @@ struct GameView: View {
                 BoardView()
                 
                 ReturnToMenuView()
-                    .position(x: 50, y: 50)
+                    .position(x: geo.size.width - 50, y: 50)
                 
                 RecenterView()
                     .position(x: 50, y: geo.size.height  - 50)
@@ -28,13 +28,42 @@ struct GameView: View {
                 ZoomView(card: gameVM.cardToZoomIn)
                 
                 DiceView(diceResult: $diceResult)
-                    .position(x: geo.size.width / 2, y:  50)
+                    .position(x: diceViewPositionX(width: geo.size.width),
+                              y:  diceViewPositionY(height: geo.size.height))
             }.frame(width: geo.size.width, height: geo.size.height)
         }
         .onChange(of: diceResult) { _ in
             //if diceResult == 6 {
                 gameVM.toggleTravelMode()
             //}
+        }
+    }
+    
+    func diceViewPositionX(width: CGFloat) -> CGFloat {
+        if gameVM.cardToZoomIn == nil {
+            return 70
+        }
+        
+        if planechaseVM.zoomViewType == .four {
+            return width / 2 + 120
+        } else if planechaseVM.zoomViewType == .two {
+            return width / 2
+        } else {
+            return 70
+        }
+    }
+    
+    func diceViewPositionY(height: CGFloat) -> CGFloat {
+        if gameVM.cardToZoomIn == nil {
+            return 50
+        }
+        
+        if planechaseVM.zoomViewType == .four {
+            return height / 2 - 10
+        } else if planechaseVM.zoomViewType == .two {
+            return 50
+        } else {
+            return 50
         }
     }
     
@@ -45,7 +74,7 @@ struct GameView: View {
             gameVM.map.endIndex
         }
         private var gridItemLayout: [GridItem]  {
-            Array(repeating: .init(.fixed(CardSizes.map.width), spacing: 10), count: mapSize)
+            Array(repeating: .init(.fixed(CardSizes.map.width + 10), spacing: 10), count: mapSize)
         }
         
         var body: some View {
@@ -146,9 +175,13 @@ struct GameView: View {
         
         var body: some View {
             ZStack {
-                Color.black
+                Image("Hellride")
+                    .resizable()
                 Text("Hellride")
                     .title()
+                    .offset(y: -30)
+                Color.black
+                    .opacity(0.00001)
             }
                 .frame(width: CardSizes.map.width, height: CardSizes.map.height)
                 .cornerRadius(CardSizes.map.cornerRadius)
@@ -156,7 +189,7 @@ struct GameView: View {
                 .overlay(
                     ZStack {
                         RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
-                            .stroke((card.state == .pickable && gameVM.travelModeEnable) ? .white : .clear, lineWidth: 4)
+                            .stroke((card.state == .pickable && gameVM.travelModeEnable) ? .clear : .clear, lineWidth: 4)
                     }
                 )
                 .onLongPressGesture(minimumDuration: 0.5) {

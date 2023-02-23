@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ZoomView: View {
+    @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var gameVM: GameViewModel
     let card: Card?
     private let spacing: CGFloat = 60
@@ -24,18 +25,35 @@ struct ZoomView: View {
         GeometryReader { geo in
             ZStack {
                 if let card = card {
-                    HStack {
+                    if planechaseVM.zoomViewType == .one {
                         ZoomCardView(card: card,
-                                     width: cardWidth(geo.size.height),
-                                     height: cardHeight(geo.size.height))
-                        .rotationEffect(.degrees(90))
-                        .offset(x: (cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
-                        Spacer()
-                        ZoomCardView(card: card,
-                                     width: cardWidth(geo.size.height),
-                                     height: cardHeight(geo.size.height))
-                        .rotationEffect(.degrees(-90))
-                        .offset(x: -(cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                                     width: cardWidth(geo.size.width * 0.9))
+                    }
+                    if planechaseVM.zoomViewType == .two || planechaseVM.zoomViewType == .four {
+                        HStack {
+                            ZoomCardView(card: card,
+                                         width: cardWidth(geo.size.height))
+                            .rotationEffect(.degrees(90))
+                            .offset(x: (cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                            Spacer()
+                            ZoomCardView(card: card,
+                                         width: cardWidth(geo.size.height))
+                            .rotationEffect(.degrees(-90))
+                            .offset(x: -(cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                        }
+                    }
+                    if planechaseVM.zoomViewType == .four {
+                        VStack {
+                            ZoomCardView(card: card,
+                                         width: cardWidth(geo.size.width / 1.7))
+                            .rotationEffect(.degrees(180))
+                            .offset(y: 0)
+                            Spacer()
+                            ZoomCardView(card: card,
+                                         width: cardWidth(geo.size.width / 1.7))
+                            .rotationEffect(.degrees(0))
+                            .offset(y: 0)
+                        }
                     }
                 }
                 Button(action: {
@@ -43,7 +61,7 @@ struct ZoomView: View {
                         gameVM.cardToZoomIn = nil
                     }
                 }, label: {
-                    Text("Hide")
+                    Text("Show map")
                         .buttonLabel()
                 }).disabled(card == nil)
             }.frame(width: geo.size.width, height: geo.size.height)
@@ -56,9 +74,11 @@ struct ZoomView: View {
     }
     
     struct ZoomCardView: View {
-        var card: Card
+        @ObservedObject var card: Card
         let width: CGFloat
-        let height: CGFloat
+        var height: CGFloat {
+            return Card.heightForWidth(width)
+        }
         
         var body: some View {
             if card.image == nil {
