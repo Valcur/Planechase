@@ -30,7 +30,7 @@ struct GameView: View {
                 DiceView(diceResult: $diceResult)
                     .position(x: geo.size.width / 2, y:  50)
                 RecenterView()
-                    .position(x: 50, y: geo.size.width  - 50)
+                    .position(x: 50, y: geo.size.height  - 50)
             }.frame(width: geo.size.width, height: geo.size.height)
         }
         .onChange(of: diceResult) { _ in
@@ -77,7 +77,7 @@ struct GameView: View {
         }
         
         func cardId(_ i: Int) -> String {
-            return gameVM.map[i % mapSize][i / mapSize]?.id ?? "\(i)"
+            return gameVM.map[i % mapSize][i / mapSize]?.id ?? "EMPTY_\(i)"
         }
     }
     

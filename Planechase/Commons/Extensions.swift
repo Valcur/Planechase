@@ -22,7 +22,6 @@ extension View {
 extension Image {
     func imageButtonLabel() -> some View {
         self
-            .resizable()
             .font(.title)
             .foregroundColor(.white)
             .padding()

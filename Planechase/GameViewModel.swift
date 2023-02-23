@@ -27,9 +27,9 @@ class GameViewModel: ObservableObject {
     }
     
     func startGame(withDeck: [Card]) {
-        guard withDeck.count > 20 else { return }
+        guard withDeck.count >= 20 else { return }
         deck = withDeck
-        deckFull = withDeck
+        deckFull = withDeck.map({ $0.new() })
         deck.shuffle()
         
         map = [[Card?]](
@@ -39,7 +39,7 @@ class GameViewModel: ObservableObject {
         cardToZoomIn = nil
         travelModeEnable = false
         
-        addCardAtCoord(card: deck.removeFirst(), center)
+        addCardAtCoord(card: drawCard(), center)
         setupNeighbors()
     }
     
@@ -68,12 +68,34 @@ class GameViewModel: ObservableObject {
         setupNeighbors()
         
         withAnimation(.easeInOut(duration: 0.5).delay(0.3)) {
-            cardToZoomIn = map[center.x][center.y]!
+            if let c = map[center.x][center.y] {
+                cardToZoomIn = c
+            }
         }
     }
     
     func getCenter() -> Card {
         return mapAt(center)!
+    }
+    
+    private func drawCard() -> Card {
+        let card = deck.removeFirst()
+
+        // If empty reshuffle deck with all cards not on the map
+        if deck.count == 0 {
+            deck = deckFull.map({ $0.new() })
+            for i in 0..<7 {
+                for j in 0..<7 {
+                    let c = map[i][j]
+                    if c != nil {
+                        deck.removeAll(where: { $0.id == c!.id })
+                    }
+                }
+            }
+            deck.removeAll(where: { $0.id == card.id })
+            deck.shuffle()
+        }
+        return card
     }
     
     private func mapAt(_ coord: Coord) -> Card? {
@@ -83,14 +105,15 @@ class GameViewModel: ObservableObject {
     
     private func setupNeighbors() {
         let centerNeighbors = center.getNeighborCoordinates()
-        
-        for coord in centerNeighbors {
-            if mapAt(coord) == nil {
-                let card = deck.removeFirst()
-                card.state = .pickable
-                addCardAtCoord(card: card, coord)
-            } else {
-                mapAt(coord)!.state = .pickable
+        withAnimation(.easeInOut(duration: 0.5).delay(0.3)) {
+            for coord in centerNeighbors {
+                if mapAt(coord) == nil {
+                    let card = drawCard()
+                    card.state = .pickable
+                    addCardAtCoord(card: card, coord)
+                } else {
+                    mapAt(coord)!.state = .pickable
+                }
             }
         }
     }

@@ -56,7 +56,6 @@ class ContentManagerViewModel: ObservableObject {
     func getDeck() -> [Card] {
         var selectedCards = cardCollection.filter({ $0.state == .selected })
         selectedCards = selectedCards.map({ $0.new() })
-        print("User has \(selectedCards.count)/\(cardCollection.count) cards in his deck")
         return selectedCards
     }
     

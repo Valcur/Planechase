@@ -106,7 +106,6 @@
 				DB5098EA29A393F70058FCCB /* Commons */,
 				DB5098DE29A388DE0058FCCB /* Assets.xcassets */,
 				DB5098E029A388DE0058FCCB /* Preview Content */,
-				DB5098E829A392880058FCCB /* Extensions.swift */,
 				DBA02CEB29A3B6A2004E94BC /* DownloadManager.swift */,
 			);
 			path = Planechase;
@@ -123,6 +122,7 @@
 		DB5098EA29A393F70058FCCB /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				DB5098E829A392880058FCCB /* Extensions.swift */,
 				DB5098EB29A3940B0058FCCB /* Card.swift */,
 				DBA02CF629A4FDB8004E94BC /* Coord.swift */,
 				DBA02CFF29A61E42004E94BC /* Card+Size.swift */,
