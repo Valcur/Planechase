@@ -10,7 +10,7 @@ import SwiftUI
 struct GameView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var gameVM: GameViewModel
-    @State var diceResult: Int = 1
+    @State var diceResult: Int = -2
     
     var body: some View {
         GeometryReader { geo in
@@ -33,9 +33,9 @@ struct GameView: View {
             }.frame(width: geo.size.width, height: geo.size.height)
         }
         .onChange(of: diceResult) { _ in
-            //if diceResult == 6 {
+            if diceResult == 6 {
                 gameVM.toggleTravelMode()
-            //}
+            }
         }
     }
     
@@ -55,15 +55,15 @@ struct GameView: View {
     
     func diceViewPositionY(height: CGFloat) -> CGFloat {
         if gameVM.cardToZoomIn == nil {
-            return 50
+            return 70
         }
         
         if planechaseVM.zoomViewType == .four {
-            return height / 2 - 10
+            return height / 2 - 5
         } else if planechaseVM.zoomViewType == .two {
-            return 50
+            return 70
         } else {
-            return 50
+            return 70
         }
     }
     
