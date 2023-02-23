@@ -25,6 +25,7 @@
 		DBA02CFB29A4FFA7004E94BC /* GameView+SmallViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFA29A4FFA7004E94BC /* GameView+SmallViews.swift */; };
 		DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFD29A50500004E94BC /* ZoomView.swift */; };
 		DBA02D0029A61E42004E94BC /* Card+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFF29A61E42004E94BC /* Card+Size.swift */; };
+		DBD42B0129A78F1B008451BD /* OptionsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		DBA02CFA29A4FFA7004E94BC /* GameView+SmallViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameView+SmallViews.swift"; sourceTree = "<group>"; };
 		DBA02CFD29A50500004E94BC /* ZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 		DBA02CFF29A61E42004E94BC /* Card+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Size.swift"; sourceTree = "<group>"; };
+		DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			children = (
 				DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */,
 				DBA02CF029A419D1004E94BC /* MainMenuView.swift */,
+				DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				DB5098EC29A3940B0058FCCB /* Card.swift in Sources */,
 				DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */,
 				DBA02CF729A4FDB8004E94BC /* Coord.swift in Sources */,
+				DBD42B0129A78F1B008451BD /* OptionsMenuView.swift in Sources */,
 				DBA02CEE29A3E886004E94BC /* SaveManager.swift in Sources */,
 				DBA02CEC29A3B6A2004E94BC /* DownloadManager.swift in Sources */,
 				DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */,

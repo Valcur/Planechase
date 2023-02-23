@@ -67,10 +67,8 @@ class GameViewModel: ObservableObject {
         map[center.x][center.y]?.state = .selected
         setupNeighbors()
         
-        withAnimation(.easeInOut(duration: 0.5).delay(0.3)) {
-            if let c = map[center.x][center.y] {
-                cardToZoomIn = c
-            }
+        withAnimation(.easeInOut(duration: 0.5).delay(0.5)) {
+            cardToZoomIn = getCenter()
         }
     }
     

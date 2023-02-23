@@ -8,9 +8,10 @@
 import SwiftUI
 
 extension View {
-    func coloredBackground() -> some View {
-        self
-        // NIENFJENJ
+    func scrollablePanel() -> some View {
+        ScrollView(.vertical) {
+            self
+        }.padding(5).frame(maxWidth: .infinity)
     }
     
     func shadowed(radius: CGFloat = 4, y: CGFloat = 4) -> some View {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentManagerView: View {
+    @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var contentManagerVM: ContentManagerViewModel
     @State var smallGridModEnable = true
     private var gridItemLayout: [GridItem]  {
@@ -19,7 +20,7 @@ struct ContentManagerView: View {
     
     var body: some View {
         ZStack {
-            GradientView(gradientId: 1)
+            GradientView(gradientId: planechaseVM.gradientId)
             
             VStack(spacing: 8) {
                 HStack {

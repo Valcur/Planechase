@@ -15,22 +15,20 @@ struct GameView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                GradientView(gradientId: 1)
+                GradientView(gradientId: planechaseVM.gradientId)
                 
                 BoardView()
                 
-                Button(action: {
-                    planechaseVM.togglePlaying()
-                }, label: {
-                    Text("<").buttonLabel()
-                }).position(x: 50, y: 50)
+                ReturnToMenuView()
+                    .position(x: 50, y: 50)
+                
+                RecenterView()
+                    .position(x: 50, y: geo.size.height  - 50)
                 
                 ZoomView(card: gameVM.cardToZoomIn)
                 
                 DiceView(diceResult: $diceResult)
                     .position(x: geo.size.width / 2, y:  50)
-                RecenterView()
-                    .position(x: 50, y: geo.size.height  - 50)
             }.frame(width: geo.size.width, height: geo.size.height)
         }
         .onChange(of: diceResult) { _ in

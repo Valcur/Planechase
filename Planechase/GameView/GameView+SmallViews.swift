@@ -94,3 +94,29 @@ struct RecenterView: View {
         })
     }
 }
+
+struct ReturnToMenuView: View {
+    @EnvironmentObject var planechaseVM: PlanechaseViewModel
+    @State private var showingReturnAlert = false
+    
+    var body: some View {
+        Button(action: {
+            showingReturnAlert = true
+        }, label: {
+            Image(systemName: "xmark")
+                .imageButtonLabel()
+        })
+        .alert(isPresented: $showingReturnAlert) {
+            Alert(
+                title: Text("Are you sure you want to return to main menu ?"),
+                message: Text("Game will be lost"),
+                primaryButton: .destructive(Text("Exit")) {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        planechaseVM.togglePlaying()
+                    }
+                },
+                secondaryButton: .cancel()
+            )
+        }
+    }
+}

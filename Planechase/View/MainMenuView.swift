@@ -12,7 +12,7 @@ struct MainMenuView: View {
     
     var body: some View {
         ZStack {
-            GradientView(gradientId: 1)
+            GradientView(gradientId: planechaseVM.gradientId)
             
             VStack {
                 Text("Eternities map")
