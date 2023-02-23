@@ -12,17 +12,17 @@ struct Coord {
     let x: Int
     let y: Int
     
-    func getNeighborCoordinates(allowDiagnoal: Bool = false) -> [Coord] {
-        var neighbors = [Coord(x: self.x + 1, y: self.y),
-                         Coord(x: self.x - 1, y: self.y),
-                         Coord(x: self.x, y: self.y + 1),
-                         Coord(x: self.x, y: self.y - 1)]
-        if allowDiagnoal {
-            neighbors.append(Coord(x: self.x + 1, y: self.y + 1))
-            neighbors.append(Coord(x: self.x - 1, y: self.y - 1))
-            neighbors.append(Coord(x: self.x + 1, y: self.y - 1))
-            neighbors.append(Coord(x: self.x - 1, y: self.y + 1))
+    func getNeighborCoordinates(getDiagnoal: Bool = false) -> [Coord] {
+        if getDiagnoal {
+            return [Coord(x: self.x + 1, y: self.y + 1),
+                    Coord(x: self.x - 1, y: self.y - 1),
+                    Coord(x: self.x - 1, y: self.y + 1),
+                    Coord(x: self.x + 1, y: self.y - 1)]
         }
-        return neighbors
+        return [Coord(x: self.x + 1, y: self.y),
+                Coord(x: self.x - 1, y: self.y),
+                Coord(x: self.x, y: self.y + 1),
+                Coord(x: self.x, y: self.y - 1)]
+
     }
 }

@@ -55,6 +55,8 @@ class Card: ObservableObject {
         // Width 12.5 for height 9
         return height * 1.38
     }
+    
+    static let hellride = Card(id: "HELLRIDE_UNDEFINED", image: UIImage(named: "NoCard"), imageURL: "HELLRIDE", state: .pickable)
 }
 
 enum CardState: Int, Codable {

@@ -101,14 +101,13 @@
 		DB5098D929A388DA0058FCCB /* Planechase */ = {
 			isa = PBXGroup;
 			children = (
-				DBA02CFC29A504E6004E94BC /* GameView */,
-				DBA02CF429A4CC4A004E94BC /* GameViewModel.swift */,
 				DBA02CEF29A419BA004E94BC /* View */,
+				DBA02CF429A4CC4A004E94BC /* GameViewModel.swift */,
+				DBA02CFC29A504E6004E94BC /* GameView */,
 				DB5098ED29A39D730058FCCB /* ContentManager */,
 				DB5098EA29A393F70058FCCB /* Commons */,
 				DB5098DE29A388DE0058FCCB /* Assets.xcassets */,
 				DB5098E029A388DE0058FCCB /* Preview Content */,
-				DBA02CEB29A3B6A2004E94BC /* DownloadManager.swift */,
 			);
 			path = Planechase;
 			sourceTree = "<group>";
@@ -125,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5098E829A392880058FCCB /* Extensions.swift */,
+				DBA02CEB29A3B6A2004E94BC /* DownloadManager.swift */,
 				DB5098EB29A3940B0058FCCB /* Card.swift */,
 				DBA02CF629A4FDB8004E94BC /* Coord.swift */,
 				DBA02CFF29A61E42004E94BC /* Card+Size.swift */,

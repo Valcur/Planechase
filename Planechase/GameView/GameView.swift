@@ -55,7 +55,11 @@ struct GameView: View {
                         ForEach(0..<gameVM.map.joined().count, id: \.self) { i in
                             ZStack {
                                 if let card = gameVM.map[i % mapSize][i / mapSize] {
-                                    CardView(card: card, coord: Coord(x: i % mapSize, y: i / mapSize)).transition(.scale.combined(with: .opacity))
+                                    if card.imageURL == "HELLRIDE" {
+                                        HellrideCardView(card: card, coord: Coord(x: i % mapSize, y: i / mapSize)).transition(.scale.combined(with: .opacity))
+                                    } else {
+                                        CardView(card: card, coord: Coord(x: i % mapSize, y: i / mapSize)).transition(.scale.combined(with: .opacity))
+                                    }
                                 } else {
                                     EmptyCardView()
                                 }
@@ -132,6 +136,34 @@ struct GameView: View {
                 .frame(width: CardSizes.map.width, height: CardSizes.map.height)
                 .cornerRadius(CardSizes.map.cornerRadius)
                 .padding(5)
+        }
+    }
+    
+    struct HellrideCardView: View {
+        @EnvironmentObject var gameVM: GameViewModel
+        @ObservedObject var card: Card
+        var coord: Coord
+        
+        var body: some View {
+            ZStack {
+                Color.black
+                Text("Hellride")
+                    .title()
+            }
+                .frame(width: CardSizes.map.width, height: CardSizes.map.height)
+                .cornerRadius(CardSizes.map.cornerRadius)
+                .padding(5)
+                .overlay(
+                    ZStack {
+                        RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
+                            .stroke((card.state == .pickable && gameVM.travelModeEnable) ? .white : .clear, lineWidth: 4)
+                    }
+                )
+                .onLongPressGesture(minimumDuration: 0.5) {
+                    if gameVM.travelModeEnable && card.state == .pickable {
+                        gameVM.travelTo(coord)
+                    }
+                }
         }
     }
 }

@@ -53,6 +53,33 @@ class GameViewModel: ObservableObject {
             travelModeEnable.toggle()
             cardToZoomIn = nil
         }
+        if travelModeEnable {
+            showHellride()
+        }
+    }
+    
+    func showHellride() {
+        let hellrideCoord = center.getNeighborCoordinates(getDiagnoal: true)
+        
+        for coord in hellrideCoord {
+            if mapAt(coord) == nil {
+                let card = Card.hellride.new()
+                card.id = "HELLRIDE_\(coord.x)_\(coord.y)"
+                addCardAtCoord(card: card, coord)
+            }
+        }
+    }
+    
+    func hideHellride() {
+        // CAN DO BETTER
+        for i in 0..<7 {
+            for j in 0..<7 {
+                let c = map[i][j]
+                if c != nil && c?.imageURL == "HELLRIDE" {
+                    map[i][j] = nil
+                }
+            }
+        }
     }
     
     func travelTo(_ coord: Coord) {
@@ -64,6 +91,10 @@ class GameViewModel: ObservableObject {
         moveMap(direction: difference)
         
         // Draw new cards
+        if  mapAt(center)?.imageURL == "HELLRIDE" {
+            addCardAtCoord(card: drawCard(), center)
+        }
+        hideHellride()
         map[center.x][center.y]?.state = .selected
         setupNeighbors()
         
