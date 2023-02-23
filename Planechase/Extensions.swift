@@ -19,6 +19,22 @@ extension View {
     }
 }
 
+extension Image {
+    func imageButtonLabel() -> some View {
+        self
+            .resizable()
+            .font(.title)
+            .foregroundColor(.white)
+            .padding()
+            .background(
+                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                    .cornerRadius(40)
+                    .shadowed()
+            )
+            .padding(5)
+    }
+}
+
 extension Text {
     func buttonLabel() -> some View {
         self

@@ -79,3 +79,18 @@ struct DiceView_Previews: PreviewProvider {
         }
     }
 }
+
+struct RecenterView: View {
+    @EnvironmentObject var gameVM: GameViewModel
+    
+    var body: some View {
+        Button(action: {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                gameVM.focusCenterToggler.toggle()
+            }
+        }, label: {
+            Image(systemName: "location.fill")
+                .imageButtonLabel()
+        })
+    }
+}
