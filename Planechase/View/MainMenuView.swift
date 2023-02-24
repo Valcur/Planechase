@@ -9,23 +9,54 @@ import SwiftUI
 
 struct MainMenuView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
-    
+    var isAllowedToPlay: Bool {
+        return planechaseVM.contentManagerVM.selectedCardsInCollection >= 20
+    }
     var body: some View {
         ZStack {
             GradientView(gradientId: planechaseVM.gradientId)
             
-            VStack {
-                Text("Eternities map")
-                    .title()
-                Text("You need at least 40 cards selected")
-                    .headline()
+            HStack {
+                Spacer()
                 
-                Button(action: {
-                    planechaseVM.togglePlaying()
-                }, label: {
-                    Text("Play")
-                        .buttonLabel()
-                })
+                ScrollView(.vertical) {
+                    VStack(alignment: .leading) {
+                        DiscordInvite()
+                        GoingPremium()
+                        Spacer()
+                    }.padding(10)
+                }
+            }
+            
+            VStack {
+                
+                Spacer()
+                
+                Text("Planechase companion")
+                    .title().padding(40)
+                
+                HStack(spacing: 50) {
+                    Button(action: {
+                        planechaseVM.togglePlaying()
+                    }, label: {
+                        Text("Play Classic")
+                            .textButtonLabel()
+                    }).disabled(!isAllowedToPlay)
+                    
+                    Button(action: {
+                        planechaseVM.togglePlaying()
+                    }, label: {
+                        Text("Play Eternities map")
+                            .textButtonLabel()
+                    }).disabled(!isAllowedToPlay)
+                }
+                
+                if !isAllowedToPlay {
+                    Text("You need at least 20 cards in your deck to play")
+                        .headline()
+                }
+                
+                Spacer()
             }
         }
     }

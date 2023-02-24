@@ -62,7 +62,7 @@ struct ZoomView: View {
                     }
                 }, label: {
                     Text("Show map")
-                        .buttonLabel()
+                        .textButtonLabel()
                 }).disabled(card == nil)
             }.frame(width: geo.size.width, height: geo.size.height)
             .background(

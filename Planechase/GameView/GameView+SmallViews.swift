@@ -103,7 +103,7 @@ struct DiceView: View {
                     rollCost = 0
                 }
             }, label: {
-                Text("Reset cost").buttonLabel()
+                Text("Reset cost").textButtonLabel()
             })
         }
     }

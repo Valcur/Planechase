@@ -18,6 +18,22 @@ extension View {
         self
             .shadow(color: Color("ShadowColor"), radius: radius, x: 0, y: y)
     }
+    
+    func blurredBackground() -> some View {
+        self
+            .background(
+                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                    .cornerRadius(15)
+                    .shadowed()
+            )
+    }
+    
+    func buttonLabel() -> some View {
+        self
+            .padding()
+            .blurredBackground()
+            .padding(5)
+    }
 }
 
 extension Image {
@@ -26,27 +42,18 @@ extension Image {
             .font(.title)
             .foregroundColor(.white)
             .padding()
-            .background(
-                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-                    .cornerRadius(15)
-                    .shadowed()
-            )
+            .blurredBackground()
             .padding(5)
     }
 }
 
 extension Text {
-    func buttonLabel() -> some View {
+    func textButtonLabel() -> some View {
         self
             .font(.subheadline)
-            .fontWeight(.bold)
             .foregroundColor(.white)
             .padding()
-            .background(
-                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-                    .cornerRadius(40)
-                    .shadowed()
-            )
+            .blurredBackground()
             .padding(5)
     }
     

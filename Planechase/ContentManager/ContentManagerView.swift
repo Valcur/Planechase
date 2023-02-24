@@ -23,12 +23,13 @@ struct ContentManagerView: View {
             GradientView(gradientId: planechaseVM.gradientId)
             
             VStack(spacing: 8) {
+                // MARK: Top bar
                 HStack {
                     Button(action: {
                         contentManagerVM.downloadPlanechaseCardsFromScryfall()
                     }, label: {
                         Text("Download from Scryfall")
-                            .buttonLabel()
+                            .textButtonLabel()
                     })
                     
                     ImportButton()
@@ -37,6 +38,14 @@ struct ContentManagerView: View {
                     
                     Text("Deck size : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
                         .headline()
+                    
+                    DeckSelection()
+                }.padding(.horizontal, 15).padding(.top, 5)
+                
+                // MARK: Bottom bar
+                HStack {
+                    Text("Tap a card to add/remove it from your deck. Hold to delete it from your collection.")
+                        .headline().padding(5)
                     
                     Spacer()
                     
@@ -65,9 +74,6 @@ struct ContentManagerView: View {
                     }
                 }.padding(.horizontal, 15)
                 
-                Text("Tap to add/remove a card from your deck. Hold to delete from your collection.")
-                    .headline().padding(5)
-                
                 ScrollView {
                     LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
                         ForEach(contentManagerVM.cardCollection, id: \.id) { card in
@@ -76,8 +82,41 @@ struct ContentManagerView: View {
                                 .frame(height: smallGridModEnable ? CardSizes.contentManager.height * 0.7 : CardSizes.contentManager.height)
                         }
                     }.padding(.vertical, 10).padding(.vertical, 5)
+                    if contentManagerVM.cardCollection.count == 0 {
+                        EmptyCardCollectionInfo()
+                    }
                 }
             }
+        }
+    }
+    
+    struct DeckSelection: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
+        @State var deckSelected: Int = 1
+        
+        var body: some View {
+            HStack {
+                if !planechaseVM.isPremium {
+                    Image(systemName: "crown.fill")
+                        .font(.title)
+                        .foregroundColor(.white)
+                }
+                Picker("Select Deck", selection: $deckSelected) {
+                    Text("Deck 1").headline().tag(1)
+                    Text("Deck 2").headline().tag(2)
+                    Text("Deck 3").headline().tag(3)
+                }.pickerStyle(.menu).buttonLabel().disabled(!planechaseVM.isPremium)
+            }
+        }
+    }
+            
+    struct EmptyCardCollectionInfo: View {
+        var body: some View {
+            VStack {
+                Text("First, you need to add cards to your collection").headline().padding(10)
+                Text("- Use the Download from scryfall button to download and add to your collection all official Planechase cards.").headline().frame(width: 300)
+                Text("- Use the Import button to add a custom card from your device.").headline().frame(width: 300)
+            }.padding(.vertical, 100)
         }
     }
     
@@ -91,7 +130,7 @@ struct ContentManagerView: View {
                 showingImagePicker = true
             }, label: {
                 Text("Import")
-                    .buttonLabel()
+                    .textButtonLabel()
             })
             .onChange(of: inputImage) { _ in addNewImageToCollection() }
             .sheet(isPresented: $showingImagePicker) {

@@ -58,6 +58,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var isPlaying = false
     @Published var gradientId: Int
     @Published var zoomViewType: ZoomViewType
+    @Published var isPremium = false
     
     init() {
         contentManagerVM = ContentManagerViewModel()
