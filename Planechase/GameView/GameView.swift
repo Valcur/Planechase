@@ -25,6 +25,9 @@ struct GameView: View {
                 RecenterView()
                     .position(x: 50, y: geo.size.height  - 50)
                 
+                InfoView()
+                    .position(x: geo.size.width / 2, y: geo.size.height + 50)
+                
                 ZoomView(card: gameVM.cardToZoomIn)
                 
                 DiceView(diceResult: $diceResult)
@@ -85,9 +88,9 @@ struct GameView: View {
                             ZStack {
                                 if let card = gameVM.map[i % mapSize][i / mapSize] {
                                     if card.imageURL == "HELLRIDE" {
-                                        HellrideCardView(card: card, coord: Coord(x: i % mapSize, y: i / mapSize)).transition(.scale.combined(with: .opacity))
+                                        HellrideCardView(card: card).transition(.scale.combined(with: .opacity))
                                     } else {
-                                        CardView(card: card, coord: Coord(x: i % mapSize, y: i / mapSize)).transition(.scale.combined(with: .opacity))
+                                        CardView(card: card).transition(.scale.combined(with: .opacity))
                                     }
                                 } else {
                                     EmptyCardView()
@@ -115,7 +118,6 @@ struct GameView: View {
     struct CardView: View {
         @EnvironmentObject var gameVM: GameViewModel
         @ObservedObject var card: Card
-        var coord: Coord
         
         var body: some View {
             ZStack {
@@ -152,7 +154,7 @@ struct GameView: View {
             }
             .onLongPressGesture(minimumDuration: 0.5) {
                 if gameVM.travelModeEnable && card.state == .pickable {
-                    gameVM.travelTo(coord)
+                    gameVM.travelTo(card)
                 }
             }
         }
@@ -171,7 +173,6 @@ struct GameView: View {
     struct HellrideCardView: View {
         @EnvironmentObject var gameVM: GameViewModel
         @ObservedObject var card: Card
-        var coord: Coord
         
         var body: some View {
             ZStack {
@@ -194,7 +195,7 @@ struct GameView: View {
                 )
                 .onLongPressGesture(minimumDuration: 0.5) {
                     if gameVM.travelModeEnable && card.state == .pickable {
-                        gameVM.travelTo(coord)
+                        gameVM.travelTo(card)
                     }
                 }
         }

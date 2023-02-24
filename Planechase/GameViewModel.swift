@@ -55,6 +55,8 @@ class GameViewModel: ObservableObject {
         }
         if travelModeEnable {
             showHellride()
+        } else {
+            hideHellride()
         }
     }
     
@@ -71,19 +73,27 @@ class GameViewModel: ObservableObject {
     }
     
     func hideHellride() {
-        // CAN DO BETTER
-        for i in 0..<7 {
-            for j in 0..<7 {
-                let c = map[i][j]
-                if c != nil && c?.imageURL == "HELLRIDE" {
-                    map[i][j] = nil
-                }
+        let hellrideCoord = center.getNeighborCoordinates(getDiagnoal: true)
+
+        for coord in hellrideCoord {
+            if mapAt(coord)?.imageURL == "HELLRIDE" {
+                map[coord.x][coord.y] = nil
             }
         }
     }
     
-    func travelTo(_ coord: Coord) {
+    func travelTo(_ card: Card) {
+        var coord = center
+        for i in 0..<7 {
+            for j in 0..<7 {
+                let c = map[i][j]
+                if c != nil && c?.id == card.id {
+                    coord = Coord(x: i, y: j)
+                }
+            }
+        }
         toggleTravelMode()
+
         let difference = Coord(x: coord.x - center.x, y: coord.y - center.y)
         print("Moving from \(coord.x) : \(coord.y) in direction \(difference.x) : \(difference.y)")
         
@@ -91,10 +101,10 @@ class GameViewModel: ObservableObject {
         moveMap(direction: difference)
         
         // Draw new cards
-        if  mapAt(center)?.imageURL == "HELLRIDE" {
+        if  mapAt(center) == nil {
             addCardAtCoord(card: drawCard(), center)
         }
-        hideHellride()
+        
         map[center.x][center.y]?.state = .selected
         setupNeighbors()
         
@@ -159,6 +169,8 @@ class GameViewModel: ObservableObject {
                 if isCoordinateInRange(coord: coord) {
                     mapTmp[i][j] = map[coord.x][coord.y]
                     mapTmp[i][j]?.state = .showed
+                } else {
+                    mapTmp[i][j] = nil
                 }
             }
         }

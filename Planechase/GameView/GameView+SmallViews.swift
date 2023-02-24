@@ -139,6 +139,22 @@ struct RecenterView: View {
     }
 }
 
+struct InfoView: View {
+    @EnvironmentObject var gameVM: GameViewModel
+    
+    var text: String {
+        return "Hold on a plane to travel"
+    }
+    var showInfoView: Bool {
+        return gameVM.travelModeEnable
+    }
+    
+    var body: some View {
+        Text(text).textButtonLabel()
+            .offset(y: showInfoView ? -100 : 0)
+    }
+}
+
 struct ReturnToMenuView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @State private var showingReturnAlert = false
