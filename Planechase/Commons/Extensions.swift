@@ -10,7 +10,7 @@ import SwiftUI
 extension View {
     func scrollablePanel() -> some View {
         ScrollView(.vertical) {
-            self
+            self.padding(15)
         }.padding(5).frame(maxWidth: .infinity)
     }
     
@@ -68,7 +68,7 @@ extension Text {
         self
             .font(.subheadline)
             .foregroundColor(.white)
-            .fontWeight(.bold)
+            //.fontWeight(.bold)
     }
 }
 

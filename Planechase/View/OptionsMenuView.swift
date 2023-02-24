@@ -20,7 +20,9 @@ struct OptionsMenuView: View {
                     MenuSelectionView(menu: .options, selectedMenu: $selectedMenu)
                     
                     MenuSelectionView(menu: .contact, selectedMenu: $selectedMenu)
-                }.frame(width: 200)
+                    
+                    Spacer()
+                }.frame(width: 200).padding(.top, 15)
                 
                 if selectedMenu == .options {
                     OptionsPanel()
@@ -51,7 +53,7 @@ struct OptionsMenuView: View {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         
         var body: some View {
-            VStack {
+            VStack(alignment: .leading, spacing: 15) {
                 Text("Background Color")
                     .title()
                 
@@ -67,6 +69,9 @@ struct OptionsMenuView: View {
                         MenuCustomBackgroundColorChoiceView(gradientId: 8)
                     }
                 }
+                
+                Text("Game UI")
+                    .title()
                 
                 HStack {
                     Text("Zoom type")
@@ -84,6 +89,12 @@ struct OptionsMenuView: View {
                     
                     ZoomViewTypeView(zoomType: .four)
                 }
+                
+                Toggle("Keep dice at the same place", isOn: $planechaseVM.keepDiceSamePlace)
+                    .font(.subheadline).foregroundColor(.white)
+                
+                Toggle("SUPER SECRET : use red_evil_portal.png for hellride", isOn: $planechaseVM.keepDiceSamePlace)
+                    .font(.subheadline).foregroundColor(.white)
             }.scrollablePanel()
         }
         
