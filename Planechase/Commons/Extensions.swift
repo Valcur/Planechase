@@ -19,13 +19,19 @@ extension View {
             .shadow(color: Color("ShadowColor"), radius: radius, x: 0, y: y)
     }
     
-    func blurredBackground() -> some View {
+    func blurredBackground(style: ViewStyle = .primary) -> some View {
         self
-            .background(
-                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-                    .cornerRadius(15)
-                    .shadowed()
-            )
+            .background( ZStack {
+                if style == .primary {
+                    VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                        .cornerRadius(15)
+                        .shadowed()
+                } else {
+                    Color.black
+                        .cornerRadius(15)
+                        .shadowed()
+                }
+            })
     }
     
     func buttonLabel() -> some View {
@@ -48,12 +54,12 @@ extension Image {
 }
 
 extension Text {
-    func textButtonLabel() -> some View {
+    func textButtonLabel(style: ViewStyle = .primary) -> some View {
         self
             .font(.subheadline)
             .foregroundColor(.white)
             .padding()
-            .blurredBackground()
+            .blurredBackground(style: style)
             .padding(5)
     }
     
@@ -94,6 +100,11 @@ extension UIImage {
 
         return newImage
     }
+}
+
+enum ViewStyle {
+    case primary
+    case secondary
 }
 
 struct VisualEffectView: UIViewRepresentable {

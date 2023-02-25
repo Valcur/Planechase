@@ -23,16 +23,20 @@ struct GameView: View {
                     .position(x: geo.size.width - 50, y: 50)
                 
                 RecenterView()
-                    .position(x: 50, y: geo.size.height  - 50)
+                    .position(x: 50, y: geo.size.height - 50)
                 
-                InfoView()
-                    .position(x: geo.size.width / 2, y: geo.size.height + 50)
+                ToolView()
+                    .position(x: geo.size.width - 50, y: geo.size.height - 50)
+                
                 
                 ZoomView(card: gameVM.cardToZoomIn)
                 
                 DiceView(diceResult: $diceResult)
                     .position(x: diceViewPositionX(width: geo.size.width),
                               y:  diceViewPositionY(height: geo.size.height))
+                
+                InfoView()
+                    .position(x: geo.size.width / 2, y: geo.size.height + 50)
             }.frame(width: geo.size.width, height: geo.size.height)
         }
         .onChange(of: diceResult) { _ in

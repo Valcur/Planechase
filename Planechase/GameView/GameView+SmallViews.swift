@@ -43,30 +43,26 @@ struct DiceView: View {
                             .font(.subheadline)
                             .padding(.vertical, 5)
                     }
-                    if diceResult == -1 {
+                    
+                    ZStack {
                         Color.black
                             .opacity(0.3)
-                            .frame(width: 80, height: 80)
-                            .cornerRadius(8)
-                            .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 0, z: 1))
-                            .onAppear() {
-                                withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: false)) {
-                                    self.animationAmount += 360
-                                }
-                            }
-                    } else if diceResult == 1 {
-                        Image("Chaos")
-                            .resizable()
-                            .foregroundColor(.white)
-                            .padding(20)
-                    } else if diceResult == 6 {
-                        Image("Planechase")
-                            .resizable()
-                            .foregroundColor(.white)
-                            .padding(20)
-                    } else {
-                        Color.black.opacity(0.000001)
-                    }
+                        
+                        if diceResult == 1 {
+                            Image("Chaos")
+                                .resizable()
+                                .foregroundColor(.white)
+                                .padding(10)
+                        } else if diceResult == 6 {
+                            Image("Planechase")
+                                .resizable()
+                                .foregroundColor(.white)
+                                .padding(10)
+                        }
+                    }.frame(width: 75, height: 75)
+                    .cornerRadius(8)
+                    .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 0, z: 1))
+
                     Text(rollCost > 0 ? "\(rollCost)" : "").headline().position(x: 15, y: 15)
                 }.transition(.scale.combined(with: .opacity))
             })
@@ -85,6 +81,7 @@ struct DiceView: View {
         animationAmount = 0
         withAnimation(.spring()) {
             diceResult = -1
+            self.animationAmount += 360
             rollCost += 1
         }
 
@@ -140,6 +137,48 @@ struct RecenterView: View {
     }
 }
 
+struct ToolView: View {
+    @EnvironmentObject var gameVM: GameViewModel
+    @State var showTools = false
+    private let height: CGFloat = 300
+    
+    var body: some View {
+        VStack {
+            Button(action: {
+                withAnimation(.spring()) {
+                    showTools.toggle()
+                }
+            }, label: {
+                Image(systemName: "hammer.fill")
+                    .imageButtonLabel()
+            })
+            
+            VStack {
+                TogglePlaneswalk()
+                
+                TogglePlaneswalk()
+                
+                TogglePlaneswalk()
+            }.offset(x: -60)
+        }.frame(height: height).offset(y: showTools ? -height / 2 : height / 2).offset(y: -40)
+    }
+    
+    struct TogglePlaneswalk: View {
+        @EnvironmentObject var gameVM: GameViewModel
+        
+        var body: some View {
+            Button(action: {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    gameVM.toggleTravelMode()
+                }
+            }, label: {
+                Text(gameVM.travelModeEnable ? "Disable Planeswalk" : "Enable Planeswalk")
+                    .buttonLabel()
+            })
+        }
+    }
+}
+
 struct InfoView: View {
     @EnvironmentObject var gameVM: GameViewModel
     
@@ -151,8 +190,9 @@ struct InfoView: View {
     }
     
     var body: some View {
-        Text(text).textButtonLabel()
+        Text(text).textButtonLabel(style: .secondary)
             .offset(y: showInfoView ? -100 : 0)
+            .scaleEffect(1.2)
     }
 }
 
