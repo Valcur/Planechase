@@ -91,6 +91,24 @@ class SaveManager {
         UserDefaults.standard.removeObject(forKey: "ImportedImage_\(card.id)")
     }
     
+    static func saveDecks(_ decks: [Deck]) {
+        if let encoded = try? JSONEncoder().encode(decks) {
+            UserDefaults.standard.set(encoded, forKey: "Decks")
+        }
+    }
+    
+    static func getDecks() -> [Deck] {
+        if let data = UserDefaults.standard.object(forKey: "Decks") as? Data,
+           let decks = try? JSONDecoder().decode([Deck].self, from: data) {
+            return decks
+        }
+        var noDecks: [Deck] = []
+        for i in 0..<10 {
+            noDecks.append(Deck(deckId: i, name: "Deck \(i + 1)", deckCardIds: []))
+        }
+        return noDecks
+    }
+    
     struct SavedCardData: Codable {
         var id: String
         var isCustomImage: Bool

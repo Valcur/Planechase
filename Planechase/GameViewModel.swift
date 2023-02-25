@@ -27,7 +27,7 @@ class GameViewModel: ObservableObject {
     }
     
     func startGame(withDeck: [Card]) {
-        guard withDeck.count >= 20 else { return }
+        guard withDeck.count >= 30 else { return }
         deck = withDeck
         deckFull = withDeck.map({ $0.new() })
         deck.shuffle()

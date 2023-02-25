@@ -179,7 +179,7 @@ struct ToolView: View {
     }
 }
 
-struct InfoView: View {
+struct GameInfoView: View {
     @EnvironmentObject var gameVM: GameViewModel
     
     var text: String {

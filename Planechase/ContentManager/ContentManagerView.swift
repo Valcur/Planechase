@@ -19,80 +19,105 @@ struct ContentManagerView: View {
     }
     
     var body: some View {
-        ZStack {
-            GradientView(gradientId: planechaseVM.gradientId)
-            
-            VStack(spacing: 8) {
-                // MARK: Top bar
-                HStack {
-                    Button(action: {
-                        contentManagerVM.downloadPlanechaseCardsFromScryfall()
-                    }, label: {
-                        Text("Download from Scryfall")
-                            .textButtonLabel()
-                    })
-                    
-                    ImportButton()
-                    
-                    Spacer()
-                    
-                    Text("Deck size : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
-                        .headline()
-                    
-                    DeckSelection()
-                }.padding(.horizontal, 15).padding(.top, 5)
+        GeometryReader { geo in
+            ZStack {
+                GradientView(gradientId: planechaseVM.gradientId)
                 
-                // MARK: Bottom bar
-                HStack {
-                    Text("Tap a card to add/remove it from your deck. Hold to delete it from your collection.")
-                        .headline().padding(5)
-                    
-                    Spacer()
-                    
+                VStack(spacing: 8) {
+                    // MARK: Top bar
                     HStack {
                         Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                smallGridModEnable = true
-                            }
+                            contentManagerVM.downloadPlanechaseCardsFromScryfall()
                         }, label: {
-                            Image(systemName: "rectangle.grid.3x2")
-                                .font(.title)
-                                .foregroundColor(.white)
-                        }).opacity(smallGridModEnable ? 1 : 0.6)
+                            Text("Download from Scryfall")
+                                .textButtonLabel()
+                        })
                         
-                        Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
+                        ImportButton()
                         
-                        Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                smallGridModEnable = false
-                            }
-                        }, label: {
-                            Image(systemName: "rectangle.grid.2x2")
-                                .font(.title)
-                                .foregroundColor(.white)
-                        }).opacity(smallGridModEnable ? 0.6 : 1)
-                    }
-                }.padding(.horizontal, 15)
-                
-                ScrollView {
-                    LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
-                        ForEach(contentManagerVM.cardCollection, id: \.id) { card in
-                            CardView(card: card)
-                                .scaleEffect(smallGridModEnable ? 0.7 : 1)
-                                .frame(height: smallGridModEnable ? CardSizes.contentManager.height * 0.7 : CardSizes.contentManager.height)
+                        Spacer()
+                        
+                        Text(contentManagerVM.selectedDeck.name).headline().padding(.trailing, 20)
+                        
+                        Text("Deck size : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
+                            .headline()
+                        
+                        DeckSelection()
+                    }.padding(.horizontal, 15).padding(.top, 5)
+                    
+                    // MARK: Bottom bar
+                    HStack {
+                        Text("Tap a card to add/remove it from your deck. Hold to delete it from your collection.")
+                            .headline().padding(5)
+                        
+                        Spacer()
+                        
+                        HStack {
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    contentManagerVM.selectAll()
+                                }
+                            }, label: {
+                                Text("Select all").textButtonLabel()
+                            })
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    contentManagerVM.unselectAll()
+                                }
+                            }, label: {
+                                Text("Unselect all").textButtonLabel()
+                            })
+                        }.padding(.trailing, 20)
+                        
+                        HStack {
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    smallGridModEnable = true
+                                }
+                            }, label: {
+                                Image(systemName: "rectangle.grid.3x2")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                            }).opacity(smallGridModEnable ? 1 : 0.6)
+                            
+                            Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
+                            
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    smallGridModEnable = false
+                                }
+                            }, label: {
+                                Image(systemName: "rectangle.grid.2x2")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                            }).opacity(smallGridModEnable ? 0.6 : 1)
                         }
-                    }.padding(.vertical, 10).padding(.vertical, 5)
-                    if contentManagerVM.cardCollection.count == 0 {
-                        EmptyCardCollectionInfo()
+                    }.padding(.horizontal, 15)
+                    
+                    ScrollView {
+                        LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
+                            ForEach(contentManagerVM.cardCollection, id: \.id) { card in
+                                CardView(card: card)
+                                    .scaleEffect(smallGridModEnable ? 0.7 : 1)
+                                    .frame(height: smallGridModEnable ? CardSizes.contentManager.height * 0.7 : CardSizes.contentManager.height)
+                            }
+                        }.padding(.vertical, 10).padding(.vertical, 5)
+                        if contentManagerVM.cardCollection.count == 0 {
+                            EmptyCardCollectionInfo()
+                        }
                     }
                 }
+                
+                ContentManagerInfoView()
+                    .position(x: geo.size.width / 2, y: geo.size.height + 50)
             }
         }
     }
     
     struct DeckSelection: View {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
-        @State var deckSelected: Int = 1
+        @EnvironmentObject var contentManagerVM: ContentManagerViewModel
+        @State var deckSelected: Int = 0
         
         var body: some View {
             HStack {
@@ -102,10 +127,16 @@ struct ContentManagerView: View {
                         .foregroundColor(.white)
                 }
                 Picker("Select Deck", selection: $deckSelected) {
-                    Text("Deck 1").headline().tag(1)
-                    Text("Deck 2").headline().tag(2)
-                    Text("Deck 3").headline().tag(3)
+                    ForEach(contentManagerVM.decks, id: \.deckId) { deck in
+                        Text(deck.name).tag(deck.deckId)
+                    }
                 }.pickerStyle(.menu).buttonLabel().disabled(!planechaseVM.isPremium)
+                .onChange(of: deckSelected) { newValue in
+                    contentManagerVM.changeSelectedDeck(newDeckId: newValue)
+                }
+                .onAppear() {
+                    deckSelected = contentManagerVM.selectedDeckId
+                }
             }
         }
     }
@@ -176,22 +207,23 @@ struct ContentManagerView: View {
                     .stroke(card.state == .selected ? .white : .clear, lineWidth: 4)
             )
             .onTapGesture {
-                if card.state == .selected {
-                    card.state = .showed
-                } else {
-                    card.state = .selected
-                }
                 withAnimation(.easeInOut(duration: 0.3)) {
+                    if card.state == .selected {
+                        card.state = .showed
+                        contentManagerVM.removeFromDeck(card)
+                    } else {
+                        card.state = .selected
+                        contentManagerVM.addToDeck(card)
+                    }
                     card.objectWillChange.send()
                 }
-                contentManagerVM.applyChangesToCollection()
             }
             .onLongPressGesture(minimumDuration: 0.5) {
                 showingDeleteAlert = true
             }
             .alert(isPresented: $showingDeleteAlert) {
                 Alert(
-                    title: Text("Are you sure you want to delete this ?"),
+                    title: Text("Are you sure you want to delete this plane ?"),
                     message: Text("There is no undo"),
                     primaryButton: .destructive(Text("Delete")) {
                         withAnimation(.easeInOut(duration: 0.3)) {
@@ -201,6 +233,23 @@ struct ContentManagerView: View {
                     secondaryButton: .cancel()
                 )
             }
+        }
+    }
+    
+    struct ContentManagerInfoView: View {
+        @EnvironmentObject var contentVM: ContentManagerViewModel
+        
+        var text: String {
+            return "Your deck is empty, add cards from your collection to your deck"
+        }
+        var showInfoView: Bool {
+            return contentVM.cardCollection.count > 0 && contentVM.selectedDeck.deckCardIds.count == 0
+        }
+        
+        var body: some View {
+            Text(text).textButtonLabel(style: .secondary)
+                .offset(y: showInfoView ? -80 : 0)
+                .scaleEffect(1.2)
         }
     }
 }

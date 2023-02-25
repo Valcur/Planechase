@@ -54,7 +54,7 @@ extension ContentManagerViewModel {
         for plane in planechaseURLs.data {
             cards.append(Card(id: plane.oracleID,
                               imageURL: plane.imageUris.large,
-                              state: .selected
+                              state: .showed
                              ))
         }
 

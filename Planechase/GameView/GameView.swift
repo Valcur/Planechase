@@ -35,7 +35,7 @@ struct GameView: View {
                     .position(x: diceViewPositionX(width: geo.size.width),
                               y:  diceViewPositionY(height: geo.size.height))
                 
-                InfoView()
+                GameInfoView()
                     .position(x: geo.size.width / 2, y: geo.size.height + 50)
             }.frame(width: geo.size.width, height: geo.size.height)
         }

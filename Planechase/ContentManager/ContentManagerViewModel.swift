@@ -10,11 +10,34 @@ import SwiftUI
 class ContentManagerViewModel: ObservableObject {
     
     @Published var cardCollection: [Card]
+    @Published var decks: [Deck]
     @Published var selectedCardsInCollection: Int = 0
+    @Published var selectedDeckId: Int = 0
+    var selectedDeck: Deck {
+        return decks[selectedDeckId]
+    }
     
     init() {
         cardCollection = SaveManager.getSavedCardArray()
-        selectedCardsInCollection = cardCollection.filter({ $0.state == .selected }).count
+        decks = SaveManager.getDecks()
+        changeSelectedDeck(newDeckId: 0)
+    }
+    
+    func changeSelectedDeck(newDeckId: Int) {
+        selectedDeckId = newDeckId
+        print("Switching to \(selectedDeck.name)")
+        // Update visual state of card collection
+        for card in cardCollection {
+            card.state = .showed
+        }
+        
+        for cardId in selectedDeck.deckCardIds {
+            if let index = cardCollection.firstIndex(where: { $0.id == cardId }) {
+                cardCollection[index].state = .selected
+            }
+        }
+        
+        updateSelectedCardsCountInCollection()
     }
     
     func downloadPlanechaseCardsFromScryfall() {
@@ -29,7 +52,7 @@ class ContentManagerViewModel: ObservableObject {
     }
     
     private func updateSelectedCardsCountInCollection() {
-        selectedCardsInCollection = cardCollection.filter({ $0.state == .selected }).count
+        selectedCardsInCollection = selectedDeck.deckCardIds.count
     }
     
     func addToCollection(_ cards: [Card]) {
@@ -40,6 +63,39 @@ class ContentManagerViewModel: ObservableObject {
                 }
             }
             self.applyChangesToCollection()
+        }
+    }
+    
+    func addToDeck(_ card: Card) {
+        decks[selectedDeckId].deckCardIds.append(card.id)
+        updateSelectedCardsCountInCollection()
+        SaveManager.saveDecks(decks)
+    }
+    
+    func removeFromDeck(_ card: Card) {
+        decks[selectedDeckId].deckCardIds.removeAll(where: { $0 == card.id })
+        updateSelectedCardsCountInCollection()
+        SaveManager.saveDecks(decks)
+    }
+    
+    func selectAll() {
+        decks[selectedDeckId].deckCardIds = []
+        for card in cardCollection {
+            decks[selectedDeckId].deckCardIds.append(card.id)
+        }
+        updateSelectedCardsCountInCollection()
+        SaveManager.saveDecks(decks)
+        for card in cardCollection {
+            card.state = .selected
+        }
+    }
+    
+    func unselectAll() {
+        decks[selectedDeckId].deckCardIds = []
+        updateSelectedCardsCountInCollection()
+        SaveManager.saveDecks(decks)
+        for card in cardCollection {
+            card.state = .showed
         }
     }
     
@@ -68,7 +124,7 @@ class ContentManagerViewModel: ObservableObject {
     }
     
     func importNewImageToCollection(image: UIImage) {
-        let newCard = Card(id: createIdForNewImportedCard(), image: image, state: .selected)
+        let newCard = Card(id: createIdForNewImportedCard(), image: image, state: .showed)
         addToCollection([newCard])
     }
     
@@ -80,4 +136,10 @@ class ContentManagerViewModel: ObservableObject {
         print("nid for new card : \(id)")
         return "\(id)"
     }
+}
+
+struct Deck: Codable {
+    let deckId: Int
+    let name: String
+    var deckCardIds: [String]
 }

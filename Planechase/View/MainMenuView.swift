@@ -10,7 +10,7 @@ import SwiftUI
 struct MainMenuView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
     var isAllowedToPlay: Bool {
-        return planechaseVM.contentManagerVM.selectedCardsInCollection >= 20
+        return planechaseVM.contentManagerVM.selectedCardsInCollection >= 30
     }
     var body: some View {
         ZStack {
@@ -52,7 +52,7 @@ struct MainMenuView: View {
                 }
                 
                 if !isAllowedToPlay {
-                    Text("You need at least 20 cards in your deck to play")
+                    Text("You need at least 30 cards in your deck to play")
                         .headline()
                 }
                 
