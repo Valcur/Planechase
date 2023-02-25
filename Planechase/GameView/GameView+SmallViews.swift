@@ -81,6 +81,7 @@ struct DiceView: View {
     }
     
     func rollDice() {
+        guard diceResult != -1 else { return }
         animationAmount = 0
         withAnimation(.spring()) {
             diceResult = -1
