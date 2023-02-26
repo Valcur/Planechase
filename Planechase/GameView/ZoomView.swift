@@ -56,14 +56,16 @@ struct ZoomView: View {
                         }
                     }
                 }
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        gameVM.cardToZoomIn = nil
-                    }
-                }, label: {
-                    Text("Show map")
-                        .textButtonLabel()
-                }).disabled(card == nil)
+                if !gameVM.isPlayingClassicMode {
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            gameVM.cardToZoomIn = nil
+                        }
+                    }, label: {
+                        Text("Show map")
+                            .textButtonLabel()
+                    }).disabled(card == nil)
+                }
             }.frame(width: geo.size.width, height: geo.size.height)
             .background(
                 VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))

@@ -17,7 +17,12 @@ struct GameView: View {
             ZStack {
                 GradientView(gradientId: planechaseVM.gradientId)
                 
-                BoardView()
+                if !gameVM.isPlayingClassicMode {
+                    BoardView()
+                } else {
+                    // AT SOME POINT, WILL NEED TO REPLACE WITH A CUSTOM ZOOM VIEW
+                    ZoomView(card: gameVM.cardToZoomIn)
+                }
                 
                 ReturnToMenuView()
                     .position(x: geo.size.width - 40, y: 40)
@@ -28,8 +33,9 @@ struct GameView: View {
                 ToolView()
                     .position(x: geo.size.width - 40, y: geo.size.height - 40)
                 
-                
-                ZoomView(card: gameVM.cardToZoomIn)
+                if !gameVM.isPlayingClassicMode {
+                    ZoomView(card: gameVM.cardToZoomIn)
+                }
                 
                 DiceView(diceResult: $diceResult)
                     .position(x: diceViewPositionX(width: geo.size.width),
@@ -52,7 +58,7 @@ struct GameView: View {
         }
         
         if planechaseVM.zoomViewType == .four {
-            return width / 2 + 120
+            return width / 2 - 140
         } else if planechaseVM.zoomViewType == .two {
             return width / 2
         } else {

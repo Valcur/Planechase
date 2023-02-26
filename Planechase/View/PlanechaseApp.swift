@@ -70,13 +70,13 @@ class PlanechaseViewModel: ObservableObject {
         contentManagerVM.planechaseVM = self
     }
     
-    func togglePlaying() {
+    func togglePlaying(classicGameMode: Bool = false) {
         withAnimation(.easeInOut(duration: 0.3)) {
             isPlaying.toggle()
         }
         
         if isPlaying {
-            gameVM.startGame(withDeck: contentManagerVM.getDeck())
+            gameVM.startGame(withDeck: contentManagerVM.getDeck(), classicGameMode: classicGameMode)
         }
     }
     

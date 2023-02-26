@@ -37,14 +37,14 @@ struct MainMenuView: View {
                 
                 HStack(spacing: 50) {
                     Button(action: {
-                        planechaseVM.togglePlaying()
+                        planechaseVM.togglePlaying(classicGameMode: true)
                     }, label: {
                         Text("Play Classic")
                             .textButtonLabel()
                     }).disabled(!isAllowedToPlay)
                     
                     Button(action: {
-                        planechaseVM.togglePlaying()
+                        planechaseVM.togglePlaying(classicGameMode: false)
                     }, label: {
                         Text("Play Eternities map")
                             .textButtonLabel()

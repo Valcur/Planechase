@@ -16,6 +16,7 @@ class GameViewModel: ObservableObject {
     @Published var travelModeEnable: Bool       // Has the user rolled a 6 and need to change plane
     @Published var cardToZoomIn: Card?          // nil if no card to zoom in, else show the card to fit the whole screen
     @Published var focusCenterToggler: Bool = false
+    var isPlayingClassicMode: Bool = true
     
     init() {
         map = [[Card?]](
@@ -26,11 +27,17 @@ class GameViewModel: ObservableObject {
         travelModeEnable = false
     }
     
-    func startGame(withDeck: [Card]) {
+    func startGame(withDeck: [Card], classicGameMode: Bool) {
         guard withDeck.count >= 30 else { return }
+        isPlayingClassicMode = classicGameMode
         deck = withDeck
         deckFull = withDeck.map({ $0.new() })
         deck.shuffle()
+        
+        if isPlayingClassicMode {
+            startGame_Classic()
+            return
+        }
         
         map = [[Card?]](
             repeating: [Card?](repeating: nil, count: 7),
@@ -49,6 +56,10 @@ class GameViewModel: ObservableObject {
     }
     
     func toggleTravelMode() {
+        if isPlayingClassicMode {
+            toggleTravelMode_Classic()
+            return
+        }
         withAnimation(.easeInOut(duration: 0.3)) {
             travelModeEnable.toggle()
             cardToZoomIn = nil
@@ -123,16 +134,19 @@ class GameViewModel: ObservableObject {
         // If empty reshuffle deck with all cards not on the map
         if deck.count == 0 {
             deck = deckFull.map({ $0.new() })
-            for i in 0..<7 {
-                for j in 0..<7 {
-                    let c = map[i][j]
-                    if c != nil {
-                        deck.removeAll(where: { $0.id == c!.id })
+            if !isPlayingClassicMode {
+                for i in 0..<7 {
+                    for j in 0..<7 {
+                        let c = map[i][j]
+                        if c != nil {
+                            deck.removeAll(where: { $0.id == c!.id })
+                        }
                     }
                 }
             }
             deck.removeAll(where: { $0.id == card.id })
             deck.shuffle()
+            print("New deck shuffled with \(deck.count) cards")
         }
         return card
     }
@@ -216,5 +230,22 @@ class GameViewModel: ObservableObject {
         for coord in farCoords {
             map[coord.x][coord.y] = nil
         }
+    }
+}
+
+extension GameViewModel {
+    func toggleTravelMode_Classic() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            cardToZoomIn = drawCard()
+        }
+    }
+    
+    func startGame_Classic() {
+        map = [[Card?]](
+            repeating: [Card?](repeating: nil, count: 7),
+            count: 7
+           )
+        cardToZoomIn = drawCard()
+        travelModeEnable = false
     }
 }

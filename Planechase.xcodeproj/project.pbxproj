@@ -26,7 +26,6 @@
 		DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFD29A50500004E94BC /* ZoomView.swift */; };
 		DBA02D0029A61E42004E94BC /* Card+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFF29A61E42004E94BC /* Card+Size.swift */; };
 		DBC339AF29A8E4BC0089CB01 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC339AE29A8E4BC0089CB01 /* BubbleView.swift */; };
-		DBC339B129AB6A2D0089CB01 /* GameView_Classic.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC339B029AB6A2D0089CB01 /* GameView_Classic.swift */; };
 		DBD42B0129A78F1B008451BD /* OptionsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +62,6 @@
 		DBA02CFF29A61E42004E94BC /* Card+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+Size.swift"; sourceTree = "<group>"; };
 		DBC339AD29A7DFDF0089CB01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBC339AE29A8E4BC0089CB01 /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
-		DBC339B029AB6A2D0089CB01 /* GameView_Classic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView_Classic.swift; sourceTree = "<group>"; };
 		DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,7 +172,6 @@
 				DBA02CF229A41BB7004E94BC /* GameView.swift */,
 				DBA02CFA29A4FFA7004E94BC /* GameView+SmallViews.swift */,
 				DBA02CFD29A50500004E94BC /* ZoomView.swift */,
-				DBC339B029AB6A2D0089CB01 /* GameView_Classic.swift */,
 			);
 			path = GameView;
 			sourceTree = "<group>";
@@ -282,7 +279,6 @@
 				DBA02CFB29A4FFA7004E94BC /* GameView+SmallViews.swift in Sources */,
 				DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */,
 				DB5098E929A392880058FCCB /* Extensions.swift in Sources */,
-				DBC339B129AB6A2D0089CB01 /* GameView_Classic.swift in Sources */,
 				DBA02D0029A61E42004E94BC /* Card+Size.swift in Sources */,
 				DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */,
 				DBA02CF529A4CC4A004E94BC /* GameViewModel.swift in Sources */,
