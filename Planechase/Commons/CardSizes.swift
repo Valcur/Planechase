@@ -1,5 +1,5 @@
 //
-//  Card+Size.swift
+//  CardSizes.swift
 //  Planechase
 //
 //  Created by Loic D on 22/02/2023.
@@ -30,6 +30,18 @@ struct CardSizes {
                 return iPadWidth / 25
             }
             return iPadWidth * iPhoneSizeCoeff / 25
+        }
+        
+        func scaledWidth(_ scaleFactor: CGFloat) -> CGFloat {
+            return width * scaleFactor
+        }
+        
+        func scaledHeight(_ scaleFactor: CGFloat) -> CGFloat {
+            return height * scaleFactor
+        }
+        
+        func scaledRadius(_ scaleFactor: CGFloat) -> CGFloat {
+            return cornerRadius * scaleFactor
         }
         
         private let iPadWidth: CGFloat

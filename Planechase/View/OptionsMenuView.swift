@@ -90,15 +90,18 @@ struct OptionsMenuView: View {
                     ZoomViewTypeView(zoomType: .four)
                 }
                 
-                Toggle("Keep dice at the same place", isOn: $planechaseVM.keepDiceSamePlace)
+                Toggle("Bigger cards on map", isOn: $planechaseVM.biggerCardsOnMap)
                     .font(.subheadline).foregroundColor(.white)
                 
-                Toggle("SUPER SECRET : use red_evil_portal.png for hellride", isOn: $planechaseVM.keepDiceSamePlace)
-                    .font(.subheadline).foregroundColor(.white)
-                
-                Toggle("Bigger cards on map", isOn: $planechaseVM.keepDiceSamePlace)
+                Toggle("SUPER SECRET : use red_evil_portal.png for hellride", isOn: $planechaseVM.useHellridePNG)
                     .font(.subheadline).foregroundColor(.white)
             }.scrollablePanel()
+            .onChange(of: planechaseVM.biggerCardsOnMap) { _ in
+                planechaseVM.saveToggles()
+            }
+            .onChange(of: planechaseVM.useHellridePNG) { _ in
+                planechaseVM.saveToggles()
+            }
         }
         
         struct ZoomViewTypeView: View {
@@ -146,6 +149,10 @@ struct OptionsMenuView: View {
             VStack {
                 Text("Thanks")
                     .title()
+                Text("Portal image from Freepik")
+                    .headline()
+                Text("Chaos image from Ken111")
+                    .headline()
                 Text("Hellride image by upklyak from Freepik")
                     .headline()
             }.scrollablePanel()

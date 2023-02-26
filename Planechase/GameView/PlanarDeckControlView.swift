@@ -23,13 +23,13 @@ struct PlanarDeckControlView: View {
                 })
                 
                 // Revealed cards
-                ScrollView(.horizontal) {
-                    HStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
                         ForEach(gameVM.revealedCards, id: \.id) { card in
                             PlanarControllerCardView(card: card)
                         }
                     }.padding(.horizontal, 15)
-                }.frame(height: CardSizes.deckController.height + 150)
+                }.frame(width: geo.size.width).frame(height: CardSizes.deckController.height + 100)
                 
                 Button(action: {
                     gameVM.togglePlanarDeckController()

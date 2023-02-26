@@ -58,12 +58,16 @@ class PlanechaseViewModel: ObservableObject {
     @Published var isPlaying = false
     @Published var gradientId: Int
     @Published var zoomViewType: ZoomViewType
-    @Published var keepDiceSamePlace: Bool = false
+    @Published var useHellridePNG: Bool
+    @Published var biggerCardsOnMap: Bool
     @Published var isPremium = true
     
     init() {
         gradientId = SaveManager.getOptions_GradientId()
         zoomViewType = SaveManager.getOptions_ZoomType()
+        let optionToggles = SaveManager.getOptions_Toggles()
+        biggerCardsOnMap = optionToggles.0
+        useHellridePNG = optionToggles.1
         
         gameVM = GameViewModel()
         contentManagerVM = ContentManagerViewModel()
@@ -92,6 +96,10 @@ class PlanechaseViewModel: ObservableObject {
             zoomViewType = zoomType
         }
         SaveManager.saveOptions_ZoomType(zoomType)
+    }
+    
+    func saveToggles() {
+        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG)
     }
 }
 

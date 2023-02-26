@@ -12,7 +12,7 @@ class ContentManagerViewModel: ObservableObject {
     @Published var cardCollection: [Card]
     @Published var decks: [Deck]
     @Published var selectedCardsInCollection: Int = 0
-    @Published var selectedDeckId: Int = 0
+    @Published var selectedDeckId: Int
     var selectedDeck: Deck {
         return decks[selectedDeckId]
     }
@@ -20,7 +20,8 @@ class ContentManagerViewModel: ObservableObject {
     init() {
         cardCollection = SaveManager.getSavedCardArray()
         decks = SaveManager.getDecks()
-        changeSelectedDeck(newDeckId: 0)
+        selectedDeckId = SaveManager.getSelectedDeckId()
+        changeSelectedDeck(newDeckId: selectedDeckId)
     }
     
     func changeSelectedDeck(newDeckId: Int) {
@@ -37,6 +38,7 @@ class ContentManagerViewModel: ObservableObject {
             }
         }
         
+        SaveManager.saveSelectedDeckId(deckId: selectedDeckId)
         updateSelectedCardsCountInCollection()
     }
     

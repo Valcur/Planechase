@@ -11,6 +11,7 @@ struct GameView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var gameVM: GameViewModel
     @State var diceResult: Int = -2
+    static let biggerCardsOnMapCoeff: CGFloat = 1.3
     
     var body: some View {
         GeometryReader { geo in
@@ -83,13 +84,17 @@ struct GameView: View {
     }
     
     struct BoardView: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var gameVM: GameViewModel
         
+        private var coeff: CGFloat {
+            return planechaseVM.biggerCardsOnMap ? GameView.biggerCardsOnMapCoeff : 1
+        }
         private var mapSize: Int {
             gameVM.map.endIndex
         }
         private var gridItemLayout: [GridItem]  {
-            Array(repeating: .init(.fixed(CardSizes.map.width + 10), spacing: 10), count: mapSize)
+            Array(repeating: .init(.fixed(CardSizes.map.scaledWidth(coeff) + 10), spacing: 10), count: mapSize)
         }
         
         var body: some View {
@@ -128,16 +133,20 @@ struct GameView: View {
     }
     
     struct CardView: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var gameVM: GameViewModel
         @ObservedObject var card: Card
+        private var coeff: CGFloat {
+            return planechaseVM.biggerCardsOnMap ? GameView.biggerCardsOnMapCoeff : 1
+        }
         
         var body: some View {
             ZStack {
                 if card.image == nil {
                     Color.black
                         .opacity(0.0000001)
-                        .frame(width: CardSizes.map.width, height: CardSizes.map.height)
-                        .cornerRadius(CardSizes.map.cornerRadius)
+                        .frame(width: CardSizes.map.scaledWidth(coeff), height: CardSizes.map.scaledHeight(coeff))
+                        .cornerRadius(CardSizes.map.scaledRadius(coeff))
                         .shadowed(radius: 8)
                         .onAppear {
                             card.cardAppears()
@@ -145,8 +154,8 @@ struct GameView: View {
                 } else {
                     Image(uiImage: card.image!)
                         .resizable()
-                        .frame(width: CardSizes.map.width, height: CardSizes.map.height)
-                        .cornerRadius(CardSizes.map.cornerRadius)
+                        .frame(width: CardSizes.map.scaledWidth(coeff), height: CardSizes.map.scaledHeight(coeff))
+                        .cornerRadius(CardSizes.map.scaledRadius(coeff))
                         .shadowed(radius: 8)
                 }
             }
@@ -173,18 +182,27 @@ struct GameView: View {
     }
     
     struct EmptyCardView: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
+        private var coeff: CGFloat {
+            return planechaseVM.biggerCardsOnMap ? GameView.biggerCardsOnMapCoeff : 1
+        }
+        
         var body: some View {
             Color.black
                 .opacity(0.0000001)
-                .frame(width: CardSizes.map.width, height: CardSizes.map.height)
-                .cornerRadius(CardSizes.map.cornerRadius)
+                .frame(width: CardSizes.map.scaledWidth(coeff), height: CardSizes.map.scaledHeight(coeff))
+                .cornerRadius(CardSizes.map.scaledRadius(coeff))
                 .padding(5)
         }
     }
     
     struct HellrideCardView: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var gameVM: GameViewModel
         @ObservedObject var card: Card
+        private var coeff: CGFloat {
+            return planechaseVM.biggerCardsOnMap ? GameView.biggerCardsOnMapCoeff : 1
+        }
         
         var body: some View {
             ZStack {
@@ -196,20 +214,20 @@ struct GameView: View {
                 Color.black
                     .opacity(0.00001)
             }
-                .frame(width: CardSizes.map.width, height: CardSizes.map.height)
-                .cornerRadius(CardSizes.map.cornerRadius)
-                .padding(5)
-                .overlay(
-                    ZStack {
-                        RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
-                            .stroke((card.state == .pickable && gameVM.travelModeEnable) ? .clear : .clear, lineWidth: 4)
-                    }
-                )
-                .onLongPressGesture(minimumDuration: 0.5) {
-                    if gameVM.travelModeEnable && card.state == .pickable {
-                        gameVM.travelTo(card)
-                    }
+            .frame(width: CardSizes.map.scaledWidth(coeff), height: CardSizes.map.scaledHeight(coeff))
+            .cornerRadius(CardSizes.map.scaledRadius(coeff))
+            .padding(5)
+            .overlay(
+                ZStack {
+                    RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
+                        .stroke((card.state == .pickable && gameVM.travelModeEnable) ? .clear : .clear, lineWidth: 4)
                 }
+            )
+            .onLongPressGesture(minimumDuration: 0.5) {
+                if gameVM.travelModeEnable && card.state == .pickable {
+                    gameVM.travelTo(card)
+                }
+            }
         }
     }
 }

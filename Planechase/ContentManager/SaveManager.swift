@@ -109,6 +109,14 @@ class SaveManager {
         return noDecks
     }
     
+    static func getSelectedDeckId() -> Int {
+        return UserDefaults.standard.object(forKey: "SelectedDeckId") as? Int ?? 0
+    }
+    
+    static func saveSelectedDeckId(deckId: Int) {
+        UserDefaults.standard.set(deckId, forKey: "SelectedDeckId")
+    }
+    
     struct SavedCardData: Codable {
         var id: String
         var isCustomImage: Bool
@@ -139,5 +147,16 @@ extension SaveManager {
     
     static func getOptions_GradientId() -> Int {
         return UserDefaults.standard.object(forKey: "GradientId") as? Int ?? 1
+    }
+    
+    static func saveOptions_Toggles(bigCard: Bool, hellride: Bool) {
+        UserDefaults.standard.set(bigCard, forKey: "BiggerCardsOnMap")
+        UserDefaults.standard.set(hellride, forKey: "UseHellridePNG")
+    }
+    
+    static func getOptions_Toggles() -> (Bool, Bool) {
+        let bigCards = UserDefaults.standard.object(forKey: "BiggerCardsOnMap") as? Bool ?? false
+        let hellRide = UserDefaults.standard.object(forKey: "UseHellridePNG") as? Bool ?? false
+        return (bigCards, hellRide)
     }
 }

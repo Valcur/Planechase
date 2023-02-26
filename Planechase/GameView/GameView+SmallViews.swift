@@ -143,7 +143,7 @@ struct RecenterView: View {
 struct ToolView: View {
     @EnvironmentObject var gameVM: GameViewModel
     @State var showTools = false
-    private let height: CGFloat = 300
+    private let height: CGFloat = 150
     
     var body: some View {
         VStack {
@@ -175,7 +175,7 @@ struct ToolView: View {
                         .buttonLabel()
                 })
             }.offset(x: -60)
-        }.frame(height: height).offset(y: showTools ? -height / 2 : height / 2).offset(y: -45)
+        }.frame(height: height).offset(y: showTools ? -height / 2 : height / 2).offset(y: -3)
     }
 }
 
