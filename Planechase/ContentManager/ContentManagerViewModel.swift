@@ -8,7 +8,7 @@
 import SwiftUI
 
 class ContentManagerViewModel: ObservableObject {
-    
+    weak var planechaseVM: PlanechaseViewModel?
     @Published var cardCollection: [Card]
     @Published var decks: [Deck]
     @Published var selectedCardsInCollection: Int = 0
@@ -53,6 +53,7 @@ class ContentManagerViewModel: ObservableObject {
     
     private func updateSelectedCardsCountInCollection() {
         selectedCardsInCollection = selectedDeck.deckCardIds.count
+        planechaseVM?.objectWillChange.send()
     }
     
     func addToCollection(_ cards: [Card]) {

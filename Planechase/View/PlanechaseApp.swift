@@ -59,13 +59,15 @@ class PlanechaseViewModel: ObservableObject {
     @Published var gradientId: Int
     @Published var zoomViewType: ZoomViewType
     @Published var keepDiceSamePlace: Bool = false
-    @Published var isPremium = false
+    @Published var isPremium = true
     
     init() {
-        contentManagerVM = ContentManagerViewModel()
-        gameVM = GameViewModel()
         gradientId = SaveManager.getOptions_GradientId()
         zoomViewType = SaveManager.getOptions_ZoomType()
+        
+        gameVM = GameViewModel()
+        contentManagerVM = ContentManagerViewModel()
+        contentManagerVM.planechaseVM = self
     }
     
     func togglePlaying() {
