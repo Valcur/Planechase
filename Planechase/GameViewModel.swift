@@ -12,11 +12,15 @@ class GameViewModel: ObservableObject {
     var deck: [Card] = []                       // The current cards pool to draw from
     var deckFull: [Card] = []                   // The whole card pool selected by the user
     @Published var map: [[Card?]]               // The eternities map board
-    private let center = Coord(x: 3, y: 3)      // The center coordinate of the map where should always be the selected plane
+    internal let center = Coord(x: 3, y: 3)      // The center coordinate of the map where should always be the selected plane
     @Published var travelModeEnable: Bool       // Has the user rolled a 6 and need to change plane
     @Published var cardToZoomIn: Card?          // nil if no card to zoom in, else show the card to fit the whole screen
     @Published var focusCenterToggler: Bool = false
     var isPlayingClassicMode: Bool = true
+    
+    // Deck Controller
+    @Published var showPlanarDeckController: Bool = false
+    @Published var revealedCards: [Card] = []
     
     init() {
         map = [[Card?]](
@@ -128,7 +132,7 @@ class GameViewModel: ObservableObject {
         return mapAt(center)!
     }
     
-    private func drawCard() -> Card {
+    func drawCard() -> Card {
         let card = deck.removeFirst()
 
         // If empty reshuffle deck with all cards not on the map
@@ -233,6 +237,7 @@ class GameViewModel: ObservableObject {
     }
 }
 
+// MARK: Classic game mode
 extension GameViewModel {
     func toggleTravelMode_Classic() {
         withAnimation(.easeInOut(duration: 0.3)) {
@@ -247,5 +252,62 @@ extension GameViewModel {
            )
         cardToZoomIn = drawCard()
         travelModeEnable = false
+    }
+}
+
+extension GameViewModel {
+    func togglePlanarDeckController() {
+        showPlanarDeckController.toggle()
+        
+        // Shuffle the remaining revealed card at the bottom in a random order
+        if !showPlanarDeckController {
+            revealedCards.shuffle()
+            for card in revealedCards {
+                deck.append(card)
+            }
+        }
+        
+        revealedCards = []
+        self.objectWillChange.send()
+    }
+    
+    func revealTopPlanarDeckCard() {
+        var deckWillBeShuffled = false
+        
+        if deck.count == 1 {
+            deckWillBeShuffled = true
+        }
+        let card = drawCard()
+        
+        if deckWillBeShuffled {
+            for card in revealedCards {
+                deck.removeAll(where: { $0.id == card.id })
+            }
+        }
+        
+        revealedCards.append(card)
+    }
+    
+    func putCardToBottom(_ card: Card) {
+        deck.append(card)
+        removeCardFromRevealed(card)
+    }
+    
+    func putCardToTop(_ card: Card) {
+        deck.insert(card, at: 0)
+        removeCardFromRevealed(card)
+    }
+    
+    func planeswalkTo(_ card: Card) {
+        if isPlayingClassicMode {
+            cardToZoomIn = card
+        } else {
+            addCardAtCoord(card: card, center)
+        }
+        removeCardFromRevealed(card)
+    }
+    
+    private func removeCardFromRevealed(_ card: Card) {
+        revealedCards.removeAll(where: { $0.id == card.id })
     }
 }

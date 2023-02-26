@@ -43,6 +43,8 @@ struct GameView: View {
                 
                 GameInfoView()
                     .position(x: geo.size.width / 2, y: geo.size.height + 50)
+                
+                PlanarDeckControlView()
             }.frame(width: geo.size.width, height: geo.size.height)
         }
         .onChange(of: diceResult) { _ in

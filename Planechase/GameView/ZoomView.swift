@@ -59,8 +59,6 @@ struct ZoomView: View {
             }.frame(width: geo.size.width, height: geo.size.height)
             .background(
                 VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-                    .cornerRadius(10)
-                    .shadow(color: Color.black, radius: 4, x: 0, y: 4)
             ).opacity(card == nil ? 0 : 1)
             .onTapGesture {
                 if !gameVM.isPlayingClassicMode {

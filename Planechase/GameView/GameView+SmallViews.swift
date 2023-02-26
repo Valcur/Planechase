@@ -157,28 +157,25 @@ struct ToolView: View {
             })
             
             VStack {
-                TogglePlaneswalk()
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        gameVM.toggleTravelMode()
+                    }
+                }, label: {
+                    Text(gameVM.travelModeEnable ? "Disable Planeswalk" : "Enable Planeswalk")
+                        .buttonLabel()
+                })
                 
-                TogglePlaneswalk()
-                
-                TogglePlaneswalk()
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        gameVM.togglePlanarDeckController()
+                    }
+                }, label: {
+                    Text("Deck Controller")
+                        .buttonLabel()
+                })
             }.offset(x: -60)
         }.frame(height: height).offset(y: showTools ? -height / 2 : height / 2).offset(y: -45)
-    }
-    
-    struct TogglePlaneswalk: View {
-        @EnvironmentObject var gameVM: GameViewModel
-        
-        var body: some View {
-            Button(action: {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    gameVM.toggleTravelMode()
-                }
-            }, label: {
-                Text(gameVM.travelModeEnable ? "Disable Planeswalk" : "Enable Planeswalk")
-                    .buttonLabel()
-            })
-        }
     }
 }
 
