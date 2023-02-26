@@ -160,7 +160,7 @@ struct ToolView: View {
                 
                 TogglePlaneswalk()
             }.offset(x: -60)
-        }.frame(height: height).offset(y: showTools ? -height / 2 : height / 2).offset(y: -40)
+        }.frame(height: height).offset(y: showTools ? -height / 2 : height / 2).offset(y: -45)
     }
     
     struct TogglePlaneswalk: View {

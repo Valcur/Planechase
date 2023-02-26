@@ -45,9 +45,11 @@ extension View {
 extension Image {
     func imageButtonLabel() -> some View {
         self
-            .font(.title)
+            .resizable()
+            .frame(width: 27, height: 27)
             .foregroundColor(.white)
             .padding()
+            .frame(width: 60, height: 60)
             .blurredBackground()
             .padding(5)
     }
