@@ -19,6 +19,9 @@ struct GameView: View {
                 
                 if !gameVM.isPlayingClassicMode {
                     BoardView()
+                    
+                    RecenterView()
+                        .position(x: 40, y: geo.size.height - 40)
                 } else {
                     // AT SOME POINT, WILL NEED TO REPLACE WITH A CUSTOM ZOOM VIEW
                     ZoomView(card: gameVM.cardToZoomIn)
@@ -26,9 +29,6 @@ struct GameView: View {
                 
                 ReturnToMenuView()
                     .position(x: geo.size.width - 40, y: 40)
-                
-                RecenterView()
-                    .position(x: 40, y: geo.size.height - 40)
                 
                 ToolView()
                     .position(x: geo.size.width - 40, y: geo.size.height - 40)

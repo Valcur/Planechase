@@ -95,6 +95,9 @@ struct OptionsMenuView: View {
                 
                 Toggle("SUPER SECRET : use red_evil_portal.png for hellride", isOn: $planechaseVM.keepDiceSamePlace)
                     .font(.subheadline).foregroundColor(.white)
+                
+                Toggle("Bigger cards on map", isOn: $planechaseVM.keepDiceSamePlace)
+                    .font(.subheadline).foregroundColor(.white)
             }.scrollablePanel()
         }
         

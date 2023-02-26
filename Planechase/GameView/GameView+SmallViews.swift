@@ -130,6 +130,9 @@ struct RecenterView: View {
             withAnimation(.easeInOut(duration: 0.3)) {
                 gameVM.focusCenterToggler.toggle()
             }
+            withAnimation(.easeInOut(duration: 0.3).delay(0.3)) {
+                gameVM.cardToZoomIn = gameVM.getCenter()
+            }
         }, label: {
             Image(systemName: "location.fill")
                 .imageButtonLabel()
