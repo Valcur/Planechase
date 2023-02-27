@@ -37,7 +37,7 @@ struct PlanarDeckControlView: View {
                     Text("Put all revealed card at the bottom in a random order and leave")
                         .textButtonLabel()
                 })
-            }.frame(width: geo.size.width, height: geo.size.height)
+            }.iPhoneScaler(width: geo.size.width, height: geo.size.height).frame(width: geo.size.width, height: geo.size.height)
             .background(
                 VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
             )

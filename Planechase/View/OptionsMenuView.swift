@@ -54,8 +54,18 @@ struct OptionsMenuView: View {
         
         var body: some View {
             VStack(alignment: .leading, spacing: 15) {
-                Text("Background Color")
-                    .title()
+                HStack {
+                    Text("Background Color")
+                        .title()
+                    
+                    Spacer()
+                    
+                    if !planechaseVM.isPremium {
+                        Image(systemName: "crown.fill")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    }
+                }
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
@@ -68,7 +78,7 @@ struct OptionsMenuView: View {
                         MenuCustomBackgroundColorChoiceView(gradientId: 7)
                         MenuCustomBackgroundColorChoiceView(gradientId: 8)
                     }
-                }
+                }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                 
                 Text("Game UI")
                     .title()

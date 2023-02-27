@@ -43,7 +43,7 @@ struct ContentManagerView: View {
                             .headline()
                         
                         DeckSelection()
-                    }.padding(.horizontal, 15).padding(.top, 5)
+                    }.padding(.horizontal, 15).padding(.top, 5).iPhoneScaler(width: geo.size.width, height: 40)
                     
                     // MARK: Bottom bar
                     HStack {
@@ -92,7 +92,7 @@ struct ContentManagerView: View {
                                     .foregroundColor(.white)
                             }).opacity(smallGridModEnable ? 0.6 : 1)
                         }
-                    }.padding(.horizontal, 15)
+                    }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 40)
                     
                     ScrollView {
                         LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
@@ -105,7 +105,7 @@ struct ContentManagerView: View {
                         if contentManagerVM.cardCollection.count == 0 {
                             EmptyCardCollectionInfo()
                         }
-                    }
+                    }.frame(width: geo.size.width)
                 }
                 
                 ContentManagerInfoView()
@@ -134,7 +134,7 @@ struct ContentManagerView: View {
                     } else {
                         Text(contentManagerVM.decks[0].name).tag(contentManagerVM.decks[0].deckId)
                     }
-                }.pickerStyle(.menu).font(.subheadline).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6)
+                }.pickerStyle(.menu).font(.subheadline).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(width: 140)
                 .onChange(of: deckSelected) { newValue in
                     contentManagerVM.changeSelectedDeck(newDeckId: newValue)
                 }
@@ -151,7 +151,7 @@ struct ContentManagerView: View {
                 Text("First, you need to add cards to your collection").headline().padding(10)
                 Text("- Use the Download from scryfall button to download and add to your collection all official Planechase cards.").headline().frame(width: 300)
                 Text("- Use the Import button to add a custom card from your device.").headline().frame(width: 300)
-            }.padding(.vertical, 100)
+            }.padding(.vertical, UIDevice.isIPad ? 100 : 10)
         }
     }
     

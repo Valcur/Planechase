@@ -26,20 +26,39 @@ struct ZoomView: View {
             ZStack {
                 if let card = card {
                     if planechaseVM.zoomViewType == .one {
-                        ZoomCardView(card: card,
-                                     width: cardWidth(geo.size.width * 0.9))
+                        if UIDevice.isIPhone {
+                            ZoomCardView(card: card,
+                                         width: Card.widthtForHeight(geo.size.height - 10))
+                        } else {
+                            ZoomCardView(card: card,
+                                         width: cardWidth(geo.size.width * 0.9))
+                        }
                     }
                     if planechaseVM.zoomViewType == .two || planechaseVM.zoomViewType == .four {
-                        HStack {
-                            ZoomCardView(card: card,
-                                         width: cardWidth(geo.size.height))
-                            .rotationEffect(.degrees(90))
-                            .offset(x: (cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
-                            Spacer()
-                            ZoomCardView(card: card,
-                                         width: cardWidth(geo.size.height))
-                            .rotationEffect(.degrees(-90))
-                            .offset(x: -(cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                        if UIDevice.isIPhone {
+                            HStack {
+                                ZoomCardView(card: card,
+                                             width: geo.size.height - 10)
+                                .rotationEffect(.degrees(90))
+                                .offset(x: (cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                                Spacer()
+                                ZoomCardView(card: card,
+                                             width: geo.size.height - 10)
+                                .rotationEffect(.degrees(-90))
+                                .offset(x: -(cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                            }
+                        } else {
+                            HStack {
+                                ZoomCardView(card: card,
+                                             width: cardWidth(geo.size.height))
+                                .rotationEffect(.degrees(90))
+                                .offset(x: (cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                                Spacer()
+                                ZoomCardView(card: card,
+                                             width: cardWidth(geo.size.height))
+                                .rotationEffect(.degrees(-90))
+                                .offset(x: -(cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                            }
                         }
                     }
                     if planechaseVM.zoomViewType == .four {

@@ -40,6 +40,20 @@ extension View {
             .blurredBackground()
             .padding(5)
     }
+    
+    func iPhoneScaler(width: CGFloat, height: CGFloat, scaleEffect: CGFloat = 0.8) -> some View {
+        ZStack {
+            if UIDevice.isIPhone {
+                self
+                    .frame(width: width / scaleEffect)
+                    .scaleEffect(scaleEffect)
+                    .frame(height: height)
+                    .frame(width: width)
+            } else {
+                self
+            }
+        }
+    }
 }
 
 extension Image {
@@ -203,5 +217,15 @@ struct ImagePicker: UIViewControllerRepresentable {
                    })
              }
         }
+    }
+}
+
+extension UIDevice {
+    static var isIPad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+    
+    static var isIPhone: Bool {
+        UIDevice.current.userInterfaceIdiom == .phone
     }
 }
