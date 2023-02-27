@@ -55,16 +55,16 @@ struct OptionsMenuView: View {
         var body: some View {
             VStack(alignment: .leading, spacing: 15) {
                 HStack {
-                    Text("Background Color")
-                        .title()
-                    
-                    Spacer()
-                    
                     if !planechaseVM.isPremium {
                         Image(systemName: "crown.fill")
                             .font(.title)
                             .foregroundColor(.white)
                     }
+                    
+                    Text("Background Color")
+                        .title()
+                    
+                    Spacer()
                 }
                 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -159,7 +159,7 @@ struct OptionsMenuView: View {
             VStack {
                 Text("Thanks")
                     .title()
-                Text("Portal image from Freepik")
+                Text("Planechase image from Agung Rama")
                     .headline()
                 Text("Chaos image from Ken111")
                     .headline()

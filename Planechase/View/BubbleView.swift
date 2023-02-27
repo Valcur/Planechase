@@ -97,6 +97,7 @@ struct GoingPremium: View {
     }
     
     struct GoingPremiumBubble: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @State var showingBuyInfo = false
         @State var price = "Unknow"
         
@@ -123,17 +124,18 @@ struct GoingPremium: View {
                         }.buttonLabel()
                     })
                     .onAppear() {
-                        //price = IAPManager.shared.price() ?? "Unknow"
+                        price = IAPManager.shared.price() ?? "Unknow"
                         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                            // STOP WHEN PRICE IS FOUND ?
                             if self.price == "Unknow" {
-                                //price = IAPManager.shared.price() ?? "Unknow"
+                                price = IAPManager.shared.price() ?? "Unknow"
                             }
                         }
                     }
                     .alert(isPresented: $showingBuyInfo) {
                         Alert(
                             title: Text("Subscription information"),
-                            message: Text("You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, acess to an unlimited number of deck slots and the ability to delete the 7 decks already in the app."),
+                            message: Text("You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, XXXXX."),
                             primaryButton: .destructive(
                                 Text("Cancel"),
                                 action: {showingBuyInfo = false}
@@ -141,7 +143,7 @@ struct GoingPremium: View {
                             secondaryButton: .default(
                                 Text("Continue"),
                                 action: {
-                                    //hordeAppViewModel.buy()
+                                    planechaseVM.buy()
                                 }
                             )
                         )
@@ -153,7 +155,7 @@ struct GoingPremium: View {
                        .headline()
                    
                    Button(action: {
-                       //hordeAppViewModel.restore()
+                       planechaseVM.restore()
                    }, label: {
                        Text("Restore")
                            .textButtonLabel()

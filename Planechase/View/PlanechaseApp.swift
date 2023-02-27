@@ -57,6 +57,11 @@ struct PlanechaseApp: App {
                             Text("Options")
                         }
                 }
+                .onAppear() {
+                    // Not working from init
+                    IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId()], sharedSecret: IAPManager.getSharedSecret())
+                    planechaseVM.testPremium()
+                }
             }
         }
     }
@@ -82,6 +87,7 @@ class PlanechaseViewModel: ObservableObject {
         gameVM = GameViewModel()
         contentManagerVM = ContentManagerViewModel()
         contentManagerVM.planechaseVM = self
+        isPremium = UserDefaults.standard.object(forKey: "IsPremium") as? Bool ?? false
     }
     
     func togglePlaying(classicGameMode: Bool = false) {
