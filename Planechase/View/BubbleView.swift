@@ -102,9 +102,9 @@ struct GoingPremium: View {
         
         var body: some View {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Going premium").title()
+                Text("Support the app").title()
                 
-                Text("- Separate your collection in up to 10 different decks \n- Change the background color").headline()
+                Text("- Separate your collection in up to 10 different decks \n- Change the background color \n- My deepest thanks").headline()
                 
                 HStack(spacing: 10) {
                     Image(systemName: "cart")

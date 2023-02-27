@@ -12,7 +12,16 @@ struct PlanechaseApp: App {
     @ObservedObject var planechaseVM = PlanechaseViewModel()
     
     init() {
-        UITabBar.appearance().barTintColor = .black
+        if #available(iOS 15, *) {
+            // correct the transparency bug for Tab bars
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithDefaultBackground()
+            tabBarAppearance.backgroundColor = .black
+            UITabBar.appearance().standardAppearance = tabBarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        } else {
+            UITabBar.appearance().barTintColor = .black
+        }
     }
     
     var body: some Scene {
@@ -22,6 +31,7 @@ struct PlanechaseApp: App {
                     .statusBar(hidden: true)
                     .environmentObject(planechaseVM)
                     .environmentObject(planechaseVM.gameVM)
+                    .ignoresSafeArea()
             } else {
                 TabView {
                     MainMenuView()
@@ -60,7 +70,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var zoomViewType: ZoomViewType
     @Published var useHellridePNG: Bool
     @Published var biggerCardsOnMap: Bool
-    @Published var isPremium = true
+    @Published var isPremium = false
     
     init() {
         gradientId = SaveManager.getOptions_GradientId()

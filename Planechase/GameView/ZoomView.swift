@@ -45,14 +45,14 @@ struct ZoomView: View {
                     if planechaseVM.zoomViewType == .four {
                         VStack {
                             ZoomCardView(card: card,
-                                         width: cardWidth(geo.size.width / 1.7))
+                                         width: Card.widthtForHeight(geo.size.height / 2))
                             .rotationEffect(.degrees(180))
-                            .offset(y: 0)
+                            .offset(y: -5)
                             Spacer()
                             ZoomCardView(card: card,
-                                         width: cardWidth(geo.size.width / 1.7))
+                                         width: Card.widthtForHeight(geo.size.height / 2))
                             .rotationEffect(.degrees(0))
-                            .offset(y: 0)
+                            .offset(y: 5)
                         }
                     }
                 }

@@ -127,10 +127,14 @@ struct ContentManagerView: View {
                         .foregroundColor(.white)
                 }
                 Picker("Select Deck", selection: $deckSelected) {
-                    ForEach(contentManagerVM.decks, id: \.deckId) { deck in
-                        Text(deck.name).tag(deck.deckId)
+                    if planechaseVM.isPremium {
+                        ForEach(contentManagerVM.decks, id: \.deckId) { deck in
+                            Text(deck.name).tag(deck.deckId)
+                        }
+                    } else {
+                        Text(contentManagerVM.decks[0].name).tag(contentManagerVM.decks[0].deckId)
                     }
-                }.pickerStyle(.menu).buttonLabel().disabled(!planechaseVM.isPremium)
+                }.pickerStyle(.menu).font(.subheadline).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6)
                 .onChange(of: deckSelected) { newValue in
                     contentManagerVM.changeSelectedDeck(newDeckId: newValue)
                 }
