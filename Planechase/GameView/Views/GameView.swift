@@ -206,13 +206,21 @@ struct GameView: View {
         
         var body: some View {
             ZStack {
-                Image("Hellride")
-                    .resizable()
-                Text("Hellride")
-                    .title()
-                    .offset(y: -30)
-                Color.black
-                    .opacity(0.00001)
+                if planechaseVM.useHellridePNG {
+                    Image("Hellride")
+                        .resizable()
+                    Text("Hellride")
+                        .title()
+                        .offset(y: -30)
+                    Color.black
+                        .opacity(0.00001)
+                } else {
+                    Color.black
+                        .opacity(0.3)
+                    
+                    Text("Hellride")
+                        .title()
+                }
             }
             .frame(width: CardSizes.map.scaledWidth(coeff), height: CardSizes.map.scaledHeight(coeff))
             .cornerRadius(CardSizes.map.scaledRadius(coeff))
@@ -220,7 +228,7 @@ struct GameView: View {
             .overlay(
                 ZStack {
                     RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
-                        .stroke((card.state == .pickable && gameVM.travelModeEnable) ? .clear : .clear, lineWidth: 4)
+                        .stroke((card.state == .pickable && gameVM.travelModeEnable && !planechaseVM.useHellridePNG) ? .white : .clear, lineWidth: 4)
                 }
             )
             .onLongPressGesture(minimumDuration: 0.5) {

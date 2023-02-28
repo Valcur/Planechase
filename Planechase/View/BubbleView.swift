@@ -16,10 +16,11 @@ struct BubbleSizes {
 }
 
 struct DiscordInvite: View {
+    @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @State var showHideDiscordAlert = false
-    @State var showInvite = true
+    
     var body: some View {
-        if showInvite {
+        if planechaseVM.showDiscordInvite {
             ZStack(alignment: .topTrailing) {
                 DiscordInviteBubble()
                     .padding(BubbleSizes.padding)
@@ -37,7 +38,7 @@ struct DiscordInvite: View {
             .alert(isPresented: $showHideDiscordAlert) {
                 Alert(
                     title: Text("Hide Discord invite"),
-                    message: Text("You can still find a link in the options under 'contact'"),
+                    message: Text("You can still find a link in the options under 'Contact'"),
                     primaryButton: .destructive(
                         Text("Cancel"),
                         action: {showHideDiscordAlert = false}
@@ -46,7 +47,8 @@ struct DiscordInvite: View {
                         Text("Confirm"),
                         action: {
                             withAnimation(.easeInOut(duration: 0.3)) {
-                                showInvite = false
+                                planechaseVM.showDiscordInvite = false
+                                UserDefaults.standard.set(false, forKey: "ShowDiscordInvite")
                             }
                         }
                     )
@@ -135,7 +137,7 @@ struct GoingPremium: View {
                     .alert(isPresented: $showingBuyInfo) {
                         Alert(
                             title: Text("Subscription information"),
-                            message: Text("You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, XXXXX."),
+                            message: Text("You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots and choice over 8 background colors."),
                             primaryButton: .destructive(
                                 Text("Cancel"),
                                 action: {showingBuyInfo = false}
@@ -167,7 +169,7 @@ struct GoingPremium: View {
                         .foregroundColor(.white)
                     
                     Link("Privacy policy",
-                          destination: URL(string: "http://www.burning-beard.com/against-the-horde-app-policy")!).foregroundColor(.blue)
+                          destination: URL(string: "http://www.burning-beard.com/privacy-policy")!).foregroundColor(.blue)
                     
                     Text(", ")
                         .foregroundColor(.white)

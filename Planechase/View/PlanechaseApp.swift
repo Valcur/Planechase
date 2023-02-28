@@ -76,6 +76,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var useHellridePNG: Bool
     @Published var biggerCardsOnMap: Bool
     @Published var isPremium = false
+    @Published var showDiscordInvite = false
     
     init() {
         gradientId = SaveManager.getOptions_GradientId()
@@ -88,6 +89,7 @@ class PlanechaseViewModel: ObservableObject {
         contentManagerVM = ContentManagerViewModel()
         contentManagerVM.planechaseVM = self
         isPremium = UserDefaults.standard.object(forKey: "IsPremium") as? Bool ?? false
+        showDiscordInvite = UserDefaults.standard.object(forKey: "ShowDiscordInvite") as? Bool ?? true
     }
     
     func togglePlaying(classicGameMode: Bool = false) {

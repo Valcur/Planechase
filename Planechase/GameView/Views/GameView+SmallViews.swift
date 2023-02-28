@@ -41,7 +41,7 @@ struct DiceView: View {
                         Text(diceResultDescription)
                             .foregroundColor(.white)
                             .font(.subheadline)
-                            .padding(.vertical, 5)
+                            .padding(.vertical, 3)
                     }
                     
                     ZStack {
@@ -57,13 +57,13 @@ struct DiceView: View {
                             Image("Planechase")
                                 .resizable()
                                 .foregroundColor(.white)
-                                .padding(10)
+                                .padding(5)
                         }
-                    }.frame(width: 75, height: 75)
+                    }.frame(width: 73, height: 73)
                     .cornerRadius(8)
                     .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 0, z: 1))
 
-                    Text(rollCost > 0 ? "\(rollCost)" : "").headline().position(x: 15, y: 15)
+                    Text(rollCost > 0 ? "\(rollCost)" : "").headline().position(x: 13, y: 13)
                 }.transition(.scale.combined(with: .opacity))
             })
             .disabled(gameVM.travelModeEnable)
