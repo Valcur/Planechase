@@ -9,7 +9,10 @@ import SwiftUI
 
 struct MainMenuView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
-    var isAllowedToPlay: Bool {
+    var isAllowedToPlayClassic: Bool {
+        return planechaseVM.contentManagerVM.selectedCardsInCollection >= 10
+    }
+    var isAllowedToPlayEternities: Bool {
         return planechaseVM.contentManagerVM.selectedCardsInCollection >= 30
     }
     var body: some View {
@@ -41,18 +44,23 @@ struct MainMenuView: View {
                     }, label: {
                         Text("Play Classic")
                             .textButtonLabel()
-                    }).disabled(!isAllowedToPlay)
+                    }).disabled(!isAllowedToPlayClassic)
                     
                     Button(action: {
                         planechaseVM.togglePlaying(classicGameMode: false)
                     }, label: {
                         Text("Play Eternities map")
                             .textButtonLabel()
-                    }).disabled(!isAllowedToPlay)
+                    }).disabled(!isAllowedToPlayEternities)
                 }
                 
-                if !isAllowedToPlay {
-                    Text("You need at least 30 cards in your deck to play")
+                if !isAllowedToPlayClassic {
+                    Text("You need at least 10 cards in your deck to play Classic")
+                        .headline()
+                }
+                
+                if !isAllowedToPlayEternities {
+                    Text("You need at least 30 cards in your deck to play Eternities map")
                         .headline()
                 }
                 

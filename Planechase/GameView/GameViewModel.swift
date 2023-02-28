@@ -32,7 +32,7 @@ class GameViewModel: ObservableObject {
     }
     
     func startGame(withDeck: [Card], classicGameMode: Bool) {
-        guard withDeck.count >= 30 else { return }
+        guard withDeck.count >= (classicGameMode ? 10 : 30) else { return }
         isPlayingClassicMode = classicGameMode
         deck = withDeck
         deckFull = withDeck.map({ $0.new() })
@@ -147,6 +147,8 @@ class GameViewModel: ObservableObject {
                         }
                     }
                 }
+            } else {
+                deck.removeAll(where: { $0.id == cardToZoomIn!.id })
             }
             deck.removeAll(where: { $0.id == card.id })
             deck.shuffle()
@@ -272,6 +274,7 @@ extension GameViewModel {
     }
     
     func revealTopPlanarDeckCard() {
+        guard deck.count >= 1 else { return }
         var deckWillBeShuffled = false
         
         if deck.count == 1 {
@@ -300,8 +303,14 @@ extension GameViewModel {
     
     func planeswalkTo(_ card: Card) {
         if isPlayingClassicMode {
+            if deck.count == 0 {
+                deck.append(cardToZoomIn!)
+            }
             cardToZoomIn = card
         } else {
+            if deck.count == 0 {
+                deck.append(getCenter())
+            }
             addCardAtCoord(card: card, center)
         }
         removeCardFromRevealed(card)

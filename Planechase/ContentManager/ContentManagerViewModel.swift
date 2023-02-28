@@ -22,6 +22,7 @@ class ContentManagerViewModel: ObservableObject {
         decks = SaveManager.getDecks()
         selectedDeckId = SaveManager.getSelectedDeckId()
         changeSelectedDeck(newDeckId: selectedDeckId)
+        orderCollection()
     }
     
     func changeSelectedDeck(newDeckId: Int) {
@@ -32,10 +33,17 @@ class ContentManagerViewModel: ObservableObject {
             card.state = .showed
         }
         
+        var obsoleteCardIds: [String] = []
         for cardId in selectedDeck.deckCardIds {
             if let index = cardCollection.firstIndex(where: { $0.id == cardId }) {
                 cardCollection[index].state = .selected
+            } else {
+                // The card no longer exist in the collection
+                obsoleteCardIds.append(cardId)
             }
+        }
+        for cardId in obsoleteCardIds {
+            decks[selectedDeckId].deckCardIds.removeAll(where: { $0 == cardId })
         }
         
         SaveManager.saveSelectedDeckId(deckId: selectedDeckId)
@@ -53,6 +61,12 @@ class ContentManagerViewModel: ObservableObject {
         return cardCollection
     }
     
+    private func orderCollection() {
+        cardCollection.sort {
+            $0.id < $1.id
+        }
+    }
+    
     private func updateSelectedCardsCountInCollection() {
         selectedCardsInCollection = selectedDeck.deckCardIds.count
         planechaseVM?.objectWillChange.send()
@@ -60,12 +74,15 @@ class ContentManagerViewModel: ObservableObject {
     
     func addToCollection(_ cards: [Card]) {
         DispatchQueue.main.async {
-            for card in cards {
-                if !self.cardCollection.contains(where: { $0.id == card.id }) {
-                    self.cardCollection.append(card)
+            withAnimation(.easeInOut(duration: 0.3)) {
+                for card in cards {
+                    if !self.cardCollection.contains(where: { $0.id == card.id }) {
+                        self.cardCollection.append(card)
+                    }
                 }
+                self.orderCollection()
+                self.applyChangesToCollection()
             }
-            self.applyChangesToCollection()
         }
     }
     
@@ -123,6 +140,7 @@ class ContentManagerViewModel: ObservableObject {
         if card.imageURL == nil {
             SaveManager.deleteCustomImageFromCard(card)
         }
+        updateSelectedCardsCountInCollection()
         applyChangesToCollection()
     }
     
@@ -132,12 +150,13 @@ class ContentManagerViewModel: ObservableObject {
     }
     
     private func createIdForNewImportedCard() -> String {
+        let beforeId = "000000000000_"
         var id = 1
-        while cardCollection.contains(where: { $0.id == "\(id)" }) {
+        while cardCollection.contains(where: { $0.id == "\(beforeId)\(id)" }) {
             id += 1
         }
-        print("nid for new card : \(id)")
-        return "\(id)"
+        print("id for new card : \(beforeId)\(id)")
+        return "\(beforeId)\(id)"
     }
 }
 
