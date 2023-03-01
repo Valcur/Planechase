@@ -39,7 +39,7 @@ struct PlanechaseApp: App {
                         .environmentObject(planechaseVM)
                         .tabItem {
                             Image(systemName: "play.fill")
-                            Text("Play")
+                            Text("tab_play".translate())
                         }
                     ContentManagerView()
                         .statusBar(hidden: true)
@@ -47,14 +47,14 @@ struct PlanechaseApp: App {
                         .environmentObject(planechaseVM.contentManagerVM)
                         .tabItem {
                             Image(systemName: "list.dash")
-                            Text("Collection")
+                            Text("tab_collection".translate())
                         }
                     OptionsMenuView()
                         .statusBar(hidden: true)
                         .environmentObject(planechaseVM)
                         .tabItem {
                             Image(systemName: "gear")
-                            Text("Options")
+                            Text("tab_options".translate())
                         }
                 }
                 .onAppear() {

@@ -209,7 +209,7 @@ struct GameView: View {
                 if planechaseVM.useHellridePNG {
                     Image("Hellride")
                         .resizable()
-                    Text("Hellride")
+                    Text("game_hellride_title".translate())
                         .title()
                         .offset(y: -30)
                     Color.black
@@ -218,7 +218,7 @@ struct GameView: View {
                     Color.black
                         .opacity(0.3)
                     
-                    Text("Hellride")
+                    Text("game_hellride_title".translate())
                         .title()
                 }
             }

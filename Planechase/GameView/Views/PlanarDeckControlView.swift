@@ -18,7 +18,7 @@ struct PlanarDeckControlView: View {
                         gameVM.revealTopPlanarDeckCard()
                     }
                 }, label: {
-                    Text("Reveal top card")
+                    Text("game_deckController_revealTop".translate())
                         .textButtonLabel()
                 })
                 
@@ -34,7 +34,7 @@ struct PlanarDeckControlView: View {
                 Button(action: {
                     gameVM.togglePlanarDeckController()
                 }, label: {
-                    Text("Put all revealed card at the bottom in a random order and leave")
+                    Text("game_deckController_close".translate())
                         .textButtonLabel()
                 })
             }.iPhoneScaler(width: geo.size.width, height: geo.size.height).frame(width: geo.size.width, height: geo.size.height)
@@ -76,7 +76,7 @@ struct PlanarDeckControlView: View {
                             gameVM.putCardToBottom(card)
                         }
                     }, label: {
-                        Text("Put bottom")
+                        Text("game_deckController_putBottom".translate())
                             .textButtonLabel()
                     })
                     
@@ -87,7 +87,7 @@ struct PlanarDeckControlView: View {
                             gameVM.putCardToTop(card)
                         }
                     }, label: {
-                        Text("Put top")
+                        Text("game_deckController_putTop".translate())
                             .textButtonLabel()
                     })
                     
@@ -98,7 +98,7 @@ struct PlanarDeckControlView: View {
                             gameVM.planeswalkTo(card)
                         }
                     }, label: {
-                        Text("Planeswalk")
+                        Text("game_deckController_planeswalk".translate())
                             .textButtonLabel()
                     })
                 }

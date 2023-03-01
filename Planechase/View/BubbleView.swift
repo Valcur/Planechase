@@ -37,14 +37,14 @@ struct DiscordInvite: View {
             }
             .alert(isPresented: $showHideDiscordAlert) {
                 Alert(
-                    title: Text("Hide Discord invite"),
-                    message: Text("You can still find a link in the options under 'Contact'"),
+                    title: Text("discord_hide_title".translate()),
+                    message: Text("discord_hide_content".translate()),
                     primaryButton: .destructive(
-                        Text("Cancel"),
+                        Text("cancel".translate()),
                         action: {showHideDiscordAlert = false}
                     ),
                     secondaryButton: .default(
-                        Text("Confirm"),
+                        Text("confirm".translate()),
                         action: {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 planechaseVM.showDiscordInvite = false
@@ -68,11 +68,11 @@ struct DiscordInvite: View {
                         .resizable()
                         .frame(width: imageWidth, height: imageWidth * 0.27)
                     
-                    Text("Join us on Discord").title()
+                    Text("discord_title".translate()).title()
                     
-                    Text("Share your custom Planechase cards or find new ones in our Discord server.").headline()
+                    Text("discord_content".translate()).headline()
                     
-                    Text("Tap here to join").headline()
+                    Text("discord_tapToJoin".translate()).headline()
                 }
             }
         }
@@ -101,13 +101,13 @@ struct GoingPremium: View {
     struct GoingPremiumBubble: View {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @State var showingBuyInfo = false
-        @State var price = "Unknow"
+        @State var price = "premium_unknown".translate()
         
         var body: some View {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Support the app").title()
+                Text("premium_title".translate()).title()
                 
-                Text("- Separate your collection in up to 10 different decks \n- Change the background color \n- My deepest thanks").headline()
+                Text("premium_content".translate()).headline()
                 
                 HStack(spacing: 10) {
                     Image(systemName: "cart")
@@ -121,29 +121,29 @@ struct GoingPremium: View {
                             Text(price)
                                 .headline()
                             
-                            Text(" / Month")
+                            Text("premium_month".translate())
                                 .headline()
                         }.buttonLabel()
                     })
                     .onAppear() {
-                        price = IAPManager.shared.price() ?? "Unknow"
+                        price = IAPManager.shared.price() ?? "premium_unknown".translate()
                         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
                             // STOP WHEN PRICE IS FOUND ?
-                            if self.price == "Unknow" {
-                                price = IAPManager.shared.price() ?? "Unknow"
+                            if self.price == "premium_unknown".translate() {
+                                price = IAPManager.shared.price() ?? "premium_unknown".translate()
                             }
                         }
                     }
                     .alert(isPresented: $showingBuyInfo) {
                         Alert(
-                            title: Text("Subscription information"),
-                            message: Text("You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots and choice over 8 background colors."),
+                            title: Text("premium_info_title".translate()),
+                            message: Text("premium_info_content".translate()),
                             primaryButton: .destructive(
-                                Text("Cancel"),
+                                Text("cancel".translate()),
                                 action: {showingBuyInfo = false}
                             ),
                             secondaryButton: .default(
-                                Text("Continue"),
+                                Text("continue".translate()),
                                 action: {
                                     planechaseVM.buy()
                                 }
@@ -153,22 +153,22 @@ struct GoingPremium: View {
                 }
                 
                 HStack(spacing: 10) {
-                   Text("Already premium ? ")
+                    Text("premium_alreadyPremium".translate())
                        .headline()
                    
                    Button(action: {
                        planechaseVM.restore()
                    }, label: {
-                       Text("Restore")
+                       Text("premium_restore".translate())
                            .textButtonLabel()
                    })
                }
                 
                 HStack(spacing: 0) {
-                    Text("View our ")
+                    Text("premium_viewOur".translate())
                         .foregroundColor(.white)
                     
-                    Link("Privacy policy",
+                    Link("premium_policy".translate(),
                           destination: URL(string: "http://www.burning-beard.com/privacy-policy")!).foregroundColor(.blue)
                     
                     Text(", ")

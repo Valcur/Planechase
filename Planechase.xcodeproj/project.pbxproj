@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DB3AB7C929AD051E00B11E17 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AB7C829AD051E00B11E17 /* StoreKit.framework */; };
+		DB3AB7CC29AFAA6900B11E17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3AB7CE29AFAA6900B11E17 /* Localizable.strings */; };
 		DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */; };
 		DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */; };
 		DB5098DF29A388DE0058FCCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB5098DE29A388DE0058FCCB /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		DB3AB7C829AD051E00B11E17 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		DB3AB7CD29AFAA6900B11E17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB5098D729A388DA0058FCCB /* Planechase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Planechase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanechaseApp.swift; sourceTree = "<group>"; };
 		DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManagerView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				DB5098E029A388DE0058FCCB /* Preview Content */,
 				DBC339B629ACEA840089CB01 /* IAPManager.swift */,
 				DBC339BA29ACED690089CB01 /* PlanechaseVM+IAP.swift */,
+				DB3AB7CE29AFAA6900B11E17 /* Localizable.strings */,
 			);
 			path = Planechase;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB5098E229A388DE0058FCCB /* Preview Assets.xcassets in Resources */,
+				DB3AB7CC29AFAA6900B11E17 /* Localizable.strings in Resources */,
 				DB5098DF29A388DE0058FCCB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,6 +357,17 @@
 			targetProxy = DB5098FA29A3A1880058FCCB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DB3AB7CE29AFAA6900B11E17 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB3AB7CD29AFAA6900B11E17 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DB5098E329A388DE0058FCCB /* Debug */ = {

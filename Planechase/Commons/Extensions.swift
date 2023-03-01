@@ -229,3 +229,9 @@ extension UIDevice {
         UIDevice.current.userInterfaceIdiom == .phone
     }
 }
+
+extension String {
+    func translate() -> String {
+        return NSLocalizedString(self, comment: self)
+    }
+}

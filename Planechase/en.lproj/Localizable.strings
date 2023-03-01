@@ -1,0 +1,96 @@
+// Mark: Tab bar
+
+"tab_play" = "Play";
+"tab_collection" = "Collection";
+"tab_options" = "Options";
+
+// Mark: Misc
+
+"cancel" = "Cancel";
+"confirm" = "Confirm";
+"continue" = "Continue";
+"delete" = "Delete";
+"exit" = "Exit";
+
+// Mark: Play
+
+"play_app_title" = "Planechase Companion";
+"play_playClassic" = "Play Classic";
+"play_playEternities" = "Play Eternities Map";
+"play_playClassic_needMoreCards" = "You need at least 10 cards in your deck to play Classic";
+"play_playEternities_needMoreCards" = "You need at least 30 cards in your deck to play Eternities map";
+
+// Mark: Bubbles
+
+"premium_title" = "Support the app";
+"premium_content" = "- Separate your collection in up to 10 different decks \n- Change the background color \n- My deepest thanks";
+"premium_unknown" = "Unknown";
+"premium_month" = " / Month";
+"premium_alreadyPremium" = "Already premium ?";
+"premium_restore" = "Restore";
+"premium_viewOur" = "View our ";
+"premium_policy" = "Privacy policy";
+"premium_info_title" = "Subscription information";
+"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots and choice over 8 background colors.";
+
+"discord_title" = "Join us on Discord";
+"discord_content" = "Share your custom Planechase cards or find new ones in our Discord server.";
+"discord_tapToJoin" = "Tap here to join";
+"discord_hide_title" = "Hide Discord invite";
+"discord_hide_content" = "You can still find a link in the options under 'Contact'";
+
+// Mark: Collection
+
+"collection_scryfall" = "Download from Scryfall";
+"collection_import" = "Import";
+"collection_deckSize" = "Deck size";
+"collection_howToUse" = "Tap a card to add/remove it from your deck. Hold to delete it from your collection.";
+"collection_selectAll" = "Select all";
+"collection_unselectAll" = "Unselect all";
+"collection_SelectDeck" = "Select Deck";
+"collection_emptyCollection1" = "First, you need to add cards to your collection";
+"collection_emptyCollection2" = "- Use the Download from scryfall button to download and add to your collection all official Planechase cards.";
+"collection_emptyCollection3" = "- Use the Import button to add a custom card from your device.";
+"collection_delete_title" = "Are you sure you want to delete this plane ?";
+"collection_delete_content" = "There is no undo";
+"collection_empty_bubble" = "Your deck is empty, add cards from your collection to your deck";
+
+// Mark: Game
+
+"game_hellride_title" = "Hellride";
+"game_dice_pressToRoll" = "Press to roll";
+"game_dice_chaos" = "Chaos";
+"game_dice_planechase" = "Planechase";
+"game_dice_nothing" = "Nothing";
+"game_dice_resetCost" = "Reset cost";
+"game_tool_enablePlaneswalk" = "Enable Planeswalk";
+"game_tool_disablePlaneswalk" = "Disable Planeswalk";
+"game_tool_deckController" = "Deck Controller";
+"game_bubble_planeswalk" = "Hold on a plane to travel";
+"game_exit_title" = "Are you sure you want to return to main menu ?";
+"game_exit_content" = "Game will be lost";
+"game_deckController_revealTop" = "Reveal top card";
+"game_deckController_close" = "Put all revealed card at the bottom in a random order and leave";
+"game_deckController_putTop" = "Put top";
+"game_deckController_putBottom" = "Put bottom";
+"game_deckController_planeswalk" = "Planeswalk";
+
+// Mark: Options
+
+"options_optionsTitle" = "Options";
+"options_contactTitle" = "Contact";
+"options_thanksTitle" = "Thanks";
+
+"options_backgroundColor" = "Background Color";
+"options_ui_title" = "Game UI";
+"options_ui_zoomType" = "Zoom type";
+"options_ui_biggerCardsOnMap" = "Bigger cards on map";
+"options_ui_hellridePng" = "SUPER SECRET : use red_evil_portal.png for hellride";
+
+"options_contact_discord" = "Want a place to share your custom Planechase cards or just to find more card made by the community ? Suggestion for the app ? Bugs that you want me to fix ?";
+"options_contact_discordJoin" = "Join us on Discord !";
+
+"options_thanks_wizards" = "Planechase Companion is an unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.";
+"options_thanks_planechase" = "Planechase image from Agung Rama";
+"options_thanks_chaos" = "Chaos image from Ken111";
+"options_thanks_hellride" = "Hellride image by upklyak from Freepik";

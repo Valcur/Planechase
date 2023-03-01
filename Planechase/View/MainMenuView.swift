@@ -35,32 +35,32 @@ struct MainMenuView: View {
                 
                 Spacer()
                 
-                Text("Planechase companion")
+                Text("play_app_title".translate())
                     .title().padding(40)
                 
                 HStack(spacing: 50) {
                     Button(action: {
                         planechaseVM.togglePlaying(classicGameMode: true)
                     }, label: {
-                        Text("Play Classic")
+                        Text("play_playClassic".translate())
                             .textButtonLabel()
                     }).disabled(!isAllowedToPlayClassic)
                     
                     Button(action: {
                         planechaseVM.togglePlaying(classicGameMode: false)
                     }, label: {
-                        Text("Play Eternities map")
+                        Text("play_playEternities".translate())
                             .textButtonLabel()
                     }).disabled(!isAllowedToPlayEternities)
                 }
                 
                 if !isAllowedToPlayClassic {
-                    Text("You need at least 10 cards in your deck to play Classic")
+                    Text("play_playClassic_needMoreCards".translate())
                         .headline()
                 }
                 
                 if !isAllowedToPlayEternities {
-                    Text("You need at least 30 cards in your deck to play Eternities map")
+                    Text("play_playEternities_needMoreCards".translate())
                         .headline()
                 }
                 

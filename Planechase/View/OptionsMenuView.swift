@@ -65,7 +65,7 @@ struct OptionsMenuView: View {
                             .foregroundColor(.white)
                     }
                     
-                    Text("Background Color")
+                    Text("options_backgroundColor".translate())
                         .title()
                     
                     Spacer()
@@ -84,11 +84,11 @@ struct OptionsMenuView: View {
                     }
                 }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                 
-                Text("Game UI")
+                Text("options_ui_title".translate())
                     .title()
                 
                 HStack {
-                    Text("Zoom type")
+                    Text("options_ui_zoomType".translate())
                         .headline()
                     
                     Spacer()
@@ -104,10 +104,10 @@ struct OptionsMenuView: View {
                     ZoomViewTypeView(zoomType: .four)
                 }
                 
-                Toggle("Bigger cards on map", isOn: $planechaseVM.biggerCardsOnMap)
+                Toggle("options_ui_biggerCardsOnMap".translate(), isOn: $planechaseVM.biggerCardsOnMap)
                     .font(.subheadline).foregroundColor(.white)
                 
-                Toggle("SUPER SECRET : use red_evil_portal.png for hellride", isOn: $planechaseVM.useHellridePNG)
+                Toggle("options_ui_hellridePng".translate(), isOn: $planechaseVM.useHellridePNG)
                     .font(.subheadline).foregroundColor(.white)
             }.scrollablePanel()
             .onChange(of: planechaseVM.biggerCardsOnMap) { _ in
@@ -161,12 +161,12 @@ struct OptionsMenuView: View {
     struct ContactPanel: View {
         var body: some View {
             VStack(spacing: 20) {
-                Text("Want a place to share your custom Planechase cards or just to find more card made by the community ? Suggestion for the app ? Bugs that you want me to fix ?")
+                Text("options_contact_discord".translate())
                     .headline()
                 
                 Link(destination: URL(string: "https://discord.com/invite/wzm7bu6KDJ")!) {
                     VStack {
-                        Text("Join us on Discord !").headline()
+                        Text("options_contact_discordJoin".translate()).headline()
                         Image("Discord")
                             .resizable()
                             .frame(width: 280, height: 78)
@@ -179,14 +179,14 @@ struct OptionsMenuView: View {
     struct ThanksPanel: View {
         var body: some View {
             VStack(spacing: 20) {
-                Text("Planechase Companion is an unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.")
+                Text("options_thanks_wizards".translate())
                     .headline()
                     .padding(.bottom, 40)
-                Text("Planechase image from Agung Rama")
+                Text("options_thanks_planechase".translate())
                     .headline()
-                Text("Chaos image from Ken111")
+                Text("options_thanks_chaos".translate())
                     .headline()
-                Text("Hellride image by upklyak from Freepik")
+                Text("options_thanks_hellride".translate())
                     .headline()
             }.scrollablePanel()
         }
@@ -200,11 +200,11 @@ struct OptionsMenuView: View {
         func title() -> String {
             switch self {
             case .options:
-                return "Options"
+                return "options_optionsTitle".translate()
             case .contact:
-                return "Contact"
+                return "options_contactTitle".translate()
             case .thanks:
-                return "Thanks"
+                return "options_thanksTitle".translate()
             }
         }
     }

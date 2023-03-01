@@ -16,13 +16,13 @@ struct DiceView: View {
         if diceResult == -1 {
             return ""
         } else if diceResult == -2 {
-            return "Press to roll"
+            return "game_dice_pressToRoll".translate()
         } else if diceResult == 1 {
-            return "Chaos"
+            return "game_dice_chaos".translate()
         } else if diceResult == 6 {
-            return "Planechase"
+            return "game_dice_planechase".translate()
         } else {
-            return "Nothing"
+            return "game_dice_nothing".translate()
         }
     }
     
@@ -101,7 +101,7 @@ struct DiceView: View {
                     rollCost = 0
                 }
             }, label: {
-                Text("Reset cost").textButtonLabel()
+                Text("game_dice_resetCost".translate()).textButtonLabel()
             })
         }
     }
@@ -162,7 +162,7 @@ struct ToolView: View {
                         gameVM.toggleTravelMode()
                     }
                 }, label: {
-                    Text(gameVM.travelModeEnable ? "Disable Planeswalk" : "Enable Planeswalk")
+                    Text(gameVM.travelModeEnable ? "game_tool_disablePlaneswalk".translate() : "game_tool_enablePlaneswalk".translate())
                         .buttonLabel()
                 })
                 
@@ -171,7 +171,7 @@ struct ToolView: View {
                         gameVM.togglePlanarDeckController()
                     }
                 }, label: {
-                    Text("Deck Controller")
+                    Text("game_tool_deckController".translate())
                         .buttonLabel()
                 })
             }.offset(x: -60)
@@ -183,7 +183,7 @@ struct GameInfoView: View {
     @EnvironmentObject var gameVM: GameViewModel
     
     var text: String {
-        return "Hold on a plane to travel"
+        return "game_bubble_planeswalk".translate()
     }
     var showInfoView: Bool {
         return gameVM.travelModeEnable
@@ -209,9 +209,9 @@ struct ReturnToMenuView: View {
         })
         .alert(isPresented: $showingReturnAlert) {
             Alert(
-                title: Text("Are you sure you want to return to main menu ?"),
-                message: Text("Game will be lost"),
-                primaryButton: .destructive(Text("Exit")) {
+                title: Text("game_exit_title".translate()),
+                message: Text("game_exit_content".translate()),
+                primaryButton: .destructive(Text("exit".translate())) {
                     withAnimation(.easeInOut(duration: 0.3)) {
                         planechaseVM.togglePlaying()
                     }

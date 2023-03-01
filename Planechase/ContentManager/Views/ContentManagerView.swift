@@ -29,7 +29,7 @@ struct ContentManagerView: View {
                         Button(action: {
                             contentManagerVM.downloadPlanechaseCardsFromScryfall()
                         }, label: {
-                            Text("Download from Scryfall")
+                            Text("collection_scryfall".translate())
                                 .textButtonLabel()
                         })
                         
@@ -39,7 +39,7 @@ struct ContentManagerView: View {
                         
                         Text(contentManagerVM.selectedDeck.name).headline().padding(.trailing, 20)
                         
-                        Text("Deck size : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
+                        Text("\("collection_deckSize".translate()) : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
                             .headline()
                         
                         DeckSelection()
@@ -47,7 +47,7 @@ struct ContentManagerView: View {
                     
                     // MARK: Bottom bar
                     HStack {
-                        Text("Tap a card to add/remove it from your deck. Hold to delete it from your collection.")
+                        Text("collection_howToUse".translate())
                             .headline().padding(5)
                         
                         Spacer()
@@ -58,14 +58,14 @@ struct ContentManagerView: View {
                                     contentManagerVM.selectAll()
                                 }
                             }, label: {
-                                Text("Select all").textButtonLabel()
+                                Text("collection_selectAll".translate()).textButtonLabel()
                             })
                             Button(action: {
                                 withAnimation(.easeInOut(duration: 0.3)) {
                                     contentManagerVM.unselectAll()
                                 }
                             }, label: {
-                                Text("Unselect all").textButtonLabel()
+                                Text("collection_unselectAll").textButtonLabel()
                             })
                         }.padding(.trailing, 20)
                         
@@ -126,7 +126,7 @@ struct ContentManagerView: View {
                         .font(.title)
                         .foregroundColor(.white)
                 }
-                Picker("Select Deck", selection: $deckSelected) {
+                Picker("collection_SelectDeck".translate(), selection: $deckSelected) {
                     if planechaseVM.isPremium {
                         ForEach(contentManagerVM.decks, id: \.deckId) { deck in
                             Text(deck.name).tag(deck.deckId)
@@ -148,9 +148,9 @@ struct ContentManagerView: View {
     struct EmptyCardCollectionInfo: View {
         var body: some View {
             VStack {
-                Text("First, you need to add cards to your collection").headline().padding(10)
-                Text("- Use the Download from scryfall button to download and add to your collection all official Planechase cards.").headline().frame(width: 300)
-                Text("- Use the Import button to add a custom card from your device.").headline().frame(width: 300)
+                Text("collection_emptyCollection1".translate()).headline().padding(10)
+                Text("collection_emptyCollection2".translate()).headline().frame(width: 300)
+                Text("collection_emptyCollection3".translate()).headline().frame(width: 300)
             }.padding(.vertical, UIDevice.isIPad ? 100 : 10)
         }
     }
@@ -164,7 +164,7 @@ struct ContentManagerView: View {
             Button(action: {
                 showingImagePicker = true
             }, label: {
-                Text("Import")
+                Text("collection_import".translate())
                     .textButtonLabel()
             })
             .onChange(of: inputImage) { _ in addNewImageToCollection() }
@@ -227,9 +227,9 @@ struct ContentManagerView: View {
             }
             .alert(isPresented: $showingDeleteAlert) {
                 Alert(
-                    title: Text("Are you sure you want to delete this plane ?"),
-                    message: Text("There is no undo"),
-                    primaryButton: .destructive(Text("Delete")) {
+                    title: Text("collection_delete_title".translate()),
+                    message: Text("collection_delete_content".translate()),
+                    primaryButton: .destructive(Text("delete".translate())) {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             contentManagerVM.removeCardFromCollection(card)
                         }
@@ -244,7 +244,7 @@ struct ContentManagerView: View {
         @EnvironmentObject var contentVM: ContentManagerViewModel
         
         var text: String {
-            return "Your deck is empty, add cards from your collection to your deck"
+            return "collection_empty_bubble".translate()
         }
         var showInfoView: Bool {
             return contentVM.cardCollection.count > 0 && contentVM.selectedDeck.deckCardIds.count == 0
