@@ -77,6 +77,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var biggerCardsOnMap: Bool
     @Published var isPremium = false
     @Published var showDiscordInvite = false
+    @Published var paymentProcessing = false
     
     init() {
         gradientId = SaveManager.getOptions_GradientId()

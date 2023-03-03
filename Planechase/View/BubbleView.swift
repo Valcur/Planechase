@@ -109,60 +109,64 @@ struct GoingPremium: View {
                 
                 Text("premium_content".translate()).headline()
                 
-                HStack(spacing: 10) {
-                    Image(systemName: "cart")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                    
-                    Button(action: {
-                        showingBuyInfo = true
-                    }, label: {
-                        HStack(spacing: 0) {
-                            Text(price)
-                                .headline()
-                            
-                            Text("premium_month".translate())
-                                .headline()
-                        }.buttonLabel()
-                    })
-                    .onAppear() {
-                        price = IAPManager.shared.price() ?? "premium_unknown".translate()
-                        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                            // STOP WHEN PRICE IS FOUND ?
-                            if self.price == "premium_unknown".translate() {
-                                price = IAPManager.shared.price() ?? "premium_unknown".translate()
+                if !planechaseVM.paymentProcessing {
+                    HStack(spacing: 10) {
+                        Image(systemName: "cart")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        
+                        Button(action: {
+                            showingBuyInfo = true
+                        }, label: {
+                            HStack(spacing: 0) {
+                                Text(price)
+                                    .headline()
+                                
+                                Text("premium_month".translate())
+                                    .headline()
+                            }.buttonLabel()
+                        })
+                        .onAppear() {
+                            price = IAPManager.shared.price() ?? "premium_unknown".translate()
+                            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                                // STOP WHEN PRICE IS FOUND ?
+                                if self.price == "premium_unknown".translate() {
+                                    price = IAPManager.shared.price() ?? "premium_unknown".translate()
+                                }
                             }
                         }
-                    }
-                    .alert(isPresented: $showingBuyInfo) {
-                        Alert(
-                            title: Text("premium_info_title".translate()),
-                            message: Text("premium_info_content".translate()),
-                            primaryButton: .destructive(
-                                Text("cancel".translate()),
-                                action: {showingBuyInfo = false}
-                            ),
-                            secondaryButton: .default(
-                                Text("continue".translate()),
-                                action: {
-                                    planechaseVM.buy()
-                                }
+                        .alert(isPresented: $showingBuyInfo) {
+                            Alert(
+                                title: Text("premium_info_title".translate()),
+                                message: Text("premium_info_content".translate()),
+                                primaryButton: .destructive(
+                                    Text("cancel".translate()),
+                                    action: {showingBuyInfo = false}
+                                ),
+                                secondaryButton: .default(
+                                    Text("continue".translate()),
+                                    action: {
+                                        planechaseVM.buy()
+                                    }
+                                )
                             )
-                        )
+                        }
                     }
+                    
+                    HStack(spacing: 10) {
+                        Text("premium_alreadyPremium".translate())
+                            .headline()
+                        
+                        Button(action: {
+                            planechaseVM.restore()
+                        }, label: {
+                            Text("premium_restore".translate())
+                                .textButtonLabel()
+                        })
+                    }
+                } else {
+                    Text("Processing ...").title()
                 }
-                
-                HStack(spacing: 10) {
-                    Text("premium_alreadyPremium".translate())
-                       .headline()
-                   
-                   Button(action: {
-                       planechaseVM.restore()
-                   }, label: {
-                       Text("premium_restore".translate())
-                           .textButtonLabel()
-                   })
-               }
                 
                 HStack(spacing: 0) {
                     Text("premium_viewOur".translate())
