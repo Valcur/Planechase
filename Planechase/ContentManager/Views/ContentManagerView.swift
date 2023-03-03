@@ -48,7 +48,7 @@ struct ContentManagerView: View {
                     // MARK: Bottom bar
                     HStack {
                         Text("collection_howToUse".translate())
-                            .headline().padding(5)
+                            .headline()                       .fixedSize(horizontal: false, vertical: true).padding(5)
                         
                         Spacer()
                         

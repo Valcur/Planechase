@@ -25,7 +25,7 @@ struct MainMenuView: View {
                         DiscordInvite()
                         GoingPremium()
                         Spacer()
-                    }.padding(10).scaleEffect(UIDevice.isIPhone ? 0.8 : 1, anchor: .topLeading)
+                    }.padding(10).scaleEffect(UIDevice.isIPhone ? 0.75 : 1, anchor: .topLeading)
                 }
                 
                 Spacer()

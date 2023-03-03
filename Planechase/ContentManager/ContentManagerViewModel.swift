@@ -33,6 +33,13 @@ class ContentManagerViewModel: ObservableObject {
             card.state = .showed
         }
         
+        removeObsoleteCardIds()
+        
+        SaveManager.saveSelectedDeckId(deckId: selectedDeckId)
+        updateSelectedCardsCountInCollection()
+    }
+    
+    func removeObsoleteCardIds() {
         var obsoleteCardIds: [String] = []
         for cardId in selectedDeck.deckCardIds {
             if let index = cardCollection.firstIndex(where: { $0.id == cardId }) {
@@ -45,9 +52,6 @@ class ContentManagerViewModel: ObservableObject {
         for cardId in obsoleteCardIds {
             decks[selectedDeckId].deckCardIds.removeAll(where: { $0 == cardId })
         }
-        
-        SaveManager.saveSelectedDeckId(deckId: selectedDeckId)
-        updateSelectedCardsCountInCollection()
     }
     
     func downloadPlanechaseCardsFromScryfall() {
@@ -140,6 +144,7 @@ class ContentManagerViewModel: ObservableObject {
         if card.imageURL == nil {
             SaveManager.deleteCustomImageFromCard(card)
         }
+        removeObsoleteCardIds()
         updateSelectedCardsCountInCollection()
         applyChangesToCollection()
     }
@@ -151,9 +156,9 @@ class ContentManagerViewModel: ObservableObject {
     
     private func createIdForNewImportedCard() -> String {
         let beforeId = "000000000000_"
-        var id = 1
+        var id = 9999999
         while cardCollection.contains(where: { $0.id == "\(beforeId)\(id)" }) {
-            id += 1
+            id -= 1
         }
         print("id for new card : \(beforeId)\(id)")
         return "\(beforeId)\(id)"

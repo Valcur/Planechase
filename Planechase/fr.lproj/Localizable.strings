@@ -23,7 +23,7 @@
 // Mark: Bubbles
 
 "premium_title" = "Soutenez l'app";
-"premium_content" = "- Séparez votre collection dans jusqu'à 10 decks différent\n- Changer la couleur d'arrière plan \n- Mes remerciements les plus sincères";
+"premium_content" = "- Séparez votre collection dans 10 decks différent\n- Changer la couleur d'arrière plan \n- Mes remerciements les plus sincères";
 "premium_unknown" = "Inconnu";
 "premium_month" = " / Mois";
 "premium_alreadyPremium" = "Déjà premium ?";
@@ -44,7 +44,7 @@
 "collection_scryfall" = "Télécharger depuis Scryfall";
 "collection_import" = "Importer";
 "collection_deckSize" = "Taille du deck";
-"collection_howToUse" = "Appuyer sur une carte pour l'ajouter/la supprimer add/remove du deck. Maintenez appuyé pour la supprimer de votre collection.";
+"collection_howToUse" = "Appuyez pour ajouter/retirer une carte à votre deck. Maintenez appuyé pour la supprimer de votre collection.";
 "collection_selectAll" = "Selectionner tous";
 "collection_unselectAll" = "Déselectionner tous";
 "collection_SelectDeck" = "Choisir Deck";
@@ -58,28 +58,28 @@
 // Mark: Game
 
 "game_hellride_title" = "Hellride";
-"game_dice_pressToRoll" = "Appuyez pour lancer";
+"game_dice_pressToRoll" = "Lancer le dé";
 "game_dice_chaos" = "Chaos";
 "game_dice_planechase" = "Planechase";
 "game_dice_nothing" = "Rien";
 "game_dice_resetCost" = "Reinitialiser";
 "game_tool_enablePlaneswalk" = "Activer Planeswalk";
-"game_tool_disablePlaneswalk" = "Desactiver Planeswalk";
-"game_tool_deckController" = "Controle du deck";
+"game_tool_disablePlaneswalk" = "Annuler Planeswalk";
+"game_tool_deckController" = "Contrôle du deck";
 "game_bubble_planeswalk" = "Maintenez appuyer sur un plan pour voyager";
 "game_exit_title" = "Êtes-vous sûr de vouloir retourner au menu principal ?";
 "game_exit_content" = "La partie sera perdue.";
 "game_deckController_revealTop" = "Révéler la carte du dessus";
-"game_deckController_close" = "Mettre les cartes révélées en dessous aleatoirement et partir";
-"game_deckController_putTop" = "Dessus";
-"game_deckController_putBottom" = "Dessous";
+"game_deckController_close" = "Mettre les cartes révélées en dessous aleatoirement et quitter";
+"game_deckController_putTop" = "Top";
+"game_deckController_putBottom" = "Bottom";
 "game_deckController_planeswalk" = "Planeswalk";
 
 // Mark: Options
 
 "options_optionsTitle" = "Options";
 "options_contactTitle" = "Contact";
-"options_thanksTitle" = "Remerciements";
+"options_thanksTitle" = "Thanks";
 
 "options_backgroundColor" = "Couleur d'arrière plan";
 "options_ui_title" = "Interface";
