@@ -60,7 +60,7 @@
 "game_hellride_title" = "Hellride";
 "game_dice_pressToRoll" = "Lancer le dé";
 "game_dice_chaos" = "Chaos";
-"game_dice_planechase" = "Planechase";
+"game_dice_planechase" = "Planeswalk";
 "game_dice_nothing" = "Rien";
 "game_dice_resetCost" = "Reinitialiser";
 "game_tool_enablePlaneswalk" = "Activer Planeswalk";
