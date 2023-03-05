@@ -207,7 +207,7 @@ struct ContentManagerView: View {
             }
             .padding(5)
             .overlay(
-                RoundedRectangle(cornerRadius: CardSizes.contentManager.cornerRadius + 4)
+                RoundedRectangle(cornerRadius: CardSizes.contentManager.cornerRadius + CardSizes.selectionBorderAdditionalCornerRadius)
                     .stroke(card.state == .selected ? .white : .clear, lineWidth: 4)
             )
             .onTapGesture {

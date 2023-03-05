@@ -11,6 +11,7 @@ struct CardSizes {
     static let map = CardSize(width: 320, coeff: 0.7)
     static let contentManager = CardSize(width: 450, coeff: 0.7)
     static let deckController = CardSize(width: 320, coeff: 0.85)
+    static let selectionBorderAdditionalCornerRadius: CGFloat = 5
     
     struct CardSize {
         var width: CGFloat {
@@ -27,9 +28,9 @@ struct CardSizes {
         }
         var cornerRadius: CGFloat {
             if UIDevice.current.userInterfaceIdiom == .pad {
-                return iPadWidth / 25
+                return iPadWidth / 21
             }
-            return iPadWidth * iPhoneSizeCoeff / 25
+            return iPadWidth * iPhoneSizeCoeff / 21
         }
         
         func scaledWidth(_ scaleFactor: CGFloat) -> CGFloat {

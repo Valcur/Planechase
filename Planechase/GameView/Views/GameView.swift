@@ -162,9 +162,9 @@ struct GameView: View {
             .padding(5)
             .overlay(
                 ZStack {
-                    RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
+                    RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + CardSizes.selectionBorderAdditionalCornerRadius)
                         .stroke((card.state == .selected && !gameVM.travelModeEnable) ? .white : .clear, lineWidth: 4)
-                    RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
+                    RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + CardSizes.selectionBorderAdditionalCornerRadius)
                         .stroke((card.state == .pickable && gameVM.travelModeEnable) ? .white : .clear, lineWidth: 4)
                 }
             )
@@ -227,7 +227,7 @@ struct GameView: View {
             .padding(5)
             .overlay(
                 ZStack {
-                    RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + 4)
+                    RoundedRectangle(cornerRadius: CardSizes.map.cornerRadius + CardSizes.selectionBorderAdditionalCornerRadius)
                         .stroke((card.state == .pickable && gameVM.travelModeEnable && !planechaseVM.useHellridePNG) ? .white : .clear, lineWidth: 4)
                 }
             )
