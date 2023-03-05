@@ -58,7 +58,7 @@ struct ZoomView: View {
                                              width: cardWidth(geo.size.height))
                                 .rotationEffect(.degrees(-90))
                                 .offset(x: -(cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
-                            }
+                            }.zIndex(2)
                         }
                     }
                     if planechaseVM.zoomViewType == .four {
@@ -72,7 +72,7 @@ struct ZoomView: View {
                                          width: Card.widthtForHeight(geo.size.height / 2))
                             .rotationEffect(.degrees(0))
                             .offset(y: 5)
-                        }
+                        }.zIndex(3)
                     }
                 }
             }.frame(width: geo.size.width, height: geo.size.height)

@@ -61,7 +61,7 @@ struct GameView: View {
         }
         
         if planechaseVM.zoomViewType == .four {
-            return width / 2 - 140
+            return width / 2 - 160
         } else if planechaseVM.zoomViewType == .two {
             return width / 2
         } else {
