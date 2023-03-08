@@ -65,7 +65,7 @@ struct MainMenuView: View {
                 }
                 
                 Spacer()
-            }.scaleEffect(UIDevice.isIPad ? 1 : 0.9)
+            }.scaleEffect(UIDevice.isIPad ? 1 : 0.9).padding(.leading, UIDevice.isIPhone && (planechaseVM.showDiscordInvite || !planechaseVM.isPremium) ? 200 : 0)
         }.ignoresSafeArea()
     }
 }

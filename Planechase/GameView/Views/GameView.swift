@@ -49,7 +49,7 @@ struct GameView: View {
             }.frame(width: geo.size.width, height: geo.size.height)
         }
         .onChange(of: diceResult) { _ in
-            if diceResult == 6 {
+            if diceResult == 2 {
                 gameVM.toggleTravelMode()
             }
         }

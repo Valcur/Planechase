@@ -58,57 +58,105 @@ struct OptionsMenuView: View {
         
         var body: some View {
             VStack(alignment: .leading, spacing: 15) {
-                HStack {
-                    if !planechaseVM.isPremium {
-                        Image(systemName: "crown.fill")
-                            .font(.title)
-                            .foregroundColor(.white)
+                Group {
+                    HStack {
+                        if !planechaseVM.isPremium {
+                            Image(systemName: "crown.fill")
+                                .font(.title)
+                                .foregroundColor(.white)
+                        }
+                        
+                        Text("options_backgroundColor".translate())
+                            .title()
+                        
+                        Spacer()
                     }
                     
-                    Text("options_backgroundColor".translate())
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            MenuCustomBackgroundColorChoiceView(gradientId: 1)
+                            MenuCustomBackgroundColorChoiceView(gradientId: 2)
+                            MenuCustomBackgroundColorChoiceView(gradientId: 3)
+                            MenuCustomBackgroundColorChoiceView(gradientId: 4)
+                            MenuCustomBackgroundColorChoiceView(gradientId: 5)
+                            MenuCustomBackgroundColorChoiceView(gradientId: 6)
+                            MenuCustomBackgroundColorChoiceView(gradientId: 7)
+                            MenuCustomBackgroundColorChoiceView(gradientId: 8)
+                        }
+                    }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
+                }
+                
+                Group {
+                    Text("options_ui_title".translate())
                         .title()
                     
-                    Spacer()
-                }
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
-                        MenuCustomBackgroundColorChoiceView(gradientId: 1)
-                        MenuCustomBackgroundColorChoiceView(gradientId: 2)
-                        MenuCustomBackgroundColorChoiceView(gradientId: 3)
-                        MenuCustomBackgroundColorChoiceView(gradientId: 4)
-                        MenuCustomBackgroundColorChoiceView(gradientId: 5)
-                        MenuCustomBackgroundColorChoiceView(gradientId: 6)
-                        MenuCustomBackgroundColorChoiceView(gradientId: 7)
-                        MenuCustomBackgroundColorChoiceView(gradientId: 8)
+                    HStack {
+                        Text("options_ui_zoomType".translate())
+                            .headline()
+                        
+                        Spacer()
+                        
+                        ZoomViewTypeView(zoomType: .one)
+                        
+                        Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
+                        
+                        ZoomViewTypeView(zoomType: .two)
+                        
+                        Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
+                        
+                        ZoomViewTypeView(zoomType: .four)
                     }
-                }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
-                
-                Text("options_ui_title".translate())
-                    .title()
-                
-                HStack {
-                    Text("options_ui_zoomType".translate())
-                        .headline()
                     
-                    Spacer()
+                    Toggle("options_ui_biggerCardsOnMap".translate(), isOn: $planechaseVM.biggerCardsOnMap)
+                        .font(.subheadline).foregroundColor(.white)
                     
-                    ZoomViewTypeView(zoomType: .one)
-                    
-                    Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
-                    
-                    ZoomViewTypeView(zoomType: .two)
-                    
-                    Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
-                    
-                    ZoomViewTypeView(zoomType: .four)
+                    Toggle("options_ui_hellridePng".translate(), isOn: $planechaseVM.useHellridePNG)
+                        .font(.subheadline).foregroundColor(.white)
                 }
                 
-                Toggle("options_ui_biggerCardsOnMap".translate(), isOn: $planechaseVM.biggerCardsOnMap)
-                    .font(.subheadline).foregroundColor(.white)
-                
-                Toggle("options_ui_hellridePng".translate(), isOn: $planechaseVM.useHellridePNG)
-                    .font(.subheadline).foregroundColor(.white)
+                Group {
+                    Text("options_dice_title".translate())
+                        .title()
+                    
+                    HStack {
+                        if !planechaseVM.isPremium {
+                            Image(systemName: "crown.fill")
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                        }
+                        
+                        Text("options_dice_style".translate())
+                            .headline()
+                        
+                        Spacer()
+                    }
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            MenuCustomDiceChoiceView(diceStyleId: 0)
+                            MenuCustomDiceChoiceView(diceStyleId: 1)
+                            MenuCustomDiceChoiceView(diceStyleId: 2)
+                            MenuCustomDiceChoiceView(diceStyleId: 3)
+                            MenuCustomDiceChoiceView(diceStyleId: 4)
+                        }
+                    }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
+                    
+                    Toggle("options_dice_choiceFace".translate(), isOn: $planechaseVM.diceOptions.useChoiceDiceFace)
+                        .font(.subheadline).foregroundColor(.white)
+                    
+                    HStack(spacing: 15) {
+                        Text("options_dice_numberOfFace".translate())
+                            .headline()
+                        
+                        Spacer()
+                        
+                        MenuNumberOfFaceChoiceView(numberOfFace: 4)
+                        MenuNumberOfFaceChoiceView(numberOfFace: 5)
+                        MenuNumberOfFaceChoiceView(numberOfFace: 6)
+                        MenuNumberOfFaceChoiceView(numberOfFace: 7)
+                        MenuNumberOfFaceChoiceView(numberOfFace: 8)
+                    }
+                }
             }.scrollablePanel()
             .onChange(of: planechaseVM.biggerCardsOnMap) { _ in
                 planechaseVM.saveToggles()
@@ -153,6 +201,58 @@ struct OptionsMenuView: View {
                 }, label: {
                     GradientView(gradientId: gradientId).cornerRadius(15).frame(width: 120, height: 120).overlay(
                         RoundedRectangle(cornerRadius: 19).stroke(planechaseVM.gradientId == gradientId ? .white : .clear, lineWidth: 4)).padding(10)
+                })
+            }
+        }
+        
+        struct MenuCustomDiceChoiceView: View {
+            @EnvironmentObject var planechaseVM: PlanechaseViewModel
+            let diceStyleId: Int
+            
+            var body: some View {
+                Button(action: {
+                    print("Changing dice style to \(diceStyleId)")
+                    planechaseVM.setDiceOptions(DiceOptions(diceStyle: diceStyleId,
+                                                            numberOfFace: planechaseVM.diceOptions.numberOfFace,
+                                                            useChoiceDiceFace: planechaseVM.diceOptions.useChoiceDiceFace))
+                }, label: {
+                    ZStack {
+                        Color.black
+                            .opacity(0.3)
+                        
+                        Image("Choice")
+                            .resizable()
+                            .foregroundColor(.white)
+                            .padding(10)
+                        
+                        DiceOverlay(diceStyleId: diceStyleId)
+                    }.frame(width: 73, height: 73)
+                        .cornerRadius(8)
+                        .padding(8)
+                        .overlay(RoundedRectangle(cornerRadius: 14).stroke(planechaseVM.diceOptions.diceStyle == diceStyleId ? .white : .clear, lineWidth: 4))
+                        .padding(.vertical, 10)
+                })
+            }
+        }
+        
+        struct MenuNumberOfFaceChoiceView: View {
+            @EnvironmentObject var planechaseVM: PlanechaseViewModel
+            let numberOfFace: Int
+            var isSelected: Bool {
+                planechaseVM.diceOptions.numberOfFace == numberOfFace
+            }
+            
+            var body: some View {
+                Button(action: {
+                    planechaseVM.setDiceOptions(DiceOptions(diceStyle: planechaseVM.diceOptions.diceStyle,
+                                                            numberOfFace: numberOfFace,
+                                                            useChoiceDiceFace: planechaseVM.diceOptions.useChoiceDiceFace))
+                }, label: {
+                    Text("\(numberOfFace)")
+                        .font(.title2)
+                        .fontWeight(isSelected ? .bold : .regular)
+                        .foregroundColor(.white)
+                        .opacity(isSelected ? 1 : 0.7)
                 })
             }
         }

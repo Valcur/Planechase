@@ -61,6 +61,7 @@
 "game_dice_pressToRoll" = "Press to roll";
 "game_dice_chaos" = "Chaos";
 "game_dice_planechase" = "Planeswalk";
+"game_dice_choice" = "Your choice";
 "game_dice_nothing" = "Nothing";
 "game_dice_resetCost" = "Reset cost";
 "game_tool_enablePlaneswalk" = "Enable Planeswalk";
@@ -86,6 +87,10 @@
 "options_ui_zoomType" = "Zoom type";
 "options_ui_biggerCardsOnMap" = "Bigger cards on map";
 "options_ui_hellridePng" = "SUPER SECRET : use red_evil_portal.png for hellride";
+"options_dice_title" = "Dice";
+"options_dice_style" = "Dice style :";
+"options_dice_choiceFace" = "Add a face with both planeswalk and chaos that let the player choose";
+"options_dice_numberOfFace" = "Number of face on the dice";
 
 "options_contact_discord" = "Want a place to share your custom Planechase cards or just to find more card made by the community ? Suggestion for the app ? Bugs that you want me to fix ?";
 "options_contact_discordJoin" = "Join us on Discord !";

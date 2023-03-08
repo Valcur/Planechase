@@ -75,6 +75,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var zoomViewType: ZoomViewType
     @Published var useHellridePNG: Bool
     @Published var biggerCardsOnMap: Bool
+    @Published var diceOptions: DiceOptions = DiceOptions(diceStyle: 0, numberOfFace: 6, useChoiceDiceFace: true)
     @Published var isPremium = false
     @Published var showDiscordInvite = false
     @Published var paymentProcessing = false
@@ -110,6 +111,13 @@ class PlanechaseViewModel: ObservableObject {
         SaveManager.saveOptions_GradientId(gradient)
     }
     
+    func setDiceOptions(_ dice: DiceOptions) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            diceOptions = dice
+        }
+        // SaveManager.saveOptions_GradientId(gradient)
+    }
+    
     func setZoomViewType(_ zoomType: ZoomViewType) {
         withAnimation(.easeInOut(duration: 0.3)) {
             zoomViewType = zoomType
@@ -120,6 +128,12 @@ class PlanechaseViewModel: ObservableObject {
     func saveToggles() {
         SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG)
     }
+}
+
+struct DiceOptions: Codable {
+    var diceStyle: Int
+    var numberOfFace: Int
+    var useChoiceDiceFace: Bool
 }
 
 enum ZoomViewType: Codable {

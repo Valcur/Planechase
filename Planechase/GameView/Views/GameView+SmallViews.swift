@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DiceView: View {
+    @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var gameVM: GameViewModel
     @Binding var diceResult: Int
     @State private var animationAmount = 0.0
@@ -19,8 +20,10 @@ struct DiceView: View {
             return "game_dice_pressToRoll".translate()
         } else if diceResult == 1 {
             return "game_dice_chaos".translate()
-        } else if diceResult == 6 {
+        } else if diceResult == 2 {
             return "game_dice_planechase".translate()
+        } else if diceResult == 3 {
+            return "game_dice_choice".translate()
         } else {
             return "game_dice_nothing".translate()
         }
@@ -48,17 +51,25 @@ struct DiceView: View {
                         Color.black
                             .opacity(0.3)
                         
+                        DiceOverlay(diceStyleId: planechaseVM.diceOptions.diceStyle)
+                        
                         if diceResult == 1 {
                             Image("Chaos")
                                 .resizable()
                                 .foregroundColor(.white)
                                 .padding(10)
-                        } else if diceResult == 6 {
+                        } else if diceResult == 2 {
                             Image("Planechase")
                                 .resizable()
                                 .foregroundColor(.white)
                                 .padding(5)
                         }
+                        else if diceResult == 3 {
+                           Image("Choice")
+                               .resizable()
+                               .foregroundColor(.white)
+                               .padding(10)
+                       }
                     }.frame(width: 73, height: 73)
                     .cornerRadius(8)
                     .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 0, z: 1))
@@ -84,11 +95,16 @@ struct DiceView: View {
             self.animationAmount += 360
             rollCost += 1
         }
+        
+        var diceNumberOfFace = planechaseVM.diceOptions.numberOfFace
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             withAnimation(.spring()) {
                 gameVM.focusCenterToggler.toggle()
-                diceResult = Int.random(in: 1...6)
+                diceResult = Int.random(in: 1...diceNumberOfFace)
+                if !planechaseVM.diceOptions.useChoiceDiceFace && diceResult == 3 {
+                    diceResult = diceNumberOfFace
+                }
             }
         }
     }
@@ -103,6 +119,51 @@ struct DiceView: View {
             }, label: {
                 Text("game_dice_resetCost".translate()).textButtonLabel()
             })
+        }
+    }
+}
+
+struct DiceOverlay: View {
+    let diceStyleId: Int
+    var body: some View {
+        ZStack {
+            if diceStyleId > 0 {
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(.white, lineWidth: 2)
+                
+                CornerImage(diceStyle: diceStyleId, alignment: .topLeading)
+                CornerImage(diceStyle: diceStyleId, alignment: .topTrailing)
+                CornerImage(diceStyle: diceStyleId, alignment: .bottomLeading)
+                CornerImage(diceStyle: diceStyleId, alignment: .bottomTrailing)
+            }
+        }
+    }
+    
+    struct CornerImage: View {
+        let diceStyle: Int
+        let alignment: Alignment
+        var rotation: Double {
+            if alignment == .topLeading {
+                return 90
+            } else if alignment == .topTrailing {
+                return 180
+            } else if alignment == .bottomLeading {
+                return 0
+            } else {
+                return 270
+            }
+        }
+        var imageName: String {
+            return "Corner\(diceStyle)"
+        }
+        
+        var body: some View {
+            ZStack() {
+                Image(imageName)
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .rotationEffect(.degrees(rotation))
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment).padding(4)
         }
     }
 }
