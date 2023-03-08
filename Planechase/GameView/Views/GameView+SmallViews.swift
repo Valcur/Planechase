@@ -48,26 +48,29 @@ struct DiceView: View {
                     }
                     
                     ZStack {
-                        Color.black
+                        DiceOptions.getBackgroundColor(planechaseVM.diceOptions.diceColor)
                             .opacity(0.3)
                         
-                        DiceOverlay(diceStyleId: planechaseVM.diceOptions.diceStyle)
+                        DiceOverlay(diceStyleId: planechaseVM.diceOptions.diceStyle, diceColorId: planechaseVM.diceOptions.diceColor)
                         
                         if diceResult == 1 {
                             Image("Chaos")
                                 .resizable()
-                                .foregroundColor(.white)
+                                .renderingMode(.template)
+                                .foregroundColor(Color("DiceGold"))
                                 .padding(10)
                         } else if diceResult == 2 {
                             Image("Planechase")
                                 .resizable()
-                                .foregroundColor(.white)
+                                .renderingMode(.template)
+                                .foregroundColor(Color("DiceGold"))
                                 .padding(5)
                         }
                         else if diceResult == 3 {
                            Image("Choice")
                                .resizable()
-                               .foregroundColor(.white)
+                               .renderingMode(.template)
+                               .foregroundColor(Color("DiceGold"))
                                .padding(10)
                        }
                     }.frame(width: 73, height: 73)
@@ -96,7 +99,7 @@ struct DiceView: View {
             rollCost += 1
         }
         
-        var diceNumberOfFace = planechaseVM.diceOptions.numberOfFace
+        let diceNumberOfFace = planechaseVM.diceOptions.numberOfFace
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             withAnimation(.spring()) {
@@ -125,22 +128,35 @@ struct DiceView: View {
 
 struct DiceOverlay: View {
     let diceStyleId: Int
+    let diceColorId: Int
     var body: some View {
         ZStack {
             if diceStyleId > 0 {
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(.white, lineWidth: 2)
-                
-                CornerImage(diceStyle: diceStyleId, alignment: .topLeading)
-                CornerImage(diceStyle: diceStyleId, alignment: .topTrailing)
-                CornerImage(diceStyle: diceStyleId, alignment: .bottomLeading)
-                CornerImage(diceStyle: diceStyleId, alignment: .bottomTrailing)
+                if diceStyleId <= 4 {
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(DiceOptions.getForegroundColor(diceColorId), lineWidth: 2)
+                    
+                    CornerImage(diceStyle: diceStyleId, diceColorId: diceColorId, alignment: .topLeading)
+                    CornerImage(diceStyle: diceStyleId, diceColorId: diceColorId, alignment: .topTrailing)
+                    CornerImage(diceStyle: diceStyleId, diceColorId: diceColorId, alignment: .bottomLeading)
+                    CornerImage(diceStyle: diceStyleId, diceColorId: diceColorId, alignment: .bottomTrailing)
+                } else {
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(DiceOptions.getForegroundColor(diceColorId), lineWidth: 4)
+                    
+                    Image("Gear")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                        .scaleEffect(1.1)
+                }
             }
         }
     }
     
     struct CornerImage: View {
         let diceStyle: Int
+        let diceColorId: Int
         let alignment: Alignment
         var rotation: Double {
             if alignment == .topLeading {
@@ -161,6 +177,8 @@ struct DiceOverlay: View {
             ZStack() {
                 Image(imageName)
                     .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
                     .frame(width: 30, height: 30)
                     .rotationEffect(.degrees(rotation))
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment).padding(4)

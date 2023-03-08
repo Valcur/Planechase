@@ -138,7 +138,32 @@ struct OptionsMenuView: View {
                             MenuCustomDiceChoiceView(diceStyleId: 2)
                             MenuCustomDiceChoiceView(diceStyleId: 3)
                             MenuCustomDiceChoiceView(diceStyleId: 4)
+                            MenuCustomDiceChoiceView(diceStyleId: 5)
+                        }.padding(10)
+                    }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
+                    
+                    HStack {
+                        if !planechaseVM.isPremium {
+                            Image(systemName: "crown.fill")
+                                .font(.subheadline)
+                                .foregroundColor(.white)
                         }
+                        
+                        Text("options_dice_style".translate())
+                            .headline()
+                        
+                        Spacer()
+                    }
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            MenuCustomDiceColorChoiceView(diceColorId: 0)
+                            MenuCustomDiceColorChoiceView(diceColorId: 1)
+                            MenuCustomDiceColorChoiceView(diceColorId: 2)
+                            MenuCustomDiceColorChoiceView(diceColorId: 3)
+                            MenuCustomDiceColorChoiceView(diceColorId: 4)
+                            MenuCustomDiceColorChoiceView(diceColorId: 5)
+                        }.padding(10)
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     
                     Toggle("options_dice_choiceFace".translate(), isOn: $planechaseVM.diceOptions.useChoiceDiceFace)
@@ -213,24 +238,56 @@ struct OptionsMenuView: View {
                 Button(action: {
                     print("Changing dice style to \(diceStyleId)")
                     planechaseVM.setDiceOptions(DiceOptions(diceStyle: diceStyleId,
+                                                            diceColor: planechaseVM.diceOptions.diceColor,
                                                             numberOfFace: planechaseVM.diceOptions.numberOfFace,
                                                             useChoiceDiceFace: planechaseVM.diceOptions.useChoiceDiceFace))
                 }, label: {
                     ZStack {
-                        Color.black
+                        DiceOptions.getBackgroundColor(planechaseVM.diceOptions.diceColor)
                             .opacity(0.3)
                         
                         Image("Choice")
                             .resizable()
-                            .foregroundColor(.white)
+                            .renderingMode(.template)
+                            .foregroundColor(DiceOptions.getForegroundColor(planechaseVM.diceOptions.diceColor))
                             .padding(10)
                         
-                        DiceOverlay(diceStyleId: diceStyleId)
+                        DiceOverlay(diceStyleId: diceStyleId, diceColorId: planechaseVM.diceOptions.diceColor)
                     }.frame(width: 73, height: 73)
                         .cornerRadius(8)
                         .padding(8)
                         .overlay(RoundedRectangle(cornerRadius: 14).stroke(planechaseVM.diceOptions.diceStyle == diceStyleId ? .white : .clear, lineWidth: 4))
-                        .padding(.vertical, 10)
+                })
+            }
+        }
+        
+        struct MenuCustomDiceColorChoiceView: View {
+            @EnvironmentObject var planechaseVM: PlanechaseViewModel
+            let diceColorId: Int
+            
+            var body: some View {
+                Button(action: {
+                    print("Changing dice color to \(diceColorId)")
+                    planechaseVM.setDiceOptions(DiceOptions(diceStyle: planechaseVM.diceOptions.diceStyle,
+                                                            diceColor: diceColorId,
+                                                            numberOfFace: planechaseVM.diceOptions.numberOfFace,
+                                                            useChoiceDiceFace: planechaseVM.diceOptions.useChoiceDiceFace))
+                }, label: {
+                    ZStack {
+                        DiceOptions.getBackgroundColor(diceColorId)
+                            .opacity(0.3)
+                        
+                        Image("Choice")
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                            .padding(10)
+                        
+                        DiceOverlay(diceStyleId: planechaseVM.diceOptions.diceStyle, diceColorId: diceColorId)
+                    }.frame(width: 73, height: 73)
+                        .cornerRadius(8)
+                        .padding(8)
+                        .overlay(RoundedRectangle(cornerRadius: 14).stroke(planechaseVM.diceOptions.diceColor == diceColorId ? .white : .clear, lineWidth: 4))
                 })
             }
         }
@@ -245,6 +302,7 @@ struct OptionsMenuView: View {
             var body: some View {
                 Button(action: {
                     planechaseVM.setDiceOptions(DiceOptions(diceStyle: planechaseVM.diceOptions.diceStyle,
+                                                            diceColor: planechaseVM.diceOptions.diceColor,
                                                             numberOfFace: numberOfFace,
                                                             useChoiceDiceFace: planechaseVM.diceOptions.useChoiceDiceFace))
                 }, label: {

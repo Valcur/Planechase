@@ -75,7 +75,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var zoomViewType: ZoomViewType
     @Published var useHellridePNG: Bool
     @Published var biggerCardsOnMap: Bool
-    @Published var diceOptions: DiceOptions = DiceOptions(diceStyle: 0, numberOfFace: 6, useChoiceDiceFace: true)
+    @Published var diceOptions: DiceOptions
     @Published var isPremium = false
     @Published var showDiscordInvite = false
     @Published var paymentProcessing = false
@@ -86,6 +86,7 @@ class PlanechaseViewModel: ObservableObject {
         let optionToggles = SaveManager.getOptions_Toggles()
         biggerCardsOnMap = optionToggles.0
         useHellridePNG = optionToggles.1
+        diceOptions = SaveManager.getOptions_DiceOptions()
         
         gameVM = GameViewModel()
         contentManagerVM = ContentManagerViewModel()
@@ -115,7 +116,7 @@ class PlanechaseViewModel: ObservableObject {
         withAnimation(.easeInOut(duration: 0.3)) {
             diceOptions = dice
         }
-        // SaveManager.saveOptions_GradientId(gradient)
+        SaveManager.saveOptions_DiceOptions(diceOptions)
     }
     
     func setZoomViewType(_ zoomType: ZoomViewType) {
@@ -132,8 +133,39 @@ class PlanechaseViewModel: ObservableObject {
 
 struct DiceOptions: Codable {
     var diceStyle: Int
+    var diceColor: Int
     var numberOfFace: Int
     var useChoiceDiceFace: Bool
+    
+    static func getForegroundColor(_ colorId: Int) -> Color {
+        switch colorId {
+        case 1:
+            return Color("DiceGold")
+        case 2:
+            return Color("DiceGold")
+        case 3:
+            return .blue
+        case 4:
+            return .white
+        default:
+            return .white
+        }
+    }
+    
+    static func getBackgroundColor(_ colorId: Int) -> Color {
+        switch colorId {
+        case 1:
+            return .black
+        case 2:
+            return .blue
+        case 3:
+            return .white
+        case 4:
+            return Color("DiceGold")
+        default:
+            return .black
+        }
+    }
 }
 
 enum ZoomViewType: Codable {

@@ -141,6 +141,20 @@ extension SaveManager {
         return .two
     }
     
+    static func saveOptions_DiceOptions(_ diceOptions: DiceOptions) {
+        if let encoded = try? JSONEncoder().encode(diceOptions) {
+            UserDefaults.standard.set(encoded, forKey: "DiceOptions")
+        }
+    }
+    
+    static func getOptions_DiceOptions() -> DiceOptions {
+        if let data = UserDefaults.standard.object(forKey: "DiceOptions") as? Data,
+           let diceOptions = try? JSONDecoder().decode(DiceOptions.self, from: data) {
+            return diceOptions
+        }
+        return DiceOptions(diceStyle: 0, diceColor: 0, numberOfFace: 6, useChoiceDiceFace: false)
+    }
+    
     static func saveOptions_GradientId(_ gradientId: Int) {
         UserDefaults.standard.set(gradientId, forKey: "GradientId")
     }
