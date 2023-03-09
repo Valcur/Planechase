@@ -306,7 +306,9 @@ extension GameViewModel {
             if deck.count == 0 {
                 deck.append(cardToZoomIn!)
             }
-            cardToZoomIn = card
+            withAnimation(.easeInOut(duration: 0.3)) {
+                cardToZoomIn = card
+            }
         } else {
             if deck.count == 0 {
                 deck.append(getCenter())

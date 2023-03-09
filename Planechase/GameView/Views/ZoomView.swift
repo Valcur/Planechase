@@ -18,7 +18,7 @@ struct ZoomView: View {
     }
     
     func cardHeight(_ screenHeight: CGFloat) -> CGFloat {
-        return Card.heightForWidth(screenHeight - spacing)
+        return CardSizes.heightForWidth(screenHeight - spacing)
     }
     
     var body: some View {
@@ -28,7 +28,7 @@ struct ZoomView: View {
                     if planechaseVM.zoomViewType == .one {
                         if UIDevice.isIPhone {
                             ZoomCardView(card: card,
-                                         width: Card.widthtForHeight(geo.size.height - 10))
+                                         width: CardSizes.widthtForHeight(geo.size.height - 10))
                         } else {
                             ZoomCardView(card: card,
                                          width: cardWidth(geo.size.width * 0.9))
@@ -64,12 +64,12 @@ struct ZoomView: View {
                     if planechaseVM.zoomViewType == .four {
                         VStack {
                             ZoomCardView(card: card,
-                                         width: Card.widthtForHeight(geo.size.height / 2))
+                                         width: CardSizes.widthtForHeight(geo.size.height / 2))
                             .rotationEffect(.degrees(180))
                             .offset(y: -5)
                             Spacer()
                             ZoomCardView(card: card,
-                                         width: Card.widthtForHeight(geo.size.height / 2))
+                                         width: CardSizes.widthtForHeight(geo.size.height / 2))
                             .rotationEffect(.degrees(0))
                             .offset(y: 5)
                         }.zIndex(3)
@@ -93,14 +93,14 @@ struct ZoomView: View {
         @ObservedObject var card: Card
         let width: CGFloat
         var height: CGFloat {
-            return Card.heightForWidth(width)
+            return CardSizes.heightForWidth(width)
         }
         
         var body: some View {
             if card.image == nil {
                 Color.black
                     .frame(width: width, height: height)
-                    .cornerRadius(width / 28)
+                    .cornerRadius(CardSizes.cornerRadiusForWidth(width))
                     .onAppear {
                         card.cardAppears()
                     }
@@ -108,7 +108,7 @@ struct ZoomView: View {
                 Image(uiImage: card.image!)
                     .resizable()
                     .frame(width: width, height: height)
-                    .cornerRadius(width / 25)
+                    .cornerRadius(CardSizes.cornerRadiusForWidth(width))
             }
         }
     }

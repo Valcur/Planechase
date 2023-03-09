@@ -46,16 +46,6 @@ class Card: ObservableObject {
         return Card(id: self.id, image: self.image, imageURL: self.imageURL, state: self.state)
     }
     
-    static func heightForWidth(_ width: CGFloat) -> CGFloat {
-        // Width 12.5 for height 9
-        return width * 0.72
-    }
-    
-    static func widthtForHeight(_ height: CGFloat) -> CGFloat {
-        // Width 12.5 for height 9
-        return height * 1.38
-    }
-    
     static let hellride = Card(id: "HELLRIDE_UNDEFINED", image: UIImage(named: "NoCard"), imageURL: "HELLRIDE", state: .pickable)
 }
 

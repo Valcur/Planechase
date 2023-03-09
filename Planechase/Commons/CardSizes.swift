@@ -28,9 +28,9 @@ struct CardSizes {
         }
         var cornerRadius: CGFloat {
             if UIDevice.current.userInterfaceIdiom == .pad {
-                return iPadWidth / 21
+                return CardSizes.cornerRadiusForWidth(iPadWidth)
             }
-            return iPadWidth * iPhoneSizeCoeff / 21
+            return CardSizes.cornerRadiusForWidth(iPadWidth) * iPhoneSizeCoeff
         }
         
         func scaledWidth(_ scaleFactor: CGFloat) -> CGFloat {
@@ -51,8 +51,22 @@ struct CardSizes {
         
         init(width: CGFloat, coeff: CGFloat) {
             self.iPadWidth = width
-            self.iPadHeight = Card.heightForWidth(width)
+            self.iPadHeight = CardSizes.heightForWidth(width)
             self.iPhoneSizeCoeff = coeff
         }
+    }
+    
+    static func heightForWidth(_ width: CGFloat) -> CGFloat {
+        // Width 12.5 for height 9
+        return width * 0.72
+    }
+    
+    static func widthtForHeight(_ height: CGFloat) -> CGFloat {
+        // Width 12.5 for height 9
+        return height * 1.38
+    }
+    
+    static func cornerRadiusForWidth(_ width: CGFloat) -> CGFloat {
+        return width / 21
     }
 }
