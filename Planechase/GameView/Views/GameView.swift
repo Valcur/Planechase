@@ -31,12 +31,12 @@ struct GameView: View {
                 ReturnToMenuView()
                     .position(x: geo.size.width - 40, y: 40)
                 
-                ToolView()
-                    .position(x: geo.size.width - 40, y: geo.size.height - 40)
-                
                 if !gameVM.isPlayingClassicMode {
                     ZoomView(card: gameVM.cardToZoomIn)
                 }
+                
+                ToolView()
+                    .position(x: geo.size.width - 40, y: geo.size.height - 40)
                 
                 DiceView(diceResult: $diceResult)
                     .position(x: diceViewPositionX(width: geo.size.width),

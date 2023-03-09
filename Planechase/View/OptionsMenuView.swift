@@ -149,7 +149,7 @@ struct OptionsMenuView: View {
                                 .foregroundColor(.white)
                         }
                         
-                        Text("options_dice_style".translate())
+                        Text("options_dice_color".translate())
                             .headline()
                         
                         Spacer()
@@ -163,6 +163,8 @@ struct OptionsMenuView: View {
                             MenuCustomDiceColorChoiceView(diceColorId: 3)
                             MenuCustomDiceColorChoiceView(diceColorId: 4)
                             MenuCustomDiceColorChoiceView(diceColorId: 5)
+                            MenuCustomDiceColorChoiceView(diceColorId: 6)
+                            MenuCustomDiceColorChoiceView(diceColorId: 7)
                         }.padding(10)
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     
@@ -243,8 +245,7 @@ struct OptionsMenuView: View {
                                                             useChoiceDiceFace: planechaseVM.diceOptions.useChoiceDiceFace))
                 }, label: {
                     ZStack {
-                        DiceOptions.getBackgroundColor(planechaseVM.diceOptions.diceColor)
-                            .opacity(0.3)
+                        DiceOptions.getBackground(planechaseVM.diceOptions.diceColor)
                         
                         Image("Choice")
                             .resizable()
@@ -274,8 +275,7 @@ struct OptionsMenuView: View {
                                                             useChoiceDiceFace: planechaseVM.diceOptions.useChoiceDiceFace))
                 }, label: {
                     ZStack {
-                        DiceOptions.getBackgroundColor(diceColorId)
-                            .opacity(0.3)
+                        DiceOptions.getBackground(diceColorId)
                         
                         Image("Choice")
                             .resizable()
@@ -345,6 +345,8 @@ struct OptionsMenuView: View {
                 Text("options_thanks_chaos".translate())
                     .headline()
                 Text("options_thanks_hellride".translate())
+                    .headline()
+                Text("options_thanks_diceSkin1".translate())
                     .headline()
             }.scrollablePanel()
         }

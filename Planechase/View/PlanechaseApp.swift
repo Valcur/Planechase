@@ -131,43 +131,6 @@ class PlanechaseViewModel: ObservableObject {
     }
 }
 
-struct DiceOptions: Codable {
-    var diceStyle: Int
-    var diceColor: Int
-    var numberOfFace: Int
-    var useChoiceDiceFace: Bool
-    
-    static func getForegroundColor(_ colorId: Int) -> Color {
-        switch colorId {
-        case 1:
-            return Color("DiceGold")
-        case 2:
-            return Color("DiceGold")
-        case 3:
-            return .blue
-        case 4:
-            return .white
-        default:
-            return .white
-        }
-    }
-    
-    static func getBackgroundColor(_ colorId: Int) -> Color {
-        switch colorId {
-        case 1:
-            return .black
-        case 2:
-            return .blue
-        case 3:
-            return .white
-        case 4:
-            return Color("DiceGold")
-        default:
-            return .black
-        }
-    }
-}
-
 enum ZoomViewType: Codable {
     case one
     case two

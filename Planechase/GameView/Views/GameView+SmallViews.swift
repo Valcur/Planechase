@@ -48,8 +48,7 @@ struct DiceView: View {
                     }
                     
                     ZStack {
-                        DiceOptions.getBackgroundColor(planechaseVM.diceOptions.diceColor)
-                            .opacity(0.3)
+                        DiceOptions.getBackground(planechaseVM.diceOptions.diceColor)
                         
                         DiceOverlay(diceStyleId: planechaseVM.diceOptions.diceStyle, diceColorId: planechaseVM.diceOptions.diceColor)
                         
@@ -57,20 +56,20 @@ struct DiceView: View {
                             Image("Chaos")
                                 .resizable()
                                 .renderingMode(.template)
-                                .foregroundColor(Color("DiceGold"))
+                                .foregroundColor(DiceOptions.getForegroundColor(planechaseVM.diceOptions.diceColor))
                                 .padding(10)
                         } else if diceResult == 2 {
                             Image("Planechase")
                                 .resizable()
                                 .renderingMode(.template)
-                                .foregroundColor(Color("DiceGold"))
+                                .foregroundColor(DiceOptions.getForegroundColor(planechaseVM.diceOptions.diceColor))
                                 .padding(5)
                         }
                         else if diceResult == 3 {
                            Image("Choice")
                                .resizable()
                                .renderingMode(.template)
-                               .foregroundColor(Color("DiceGold"))
+                               .foregroundColor(DiceOptions.getForegroundColor(planechaseVM.diceOptions.diceColor))
                                .padding(10)
                        }
                     }.frame(width: 73, height: 73)

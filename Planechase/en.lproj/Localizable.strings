@@ -23,7 +23,7 @@
 // Mark: Bubbles
 
 "premium_title" = "Support the app";
-"premium_content" = "- Separate your collection in up to 10 different decks \n- Change the background color \n- My deepest thanks";
+"premium_content" = "- Separate your collection in up to 10 different decks \n- Change the background color \n- Change the dice style and color\n- My deepest thanks";
 "premium_unknown" = "Unknown";
 "premium_month" = " / Month";
 "premium_alreadyPremium" = "Already premium ?";
@@ -89,6 +89,7 @@
 "options_ui_hellridePng" = "SUPER SECRET : use red_evil_portal.png for hellride";
 "options_dice_title" = "Dice";
 "options_dice_style" = "Dice style :";
+"options_dice_color" = "Dice color :";
 "options_dice_choiceFace" = "Add a face with both planeswalk and chaos that let the player choose";
 "options_dice_numberOfFace" = "Number of face on the dice";
 
@@ -99,3 +100,4 @@
 "options_thanks_planechase" = "Planechase image from Agung Rama";
 "options_thanks_chaos" = "Chaos image from Ken111";
 "options_thanks_hellride" = "Hellride image by upklyak from Freepik";
+"options_thanks_diceSkin1" = "Dice skin 1,2,3 and 4 by shiruji";
