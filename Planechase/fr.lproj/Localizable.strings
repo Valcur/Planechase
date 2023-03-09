@@ -87,11 +87,11 @@
 "options_ui_zoomType" = "Type de zoom";
 "options_ui_biggerCardsOnMap" = "Aggrandir les cartes sur la map";
 "options_ui_hellridePng" = "SUPER SECRET : utiliser red_evil_portal.png pour le hellride";
-"options_dice_title" = "Dice";
-"options_dice_style" = "Dice style :";
-"options_dice_color" = "Dice color :";
-"options_dice_choiceFace" = "Add a face with both planeswalk and chaos that let the player choose";
-"options_dice_numberOfFace" = "Number of face on the dice";
+"options_dice_title" = "Dé";
+"options_dice_style" = "Style du dé :";
+"options_dice_color" = "Couleur du dé :";
+"options_dice_choiceFace" = "Ajoute une face planeswalk/chaos au choix du joueur";
+"options_dice_numberOfFace" = "Nombre de faces sur le dé";
 
 "options_contact_discord" = "Vous souhaitez trouver de nouvelles carte personalisées ou partager les votres ? Des suggestion sur l'app ? Un bug que vous aimeriez que je règle ?";
 "options_contact_discordJoin" = "Rejoignez nous sur Discord !";
