@@ -31,7 +31,7 @@
 "premium_viewOur" = "View our ";
 "premium_policy" = "Privacy policy";
 "premium_info_title" = "Subscription information";
-"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots and choice over 8 background colors.";
+"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots, dice customization and choice over 8 background colors.";
 
 "discord_title" = "Join us on Discord";
 "discord_content" = "Share your custom Planechase cards or find new ones in our Discord server.";
@@ -91,13 +91,13 @@
 "options_dice_style" = "Dice style :";
 "options_dice_color" = "Dice color :";
 "options_dice_choiceFace" = "Add a face planeswalk/chaos that let the player choose";
-"options_dice_numberOfFace" = "Number of face on the dice";
+"options_dice_numberOfFace" = "Number of faces on the dice";
 
 "options_contact_discord" = "Want a place to share your custom Planechase cards or just to find more card made by the community ? Suggestion for the app ? Bugs that you want me to fix ?";
 "options_contact_discordJoin" = "Join us on Discord !";
 
 "options_thanks_wizards" = "Planechase Companion is an unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.";
-"options_thanks_planechase" = "Planechase image from Agung Rama";
+"options_thanks_planechase" = "Planeswalk image from Agung Rama";
 "options_thanks_chaos" = "Chaos image from Ken111";
 "options_thanks_hellride" = "Hellride image by upklyak from Freepik";
 "options_thanks_diceSkin1" = "Dice skin 1,2,3 and 4 by shiruji";

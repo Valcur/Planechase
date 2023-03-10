@@ -100,8 +100,8 @@ struct DiceView: View {
         
         let diceNumberOfFace = planechaseVM.diceOptions.numberOfFace
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation(.spring()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation(.easeIn(duration: 0.1)) {
                 gameVM.focusCenterToggler.toggle()
                 diceResult = Int.random(in: 1...diceNumberOfFace)
                 if !planechaseVM.diceOptions.useChoiceDiceFace && diceResult == 3 {

@@ -31,7 +31,7 @@
 "premium_viewOur" = "Consultez notre ";
 "premium_policy" = "Politique de confidentialité";
 "premium_info_title" = "Information sur l'abonnement";
-"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots and choice over 8 background colors.";
+"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots, dice customization and choice over 8 background colors.";
 
 "discord_title" = "Rejoingez le Discord";
 "discord_content" = "Partagez vos propres cartes Planechase ou trouvez en des nouvelles sur notre serveur Discord";
@@ -97,7 +97,7 @@
 "options_contact_discordJoin" = "Rejoignez nous sur Discord !";
 
 "options_thanks_wizards" = "Planechase Companion is an unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.";
-"options_thanks_planechase" = "Image Planechase de Agung Rama";
+"options_thanks_planechase" = "Image Planeswalk de Agung Rama";
 "options_thanks_chaos" = "Image Chaos par Ken111";
 "options_thanks_hellride" = "Image Hellride par upklyak de Freepik";
 "options_thanks_diceSkin1" = "Skin de dé 1,2,3 et 4 par shiruji";
