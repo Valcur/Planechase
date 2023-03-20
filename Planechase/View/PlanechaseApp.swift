@@ -31,7 +31,7 @@ struct PlanechaseApp: App {
                     .statusBar(hidden: true)
                     .environmentObject(planechaseVM)
                     .environmentObject(planechaseVM.gameVM)
-                    .ignoresSafeArea()
+                    .ignoresSafeArea(edges: [.top, .bottom])
             } else {
                 TabView {
                     MainMenuView()

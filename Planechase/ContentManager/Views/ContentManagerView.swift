@@ -169,7 +169,7 @@ struct ContentManagerView: View {
             })
             .onChange(of: inputImage) { _ in addNewImageToCollection() }
             .sheet(isPresented: $showingImagePicker) {
-                ImagePicker(image: $inputImage)
+                ImagePicker(image: $inputImage).preferredColorScheme(.dark)
             }
         }
         

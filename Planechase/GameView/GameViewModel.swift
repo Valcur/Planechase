@@ -234,7 +234,9 @@ class GameViewModel: ObservableObject {
         ]
         
         for coord in farCoords {
-            map[coord.x][coord.y] = nil
+            withAnimation(.none) {
+                map[coord.x][coord.y] = nil
+            }
         }
     }
 }

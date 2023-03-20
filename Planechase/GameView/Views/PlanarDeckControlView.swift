@@ -39,7 +39,7 @@ struct PlanarDeckControlView: View {
                 })
             }.iPhoneScaler(width: geo.size.width, height: geo.size.height).frame(width: geo.size.width, height: geo.size.height)
             .background(
-                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark)).ignoresSafeArea()
             )
         }.opacity(gameVM.showPlanarDeckController ? 1 : 0)
     }

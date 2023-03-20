@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3BF29B9E06400C15251 /* DiceOptions.swift */; };
+		DB18E3C329BE14E000C15251 /* OptionsMenuView+OptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3C229BE14E000C15251 /* OptionsMenuView+OptionsPanel.swift */; };
 		DB3AB7C929AD051E00B11E17 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AB7C829AD051E00B11E17 /* StoreKit.framework */; };
 		DB3AB7CC29AFAA6900B11E17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3AB7CE29AFAA6900B11E17 /* Localizable.strings */; };
 		DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		DB18E3BF29B9E06400C15251 /* DiceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceOptions.swift; sourceTree = "<group>"; };
+		DB18E3C229BE14E000C15251 /* OptionsMenuView+OptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OptionsMenuView+OptionsPanel.swift"; sourceTree = "<group>"; };
 		DB3AB7C829AD051E00B11E17 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DB3AB7CD29AFAA6900B11E17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB3AB7CF29AFB71700B11E17 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -95,6 +97,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB18E3C129BE148A00C15251 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */,
+				DB18E3C229BE14E000C15251 /* OptionsMenuView+OptionsPanel.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
 		DB3AB7C729AD051E00B11E17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +135,7 @@
 		DB5098D929A388DA0058FCCB /* Planechase */ = {
 			isa = PBXGroup;
 			children = (
+				DB18E3C129BE148A00C15251 /* Options */,
 				DBC339AD29A7DFDF0089CB01 /* Info.plist */,
 				DBA02CEF29A419BA004E94BC /* View */,
 				DBA02CFC29A504E6004E94BC /* GameView */,
@@ -175,7 +187,6 @@
 			children = (
 				DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */,
 				DBA02CF029A419D1004E94BC /* MainMenuView.swift */,
-				DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */,
 				DBC339AE29A8E4BC0089CB01 /* BubbleView.swift */,
 			);
 			path = View;
@@ -317,6 +328,7 @@
 				DB5098E929A392880058FCCB /* Extensions.swift in Sources */,
 				DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */,
 				DBC339B329AB8AC60089CB01 /* PlanarDeckControlView.swift in Sources */,
+				DB18E3C329BE14E000C15251 /* OptionsMenuView+OptionsPanel.swift in Sources */,
 				DBA02D0029A61E42004E94BC /* CardSizes.swift in Sources */,
 				DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */,
 				DBA02CF529A4CC4A004E94BC /* GameViewModel.swift in Sources */,
@@ -487,7 +499,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Planechase/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
@@ -506,7 +518,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -521,7 +533,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Planechase/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
@@ -540,7 +552,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

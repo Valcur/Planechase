@@ -16,11 +16,7 @@ struct GameView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                GradientView(gradientId: planechaseVM.gradientId)
-                
                 if !gameVM.isPlayingClassicMode {
-                    BoardView()
-                    
                     RecenterView()
                         .position(x: 40, y: geo.size.height - 40)
                 } else {
@@ -46,8 +42,16 @@ struct GameView: View {
                     .position(x: geo.size.width / 2, y: geo.size.height + 50)
                 
                 PlanarDeckControlView()
-            }.frame(width: geo.size.width, height: geo.size.height)
-        }
+            }
+        }.background(
+            ZStack {
+                GradientView(gradientId: planechaseVM.gradientId)
+                
+                if !gameVM.isPlayingClassicMode {
+                    BoardView()
+                }
+            }.ignoresSafeArea()
+        )
         .onChange(of: diceResult) { _ in
             if diceResult == 2 {
                 gameVM.toggleTravelMode()

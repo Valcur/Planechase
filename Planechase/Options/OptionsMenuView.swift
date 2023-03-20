@@ -1,0 +1,161 @@
+//
+//  OptionsMenuView.swift
+//  Planechase
+//
+//  Created by Loic D on 23/02/2023.
+//
+
+import SwiftUI
+
+struct OptionsMenuView: View {
+    @EnvironmentObject var planechaseVM: PlanechaseViewModel
+    @State var selectedMenu: MenuSelection = .options
+    
+    var body: some View {
+        ZStack {
+            GradientView(gradientId: planechaseVM.gradientId)
+            
+            HStack {
+                VStack(alignment: .leading, spacing: 20) {
+                    MenuSelectionView(menu: .options, selectedMenu: $selectedMenu)
+                    
+                    MenuSelectionView(menu: .rules, selectedMenu: $selectedMenu)
+                    
+                    MenuSelectionView(menu: .contact, selectedMenu: $selectedMenu)
+                    
+                    MenuSelectionView(menu: .thanks, selectedMenu: $selectedMenu)
+                    
+                    Spacer()
+                }.frame(width: 200).padding(.top, 15)
+                
+                if selectedMenu == .options {
+                    OptionsPanel()
+                } else if selectedMenu == .contact {
+                    ContactPanel()
+                } else if selectedMenu == .thanks {
+                    ThanksPanel()
+                }  else if selectedMenu == .rules {
+                    RulesPanel()
+                }
+            }
+        }
+    }
+    
+    struct MenuSelectionView: View {
+        let menu: MenuSelection
+        @Binding var selectedMenu: MenuSelection
+        
+        var body: some View {
+            Button(action: {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    selectedMenu = menu
+                }
+            }, label: {
+                Text(menu.title())
+                    .title()
+            }).opacity(menu == selectedMenu ? 1 : 0.6)
+        }
+    }
+    
+    struct RulesPanel: View {
+        var body: some View {
+            VStack(alignment: .leading, spacing: 30) {
+                Text("options_rules_classic_Title".translate())
+                    .title()
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("options_rules_classic_01".translate())
+                        .headline()
+                    
+                    Text("options_rules_classic_02".translate())
+                        .headline()
+                    
+                    Text("options_rules_classic_03".translate())
+                        .headline()
+                }
+                
+                Text("options_rules_eternitiesMap_Title".translate())
+                    .title()
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("options_rules_eternitiesMap_01".translate())
+                        .headline()
+                    
+                    Text("options_rules_eternitiesMap_02".translate())
+                        .headline()
+                    
+                    Text("options_rules_eternitiesMap_03".translate())
+                        .headline()
+                    
+                    Text("options_rules_eternitiesMap_04".translate())
+                        .headline()
+                    
+                    Text("options_rules_eternitiesMap_05".translate())
+                        .headline()
+                }
+            }.scrollablePanel()
+        }
+    }
+    
+    struct ContactPanel: View {
+        var body: some View {
+            VStack(spacing: 20) {
+                Text("options_contact_discord".translate())
+                    .headline()
+                
+                Link(destination: URL(string: "https://discord.com/invite/wzm7bu6KDJ")!) {
+                    VStack {
+                        Text("options_contact_discordJoin".translate()).headline()
+                        Image("Discord")
+                            .resizable()
+                            .frame(width: 280, height: 78)
+                    }
+                }
+            }.scrollablePanel()
+        }
+    }
+    
+    struct ThanksPanel: View {
+        var body: some View {
+            VStack(spacing: 20) {
+                Text("options_thanks_wizards".translate())
+                    .headline()
+                    .padding(.bottom, 40)
+                Text("options_thanks_planechase".translate())
+                    .headline()
+                Text("options_thanks_chaos".translate())
+                    .headline()
+                Text("options_thanks_hellride".translate())
+                    .headline()
+                Text("options_thanks_diceSkin1".translate())
+                    .headline()
+            }.scrollablePanel()
+        }
+    }
+    
+    enum MenuSelection {
+        case options
+        case contact
+        case thanks
+        case rules
+        
+        func title() -> String {
+            switch self {
+            case .options:
+                return "options_optionsTitle".translate()
+            case .contact:
+                return "options_contactTitle".translate()
+            case .thanks:
+                return "options_thanksTitle".translate()
+            case .rules:
+                return "options_rulesTitle".translate()
+            }
+        }
+    }
+}
+
+struct OptionsMenuView_Previews: PreviewProvider {
+    static var previews: some View {
+        OptionsMenuView()
+    }
+}

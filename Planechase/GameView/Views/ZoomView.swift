@@ -77,7 +77,7 @@ struct ZoomView: View {
                 }
             }.frame(width: geo.size.width, height: geo.size.height)
             .background(
-                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark)).ignoresSafeArea()
             ).opacity(card == nil ? 0 : 1)
             .onTapGesture {
                 if !gameVM.isPlayingClassicMode {
@@ -86,7 +86,7 @@ struct ZoomView: View {
                     }
                 }
             }
-        }.ignoresSafeArea()
+        }
     }
     
     struct ZoomCardView: View {

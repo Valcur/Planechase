@@ -17,8 +17,6 @@ struct MainMenuView: View {
     }
     var body: some View {
         ZStack {
-            GradientView(gradientId: planechaseVM.gradientId)
-            
             HStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading) {
@@ -66,6 +64,6 @@ struct MainMenuView: View {
                 
                 Spacer()
             }.scaleEffect(UIDevice.isIPad ? 1 : 0.9).padding(.leading, UIDevice.isIPhone && (planechaseVM.showDiscordInvite || !planechaseVM.isPremium) ? 200 : 0)
-        }.ignoresSafeArea()
+        }.background(GradientView(gradientId: planechaseVM.gradientId).ignoresSafeArea())
     }
 }

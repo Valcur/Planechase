@@ -81,6 +81,7 @@
 "options_optionsTitle" = "Options";
 "options_contactTitle" = "Contact";
 "options_thanksTitle" = "Thanks";
+"options_rulesTitle" = "Rules";
 
 "options_backgroundColor" = "Background Color";
 "options_ui_title" = "Game UI";
@@ -101,3 +102,18 @@
 "options_thanks_chaos" = "Chaos image from Ken111";
 "options_thanks_hellride" = "Hellride image by upklyak from Freepik";
 "options_thanks_diceSkin1" = "Dice skin 1,2,3 and 4 by shiruji";
+
+// Mark: Rules
+
+"options_rules_classic_Title" = "Classic";
+"options_rules_classic_01" = "Start a multiplayer game and reveal the top card of the shared planar deck. That is the plane that everybody is on, and its effects apply to all players.";
+"options_rules_classic_02" = "During each player's main phase, they may roll the six-sided planar die for a chance to take an action: If it lands on the planeswalker symbol the players must planeswalk and move on to the next plane - put the current plane on the bottom of the planar deck and reveal the next one. If it lands on the Chaos symbol, that player must trigger the Chaos ability of the plane.";
+"options_rules_classic_03" = "The first roll each turn is free, but if the player wants to roll the planar die more than once, they must pay (1) additional for each dice roll - the second roll each turn costs (1), the third roll costs (2), and so on.";
+
+
+"options_rules_eternitiesMap_Title" = "Eternities map";
+"options_rules_eternitiesMap_01" = "Unlike normal Planechase where you just flip cards over on a planar deck, in Eternities map you traverse a grid getting to somewhat choose what plane you are on.";
+"options_rules_eternitiesMap_02" = "You start in the center of a grid. Play the game like a classic Planechase. If you get the Planechase symbol then you have some choices to make.";
+"options_rules_eternitiesMap_03" = "You now get to choose which plane you move to. Read all four, see which is your favorite and move to the best plane. Once you moved, cards are revealed around your new location.";
+"options_rules_eternitiesMap_04" = "If the grid is empty in any diagonal direction you can 'hellride' into the nothingness. You're trading the safety net of knowing whats coming for moving two spaces. If you have revealed planes in the diagonal direction, you cannot 'hellride' there. You have to go the long way and work your way through the planes. Once you've hell ridden, you will just reveal more planes like normal.";
+"options_rules_eternitiesMap_05" = "Cards that are 4 or more planeswalk away from your location are removed.";
