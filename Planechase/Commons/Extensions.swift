@@ -205,7 +205,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             guard !results.isEmpty else { return }
 
             guard let provider = results.first?.itemProvider else { return }
-
+            
             if provider.canLoadObject(ofClass: UIImage.self) {
                 provider.loadObject(ofClass: UIImage.self, completionHandler: {image, error in
                        DispatchQueue.main.async {
@@ -215,7 +215,15 @@ struct ImagePicker: UIViewControllerRepresentable {
                            self.parent.image = image
                        }
                    })
-             }
+            } else if provider.hasItemConformingToTypeIdentifier(UTType.webP.identifier) {
+                provider.loadDataRepresentation(forTypeIdentifier: UTType.webP.identifier) {data, err in
+                    if let data = data, let img = UIImage.init(data: data) {
+                        DispatchQueue.main.async {
+                            self.parent.image = img
+                        }
+                    }
+                }
+            }
         }
     }
 }
