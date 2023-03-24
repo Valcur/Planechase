@@ -11,7 +11,7 @@ struct BubbleSizes {
     static let width: CGFloat = 400
     static let discordHeight: CGFloat = 300
     static let premiumHeight: CGFloat = 400
-    static let whatsNewHeight: CGFloat = 360
+    static let whatsNewHeight: CGFloat = 380
     static let scale: CGFloat = 0.8
     static let padding: CGFloat = 15
 }

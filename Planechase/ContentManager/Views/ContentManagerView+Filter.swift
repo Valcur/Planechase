@@ -12,17 +12,19 @@ extension ContentManagerView {
         @EnvironmentObject var contentVM: ContentManagerViewModel
         
         var body: some View {
-            HStack(spacing: 30) {
+            HStack(spacing: 0) {
+                Text("collection_filter_onlyShow".translate()).headline()
+                
+                Spacer()
+                
                 HStack {
-                    Text("Only show").headline()
-                    
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             contentVM.collectionFilter.cardType.toggle(value: .official)
                             contentVM.updateFilteredCardCollection()
                         }
                     }, label: {
-                        Text("Official cards")
+                        Text("collection_filter_official".translate())
                             .textButtonLabel(style: contentVM.collectionFilter.cardType == .official ? .secondary : .primary)
                     })
                     
@@ -32,21 +34,23 @@ extension ContentManagerView {
                             contentVM.updateFilteredCardCollection()
                         }
                     }, label: {
-                        Text("Unofficial cards")
+                        Text("collection_filter_unofficial".translate())
                             .textButtonLabel(style: contentVM.collectionFilter.cardType == .unofficial ? .secondary : .primary)
                     })
                 }
                 
+                Spacer()
+                Rectangle().frame(width: 2, height: 40).foregroundColor(.white)
+                Spacer()
+                
                 HStack {
-                    Text("Only show").headline()
-                    
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             contentVM.collectionFilter.cardsInDeck.toggle(value: .present)
                             contentVM.updateFilteredCardCollection()
                         }
                     }, label: {
-                        Text("Cards in")
+                        Text("collection_filter_present".translate())
                             .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .present ? .secondary : .primary)
                     })
                     
@@ -56,7 +60,7 @@ extension ContentManagerView {
                             contentVM.updateFilteredCardCollection()
                         }
                     }, label: {
-                        Text("Cards not in")
+                        Text("collection_filter_absent".translate())
                             .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absent ? .secondary : .primary)
                     })
                     
@@ -66,7 +70,7 @@ extension ContentManagerView {
                             contentVM.updateFilteredCardCollection()
                         }
                     }, label: {
-                        Text("Absent from all")
+                        Text("collection_filter_absentAll".translate())
                             .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absentInAll ? .secondary : .primary)
                     })
                 }

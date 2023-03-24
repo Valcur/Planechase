@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WhatsNew: View {
-    @ObservedObject var whatsNew = WhatsNewController()
+    @ObservedObject var whatsNew: WhatsNewController
     @State var showHideBubbleAlert = false
     
     var body: some View {
@@ -76,21 +76,21 @@ struct WhatsNew: View {
             }
         }
     }
+}
+
+class WhatsNewController: ObservableObject {
+    private let updateDate = "24/03/2023"
+    let key: String
+    @Published var showWhatsNew: Bool
     
-    class WhatsNewController: ObservableObject {
-        private let updateDate = "21/03/2023"
-        let key: String
-        @Published var showWhatsNew: Bool
-        
-        init() {
-            let userDefaults = UserDefaults.standard
-            key = "ShowWhatsNew?_\(updateDate)"
-            userDefaults.register(
-                defaults: [
-                    key: true
-                ]
-            )
-            showWhatsNew = UserDefaults.standard.bool(forKey: key)
-        }
+    init() {
+        let userDefaults = UserDefaults.standard
+        key = "ShowWhatsNew?_\(updateDate)"
+        userDefaults.register(
+            defaults: [
+                key: true
+            ]
+        )
+        showWhatsNew = UserDefaults.standard.bool(forKey: key)
     }
 }

@@ -49,9 +49,9 @@ struct ContentManagerView: View {
                     // MARK: Bottom bar
                     HStack() {
                         Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
+                            //withAnimation(.easeInOut(duration: 0.3)) {
                                 showFilterRow.toggle()
-                            }
+                            //}
                         }, label: {
                             Image(systemName: "slider.horizontal.3")
                                 .font(.title)
@@ -65,8 +65,6 @@ struct ContentManagerView: View {
                         } else {
                             BottomRow(smallGridModEnable: $smallGridModEnable)
                         }
-                        
-                        Spacer()
                     }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 40)
                     
                     ScrollView {
@@ -109,7 +107,7 @@ struct ContentManagerView: View {
                     } else {
                         Text(contentManagerVM.decks[0].name).tag(contentManagerVM.decks[0].deckId)
                     }
-                }.pickerStyle(.menu).font(.subheadline).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(width: 140)
+                }.pickerStyle(.menu).font(.subheadline).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(width: 150)
                 .onChange(of: deckSelected) { newValue in
                     contentManagerVM.changeSelectedDeck(newDeckId: newValue)
                 }

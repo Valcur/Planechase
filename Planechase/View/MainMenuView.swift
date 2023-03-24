@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainMenuView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
+    @ObservedObject var whatsNew = WhatsNewController()
     var isAllowedToPlayClassic: Bool {
         return planechaseVM.contentManagerVM.selectedCardsInCollection >= 10
     }
@@ -20,7 +21,7 @@ struct MainMenuView: View {
             HStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading) {
-                        WhatsNew()
+                        WhatsNew(whatsNew: whatsNew)
                         DiscordInvite()
                         GoingPremium()
                         Spacer()
@@ -64,7 +65,7 @@ struct MainMenuView: View {
                 }
                 
                 Spacer()
-            }.scaleEffect(UIDevice.isIPad ? 1 : 0.9).padding(.leading, UIDevice.isIPhone && (planechaseVM.showDiscordInvite || !planechaseVM.isPremium) ? 200 : 0)
+            }.scaleEffect(UIDevice.isIPad ? 1 : 0.9).padding(.leading, UIDevice.isIPhone && (planechaseVM.showDiscordInvite || !planechaseVM.isPremium || whatsNew.showWhatsNew) ? 200 : 0)
         }.background(GradientView(gradientId: planechaseVM.gradientId).ignoresSafeArea())
     }
 }

@@ -103,23 +103,36 @@ class ContentManagerViewModel: ObservableObject {
     }
     
     func selectAll() {
-        decks[selectedDeckId].deckCardIds = []
-        for card in cardCollection {
-            decks[selectedDeckId].deckCardIds.append(card.id)
+        for card in filteredCardCollection {
+            if selectedDeck.deckCardIds.firstIndex(where: { $0 == card.id }) == nil {
+                decks[selectedDeckId].deckCardIds.append(card.id)
+            }
         }
+        
         updateSelectedCardsCountInCollection()
+        updateCardCollectionVisualState()
         SaveManager.saveDecks(decks)
-        for card in cardCollection {
-            card.state = .selected
-        }
     }
     
     func unselectAll() {
-        decks[selectedDeckId].deckCardIds = []
+        for card in filteredCardCollection {
+            if let index = selectedDeck.deckCardIds.firstIndex(where: { $0 == card.id }) {
+                decks[selectedDeckId].deckCardIds.remove(at: index)
+            }
+        }
+        
         updateSelectedCardsCountInCollection()
+        updateCardCollectionVisualState()
         SaveManager.saveDecks(decks)
+    }
+    
+    private func updateCardCollectionVisualState() {
         for card in cardCollection {
-            card.state = .showed
+            if selectedDeck.deckCardIds.contains(where: { $0 == card.id }) {
+                card.state = .selected
+            } else {
+                card.state = .showed
+            }
         }
     }
     
@@ -165,24 +178,28 @@ class ContentManagerViewModel: ObservableObject {
     }
     
     func updateFilteredCardCollection() {
-        filteredCardCollection = cardCollection
-        
-        if collectionFilter.cardType == .official {
-            filteredCardCollection = filteredCardCollection.filter({ $0.imageURL != nil })
-        }
-        if collectionFilter.cardType == .unofficial {
-            filteredCardCollection = filteredCardCollection.filter({ $0.imageURL == nil })
-        }
-        
-        if collectionFilter.cardsInDeck == .present {
-            filteredCardCollection = filteredCardCollection.filter({ selectedDeck.deckCardIds.firstIndex(of: $0.id) != nil})
-        }
-        if collectionFilter.cardsInDeck == .absent {
-            filteredCardCollection = filteredCardCollection.filter({ selectedDeck.deckCardIds.firstIndex(of: $0.id) == nil})
-        }
-        if collectionFilter.cardsInDeck == .absentInAll {
-            for deck in decks {
-                filteredCardCollection = filteredCardCollection.filter({ deck.deckCardIds.firstIndex(of: $0.id) == nil})
+        DispatchQueue.main.async {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.filteredCardCollection = self.cardCollection
+                
+                if self.collectionFilter.cardType == .official {
+                    self.filteredCardCollection = self.filteredCardCollection.filter({ $0.imageURL != nil })
+                }
+                if self.collectionFilter.cardType == .unofficial {
+                    self.filteredCardCollection = self.filteredCardCollection.filter({ $0.imageURL == nil })
+                }
+                
+                if self.collectionFilter.cardsInDeck == .present {
+                    self.filteredCardCollection = self.filteredCardCollection.filter({ self.selectedDeck.deckCardIds.firstIndex(of: $0.id) != nil})
+                }
+                if self.collectionFilter.cardsInDeck == .absent {
+                    self.filteredCardCollection = self.filteredCardCollection.filter({ self.selectedDeck.deckCardIds.firstIndex(of: $0.id) == nil})
+                }
+                if self.collectionFilter.cardsInDeck == .absentInAll {
+                    for deck in self.decks {
+                        self.filteredCardCollection = self.filteredCardCollection.filter({ deck.deckCardIds.firstIndex(of: $0.id) == nil})
+                    }
+                }
             }
         }
     }
