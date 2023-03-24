@@ -28,6 +28,9 @@
 		DBA02CFB29A4FFA7004E94BC /* GameView+SmallViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFA29A4FFA7004E94BC /* GameView+SmallViews.swift */; };
 		DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFD29A50500004E94BC /* ZoomView.swift */; };
 		DBA02D0029A61E42004E94BC /* CardSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFF29A61E42004E94BC /* CardSizes.swift */; };
+		DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */; };
+		DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */; };
+		DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */; };
 		DBC339AF29A8E4BC0089CB01 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC339AE29A8E4BC0089CB01 /* BubbleView.swift */; };
 		DBC339B329AB8AC60089CB01 /* PlanarDeckControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC339B229AB8AC60089CB01 /* PlanarDeckControlView.swift */; };
 		DBC339B729ACEA840089CB01 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC339B629ACEA840089CB01 /* IAPManager.swift */; };
@@ -70,6 +73,9 @@
 		DBA02CFA29A4FFA7004E94BC /* GameView+SmallViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameView+SmallViews.swift"; sourceTree = "<group>"; };
 		DBA02CFD29A50500004E94BC /* ZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 		DBA02CFF29A61E42004E94BC /* CardSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSizes.swift; sourceTree = "<group>"; };
+		DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager_Structs.swift; sourceTree = "<group>"; };
+		DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerView+Filter.swift"; sourceTree = "<group>"; };
+		DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewBubble.swift; sourceTree = "<group>"; };
 		DBC339AD29A7DFDF0089CB01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBC339AE29A8E4BC0089CB01 /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		DBC339B229AB8AC60089CB01 /* PlanarDeckControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanarDeckControlView.swift; sourceTree = "<group>"; };
@@ -177,6 +183,7 @@
 				DB5098EE29A39D880058FCCB /* ContentManagerViewModel.swift */,
 				DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */,
 				DBA02CED29A3E886004E94BC /* SaveManager.swift */,
+				DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */,
 				DBC339BD29ACEDD80089CB01 /* Views */,
 			);
 			path = ContentManager;
@@ -188,6 +195,7 @@
 				DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */,
 				DBA02CF029A419D1004E94BC /* MainMenuView.swift */,
 				DBC339AE29A8E4BC0089CB01 /* BubbleView.swift */,
+				DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -216,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */,
+				DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -326,6 +335,7 @@
 				DBC339BB29ACED690089CB01 /* PlanechaseVM+IAP.swift in Sources */,
 				DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */,
 				DB5098E929A392880058FCCB /* Extensions.swift in Sources */,
+				DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */,
 				DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */,
 				DBC339B329AB8AC60089CB01 /* PlanarDeckControlView.swift in Sources */,
 				DB18E3C329BE14E000C15251 /* OptionsMenuView+OptionsPanel.swift in Sources */,
@@ -344,6 +354,8 @@
 				DBA02CEE29A3E886004E94BC /* SaveManager.swift in Sources */,
 				DBA02CEC29A3B6A2004E94BC /* DownloadManager.swift in Sources */,
 				DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */,
+				DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */,
+				DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +530,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -552,7 +564,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

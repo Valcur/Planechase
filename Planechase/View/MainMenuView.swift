@@ -20,6 +20,7 @@ struct MainMenuView: View {
             HStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading) {
+                        WhatsNew()
                         DiscordInvite()
                         GoingPremium()
                         Spacer()

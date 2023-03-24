@@ -116,3 +116,11 @@
 "options_rules_eternitiesMap_03" = "Vous pouvez désormais chosir sur quel plan vous souhaitez vous rendre. lisez les 4 plans adjacents, choisissez celui que vous préférez et rendez-vous y. Une fois sur ce plan, révelez des cartes de façon à remplir les 4 cases adjacentes vide.";
 "options_rules_eternitiesMap_04" = "Si une case en diagonale est vide vous pouvez 'Hellride' dans l'inconnu. Vous échangez la sécurité de savoir sur quel plan vous atterrissez pour pouvoir vous déplacer de deux cases. Si un plan est déjà révélé en diagonal, vous ne pouvez pas 'Hellride sur celui-ci. Révélez ensuite des plans afin de remplir les cases adjacentes comme habituellement.";
 "options_rules_eternitiesMap_05" = "Les plans à une distance de 4 ou plus de vous sont défaussés.";
+
+"whatsNew_title" = "Whats new";
+"whatsNew_content" = "You can now filter your collection to easily manage it. Press the icon on the left of the info text to show/hide the filter row. Filter will impact the 'select all' and 'unselect all' buttons.";
+"whatsNew_rateUs_title" = "Enjoying the app ?";
+"whatsNew_rateUs_content" = "Please tell us how we're doing.";
+"whatsNew_rateUs_button" = "Rate us in the App Store";
+"whatsNew_hide_title" = "Hide info about this update ?";
+"whatsNew_hide_content" = "For any question or suggestion feel free to ask on Discord.";

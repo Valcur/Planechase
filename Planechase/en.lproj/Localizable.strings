@@ -117,3 +117,11 @@
 "options_rules_eternitiesMap_03" = "You now get to choose which plane you move to. Read all four, see which is your favorite and move to the best plane. Once you moved, cards are revealed around your new location.";
 "options_rules_eternitiesMap_04" = "If the grid is empty in any diagonal direction you can 'hellride' into the nothingness. You're trading the safety net of knowing whats coming for moving two spaces. If you have revealed planes in the diagonal direction, you cannot 'hellride' there. You have to go the long way and work your way through the planes. Once you've hell ridden, you will just reveal more planes like normal.";
 "options_rules_eternitiesMap_05" = "Cards that are 4 or more planeswalk away from your location are removed.";
+
+"whatsNew_title" = "Whats new";
+"whatsNew_content" = "You can add notes to your meals\n\nWant to keep track of a recipe ? A link to the website to order your favorite Pizza ? Those notes will be automatically added to your calendar events so that everyone you shared your calendar with will see them.\n\nNotes added in the 'week planning' panel won't be kept for the next time you assign this meal. Make sure to add recuring notes in the 'my meals' panel.";
+"whatsNew_rateUs_title" = "Enjoying the app ?";
+"whatsNew_rateUs_content" = "Please tell us how we're doing.";
+"whatsNew_rateUs_button" = "Rate us in the App Store";
+"whatsNew_hide_title" = "Hide info about this update ?";
+"whatsNew_hide_content" = "For any question or suggestion feel free to ask on Discord.";

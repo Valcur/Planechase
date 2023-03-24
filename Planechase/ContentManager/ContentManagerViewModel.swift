@@ -10,9 +10,11 @@ import SwiftUI
 class ContentManagerViewModel: ObservableObject {
     weak var planechaseVM: PlanechaseViewModel?
     @Published var cardCollection: [Card]
+    @Published var filteredCardCollection: [Card] = []
     @Published var decks: [Deck]
     @Published var selectedCardsInCollection: Int = 0
     @Published var selectedDeckId: Int
+    @Published var collectionFilter: Filter = Filter()
     var selectedDeck: Deck {
         return decks[selectedDeckId]
     }
@@ -22,6 +24,7 @@ class ContentManagerViewModel: ObservableObject {
         decks = SaveManager.getDecks()
         selectedDeckId = SaveManager.getSelectedDeckId()
         changeSelectedDeck(newDeckId: selectedDeckId)
+        updateFilteredCardCollection()
     }
     
     func changeSelectedDeck(newDeckId: Int) {
@@ -66,6 +69,7 @@ class ContentManagerViewModel: ObservableObject {
     
     private func updateSelectedCardsCountInCollection() {
         selectedCardsInCollection = selectedDeck.deckCardIds.count
+        updateFilteredCardCollection()
         planechaseVM?.objectWillChange.send()
     }
     
@@ -159,10 +163,27 @@ class ContentManagerViewModel: ObservableObject {
         print("id for new card : \(beforeId)\(id)")
         return "\(beforeId)\(id)"
     }
-}
-
-struct Deck: Codable {
-    let deckId: Int
-    let name: String
-    var deckCardIds: [String]
+    
+    func updateFilteredCardCollection() {
+        filteredCardCollection = cardCollection
+        
+        if collectionFilter.cardType == .official {
+            filteredCardCollection = filteredCardCollection.filter({ $0.imageURL != nil })
+        }
+        if collectionFilter.cardType == .unofficial {
+            filteredCardCollection = filteredCardCollection.filter({ $0.imageURL == nil })
+        }
+        
+        if collectionFilter.cardsInDeck == .present {
+            filteredCardCollection = filteredCardCollection.filter({ selectedDeck.deckCardIds.firstIndex(of: $0.id) != nil})
+        }
+        if collectionFilter.cardsInDeck == .absent {
+            filteredCardCollection = filteredCardCollection.filter({ selectedDeck.deckCardIds.firstIndex(of: $0.id) == nil})
+        }
+        if collectionFilter.cardsInDeck == .absentInAll {
+            for deck in decks {
+                filteredCardCollection = filteredCardCollection.filter({ deck.deckCardIds.firstIndex(of: $0.id) == nil})
+            }
+        }
+    }
 }

@@ -11,6 +11,7 @@ struct ContentManagerView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var contentManagerVM: ContentManagerViewModel
     @State var smallGridModEnable = true
+    @State var showFilterRow = false
     private var gridItemLayout: [GridItem]  {
         Array(repeating: .init(.fixed(CardSizes.contentManager.width + 50)), count: 2)
     }
@@ -46,57 +47,31 @@ struct ContentManagerView: View {
                     }.padding(.horizontal, 15).padding(.top, 5).iPhoneScaler(width: geo.size.width, height: 40)
                     
                     // MARK: Bottom bar
-                    HStack {
-                        Text("collection_howToUse".translate())
-                            .headline()                       .fixedSize(horizontal: false, vertical: true).padding(5)
+                    HStack() {
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showFilterRow.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "slider.horizontal.3")
+                                .font(.title)
+                                .foregroundColor(.white)
+                        }).opacity(showFilterRow ? 1 : 0.6)
+                        
+                        Rectangle().frame(width: 2, height: 40).foregroundColor(.white)
+                        
+                        if showFilterRow {
+                            FilterRow()
+                        } else {
+                            BottomRow(smallGridModEnable: $smallGridModEnable)
+                        }
                         
                         Spacer()
-                        
-                        HStack {
-                            Button(action: {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    contentManagerVM.selectAll()
-                                }
-                            }, label: {
-                                Text("collection_selectAll".translate()).textButtonLabel()
-                            })
-                            Button(action: {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    contentManagerVM.unselectAll()
-                                }
-                            }, label: {
-                                Text("collection_unselectAll").textButtonLabel()
-                            })
-                        }.padding(.trailing, 20)
-                        
-                        HStack {
-                            Button(action: {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    smallGridModEnable = true
-                                }
-                            }, label: {
-                                Image(systemName: "rectangle.grid.3x2")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                            }).opacity(smallGridModEnable ? 1 : 0.6)
-                            
-                            Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
-                            
-                            Button(action: {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    smallGridModEnable = false
-                                }
-                            }, label: {
-                                Image(systemName: "rectangle.grid.2x2")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                            }).opacity(smallGridModEnable ? 0.6 : 1)
-                        }
                     }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 40)
                     
                     ScrollView {
                         LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
-                            ForEach(contentManagerVM.cardCollection, id: \.id) { card in
+                            ForEach(contentManagerVM.filteredCardCollection, id: \.id) { card in
                                 CardView(card: card)
                                     .scaleEffect(smallGridModEnable ? 0.7 : 1)
                                     .frame(height: smallGridModEnable ? CardSizes.contentManager.height * 0.7 : CardSizes.contentManager.height)

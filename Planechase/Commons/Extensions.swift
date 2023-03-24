@@ -90,6 +90,7 @@ extension Text {
         self
             .font(.subheadline)
             .foregroundColor(.white)
+            .fixedSize(horizontal: false, vertical: true)
             //.fontWeight(.bold)
     }
 }
