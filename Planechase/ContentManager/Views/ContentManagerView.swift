@@ -13,10 +13,10 @@ struct ContentManagerView: View {
     @State var smallGridModEnable = true
     @State var showFilterRow = false
     private var gridItemLayout: [GridItem]  {
-        Array(repeating: .init(.fixed(CardSizes.contentManager.width + 50)), count: 2)
+        Array(repeating: .init(.fixed(CardSizes.contentManager.width + (UIDevice.isIPhone ? 10 : 50))), count: 2)
     }
     private var smallGridItemLayout: [GridItem]  {
-        Array(repeating: .init(.fixed(CardSizes.contentManager.width * 0.7 + 50)), count: 3)
+        Array(repeating: .init(.fixed(CardSizes.contentManager.width * 0.7 + (UIDevice.isIPhone ? 10 : 50))), count: 3)
     }
     
     var body: some View {
@@ -24,7 +24,7 @@ struct ContentManagerView: View {
             ZStack {
                 GradientView(gradientId: planechaseVM.gradientId)
                 
-                VStack(spacing: 8) {
+                VStack(spacing: UIDevice.isIPhone ? 2 : 8) {
                     // MARK: Top bar
                     HStack {
                         Button(action: {
@@ -44,7 +44,7 @@ struct ContentManagerView: View {
                             .headline()
                         
                         DeckSelection()
-                    }.padding(.horizontal, 15).padding(.top, 5).iPhoneScaler(width: geo.size.width, height: 40)
+                    }.padding(.horizontal, 15).padding(.top, 5).iPhoneScaler(width: geo.size.width, height: 44)
                     
                     // MARK: Bottom bar
                     HStack() {
@@ -65,7 +65,7 @@ struct ContentManagerView: View {
                         } else {
                             BottomRow(smallGridModEnable: $smallGridModEnable)
                         }
-                    }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 40)
+                    }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 44)
                     
                     ScrollView {
                         LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
@@ -78,7 +78,7 @@ struct ContentManagerView: View {
                         if contentManagerVM.cardCollection.count == 0 {
                             EmptyCardCollectionInfo()
                         }
-                    }.frame(width: geo.size.width)
+                    }.iPhoneScaler(width: geo.size.width, height: geo.size.height - 79, scaleEffect: 0.95, anchor: .top).frame(width: geo.size.width)
                 }
                 
                 ContentManagerInfoView()

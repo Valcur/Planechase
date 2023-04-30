@@ -41,12 +41,12 @@ extension View {
             .padding(5)
     }
     
-    func iPhoneScaler(width: CGFloat, height: CGFloat, scaleEffect: CGFloat = 0.8) -> some View {
+    func iPhoneScaler(width: CGFloat, height: CGFloat, scaleEffect: CGFloat = 0.8, anchor: UnitPoint = .center) -> some View {
         ZStack {
             if UIDevice.isIPhone {
                 self
                     .frame(width: width / scaleEffect)
-                    .scaleEffect(scaleEffect)
+                    .scaleEffect(scaleEffect, anchor: anchor)
                     .frame(height: height)
                     .frame(width: width)
             } else {

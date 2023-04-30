@@ -10,7 +10,7 @@ import SwiftUI
 struct CardSizes {
     static let map = CardSize(width: 320, coeff: 0.7)
     static let contentManager = CardSize(width: 450, coeff: 0.7)
-    static let deckController = CardSize(width: 320, coeff: 0.85)
+    static let deckController = CardSize(width: 440, coeff: 0.85)
     static let selectionBorderAdditionalCornerRadius: CGFloat = 5
     
     struct CardSize {

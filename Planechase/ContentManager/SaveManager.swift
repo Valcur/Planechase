@@ -138,7 +138,7 @@ extension SaveManager {
            let zoom = try? JSONDecoder().decode(ZoomViewType.self, from: data) {
             return zoom
         }
-        return .two
+        return UIDevice.isIPad ? .two : .one
     }
     
     static func saveOptions_DiceOptions(_ diceOptions: DiceOptions) {

@@ -44,14 +44,14 @@ struct MainMenuView: View {
                     }, label: {
                         Text("play_playClassic".translate())
                             .textButtonLabel()
-                    }).disabled(!isAllowedToPlayClassic)
+                    }).disabled(!isAllowedToPlayClassic).opacity(isAllowedToPlayClassic ? 1 : 0.7)
                     
                     Button(action: {
                         planechaseVM.togglePlaying(classicGameMode: false)
                     }, label: {
                         Text("play_playEternities".translate())
                             .textButtonLabel()
-                    }).disabled(!isAllowedToPlayEternities)
+                    }).disabled(!isAllowedToPlayEternities).opacity(isAllowedToPlayEternities ? 1 : 0.7)
                 }
                 
                 if !isAllowedToPlayClassic {
