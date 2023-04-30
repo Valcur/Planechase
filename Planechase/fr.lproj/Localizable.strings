@@ -11,14 +11,15 @@
 "continue" = "Continuer";
 "delete" = "Supprimer";
 "exit" = "Quitter";
+"discard" = "Défausser";
 
 // Mark: Play
 
 "play_app_title" = "Planechase Companion";
 "play_playClassic" = "Mode Classic";
 "play_playEternities" = "Mode Eternities Map";
-"play_playClassic_needMoreCards" = "Il vous faut au moins 10 cartes dans votre deck pour le mode Classic";
-"play_playEternities_needMoreCards" = "Il vous faut au moins 30 cartes dans votre deck pour le mode Eternities Map";
+"play_playClassic_needMoreCards" = "Il faut au moins 10 cartes dans votre deck pour le mode Classic";
+"play_playEternities_needMoreCards" = "Il faut au moins 30 cartes dans votre deck pour le mode Eternities Map";
 
 // Mark: Bubbles
 
@@ -40,7 +41,7 @@
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "Vous pouvez désormais filtrer l'affichage des cartes dans votre collection. Appuyez sur le bouton à gauche du texte d'info pour afficher/masquer la barre de filtrage. Les filtres impactent les boutons 'Sélectionner tous'/'Déselectionner tous'.";
+"whatsNew_content" = "Appuyez sur le bouton 'Télécharger depuis Scryfall' pour ajouter les nouvelles cartes planechase de L'invasion des machines à votre collection.\n\nAppuyez sur le bouton 'Ajouter' dans le contrôle du deck pour planeswalker sur plusieurs plans en même temps.";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -53,8 +54,8 @@
 "collection_import" = "Importer";
 "collection_deckSize" = "Taille du deck";
 "collection_howToUse" = "Appuyez pour ajouter/retirer une carte à votre deck. Maintenez appuyé pour la supprimer de votre collection.";
-"collection_selectAll" = "Sélectionner tous";
-"collection_unselectAll" = "Déselectionner tous";
+"collection_selectAll" = "Ajouter tous";
+"collection_unselectAll" = "Retirer tous";
 "collection_SelectDeck" = "Choisir Deck";
 "collection_emptyCollection1" = "D'abord, vous devez ajouter des cartes à votre collection";
 "collection_emptyCollection2" = "- Utilisez le bouton Télécharger depuis Scryfall pour télécharger et ajouter à votre collection toutes les cartes Planechase officielles.";
@@ -65,9 +66,9 @@
 "collection_filter_onlyShow" = "N'afficher que :";
 "collection_filter_official" = "Officielles";
 "collection_filter_unofficial" = "Importées";
-"collection_filter_present" = "Dans ce deck";
-"collection_filter_absent" = "Absent de ce deck";
-"collection_filter_absentAll" = "Dans aucun des decks";
+"collection_filter_present" = "Présent";
+"collection_filter_absent" = "Absent";
+"collection_filter_absentAll" = "Dans aucun decks";
 
 // Mark: Game
 
@@ -86,9 +87,10 @@
 "game_exit_content" = "La partie sera perdue.";
 "game_deckController_revealTop" = "Révéler la carte du dessus";
 "game_deckController_close" = "Mettre les cartes révélées en dessous aléatoirement et quitter";
-"game_deckController_putTop" = "Top";
-"game_deckController_putBottom" = "Bottom";
+"game_deckController_putTop" = "Au dessus";
+"game_deckController_putBottom" = "Au dessous";
 "game_deckController_planeswalk" = "Planeswalk";
+"game_deckController_planeswalkAdd" = "Ajouter";
 
 // Mark: Options
 

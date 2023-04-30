@@ -11,6 +11,7 @@
 "continue" = "Continue";
 "delete" = "Delete";
 "exit" = "Exit";
+"discard" = "Discard";
 
 // Mark: Play
 
@@ -40,7 +41,7 @@
 "discord_hide_content" = "You can still find a link in the options under 'Contact'";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "You can now filter your collection to easily manage it. Press the icon on the left of the info text to show/hide the filter row. Filters will impact the 'select all' and 'unselect all' buttons.";
+"whatsNew_content" = "Press the 'Download from Scryfall' button to add the new planechase cards from March of the Machine to your collection.\n\Press the 'Add' button in the deck controller to planeswalk to multiple planes at the same time.";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
@@ -89,6 +90,7 @@
 "game_deckController_putTop" = "Put top";
 "game_deckController_putBottom" = "Put bottom";
 "game_deckController_planeswalk" = "Planeswalk";
+"game_deckController_planeswalkAdd" = "Add";
 
 // Mark: Options
 
