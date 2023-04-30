@@ -12,10 +12,13 @@ extension ContentManagerViewModel {
         fetchCardsImageURLForSet("OHOP")
         fetchCardsImageURLForSet("OPCA")
         fetchCardsImageURLForSet("OPC2")
+        fetchCardsImageURLForSet("MOC", minCN: 47, maxCN: 71)
     }
     
-    func fetchCardsImageURLForSet(_ setCode: String) {
-        let ulrBase = "https://api.scryfall.com/cards/search?q=set%3A"
+    func fetchCardsImageURLForSet(_ setCode: String, minCN: Int = -1, maxCN: Int = -1) {
+        let ulrBase = "https://api.scryfall.com/cards/search?q=set%3A\(setCode)+%28cn%3E%3D\(minCN >= 0 ? minCN : 0)+cn%3C%3D\(maxCN >= 0 ? maxCN : 999)%29&unique=prints"
+        
+        print(ulrBase)
         
         // Create URL
         guard let url = URL(string: ulrBase + setCode) else {
@@ -63,11 +66,7 @@ extension ContentManagerViewModel {
 }
 
 extension ContentManagerViewModel {
-    // This file was generated from JSON Schema using quicktype, do not modify it directly.
-    // To parse the JSON, add this file to your project and do:
-    //
-    //   let welcome = try? JSONDecoder().decode(Welcome.self, from: jsonData)
-
+    
     // MARK: - Welcome
     struct PlanechaseURLs: Codable {
         let object: String
@@ -89,18 +88,18 @@ extension ContentManagerViewModel {
         let id, oracleID: String
         let multiverseIDS: [Int]
         let mtgoID: Int?
-        let tcgplayerID, cardmarketID: Int
+        let tcgplayerID, cardmarketID: Int?
         let name: String
         let lang: Lang
         let releasedAt: String
         let uri, scryfallURI: String
-        let layout: Layout
+        let layout: String
         let highresImage: Bool
         let imageStatus: ImageStatus
         let imageUris: ImageUris
         let manaCost: String
         let cmc: Int
-        let typeLine, oracleText: String
+        let typeLine, oracleText: String?
         let colors: [JSONAny]
         let colorIdentity, keywords: [String]
         let legalities: Legalities
@@ -198,6 +197,7 @@ extension ContentManagerViewModel {
 
     enum Finish: String, Codable {
         case nonfoil = "nonfoil"
+        case foil = "foil"
     }
 
     enum Game: String, Codable {
@@ -207,6 +207,7 @@ extension ContentManagerViewModel {
 
     enum ImageStatus: String, Codable {
         case highresScan = "highres_scan"
+        case lowres = "lowres"
     }
 
     // MARK: - ImageUris
@@ -226,21 +227,13 @@ extension ContentManagerViewModel {
         case en = "en"
     }
 
-    enum Layout: String, Codable {
-        case planar = "planar"
-    }
-
     // MARK: - Legalities
     struct Legalities: Codable {
-        let standard, future, historic, gladiator: Alchemy
-        let pioneer, explorer, modern, legacy: Alchemy
-        let pauper, vintage, penny, commander: Alchemy
-        let brawl, historicbrawl, alchemy, paupercommander: Alchemy
-        let duel, oldschool, premodern: Alchemy
-    }
-
-    enum Alchemy: String, Codable {
-        case notLegal = "not_legal"
+        let standard, future, historic, gladiator: String
+        let pioneer, explorer, modern, legacy: String
+        let pauper, vintage, penny, commander: String
+        let brawl, historicbrawl, alchemy, paupercommander: String
+        let duel, oldschool, premodern: String
     }
 
     enum Object: String, Codable {
@@ -254,12 +247,15 @@ extension ContentManagerViewModel {
 
     enum Rarity: String, Codable {
         case common = "common"
+        case uncommon = "uncommon"
+        case rare = "rare"
+        case mythic = "mythic"
     }
 
     // MARK: - RelatedUris
     struct RelatedUris: Codable {
-        let gatherer: String
-        let tcgplayerInfiniteArticles, tcgplayerInfiniteDecks, edhrec: String
+        let gatherer: String?
+        let tcgplayerInfiniteArticles, tcgplayerInfiniteDecks, edhrec: String?
 
         enum CodingKeys: String, CodingKey {
             case gatherer
@@ -271,6 +267,7 @@ extension ContentManagerViewModel {
 
     enum SetType: String, Codable {
         case planechase = "planechase"
+        case commander = "commander"
     }
 
     // MARK: - Encode/decode helpers
