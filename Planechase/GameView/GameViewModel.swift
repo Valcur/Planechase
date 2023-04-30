@@ -17,6 +17,7 @@ class GameViewModel: ObservableObject {
     @Published var cardToZoomIn: Card?          // nil if no card to zoom in, else show the card to fit the whole screen
     @Published var focusCenterToggler: Bool = false
     var isPlayingClassicMode: Bool = true
+    @Published var otherCurrentPlanes: [Card] = []  // Other planes than the main one where the players are at the same time
     
     // Deck Controller
     @Published var showPlanarDeckController: Bool = false
@@ -34,6 +35,7 @@ class GameViewModel: ObservableObject {
     func startGame(withDeck: [Card], classicGameMode: Bool) {
         guard withDeck.count >= (classicGameMode ? 10 : 30) else { return }
         isPlayingClassicMode = classicGameMode
+        otherCurrentPlanes = []
         deck = withDeck
         deckFull = withDeck.map({ $0.new() })
         deck.shuffle()
@@ -133,6 +135,15 @@ class GameViewModel: ObservableObject {
     }
     
     func drawCard() -> Card {
+        // Should only happened when the whole deck is on otherCurrentPlane
+        if deck.count == 0 {
+            if isPlayingClassicMode {
+                return cardToZoomIn!
+            } else {
+                return getCenter()
+            }
+        }
+        
         let card = deck.removeFirst()
 
         // If empty reshuffle deck with all cards not on the map
@@ -151,6 +162,9 @@ class GameViewModel: ObservableObject {
                 deck.removeAll(where: { $0.id == cardToZoomIn!.id })
             }
             deck.removeAll(where: { $0.id == card.id })
+            for otherCard in otherCurrentPlanes {
+                deck.removeAll(where: { $0.id == otherCard.id })
+            }
             deck.shuffle()
             print("New deck shuffled with \(deck.count) cards")
         }
@@ -318,6 +332,37 @@ extension GameViewModel {
             addCardAtCoord(card: card, center)
         }
         removeCardFromRevealed(card)
+    }
+    
+    func stayAndPlaneswalkTo(_ card: Card) {
+        otherCurrentPlanes.append(card)
+        
+        removeCardFromRevealed(card)
+    }
+    
+    func switchToOtherCurrentPLane(_ card: Card) {
+        if isPlayingClassicMode {
+            otherCurrentPlanes.append(cardToZoomIn!)
+            
+            withAnimation(.easeInOut(duration: 0.3)) {
+                cardToZoomIn = card
+            }
+        } else {
+            let centerCard = getCenter()
+            
+            if cardToZoomIn?.id == centerCard.id {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    cardToZoomIn = card
+                }
+            }
+            
+            otherCurrentPlanes.append(centerCard)
+            
+            withAnimation(.easeInOut(duration: 0.3)) {
+                addCardAtCoord(card: card, center)
+            }
+        }
+        otherCurrentPlanes.removeAll(where: { $0.id == card.id })
     }
     
     private func removeCardFromRevealed(_ card: Card) {

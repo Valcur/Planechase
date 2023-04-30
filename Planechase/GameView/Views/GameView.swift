@@ -41,6 +41,10 @@ struct GameView: View {
                 GameInfoView()
                     .position(x: geo.size.width / 2, y: geo.size.height + 50)
                 
+                CurrentOtherPlanesView()
+                    .position(x: diceViewPositionX(width: geo.size.width),
+                              y:  diceViewPositionY(height: geo.size.height))
+                
                 PlanarDeckControlView()
             }
         }.background(

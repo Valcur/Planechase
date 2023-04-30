@@ -29,12 +29,12 @@ struct PlanarDeckControlView: View {
                             PlanarControllerCardView(card: card)
                         }
                     }.padding(.horizontal, 15)
-                }.frame(width: geo.size.width).frame(height: CardSizes.deckController.height + 100)
+                }.frame(width: geo.size.width / (UIDevice.isIPhone ? 0.8 : 1)).frame(height: CardSizes.deckController.height + 30)
                 
                 Button(action: {
                     gameVM.togglePlanarDeckController()
                 }, label: {
-                    Text("game_deckController_close".translate())
+                    Text(gameVM.revealedCards.count == 0 ? "exit".translate() : "game_deckController_close".translate())
                         .textButtonLabel()
                 })
             }.iPhoneScaler(width: geo.size.width, height: geo.size.height).frame(width: geo.size.width, height: geo.size.height)
@@ -49,14 +49,15 @@ struct PlanarDeckControlView: View {
         @ObservedObject var card: Card
         
         var body: some View {
-            VStack {
+            ZStack {
                 ZStack {
                     if card.image == nil {
                         Color.black
                             .opacity(0.0000001)
                             .frame(width: CardSizes.deckController.width, height: CardSizes.deckController.height)
                             .cornerRadius(CardSizes.deckController.cornerRadius)
-                            .shadowed(radius: 8)
+                            .shadowed(radius: 6)
+                            .padding(15)
                             .onAppear {
                                 card.cardAppears()
                             }
@@ -65,44 +66,58 @@ struct PlanarDeckControlView: View {
                             .resizable()
                             .frame(width: CardSizes.deckController.width, height: CardSizes.deckController.height)
                             .cornerRadius(CardSizes.deckController.cornerRadius)
-                            .shadowed(radius: 8)
+                            .shadowed(radius: 6)
+                            .padding(15)
                     }
                 }
-                .padding(5)
                 
-                HStack {
-                    Button(action: {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            gameVM.putCardToBottom(card)
-                        }
-                    }, label: {
-                        Text("game_deckController_putBottom".translate())
-                            .textButtonLabel()
-                    })
-                    
+                VStack {
+                    HStack {
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                gameVM.putCardToBottom(card)
+                            }
+                        }, label: {
+                            Text("game_deckController_putBottom".translate())
+                                .textButtonLabel()
+                        })
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                gameVM.putCardToTop(card)
+                            }
+                        }, label: {
+                            Text("game_deckController_putTop".translate())
+                                .textButtonLabel()
+                        })
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                gameVM.planeswalkTo(card)
+                            }
+                        }, label: {
+                            Text("game_deckController_planeswalk".translate())
+                                .textButtonLabel()
+                        })
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                gameVM.stayAndPlaneswalkTo(card)
+                            }
+                        }, label: {
+                            Text("game_deckController_planeswalkAdd".translate())
+                                .textButtonLabel()
+                        })
+                    }
                     Spacer()
-                    
-                    Button(action: {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            gameVM.putCardToTop(card)
-                        }
-                    }, label: {
-                        Text("game_deckController_putTop".translate())
-                            .textButtonLabel()
-                    })
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            gameVM.planeswalkTo(card)
-                        }
-                    }, label: {
-                        Text("game_deckController_planeswalk".translate())
-                            .textButtonLabel()
-                    })
                 }
-            }
+            }.padding(.horizontal, 15)
         }
     }
 }
