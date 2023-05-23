@@ -218,6 +218,32 @@ struct RecenterView: View {
     }
 }
 
+struct LifePointsToggleView: View {
+    @EnvironmentObject var gameVM: GameViewModel
+    @EnvironmentObject var lifePointsViewModel: LifePointsViewModel
+    
+    var body: some View {
+        Button(action: {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                gameVM.showLifePointsView.toggle()
+            }
+        }, label: {
+            if !gameVM.showLifePointsView {
+                LifePointsView(isMiniView: true)
+                    .environmentObject(lifePointsViewModel)
+                    .frame(width: 400, height: 220)
+                    .cornerRadius(15)
+                    .scaleEffect(0.55)
+                    .offset(x: 70, y: -23)
+                    .allowsHitTesting(false)
+            } else {
+                Image(systemName: "xmark")
+                    .imageButtonLabel()
+            }
+        })
+    }
+}
+
 struct ToolView: View {
     @EnvironmentObject var gameVM: GameViewModel
     @State var showTools = false

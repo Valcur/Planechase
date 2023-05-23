@@ -139,6 +139,56 @@ extension OptionsMenuView {
                         MenuNumberOfFaceChoiceView(numberOfFace: 8)
                     }
                 }
+                
+                Group {
+                    Text("options_life_title".translate())
+                        .title()
+                    
+                    Toggle("options_life_useLifeCounter".translate(), isOn: $planechaseVM.lifeCounterOptions.useLifeCounter)
+                        .font(.subheadline).foregroundColor(.white)
+                    
+                    Toggle("options_life_useCommanderDamages".translate(), isOn: $planechaseVM.lifeCounterOptions.useCommanderDamages)
+                        .font(.subheadline).foregroundColor(.white)
+                    
+                    Text("options_life_colorPaletteId".translate())
+                        .headline()
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: 0)
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: 1)
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: 2)
+                        }.padding(10)
+                    }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
+                    
+                    HStack {
+                        Text("options_life_nbrPlayers".translate())
+                            .headline()
+                        
+                        Spacer()
+                        
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 2)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 3)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 4)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 5)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 6)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 7)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 8)
+                    }
+                    
+                    HStack {
+                        Text("options_life_startingLife".translate())
+                            .headline()
+                        
+                        Spacer()
+                        
+                        MenuStartingLifeChoiceView(startingLife: 20)
+                        MenuStartingLifeChoiceView(startingLife: 30)
+                        MenuStartingLifeChoiceView(startingLife: 40)
+                        MenuStartingLifeChoiceView(startingLife: 50)
+                        MenuStartingLifeChoiceView(startingLife: 60)
+                    }
+                }
             }.scrollablePanel()
                 .onChange(of: planechaseVM.biggerCardsOnMap) { _ in
                     planechaseVM.saveToggles()
@@ -146,7 +196,15 @@ extension OptionsMenuView {
                 .onChange(of: planechaseVM.useHellridePNG) { _ in
                     planechaseVM.saveToggles()
                 }
+                .onChange(of: planechaseVM.lifeCounterOptions.useLifeCounter) { _ in
+                    planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
+                }
+                .onChange(of: planechaseVM.lifeCounterOptions.useCommanderDamages) { _ in
+                    planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
+                }
         }
+        
+        //Mark: Menu choice picker views
         
         struct ZoomViewTypeView: View {
             @EnvironmentObject var planechaseVM: PlanechaseViewModel
@@ -266,6 +324,93 @@ extension OptionsMenuView {
                         .fontWeight(isSelected ? .bold : .regular)
                         .foregroundColor(.white)
                         .opacity(isSelected ? 1 : 0.7)
+                })
+            }
+        }
+        
+        struct MenuNumberOfPlayerChoiceView: View {
+            @EnvironmentObject var planechaseVM: PlanechaseViewModel
+            let numberOfPlayers: Int
+            var isSelected: Bool {
+                planechaseVM.lifeCounterOptions.nbrOfPlayers == numberOfPlayers
+            }
+            
+            var body: some View {
+                Button(action: {
+                    planechaseVM.setLifeOptions(LifeOptions(useLifeCounter: planechaseVM.lifeCounterOptions.useLifeCounter,
+                                                            useCommanderDamages: planechaseVM.lifeCounterOptions.useCommanderDamages,
+                                                            colorPaletteId: planechaseVM.lifeCounterOptions.colorPaletteId,
+                                                            nbrOfPlayers: numberOfPlayers,
+                                                            startingLife: planechaseVM.lifeCounterOptions.startingLife))
+                }, label: {
+                    Text(" \(numberOfPlayers) ")
+                        .font(.title2)
+                        .fontWeight(isSelected ? .bold : .regular)
+                        .foregroundColor(.white)
+                        .opacity(isSelected ? 1 : 0.7)
+                })
+            }
+        }
+        
+        struct MenuStartingLifeChoiceView: View {
+            @EnvironmentObject var planechaseVM: PlanechaseViewModel
+            let startingLife: Int
+            var isSelected: Bool {
+                planechaseVM.lifeCounterOptions.startingLife == startingLife
+            }
+            
+            var body: some View {
+                Button(action: {
+                    planechaseVM.setLifeOptions(LifeOptions(useLifeCounter: planechaseVM.lifeCounterOptions.useLifeCounter,
+                                                            useCommanderDamages: planechaseVM.lifeCounterOptions.useCommanderDamages,
+                                                            colorPaletteId: planechaseVM.lifeCounterOptions.colorPaletteId,
+                                                            nbrOfPlayers: planechaseVM.lifeCounterOptions.nbrOfPlayers,
+                                                            startingLife: startingLife))
+                }, label: {
+                    Text(" \(startingLife) ")
+                        .font(.title2)
+                        .fontWeight(isSelected ? .bold : .regular)
+                        .foregroundColor(.white)
+                        .opacity(isSelected ? 1 : 0.7)
+                })
+            }
+        }
+        
+        struct MenuLifeCounterBackgroundColorChoiceView: View {
+            @EnvironmentObject var planechaseVM: PlanechaseViewModel
+            let blurEffect: UIBlurEffect.Style = .systemThinMaterialDark
+            let colorId: Int
+            
+            var body: some View {
+                Button(action: {
+                    print("Changing life counter color to \(colorId)")
+                    planechaseVM.setLifeOptions(LifeOptions(useLifeCounter: planechaseVM.lifeCounterOptions.useLifeCounter,
+                                                            useCommanderDamages: planechaseVM.lifeCounterOptions.useCommanderDamages,
+                                                            colorPaletteId: colorId,
+                                                            nbrOfPlayers: planechaseVM.lifeCounterOptions.nbrOfPlayers,
+                                                            startingLife: planechaseVM.lifeCounterOptions.startingLife))
+                }, label: {
+                    VStack {
+                        if colorId == 0 {
+                            VisualEffectView(effect: UIBlurEffect(style: blurEffect))
+                        } else {
+                            HStack {
+                                Color("\(colorId) Player 1")
+                                Color("\(colorId) Player 2")
+                                Color("\(colorId) Player 3")
+                                Color("\(colorId) Player 4")
+                            }
+                            HStack {
+                                Color("\(colorId) Player 5")
+                                Color("\(colorId) Player 6")
+                                Color("\(colorId) Player 7")
+                                Color("\(colorId) Player 8")
+                            }
+                        }
+                    }.cornerRadius(15).frame(width: 120, height: 120).overlay(
+                        RoundedRectangle(cornerRadius: 19)
+                            .stroke(planechaseVM.lifeCounterOptions.colorPaletteId == colorId ? .white : .clear, lineWidth: 4))
+                    .padding(10)
                 })
             }
         }

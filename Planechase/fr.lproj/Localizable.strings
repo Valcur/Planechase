@@ -109,6 +109,12 @@
 "options_dice_color" = "Couleur du dé :";
 "options_dice_choiceFace" = "Ajoute une face planeswalk/chaos au choix du joueur";
 "options_dice_numberOfFace" = "Nombre de faces sur le dé";
+"options_life_title" = "Life Counter";
+"options_life_useLifeCounter" = "Use life counter";
+"options_life_useCommanderDamages" = "Use commander damages (and other counters)";
+"options_life_colorPaletteId" = "Pick a color theme";
+"options_life_nbrPlayers" = "NumberofPlayers";
+"options_life_startingLife" = "Starting Life";
 
 "options_contact_discord" = "Vous souhaitez trouver de nouvelles carte personalisées ou partager les votres ? Des suggestion sur l'app ? Un bug que vous aimeriez que je règle ?";
 "options_contact_discordJoin" = "Rejoignez nous sur Discord !";

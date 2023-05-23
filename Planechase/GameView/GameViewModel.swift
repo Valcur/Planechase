@@ -23,6 +23,8 @@ class GameViewModel: ObservableObject {
     @Published var showPlanarDeckController: Bool = false
     @Published var revealedCards: [Card] = []
     
+    @Published var showLifePointsView: Bool = false
+    
     init() {
         map = [[Card?]](
             repeating: [Card?](repeating: nil, count: 7),

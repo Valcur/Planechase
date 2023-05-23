@@ -109,6 +109,12 @@
 "options_dice_color" = "Dice color :";
 "options_dice_choiceFace" = "Add a face planeswalk/chaos that let the player choose";
 "options_dice_numberOfFace" = "Number of faces on the dice";
+"options_life_title" = "Life Counter";
+"options_life_useLifeCounter" = "Use life counter";
+"options_life_useCommanderDamages" = "Use commander damages (and other counters)";
+"options_life_colorPaletteId" = "Pick a color theme";
+"options_life_nbrPlayers" = "NumberofPlayers";
+"options_life_startingLife" = "Starting Life";
 
 "options_contact_discord" = "Want a place to share your custom Planechase cards or just to find more card made by the community ? Suggestion for the app ? Bugs that you want me to fix ?";
 "options_contact_discordJoin" = "Join us on Discord !";

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB0028DE29FE98C200E3DD74 /* LifePointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0028DD29FE98C200E3DD74 /* LifePointsView.swift */; };
 		DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3BF29B9E06400C15251 /* DiceOptions.swift */; };
 		DB18E3C329BE14E000C15251 /* OptionsMenuView+OptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3C229BE14E000C15251 /* OptionsMenuView+OptionsPanel.swift */; };
 		DB3AB7C929AD051E00B11E17 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AB7C829AD051E00B11E17 /* StoreKit.framework */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB0028DD29FE98C200E3DD74 /* LifePointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePointsView.swift; sourceTree = "<group>"; };
 		DB18E3BF29B9E06400C15251 /* DiceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceOptions.swift; sourceTree = "<group>"; };
 		DB18E3C229BE14E000C15251 /* OptionsMenuView+OptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OptionsMenuView+OptionsPanel.swift"; sourceTree = "<group>"; };
 		DB3AB7C829AD051E00B11E17 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -216,6 +218,7 @@
 				DBA02CFA29A4FFA7004E94BC /* GameView+SmallViews.swift */,
 				DBA02CFD29A50500004E94BC /* ZoomView.swift */,
 				DBC339B229AB8AC60089CB01 /* PlanarDeckControlView.swift */,
+				DB0028DD29FE98C200E3DD74 /* LifePointsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */,
 				DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */,
 				DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */,
+				DB0028DE29FE98C200E3DD74 /* LifePointsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

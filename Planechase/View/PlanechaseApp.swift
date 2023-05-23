@@ -27,7 +27,7 @@ struct PlanechaseApp: App {
     var body: some Scene {
         WindowGroup {
             if planechaseVM.isPlaying {
-                GameView()
+                GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions)
                     .statusBar(hidden: true)
                     .environmentObject(planechaseVM)
                     .environmentObject(planechaseVM.gameVM)
@@ -76,6 +76,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var useHellridePNG: Bool
     @Published var biggerCardsOnMap: Bool
     @Published var diceOptions: DiceOptions
+    @Published var lifeCounterOptions: LifeOptions
     @Published var isPremium = false
     @Published var showDiscordInvite = false
     @Published var paymentProcessing = false
@@ -87,6 +88,7 @@ class PlanechaseViewModel: ObservableObject {
         biggerCardsOnMap = optionToggles.0
         useHellridePNG = optionToggles.1
         diceOptions = SaveManager.getOptions_DiceOptions()
+        lifeCounterOptions = SaveManager.getOptions_LifeOptions()
         
         gameVM = GameViewModel()
         contentManagerVM = ContentManagerViewModel()
@@ -119,6 +121,13 @@ class PlanechaseViewModel: ObservableObject {
         SaveManager.saveOptions_DiceOptions(diceOptions)
     }
     
+    func setLifeOptions(_ life: LifeOptions) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            lifeCounterOptions = life
+        }
+        SaveManager.saveOptions_LifeOptions(life)
+    }
+    
     func setZoomViewType(_ zoomType: ZoomViewType) {
         withAnimation(.easeInOut(duration: 0.3)) {
             zoomViewType = zoomType
@@ -135,4 +144,12 @@ enum ZoomViewType: Codable {
     case one
     case two
     case four
+}
+
+struct LifeOptions: Codable {
+    var useLifeCounter: Bool
+    var useCommanderDamages: Bool
+    var colorPaletteId: Int
+    var nbrOfPlayers: Int
+    var startingLife: Int
 }
