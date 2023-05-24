@@ -29,6 +29,10 @@ struct DiceOptions: Codable {
             return Color("DiceWoodLight")
         case 7:
             return Color("DiceGreen")
+        case 8:
+            return Color("DiceBeigeFront")
+        case 9:
+            return Color("DiceDarkGreenFront")
         default:
             return .white
         }
@@ -50,6 +54,10 @@ struct DiceOptions: Codable {
             return AnyView(Color("DiceWoodDark").opacity(1))
         case 7:
             return AnyView(Color.black.opacity(0.6))
+        case 8:
+            return AnyView(Color("DiceBeigeBack").opacity(1))
+        case 9:
+            return AnyView(Color("DiceDarkGreenBack").opacity(1))
         default:
             return AnyView(Color.black.opacity(0.3))
         }

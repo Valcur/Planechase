@@ -88,12 +88,20 @@ extension OptionsMenuView {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
-                            MenuCustomDiceChoiceView(diceStyleId: 0)
-                            MenuCustomDiceChoiceView(diceStyleId: 1)
-                            MenuCustomDiceChoiceView(diceStyleId: 2)
-                            MenuCustomDiceChoiceView(diceStyleId: 3)
-                            MenuCustomDiceChoiceView(diceStyleId: 4)
-                            MenuCustomDiceChoiceView(diceStyleId: 5)
+                            Group {
+                                MenuCustomDiceChoiceView(diceStyleId: 0)
+                                MenuCustomDiceChoiceView(diceStyleId: 1)
+                                MenuCustomDiceChoiceView(diceStyleId: 2)
+                                MenuCustomDiceChoiceView(diceStyleId: 3)
+                                MenuCustomDiceChoiceView(diceStyleId: 4)
+                                MenuCustomDiceChoiceView(diceStyleId: 5)
+                            }
+                            MenuCustomDiceChoiceView(diceStyleId: 6)
+                            MenuCustomDiceChoiceView(diceStyleId: 7)
+                            MenuCustomDiceChoiceView(diceStyleId: 8)
+                            MenuCustomDiceChoiceView(diceStyleId: 9)
+                            MenuCustomDiceChoiceView(diceStyleId: 10)
+                            MenuCustomDiceChoiceView(diceStyleId: 11)
                         }.padding(10)
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     
@@ -120,6 +128,8 @@ extension OptionsMenuView {
                             MenuCustomDiceColorChoiceView(diceColorId: 5)
                             MenuCustomDiceColorChoiceView(diceColorId: 6)
                             MenuCustomDiceColorChoiceView(diceColorId: 7)
+                            MenuCustomDiceColorChoiceView(diceColorId: 8)
+                            MenuCustomDiceColorChoiceView(diceColorId: 9)
                         }.padding(10)
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     

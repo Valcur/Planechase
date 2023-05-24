@@ -59,6 +59,7 @@ struct GameView: View {
                     LifePointsToggleView()
                         .position(x: 40, y: geo.size.height - 40)
                         .environmentObject(lifePointsViewModel)
+                        .ignoresSafeArea()
                 }
                 
                 PlanarDeckControlView()

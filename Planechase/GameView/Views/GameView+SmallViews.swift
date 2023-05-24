@@ -140,14 +140,63 @@ struct DiceOverlay: View {
                     CornerImage(diceStyle: diceStyleId, diceColorId: diceColorId, alignment: .bottomLeading)
                     CornerImage(diceStyle: diceStyleId, diceColorId: diceColorId, alignment: .bottomTrailing)
                 } else {
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(DiceOptions.getForegroundColor(diceColorId), lineWidth: 4)
-                    
-                    Image("Gear")
-                        .resizable()
-                        .renderingMode(.template)
-                        .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
-                        .scaleEffect(1.1)
+                    if diceStyleId == 5 {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(DiceOptions.getForegroundColor(diceColorId), lineWidth: 4)
+                        
+                        Image("Gear")
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                            .scaleEffect(1.1)
+                    } else if diceStyleId == 6 {
+                        Image("ArtDeco1")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                            .scaleEffect(0.9)
+                    } else if diceStyleId == 7 {
+                        Image("ArtDeco2")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                    } else if diceStyleId == 8 {
+                        Image("LOTR2")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                            .scaleEffect(1)
+                        Image("LOTR1")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                            .scaleEffect(0.88)
+                    } else if diceStyleId == 9 {
+                        Image("LOTR1")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                            .scaleEffect(0.95)
+                    } else if diceStyleId == 10 {
+                        Image("minimalist1")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                            .scaleEffect(0.95)
+                    } else if diceStyleId == 11 {
+                        Image("minimalist2")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                            .scaleEffect(1.1)
+                    }
                 }
             }
         }
@@ -231,8 +280,9 @@ struct LifePointsToggleView: View {
             if !gameVM.showLifePointsView {
                 LifePointsView(isMiniView: true)
                     .environmentObject(lifePointsViewModel)
-                    .frame(width: 400, height: 220)
+                    .frame(width: UIDevice.isIPhone ? 300 : 400, height: 220)
                     .cornerRadius(15)
+                    .ignoresSafeArea()
                     .scaleEffect(0.55)
                     .offset(x: 70, y: -23)
                     .allowsHitTesting(false)
