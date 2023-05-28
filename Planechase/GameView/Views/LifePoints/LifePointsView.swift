@@ -94,9 +94,6 @@ struct LifePointsPlayerPanelView: View {
         ZStack(alignment: .bottom) {
             if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
                 VisualEffectView(effect: UIBlurEffect(style: blurEffect))
-            } else if planechaseVM.lifeCounterOptions.colorPaletteId == 0 {
-                players[playerId].backgroundColor
-                VisualEffectView(effect: UIBlurEffect(style: blurEffect))
             } else {
                 players[playerId].backgroundColor
             }
@@ -116,8 +113,16 @@ struct LifePointsPlayerPanelView: View {
                     }
             }
             if planechaseVM.lifeCounterOptions.useCommanderDamages && !isMiniView {
-                CountersRecapView(playerId: playerId, lifePoints: $lifePoints, playerCounters: $playerCounters)
+                CommanderRecapView(playerId: playerId, lifePoints: $lifePoints, playerCounters: $playerCounters)
                     .padding(10)
+                
+                HStack(alignment: .center) {
+                    Spacer()
+                    CounterRecapView(value: playerCounters.poison, imageName: "Poison", size: 70)
+                    Color.white.frame(width: 80).opacity(0)
+                    CounterRecapView(value: playerCounters.commanderTax, imageName: "CommanderTax", size: 60)
+                    Spacer()
+                }
             }
             Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0)
         }.cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10))
@@ -159,7 +164,26 @@ struct LifePointsPlayerPanelView: View {
         }
     }
     
-    struct CountersRecapView: View {
+    struct CounterRecapView: View {
+        let value: Int
+        let imageName: String
+        let size: CGFloat
+        
+        var body: some View {
+            ZStack {
+                Image(imageName)
+                    .resizable()
+                    .frame(width: size, height: size)
+                    .foregroundColor(Color.white)
+                    .opacity(0.5)
+                
+                Text("\(value)")
+                    .title()
+            }.opacity(value > 0 ? 1 : 0)
+        }
+    }
+    
+    struct CommanderRecapView: View {
         @EnvironmentObject var lifePointsViewModel: LifePointsViewModel
         var halfNumberOfPlayers: Int {
             lifePointsViewModel.numberOfPlayer / 2
@@ -258,125 +282,6 @@ struct LifePointsPlayerPanelView: View {
                 }.cornerRadius(10).padding(2)
             }
         }
-        
-        struct CountersSheet: View {
-            @EnvironmentObject var lifePointsViewModel: LifePointsViewModel
-            @Environment(\.presentationMode) var presentationMode
-            var halfNumberOfPlayers: Int {
-                lifePointsViewModel.numberOfPlayer / 2
-            }
-            @Binding var playerCounters: PlayerCounters
-            @Binding var lifePoints: Int
-            let playerId: Int
-            
-            var body: some View {
-                ScrollView(.vertical) {
-                    VStack(alignment: .leading) {
-                        Text("Counters")
-                            .title()
-                        
-                        HStack {
-                            CounterView(title: "Poison", systemImageName: "dice.fill", value: $playerCounters.poison)
-                            
-                            Spacer()
-                            
-                            CounterView(title: "Comm Tax", systemImageName: "dice.fill", value: $playerCounters.commanderTax)
-                        }
-                        
-                        Text("Commander damages")
-                            .title()
-                        
-                        ZStack {
-                            if lifePointsViewModel.numberOfPlayer % 2 == 0 {
-                                EvenBlueprint(row1: AnyView(HStack {
-                                    ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                                        CommanderDamage(damageTaken: $playerCounters.commanderDamages[i - 1], lifePoints: $lifePoints)
-                                            .commanderDamageToYourself(i - 1 == playerId)
-                                    }
-                                }), row2: AnyView(HStack {
-                                    ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                                        CommanderDamage(damageTaken: $playerCounters.commanderDamages[i + halfNumberOfPlayers - 1], lifePoints: $lifePoints)
-                                            .commanderDamageToYourself(i + halfNumberOfPlayers - 1 == playerId)
-                                    }
-                                }))
-                            } else {
-                                UnevenBlueprint(row1: AnyView(HStack {
-                                    ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                                        CommanderDamage(damageTaken: $playerCounters.commanderDamages[i], lifePoints: $lifePoints)
-                                            .commanderDamageToYourself(i == playerId)
-                                    }
-                                }),
-                                                row2: AnyView(                    HStack {
-                                    ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                                        CommanderDamage(damageTaken: $playerCounters.commanderDamages[i + halfNumberOfPlayers], lifePoints: $lifePoints)
-                                            .commanderDamageToYourself(i + halfNumberOfPlayers == playerId)
-                                    }
-                                }),
-                                                sideElement: AnyView(CommanderDamage(damageTaken: $playerCounters.commanderDamages[0], lifePoints: $lifePoints)
-                                                    .commanderDamageToYourself(0 == playerId))
-                                )
-                            }
-                        }.padding(.horizontal, 80).frame(height: 150)
-                        
-                        Spacer()
-                    }
-                }.padding(20).background(Color.black.ignoresSafeArea())
-            }
-            
-            struct CommanderDamage: View {
-                let blurEffect: UIBlurEffect.Style = .systemThinMaterialDark
-                @Binding var damageTaken: Int
-                @Binding var lifePoints: Int
-                
-                var body: some View {
-                    ZStack {
-                        VisualEffectView(effect: UIBlurEffect(style: blurEffect))
-                        Text("\(damageTaken)")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                    }.cornerRadius(10).padding(5)
-                        .onTapGesture {
-                            damageTaken += 1
-                            lifePoints -= 1
-                        }
-                }
-            }
-            
-            struct CounterView: View {
-                let title: String
-                let systemImageName: String
-                @Binding var value: Int
-                var body: some View {
-                    HStack {
-                        Button(action: {
-                            if value > 0 {
-                                value -= 1
-                            }
-                        }, label: {
-                            Text("-")
-                                .buttonLabel()
-                        })
-                        
-                        VStack(spacing: 5) {
-                            Text(title)
-                                .headline()
-                            
-                            //Image(systemName: systemImageName)
-                            
-                            Text("\(value)")
-                                .title()
-                        }.frame(width: 80).buttonLabel()
-                        
-                        Button(action: {
-                            value += 1
-                        }, label: {
-                            Text("+")
-                                .buttonLabel()
-                        })
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -472,7 +377,7 @@ class LifePointsViewModel: ObservableObject {
         ]
         colors.shuffle()
         for i in 1...numberOfPlayer {
-            players.append(PlayerProfile(name: "Player \(i)", backgroundImage: "erer", backgroundColor: colors[i - 1]))
+            players.append(PlayerProfile(name: "\("lifepoints_player".translate()) \(i)", backgroundImage: "erer", backgroundColor: colors[i - 1]))
         }
     }
 }

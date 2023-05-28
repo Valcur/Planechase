@@ -92,6 +92,12 @@
 "game_deckController_planeswalk" = "Planeswalk";
 "game_deckController_planeswalkAdd" = "Ajouter";
 
+"lifepoints_counters_title" = "Compteurs";
+"lifepoints_counters_poison" = "Poison";
+"lifepoints_counters_tax" = "Comm tax";
+"lifepoints_commander_title" = "Dégâts de commander";
+"lifepoints_player" = "Joueur";
+
 // Mark: Options
 
 "options_optionsTitle" = "Options";
@@ -104,6 +110,7 @@
 "options_ui_zoomType" = "Type de zoom";
 "options_ui_biggerCardsOnMap" = "Aggrandir les cartes sur la map";
 "options_ui_hellridePng" = "SUPER SECRET : utiliser red_evil_portal.png pour le hellride";
+"options_ui_noHammer" = "Menu boîte à outils toujours visible";
 "options_dice_title" = "Dé";
 "options_dice_style" = "Style du dé :";
 "options_dice_color" = "Couleur du dé :";

@@ -92,6 +92,12 @@
 "game_deckController_planeswalk" = "Planeswalk";
 "game_deckController_planeswalkAdd" = "Add";
 
+"lifepoints_counters_title" = "Counters";
+"lifepoints_counters_poison" = "Poison";
+"lifepoints_counters_tax" = "Comm tax";
+"lifepoints_commander_title" = "Commander damages";
+"lifepoints_player" = "Player";
+
 // Mark: Options
 
 "options_optionsTitle" = "Options";
@@ -104,6 +110,7 @@
 "options_ui_zoomType" = "Zoom type";
 "options_ui_biggerCardsOnMap" = "Bigger cards on map";
 "options_ui_hellridePng" = "SUPER SECRET : use red_evil_portal.png for hellride";
+"options_ui_noHammer" = "Tools menu always visible";
 "options_dice_title" = "Dice";
 "options_dice_style" = "Dice style :";
 "options_dice_color" = "Dice color :";

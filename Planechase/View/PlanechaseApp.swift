@@ -75,6 +75,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var zoomViewType: ZoomViewType
     @Published var useHellridePNG: Bool
     @Published var biggerCardsOnMap: Bool
+    @Published var noHammerRow: Bool
     @Published var diceOptions: DiceOptions
     @Published var lifeCounterOptions: LifeOptions
     @Published var isPremium = false
@@ -87,6 +88,7 @@ class PlanechaseViewModel: ObservableObject {
         let optionToggles = SaveManager.getOptions_Toggles()
         biggerCardsOnMap = optionToggles.0
         useHellridePNG = optionToggles.1
+        noHammerRow = optionToggles.2
         diceOptions = SaveManager.getOptions_DiceOptions()
         lifeCounterOptions = SaveManager.getOptions_LifeOptions()
         
@@ -136,7 +138,7 @@ class PlanechaseViewModel: ObservableObject {
     }
     
     func saveToggles() {
-        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG)
+        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG, noHammer: noHammerRow)
     }
 }
 

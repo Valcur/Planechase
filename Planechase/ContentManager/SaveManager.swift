@@ -177,14 +177,16 @@ extension SaveManager {
         return UserDefaults.standard.object(forKey: "GradientId") as? Int ?? 1
     }
     
-    static func saveOptions_Toggles(bigCard: Bool, hellride: Bool) {
+    static func saveOptions_Toggles(bigCard: Bool, hellride: Bool, noHammer: Bool) {
         UserDefaults.standard.set(bigCard, forKey: "BiggerCardsOnMap")
         UserDefaults.standard.set(hellride, forKey: "UseHellridePNG")
+        UserDefaults.standard.set(noHammer, forKey: "NoHammer")
     }
     
-    static func getOptions_Toggles() -> (Bool, Bool) {
+    static func getOptions_Toggles() -> (Bool, Bool, Bool) {
         let bigCards = UserDefaults.standard.object(forKey: "BiggerCardsOnMap") as? Bool ?? false
         let hellRide = UserDefaults.standard.object(forKey: "UseHellridePNG") as? Bool ?? false
-        return (bigCards, hellRide)
+        let noHammer = UserDefaults.standard.object(forKey: "NoHammer") as? Bool ?? false
+        return (bigCards, hellRide, noHammer)
     }
 }

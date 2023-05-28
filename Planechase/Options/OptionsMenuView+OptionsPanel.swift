@@ -67,6 +67,9 @@ extension OptionsMenuView {
                     
                     Toggle("options_ui_hellridePng".translate(), isOn: $planechaseVM.useHellridePNG)
                         .font(.subheadline).foregroundColor(.white)
+                    
+                    Toggle("No Hammer".translate(), isOn: $planechaseVM.noHammerRow)
+                        .font(.subheadline).foregroundColor(.white)
                 }
                 
                 Group {
@@ -165,9 +168,11 @@ extension OptionsMenuView {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: -1)
                             MenuLifeCounterBackgroundColorChoiceView(colorId: 0)
                             MenuLifeCounterBackgroundColorChoiceView(colorId: 1)
                             MenuLifeCounterBackgroundColorChoiceView(colorId: 2)
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: 3)
                         }.padding(10)
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     
@@ -204,6 +209,9 @@ extension OptionsMenuView {
                     planechaseVM.saveToggles()
                 }
                 .onChange(of: planechaseVM.useHellridePNG) { _ in
+                    planechaseVM.saveToggles()
+                }
+                .onChange(of: planechaseVM.noHammerRow) { _ in
                     planechaseVM.saveToggles()
                 }
                 .onChange(of: planechaseVM.lifeCounterOptions.useLifeCounter) { _ in
@@ -401,7 +409,7 @@ extension OptionsMenuView {
                                                             startingLife: planechaseVM.lifeCounterOptions.startingLife))
                 }, label: {
                     VStack {
-                        if colorId == 0 {
+                        if colorId == -1 {
                             VisualEffectView(effect: UIBlurEffect(style: blurEffect))
                         } else {
                             HStack {

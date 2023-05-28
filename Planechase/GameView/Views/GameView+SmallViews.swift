@@ -296,6 +296,7 @@ struct LifePointsToggleView: View {
 
 struct ToolView: View {
     @EnvironmentObject var gameVM: GameViewModel
+    @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @State var showTools = false
     private let height: CGFloat = 150
     
@@ -308,7 +309,7 @@ struct ToolView: View {
             }, label: {
                 Image(systemName: "hammer.fill")
                     .imageButtonLabel()
-            })
+            }).opacity(planechaseVM.noHammerRow ? 0 : 1)
             
             VStack {
                 Button(action: {
@@ -328,8 +329,8 @@ struct ToolView: View {
                     Text("game_tool_deckController".translate())
                         .buttonLabel()
                 })
-            }.offset(x: -60)
-        }.frame(height: height).offset(y: showTools ? -height / 2 : height / 2).offset(y: -3)
+            }.offset(x: UIDevice.isIPhone ? -50 : -60)
+        }.frame(height: height).offset(y: showTools || planechaseVM.noHammerRow ? -height / 2 : height / 2).offset(y: -3)
     }
 }
 
