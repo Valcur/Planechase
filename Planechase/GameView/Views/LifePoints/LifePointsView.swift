@@ -89,59 +89,69 @@ struct LifePointsPlayerPanelView: View {
     let isMiniView: Bool
     let hasBeenChoosenRandomly: Bool
     @State var playerCounters = PlayerCounters()
+    @State private var showingCountersSheet = false
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
-                VisualEffectView(effect: UIBlurEffect(style: blurEffect))
-            } else {
-                players[playerId].backgroundColor
-            }
-            LifePointsPanelView(playerName: playerName, lifepoints: $lifePoints, totalChange: $totalChange, isMiniView: isMiniView).cornerRadius(15)
-            VStack(spacing: 0) {
-                Rectangle()
-                    .opacity(0.0001)
-                    .onTapGesture {
-                        addLifepoint()
-                        startTotalChangeTimer()
-                    }
-                Rectangle()
-                    .opacity(0.0001)
-                    .onTapGesture {
-                        removeLifepoint()
-                        startTotalChangeTimer()
-                    }
-            }
-            if planechaseVM.lifeCounterOptions.useCommanderDamages && !isMiniView {
-                CommanderRecapView(playerId: playerId, lifePoints: $lifePoints, playerCounters: $playerCounters)
-                    .padding(10)
-                
-                HStack(alignment: .center) {
-                    Spacer()
-                    CounterRecapView(value: playerCounters.poison, imageName: "Poison", size: 70)
-                    Color.white.frame(width: 80).opacity(0)
-                    CounterRecapView(value: playerCounters.commanderTax, imageName: "CommanderTax", size: 60)
-                    Spacer()
+        if showingCountersSheet {
+            CountersSheet(showSheet: $showingCountersSheet, playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId)
+                .cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10))
+        } else {
+            ZStack(alignment: .bottom) {
+                if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
+                    VisualEffectView(effect: UIBlurEffect(style: blurEffect))
+                } else {
+                    players[playerId].backgroundColor
                 }
-            }
-            Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0)
-        }.cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10))
-            .gesture(DragGesture()
-                .onChanged { value in
-                    let newValue = value.translation.height
-                    if newValue > prevValue + 10 {
-                        prevValue = newValue
-                        removeLifepoint()
-                    }
-                    else if newValue < prevValue - 10 {
-                        prevValue = newValue
-                        addLifepoint()
+                LifePointsPanelView(playerName: playerName, lifepoints: $lifePoints, totalChange: $totalChange, isMiniView: isMiniView).cornerRadius(15)
+                VStack(spacing: 0) {
+                    Rectangle()
+                        .opacity(0.0001)
+                        .onTapGesture {
+                            addLifepoint()
+                            startTotalChangeTimer()
+                        }
+                    Rectangle()
+                        .opacity(0.0001)
+                        .onTapGesture {
+                            removeLifepoint()
+                            startTotalChangeTimer()
+                        }
+                }
+                if planechaseVM.lifeCounterOptions.useCommanderDamages && !isMiniView {
+                    CommanderRecapView(playerId: playerId, lifePoints: $lifePoints, playerCounters: $playerCounters)
+                        .onTapGesture {
+                            showingCountersSheet = true
+                        }
+                        .padding(10)
+                    
+                    HStack(alignment: .center) {
+                        Spacer()
+                        CounterRecapView(value: playerCounters.poison, imageName: "Poison", size: 70)
+                        Color.white.frame(width: 80).opacity(0)
+                        CounterRecapView(value: playerCounters.commanderTax, imageName: "CommanderTax", size: 60)
+                        Spacer()
                     }
                 }
-                .onEnded({ _ in
-                    startTotalChangeTimer()
-                })
-            )
+                Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0)
+            }.cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10))
+                .gesture(DragGesture()
+                    .onChanged { value in
+                        let newValue = value.translation.height
+                        if newValue > prevValue + 10 {
+                            prevValue = newValue
+                            removeLifepoint()
+                        }
+                        else if newValue < prevValue - 10 {
+                            prevValue = newValue
+                            addLifepoint()
+                        }
+                    }
+                    .onEnded({ _ in
+                        startTotalChangeTimer()
+                    })
+                )
+        }
+        
     }
     
     private func addLifepoint() {
@@ -191,7 +201,6 @@ struct LifePointsPlayerPanelView: View {
         var isPlayerOnTheSide: Bool {
             playerId == 0 && lifePointsViewModel.numberOfPlayer % 2 == 1
         }
-        @State private var showingCountersSheet = false
         let playerId: Int
         @Binding var lifePoints: Int
         @Binding var playerCounters: PlayerCounters
@@ -239,12 +248,6 @@ struct LifePointsPlayerPanelView: View {
                     .offset(y: UIDevice.isIPhone ? (isPlayerOnTheSide ? -30 : 10) : 0)
                     .scaleEffect(UIDevice.isIPhone ? 0.6 : 1)
                     
-                    .onTapGesture {
-                        showingCountersSheet = true
-                    }
-                    .sheet(isPresented: $showingCountersSheet) {
-                        CountersSheet(playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId)
-                    }
                     if !isPlayerOnTheSide {
                         Spacer()
                     }
