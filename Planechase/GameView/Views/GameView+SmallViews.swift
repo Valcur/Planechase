@@ -272,25 +272,44 @@ struct LifePointsToggleView: View {
     @EnvironmentObject var lifePointsViewModel: LifePointsViewModel
     
     var body: some View {
-        Button(action: {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                gameVM.showLifePointsView.toggle()
+        if !gameVM.showLifePointsView {
+            VStack {
+                Spacer()
+                HStack {
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            gameVM.showLifePointsView.toggle()
+                        }
+                    }, label: {
+                        LifePointsView(isMiniView: true)
+                            .environmentObject(lifePointsViewModel)
+                            .ignoresSafeArea()
+                            .allowsHitTesting(false)
+                            .frame(width: 540, height: 300)
+                            .cornerRadius(15)
+
+                    })
+                    .scaleEffect(0.25, anchor: .bottomLeading)
+                    .offset(x: 1, y: 0)
+                    Spacer()
+                }
             }
-        }, label: {
-            if !gameVM.showLifePointsView {
-                LifePointsView(isMiniView: true)
-                    .environmentObject(lifePointsViewModel)
-                    .frame(width: UIDevice.isIPhone ? 300 : 400, height: 220)
-                    .cornerRadius(15)
-                    .ignoresSafeArea()
-                    .scaleEffect(0.55)
-                    .offset(x: 70, y: -23)
-                    .allowsHitTesting(false)
-            } else {
-                Image(systemName: "xmark")
-                    .imageButtonLabel()
-            }
-        })
+        } else {
+            VStack {
+                Spacer()
+                HStack {
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            gameVM.showLifePointsView.toggle()
+                        }
+                    }, label: {
+                        Image(systemName: "xmark")
+                            .imageButtonLabel()
+                    })
+                    Spacer()
+                }
+            }.frame(maxWidth: .infinity, maxHeight: .infinity).ignoresSafeArea()
+        }
     }
 }
 
@@ -317,8 +336,13 @@ struct ToolView: View {
                         gameVM.toggleTravelMode()
                     }
                 }, label: {
-                    Text(gameVM.travelModeEnable ? "game_tool_disablePlaneswalk".translate() : "game_tool_enablePlaneswalk".translate())
-                        .buttonLabel()
+                    if planechaseVM.noHammerRow {
+                        Image("Planechase")
+                            .imageButtonLabel(customSize: 40)
+                    } else {
+                        Text(gameVM.travelModeEnable ? "game_tool_disablePlaneswalk".translate() : "game_tool_enablePlaneswalk".translate())
+                            .buttonLabel()
+                    }
                 })
                 
                 Button(action: {
@@ -326,10 +350,15 @@ struct ToolView: View {
                         gameVM.togglePlanarDeckController()
                     }
                 }, label: {
-                    Text("game_tool_deckController".translate())
-                        .buttonLabel()
+                    if planechaseVM.noHammerRow {
+                        Image(systemName: "hammer.fill")
+                            .imageButtonLabel()
+                    } else {
+                        Text("game_tool_deckController".translate())
+                            .buttonLabel()
+                    }
                 })
-            }.offset(x: UIDevice.isIPhone ? -50 : -60)
+            }.offset(x: planechaseVM.noHammerRow ? 0 : (UIDevice.isIPhone ? -50 : -60))
         }.frame(height: height).offset(y: showTools || planechaseVM.noHammerRow ? -height / 2 : height / 2).offset(y: -3)
     }
 }

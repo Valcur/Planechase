@@ -57,10 +57,10 @@ extension View {
 }
 
 extension Image {
-    func imageButtonLabel() -> some View {
+    func imageButtonLabel(customSize: CGFloat = 27) -> some View {
         self
             .resizable()
-            .frame(width: 27, height: 27)
+            .frame(width: customSize, height: customSize)
             .foregroundColor(.white)
             .padding()
             .frame(width: 60, height: 60)

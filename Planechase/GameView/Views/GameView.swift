@@ -26,7 +26,6 @@ struct GameView: View {
                     RecenterView()
                         .position(x: planechaseVM.lifeCounterOptions.useLifeCounter ? 120 : 40, y: geo.size.height - 40)
                 } else {
-                    // AT SOME POINT, WILL NEED TO REPLACE WITH A CUSTOM ZOOM VIEW
                     ZoomView(card: gameVM.cardToZoomIn)
                 }
                 
@@ -57,9 +56,7 @@ struct GameView: View {
                     
                 if planechaseVM.lifeCounterOptions.useLifeCounter {
                     LifePointsToggleView()
-                        .position(x: 40, y: geo.size.height - 40)
                         .environmentObject(lifePointsViewModel)
-                        .ignoresSafeArea()
                 }
                 
                 PlanarDeckControlView()

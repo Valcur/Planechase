@@ -13,6 +13,7 @@ extension LifePointsPlayerPanelView {
         var halfNumberOfPlayers: Int {
             lifePointsViewModel.numberOfPlayer / 2
         }
+        @State var exitTimer: Timer?
         @Binding var showSheet: Bool
         @Binding var playerCounters: PlayerCounters
         @Binding var lifePoints: Int
@@ -38,13 +39,33 @@ extension LifePointsPlayerPanelView {
                         }.padding(5)
                     }
                 }
-                Button(action: {
-                    showSheet = false
-                }, label: {
-                    Text("exit".translate())
-                        .textButtonLabel()
-                })
+                .onChange(of: showSheet) { _ in
+                    if showSheet {
+                        exitTimer?.invalidate()
+                        startExitTimer()
+                    }
+                }
+                .onChange(of: playerCounters.poison) { _ in
+                    exitTimer?.invalidate()
+                    startExitTimer()
+                }
+                .onChange(of: playerCounters.commanderTax) { _ in
+                    exitTimer?.invalidate()
+                    startExitTimer()
+                }
+                .onChange(of: playerCounters.commanderDamages) { _ in
+                    exitTimer?.invalidate()
+                    startExitTimer()
+                }
             }.ignoresSafeArea()
+        }
+        
+        private func startExitTimer() {
+            exitTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    showSheet = false
+                }
+            }
         }
         
         struct CountersVStack: View {
@@ -57,11 +78,13 @@ extension LifePointsPlayerPanelView {
                     }
                     
                     HStack {
+                        Spacer()
                         CounterView(title: "lifepoints_counters_poison".translate(), imageName: "Poison", value: $playerCounters.poison)
                         
                         Spacer()
                         
                         CounterView(title: "lifepoints_counters_tax".translate(), imageName: "CommanderTax", value: $playerCounters.commanderTax)
+                        Spacer()
                     }.padding(.horizontal, UIDevice.isIPhone ? 0 : 15)
                 }
             }
@@ -76,11 +99,28 @@ extension LifePointsPlayerPanelView {
             @Binding var lifePoints: Int
             let playerId: Int
             
+            var rotationAngle: Double {
+                if lifePointsViewModel.numberOfPlayer % 2 == 1 {
+                    if playerId == 0 {
+                        return 90
+                    } else if playerId <= halfNumberOfPlayers {
+                        return 180
+                    } else {
+                        return 0
+                    }
+                } else {
+                    if playerId <= halfNumberOfPlayers {
+                        return 180
+                    } else {
+                        return 0
+                    }
+                }
+            }
             
             var body: some View {
                 VStack(alignment: .leading, spacing: UIDevice.isIPhone ? 3 : 15) {
-                    Text("lifepoints_commander_title".translate())
-                        .headline()
+                    /*Text("lifepoints_commander_title".translate())
+                        .headline()*/
                     
                     ZStack {
                         if lifePointsViewModel.numberOfPlayer % 2 == 0 {
@@ -112,7 +152,12 @@ extension LifePointsPlayerPanelView {
                                                 .commanderDamageToYourself(0 == playerId))
                             )
                         }
-                    }.frame(height: UIDevice.isIPhone ? 110 : 150)
+                    }
+                    .rotationEffect(.degrees(rotationAngle))
+                    // OMG WHAT THE FUCK
+                    .frame(height: UIDevice.isIPhone ? (rotationAngle == 90 ? 110 : 90) : 150)
+                    .frame(maxWidth: rotationAngle == 90 ? (UIDevice.isIPhone ? (lifePointsViewModel.numberOfPlayer == 3 ? 250 : 150) : 230) : 300)
+                    .offset(y: rotationAngle == 90 ? 25 : 0)
                 }
             }
         }
@@ -178,37 +223,7 @@ extension LifePointsPlayerPanelView {
                                     .title()
                             }
                         }.padding(5)
-                    }.frame(width: 80).cornerRadius(10)
-                }
-            }
-            
-            struct MinusButton: View {
-                @Binding var value: Int
-                
-                var body: some View {
-                    Button(action: {
-                        if value > 0 {
-                            value -= 1
-                        }
-                    }, label: {
-                        Image(systemName: "minus.circle")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                    })
-                }
-            }
-            
-            struct PlusButton: View {
-                @Binding var value: Int
-                
-                var body: some View {
-                    Button(action: {
-                        value += 1
-                    }, label: {
-                        Image(systemName: "plus.circle")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                    })
+                    }.frame(maxWidth: 80).cornerRadius(10)
                 }
             }
         }
