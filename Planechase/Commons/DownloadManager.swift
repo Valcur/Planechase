@@ -75,13 +75,6 @@ class DownloadManager: ObservableObject {
     
     func loadData(cardName: String, url: URL, completion: @escaping (Data?, Error?) -> Void) {
         // Compute a path to the URL in the cache
-        /*
-        let fileCachePath = FileManager.default.temporaryDirectory
-            .appendingPathComponent(
-                cardName,
-                isDirectory: false
-            )
-         */
         let documents = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
         let fileCachePath = documents.appendingPathComponent("\(cardName).png")
         // If the image exists in the cache,
@@ -96,15 +89,6 @@ class DownloadManager: ObservableObject {
         download(url: url, toFile: fileCachePath!) { (error) in
             let data = try? Data(contentsOf: fileCachePath!)
             completion(data, error)
-            // If temporary image, we delete it after retrieveing it
-            /*
-            if !self.shouldImageBeSaved {
-                do {
-                    try FileManager.default.removeItem(at: fileCachePath!)
-                } catch _ {
-                    print("Temporary image supression failed")
-                }
-            }*/
         }
     }
     

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Coord {
     let x: Int
     let y: Int
@@ -23,6 +22,5 @@ struct Coord {
                 Coord(x: self.x - 1, y: self.y),
                 Coord(x: self.x, y: self.y + 1),
                 Coord(x: self.x, y: self.y - 1)]
-
     }
 }

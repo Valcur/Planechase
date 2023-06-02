@@ -1,5 +1,5 @@
 //
-//  GameViewButtons.swift
+//  GameViewUIView.swift
 //  Planechase
 //
 //  Created by Loic D on 02/06/2023.
