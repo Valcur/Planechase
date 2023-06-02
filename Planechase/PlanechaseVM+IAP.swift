@@ -9,7 +9,7 @@ import SwiftUI
 
 extension PlanechaseViewModel {
     func testPremium() {
-        if true {
+        if false {
             self.isPremium = true
             return
         }

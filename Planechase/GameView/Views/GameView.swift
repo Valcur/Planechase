@@ -22,7 +22,7 @@ struct GameView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                if !gameVM.isPlayingClassicMode {
+                if !gameVM.isPlayingClassicMode && !planechaseVM.lifeCounterOptions.useLifeCounter {
                     RecenterView()
                         .position(x: planechaseVM.lifeCounterOptions.useLifeCounter ? 120 : 40, y: geo.size.height - 40)
                 } else {

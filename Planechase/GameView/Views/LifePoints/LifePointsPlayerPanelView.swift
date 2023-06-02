@@ -46,7 +46,7 @@ struct LifePointsPlayerPanelView: View {
                         Color.white.frame(width: UIDevice.isIPhone ? 55 : 80).opacity(0)
                         CounterRecapView(value: player.counters.commanderTax, imageName: "CommanderTax", size: 60)
                         Spacer()
-                    }.offset(y: 5)
+                    }.offset(y: -15)
                 }
                 LifePointsPanelView(playerName: player.name, lifepoints: $player.lifePoints, totalChange: $totalChange, isMiniView: isMiniView, inverseChangeSide: playerId < lifePointsViewModel.numberOfPlayer / 2 + lifePointsViewModel.numberOfPlayer % 2).cornerRadius(15)
                 VStack(spacing: 0) {
@@ -75,11 +75,11 @@ struct LifePointsPlayerPanelView: View {
                 .gesture(DragGesture()
                     .onChanged { value in
                         let newValue = value.translation.height
-                        if newValue > prevValue + 7 {
+                        if newValue > prevValue + 6 {
                             prevValue = newValue
                             removeLifepoint()
                         }
-                        else if newValue < prevValue - 7 {
+                        else if newValue < prevValue - 6 {
                             prevValue = newValue
                             addLifepoint()
                         }
@@ -91,7 +91,7 @@ struct LifePointsPlayerPanelView: View {
                 .allowsHitTesting(!showingCountersSheet)
                 .opacity(!showingCountersSheet ? 1 : 0)
             
-            Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0).cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10))
+            Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0).cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10)).allowsHitTesting(false)
         }
         
     }
@@ -104,14 +104,12 @@ struct LifePointsPlayerPanelView: View {
     
     private func removeLifepoint() {
         totalChangeTimer?.invalidate()
-        if player.lifePoints > 0 {
-            player.lifePoints -= 1
-            totalChange -= 1
-        }
+        player.lifePoints -= 1
+        totalChange -= 1
     }
     
     private func startTotalChangeTimer() {
-        totalChangeTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
+        totalChangeTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { timer in
             totalChange = 0
         }
     }
@@ -127,7 +125,7 @@ struct LifePointsPlayerPanelView: View {
                     .resizable()
                     .frame(width: size, height: size)
                     .foregroundColor(Color.white)
-                    .opacity(0.5)
+                    .opacity(0.2)
                 
                 Text("\(value)")
                     .title()
@@ -187,7 +185,7 @@ struct LifePointsPlayerPanelView: View {
                     .rotationEffect(.degrees(isPlayerOnTheSide ? 90 : (playerId < halfNumberOfPlayers + lifePointsViewModel.numberOfPlayer % 2 ? 180 : 0)))
                     .frame(maxWidth: 200).frame(height: isPlayerOnTheSide ? 200 : (UIDevice.isIPhone ? 80 : 100))
                     // iPhone scaling THIS IS UGLY AS FUCK
-                    .offset(y: UIDevice.isIPhone ? (isPlayerOnTheSide ? -60 : 0) : 0)
+                    .offset(y: UIDevice.isIPhone ? (isPlayerOnTheSide ? -60 : 0) : (isPlayerOnTheSide ? 20 : 0))
                     .offset(x: isPlayerOnTheSide ? (UIDevice.isIPhone ? 110 : 10) : 0)
                     .scaleEffect(UIDevice.isIPhone ? 0.6 : 1, anchor: .bottom)
                     

@@ -93,6 +93,17 @@ struct OptionsMenuView: View {
                     Text("options_rules_eternitiesMap_05".translate())
                         .headline()
                 }
+                
+                Text("options_rules_lifepointsCounter_Title".translate())
+                    .title()
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("options_rules_lifepointsCounter_01".translate())
+                        .headline()
+                    
+                    Text("options_rules_lifepointsCounter_02".translate())
+                        .headline()
+                }
             }.scrollablePanel()
         }
     }
@@ -128,6 +139,8 @@ struct OptionsMenuView: View {
                 Text("options_thanks_hellride".translate())
                     .headline()
                 Text("options_thanks_diceSkin1".translate())
+                    .headline()
+                Text("options_thanks_diceSkin2".translate())
                     .headline()
                 // shield by Maniprasanth
             }.scrollablePanel()

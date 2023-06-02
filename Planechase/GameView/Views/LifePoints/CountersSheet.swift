@@ -23,26 +23,31 @@ extension LifePointsPlayerPanelView {
             ZStack(alignment: .top) {
                 Color.black.opacity(0.3)
                 ScrollView(.vertical) {
-                    if playerId == 0 && lifePointsViewModel.numberOfPlayer % 2 == 1 {
-                        HStack(spacing: 20) {
-                            CountersVStack(playerCounters: $playerCounters)
-                            
-                            CommanderVStack(playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId)
-                        }.padding(5)
-                    } else {
-                        VStack(spacing: 0) {
-                            CountersVStack(playerCounters: $playerCounters)
-                            
-                            CommanderVStack(playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId)
-                            
-                            Spacer()
-                        }.padding(5)
-                    }
-                }
-                .onChange(of: showSheet) { _ in
-                    if showSheet {
-                        exitTimer?.invalidate()
-                        startExitTimer()
+                    ScrollViewReader { reader in
+                        VStack {
+                            if playerId == 0 && lifePointsViewModel.numberOfPlayer % 2 == 1 {
+                                HStack(spacing: 20) {
+                                    CountersVStack(playerCounters: $playerCounters)
+                                    
+                                    CommanderVStack(playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId)
+                                }.padding(5).padding(.top, lifePointsViewModel.numberOfPlayer == 3 || !UIDevice.isIPhone ? 20 : 5)
+                            } else {
+                                VStack(spacing: UIDevice.isIPhone ? 0 : 20) {
+                                    CountersVStack(playerCounters: $playerCounters)
+                                    
+                                    CommanderVStack(playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId)
+                                    
+                                    Spacer()
+                                }.padding(5).padding(.vertical, UIDevice.isIPhone ? 5 : 20)
+                            }
+                        }.padding(.bottom, 75).id(0)
+                        .onChange(of: showSheet) { _ in
+                            if showSheet {
+                                exitTimer?.invalidate()
+                                startExitTimer()
+                                reader.scrollTo(0, anchor: .top)
+                            }
+                        }
                     }
                 }
                 .onChange(of: playerCounters.poison) { _ in
@@ -72,10 +77,10 @@ extension LifePointsPlayerPanelView {
             @Binding var playerCounters: PlayerCounters
             var body: some View {
                 VStack(alignment: .leading, spacing: UIDevice.isIPhone ? 3 : 15) {
-                    if !UIDevice.isIPhone {
+                    /*if !UIDevice.isIPhone {
                         Text("lifepoints_counters_title".translate())
                             .headline()
-                    }
+                    }*/
                     
                     HStack {
                         Spacer()
@@ -109,7 +114,7 @@ extension LifePointsPlayerPanelView {
                         return 0
                     }
                 } else {
-                    if playerId <= halfNumberOfPlayers {
+                    if playerId < halfNumberOfPlayers {
                         return 180
                     } else {
                         return 0
@@ -168,17 +173,20 @@ extension LifePointsPlayerPanelView {
             @Binding var lifePoints: Int
             
             var body: some View {
-                Button(action: {
+                ZStack {
+                    VisualEffectView(effect: UIBlurEffect(style: blurEffect))
+                    Text("\(damageTaken)")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                }.cornerRadius(10).padding(3)
+                .onTapGesture {
                     damageTaken += 1
                     lifePoints -= 1
-                }, label: {
-                    ZStack {
-                        VisualEffectView(effect: UIBlurEffect(style: blurEffect))
-                        Text("\(damageTaken)")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                    }.cornerRadius(10).padding(3)
-                })
+                }
+                .onLongPressGesture(minimumDuration: 0.1) {
+                    lifePoints += damageTaken
+                    damageTaken = 0
+                }
             }
         }
         

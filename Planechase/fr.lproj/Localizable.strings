@@ -41,7 +41,7 @@
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "Appuyez sur le bouton 'Télécharger depuis Scryfall' pour ajouter les nouvelles cartes planechase de L'invasion des machines à votre collection.\n\nAppuyez sur le bouton 'Ajouter' dans le contrôle du deck pour planeswalker sur plusieurs plans en même temps.";
+"whatsNew_content" = "- Compteur de point de vie pour jusqu'à 6 joueurs (8 sur iPad). Voir les règles pour plus d'info sur son fonctionnement\n- 3 nouveaux styles et couleurs de dé\n- Nouvelle option pour toujours afficher le contenu du panneau d'outils";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -94,7 +94,7 @@
 
 "lifepoints_counters_title" = "Compteurs";
 "lifepoints_counters_poison" = "Poison";
-"lifepoints_counters_tax" = "Comm tax";
+"lifepoints_counters_tax" = "Tax";
 "lifepoints_commander_title" = "Dégâts de commander";
 "lifepoints_player" = "Joueur";
 
@@ -110,18 +110,18 @@
 "options_ui_zoomType" = "Type de zoom";
 "options_ui_biggerCardsOnMap" = "Aggrandir les cartes sur la map";
 "options_ui_hellridePng" = "SUPER SECRET : utiliser red_evil_portal.png pour le hellride";
-"options_ui_noHammer" = "Menu boîte à outils toujours visible";
+"options_ui_noHammer" = "Panneau d'outils toujours visible";
 "options_dice_title" = "Dé";
 "options_dice_style" = "Style du dé :";
 "options_dice_color" = "Couleur du dé :";
 "options_dice_choiceFace" = "Ajoute une face planeswalk/chaos au choix du joueur";
 "options_dice_numberOfFace" = "Nombre de faces sur le dé";
-"options_life_title" = "Life Counter";
-"options_life_useLifeCounter" = "Use life counter";
-"options_life_useCommanderDamages" = "Use commander damages (and other counters)";
-"options_life_colorPaletteId" = "Pick a color theme";
-"options_life_nbrPlayers" = "NumberofPlayers";
-"options_life_startingLife" = "Starting Life";
+"options_life_title" = "Compteur de point de vie";
+"options_life_useLifeCounter" = "Utiliser le compteur de point de vie";
+"options_life_useCommanderDamages" = "Dégâts de commander (et autres compteurs)";
+"options_life_colorPaletteId" = "Palette de couleurs :";
+"options_life_nbrPlayers" = "Nombre de joueurs";
+"options_life_startingLife" = "Points de vie de départ";
 
 "options_contact_discord" = "Vous souhaitez trouver de nouvelles carte personalisées ou partager les votres ? Des suggestion sur l'app ? Un bug que vous aimeriez que je règle ?";
 "options_contact_discordJoin" = "Rejoignez nous sur Discord !";
@@ -131,6 +131,7 @@
 "options_thanks_chaos" = "Image Chaos par Ken111";
 "options_thanks_hellride" = "Image Hellride par upklyak de Freepik";
 "options_thanks_diceSkin1" = "Skin de dé 1,2,3 et 4 par shiruji";
+"options_thanks_diceSkin2" = "Autres styles de dé par Freepik";
 
 // Mark: Rules
 
@@ -145,3 +146,7 @@
 "options_rules_eternitiesMap_03" = "Vous pouvez désormais chosir sur quel plan vous souhaitez vous rendre. lisez les 4 plans adjacents, choisissez celui que vous préférez et rendez-vous y. Une fois sur ce plan, révelez des cartes de façon à remplir les 4 cases adjacentes vide.";
 "options_rules_eternitiesMap_04" = "Si une case en diagonale est vide vous pouvez 'Hellride' dans l'inconnu. Vous échangez la sécurité de savoir sur quel plan vous atterrissez pour pouvoir vous déplacer de deux cases. Si un plan est déjà révélé en diagonal, vous ne pouvez pas 'Hellride sur celui-ci. Révélez ensuite des plans afin de remplir les cases adjacentes comme habituellement.";
 "options_rules_eternitiesMap_05" = "Les plans à une distance de 4 ou plus de vous sont défaussés.";
+
+"options_rules_lifepointsCounter_Title" = "Compteur de point de vie";
+"options_rules_lifepointsCounter_01"  = "Appuyer en haut pour rajouter des points de vie, sur le base pour en enlever. Ou gardez appuyé puis bouger de haut en bas pour ajouter/enlever rapidement";
+"options_rules_lifepointsCounter_02"  = "Appuyez sur le récapitulatif des dégâts de commander pour ouvrir le menu des compteurs. Appuyez sur un compteur pour augmenter. Gardez appuyé pour remettre à zéro. Le menu disparaît automatiquement après quelque secondes d'inactivité.";

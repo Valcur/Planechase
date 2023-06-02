@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LifePointsView: View {
+    @EnvironmentObject var gameVM: GameViewModel
     @EnvironmentObject var lifePointsViewModel: LifePointsViewModel
     var halfNumberOfPlayers: Int {
         lifePointsViewModel.numberOfPlayer / 2
@@ -60,7 +61,17 @@ struct LifePointsView: View {
                     }, label: {
                         Image(systemName: "dice.fill")
                             .imageButtonLabel()
-                    }).position(x: geo.size.width - 35, y: geo.size.height - 33)
+                    }).position(x: geo.size.width - 35, y: geo.size.height - 35)
+                    
+                    
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            gameVM.showLifePointsView.toggle()
+                        }
+                    }, label: {
+                        Image(systemName: "xmark")
+                            .imageButtonLabel()
+                    }).position(x: 35, y: geo.size.height - 35)
                 }
             }.frame(width: geo.size.width, height: geo.size.height)
                 .background(
@@ -72,7 +83,7 @@ struct LifePointsView: View {
 
 extension View {
     func commanderDamageToYourself(_ isYourself: Bool) -> some View {
-        self.opacity(isYourself ? 0.5 : 1)
+        self.opacity(isYourself ? 0.4 : 1)
     }
 }
 
@@ -166,7 +177,7 @@ class LifePointsViewModel: ObservableObject {
         ]
         colors.shuffle()
         for i in 1...numberOfPlayer {
-            players.append(PlayerProfile(name: "\("lifepoints_player".translate()) \(i)", backgroundColor: colors[i - 1], lifePoints: 999, counters: PlayerCounters()))
+            players.append(PlayerProfile(name: "\("lifepoints_player".translate()) \(i)", backgroundColor: colors[i - 1], lifePoints: startingLife, counters: PlayerCounters()))
         }
     }
 }
@@ -179,7 +190,7 @@ struct PlayerProfile {
 }
 
 struct PlayerCounters {
-    var poison: Int = 99
-    var commanderTax: Int = 99
+    var poison: Int = 0
+    var commanderTax: Int = 0
     var commanderDamages: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
 }

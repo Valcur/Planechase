@@ -289,26 +289,11 @@ struct LifePointsToggleView: View {
                             .cornerRadius(15)
 
                     })
-                    .scaleEffect(0.25, anchor: .bottomLeading)
+                    .scaleEffect(UIDevice.isIPhone ? 0.25 : 0.38, anchor: .bottomLeading)
                     .offset(x: 1, y: 0)
                     Spacer()
                 }
             }
-        } else {
-            VStack {
-                Spacer()
-                HStack {
-                    Button(action: {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            gameVM.showLifePointsView.toggle()
-                        }
-                    }, label: {
-                        Image(systemName: "xmark")
-                            .imageButtonLabel()
-                    })
-                    Spacer()
-                }
-            }.frame(maxWidth: .infinity, maxHeight: .infinity).ignoresSafeArea()
         }
     }
 }
@@ -343,7 +328,7 @@ struct ToolView: View {
                         Text(gameVM.travelModeEnable ? "game_tool_disablePlaneswalk".translate() : "game_tool_enablePlaneswalk".translate())
                             .buttonLabel()
                     }
-                })
+                }).offset(y: planechaseVM.noHammerRow ? 10 : 0)
                 
                 Button(action: {
                     withAnimation(.easeInOut(duration: 0.3)) {

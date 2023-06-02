@@ -68,7 +68,7 @@ extension OptionsMenuView {
                     Toggle("options_ui_hellridePng".translate(), isOn: $planechaseVM.useHellridePNG)
                         .font(.subheadline).foregroundColor(.white)
                     
-                    Toggle("No Hammer".translate(), isOn: $planechaseVM.noHammerRow)
+                    Toggle("options_ui_noHammer".translate(), isOn: $planechaseVM.noHammerRow)
                         .font(.subheadline).foregroundColor(.white)
                 }
                 
@@ -99,9 +99,9 @@ extension OptionsMenuView {
                                 MenuCustomDiceChoiceView(diceStyleId: 4)
                                 MenuCustomDiceChoiceView(diceStyleId: 5)
                             }
-                            MenuCustomDiceChoiceView(diceStyleId: 6)
-                            MenuCustomDiceChoiceView(diceStyleId: 7)
-                            MenuCustomDiceChoiceView(diceStyleId: 8)
+                            //MenuCustomDiceChoiceView(diceStyleId: 6)
+                            //MenuCustomDiceChoiceView(diceStyleId: 7)
+                            //MenuCustomDiceChoiceView(diceStyleId: 8)
                             MenuCustomDiceChoiceView(diceStyleId: 9)
                             MenuCustomDiceChoiceView(diceStyleId: 10)
                             MenuCustomDiceChoiceView(diceStyleId: 11)
@@ -123,16 +123,19 @@ extension OptionsMenuView {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
-                            MenuCustomDiceColorChoiceView(diceColorId: 0)
-                            MenuCustomDiceColorChoiceView(diceColorId: 1)
-                            MenuCustomDiceColorChoiceView(diceColorId: 2)
-                            MenuCustomDiceColorChoiceView(diceColorId: 3)
-                            MenuCustomDiceColorChoiceView(diceColorId: 4)
-                            MenuCustomDiceColorChoiceView(diceColorId: 5)
-                            MenuCustomDiceColorChoiceView(diceColorId: 6)
-                            MenuCustomDiceColorChoiceView(diceColorId: 7)
+                            Group {
+                                MenuCustomDiceColorChoiceView(diceColorId: 0)
+                                MenuCustomDiceColorChoiceView(diceColorId: 1)
+                                MenuCustomDiceColorChoiceView(diceColorId: 2)
+                                MenuCustomDiceColorChoiceView(diceColorId: 3)
+                                MenuCustomDiceColorChoiceView(diceColorId: 4)
+                                MenuCustomDiceColorChoiceView(diceColorId: 5)
+                                MenuCustomDiceColorChoiceView(diceColorId: 6)
+                                MenuCustomDiceColorChoiceView(diceColorId: 7)
+                            }
                             MenuCustomDiceColorChoiceView(diceColorId: 8)
                             MenuCustomDiceColorChoiceView(diceColorId: 9)
+                            MenuCustomDiceColorChoiceView(diceColorId: 10)
                         }.padding(10)
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     
@@ -174,7 +177,7 @@ extension OptionsMenuView {
                             MenuLifeCounterBackgroundColorChoiceView(colorId: 2)
                             MenuLifeCounterBackgroundColorChoiceView(colorId: 3)
                         }.padding(10)
-                    }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
+                    }
                     
                     HStack {
                         Text("options_life_nbrPlayers".translate())
@@ -400,38 +403,50 @@ extension OptionsMenuView {
             @EnvironmentObject var planechaseVM: PlanechaseViewModel
             let blurEffect: UIBlurEffect.Style = .systemThinMaterialDark
             let colorId: Int
+            var isUserAllowed: Bool {
+                return planechaseVM.isPremium || colorId < 1
+            }
             
             var body: some View {
-                Button(action: {
-                    print("Changing life counter color to \(colorId)")
-                    planechaseVM.setLifeOptions(LifeOptions(useLifeCounter: planechaseVM.lifeCounterOptions.useLifeCounter,
-                                                            useCommanderDamages: planechaseVM.lifeCounterOptions.useCommanderDamages,
-                                                            colorPaletteId: colorId,
-                                                            nbrOfPlayers: planechaseVM.lifeCounterOptions.nbrOfPlayers,
-                                                            startingLife: planechaseVM.lifeCounterOptions.startingLife))
-                }, label: {
-                    VStack {
-                        if colorId == -1 {
-                            VisualEffectView(effect: UIBlurEffect(style: blurEffect))
-                        } else {
-                            HStack {
-                                Color("\(colorId) Player 1")
-                                Color("\(colorId) Player 2")
-                                Color("\(colorId) Player 3")
-                                Color("\(colorId) Player 4")
+                ZStack {
+                    Button(action: {
+                        print("Changing life counter color to \(colorId)")
+                        planechaseVM.setLifeOptions(LifeOptions(useLifeCounter: planechaseVM.lifeCounterOptions.useLifeCounter,
+                                                                useCommanderDamages: planechaseVM.lifeCounterOptions.useCommanderDamages,
+                                                                colorPaletteId: colorId,
+                                                                nbrOfPlayers: planechaseVM.lifeCounterOptions.nbrOfPlayers,
+                                                                startingLife: planechaseVM.lifeCounterOptions.startingLife))
+                    }, label: {
+                        VStack {
+                            if colorId == -1 {
+                                VisualEffectView(effect: UIBlurEffect(style: blurEffect))
+                            } else {
+                                HStack {
+                                    Color("\(colorId) Player 1")
+                                    Color("\(colorId) Player 2")
+                                    Color("\(colorId) Player 3")
+                                    Color("\(colorId) Player 4")
+                                }
+                                HStack {
+                                    Color("\(colorId) Player 5")
+                                    Color("\(colorId) Player 6")
+                                    Color("\(colorId) Player 7")
+                                    Color("\(colorId) Player 8")
+                                }
                             }
-                            HStack {
-                                Color("\(colorId) Player 5")
-                                Color("\(colorId) Player 6")
-                                Color("\(colorId) Player 7")
-                                Color("\(colorId) Player 8")
-                            }
-                        }
-                    }.cornerRadius(15).frame(width: 120, height: 120).overlay(
-                        RoundedRectangle(cornerRadius: 19)
-                            .stroke(planechaseVM.lifeCounterOptions.colorPaletteId == colorId ? .white : .clear, lineWidth: 4))
-                    .padding(10)
-                })
+                        }.cornerRadius(15).frame(width: 120, height: 120).overlay(
+                            RoundedRectangle(cornerRadius: 19)
+                                .stroke(planechaseVM.lifeCounterOptions.colorPaletteId == colorId ? .white : .clear, lineWidth: 4))
+                        .padding(10)
+                    }).disabled(!isUserAllowed).opacity(isUserAllowed ? 1 : 0.6)
+                    
+                    if !isUserAllowed {
+                        Image(systemName: "crown.fill")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                            .position(x: 10, y: 10)
+                    }
+                }
             }
         }
     }
