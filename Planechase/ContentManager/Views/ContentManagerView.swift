@@ -13,12 +13,12 @@ struct ContentManagerView: View {
     @State var smallGridModEnable = true
     @State var showFilterRow = false
     private var gridItemLayout: [GridItem]  {
-        Array(repeating: .init(.fixed(CardSizes.contentManager.width + (UIDevice.isIPhone ? 10 : 50))), count: 2)
+        Array(repeating: GridItem(.flexible()), count: 2)
     }
     private var smallGridItemLayout: [GridItem]  {
-        Array(repeating: .init(.fixed(CardSizes.contentManager.width * 0.7 + (UIDevice.isIPhone ? 10 : 50))), count: 3)
+        Array(repeating: GridItem(.flexible()), count: 3)
     }
-    
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -67,24 +67,33 @@ struct ContentManagerView: View {
                         }
                     }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 44)
                     
-                    ScrollView {
-                        LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
-                            ForEach(contentManagerVM.filteredCardCollection, id: \.id) { card in
-                                CardView(card: card)
-                                    .scaleEffect(smallGridModEnable ? 0.7 : 1)
-                                    .frame(height: smallGridModEnable ? CardSizes.contentManager.height * 0.7 : CardSizes.contentManager.height)
+                    GeometryReader { scrollGeo in
+                        ScrollView {
+                            LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
+                                ForEach(contentManagerVM.filteredCardCollection, id: \.id) { card in
+                                    CardView(card: card, width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
+                                        .frame(width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
+                                }
+                            }.padding(.vertical, 10).padding(.vertical, 5).padding(.horizontal, 7)
+                            if contentManagerVM.cardCollection.count == 0 {
+                                EmptyCardCollectionInfo()
                             }
-                        }.padding(.vertical, 10).padding(.vertical, 5)
-                        if contentManagerVM.cardCollection.count == 0 {
-                            EmptyCardCollectionInfo()
                         }
-                    }.iPhoneScaler(width: geo.size.width, height: geo.size.height - 79, scaleEffect: 0.95, anchor: .top).frame(width: geo.size.width)
+                    }
                 }
                 
                 ContentManagerInfoView()
                     .position(x: geo.size.width / 2, y: geo.size.height + 50)
             }
         }
+    }
+    
+    private func cardWidth(scrollViewWidth: CGFloat) -> CGFloat {
+        return ((scrollViewWidth - 14) / (smallGridModEnable ? 3 : 2)) * 0.94
+    }
+    
+    private func cardHeight(scrollViewWidth: CGFloat) -> CGFloat {
+        return CardSizes.heightForWidth(cardWidth(scrollViewWidth: scrollViewWidth))
     }
     
     struct DeckSelection: View {
@@ -159,28 +168,30 @@ struct ContentManagerView: View {
         @EnvironmentObject var contentManagerVM: ContentManagerViewModel
         @ObservedObject var card: Card
         @State private var showingDeleteAlert = false
+        let width: CGFloat
+        let height: CGFloat
         
         var body: some View {
             ZStack {
                 if card.image == nil {
                     Color.black
-                        .frame(width: CardSizes.contentManager.width,
-                               height: CardSizes.contentManager.height)
-                        .cornerRadius(CardSizes.contentManager.cornerRadius)
+                        .frame(width: width,
+                               height: height)
+                        .cornerRadius(CardSizes.cornerRadiusForWidth(width))
                         .onAppear {
                             card.cardAppears()
                         }
                 } else {
                     Image(uiImage: card.image!)
                         .resizable()
-                        .frame(width: CardSizes.contentManager.width,
-                               height: CardSizes.contentManager.height)
-                        .cornerRadius(CardSizes.contentManager.cornerRadius)
+                        .frame(width: width,
+                               height: height)
+                        .cornerRadius(CardSizes.cornerRadiusForWidth(width))
                 }
             }
             .padding(5)
             .overlay(
-                RoundedRectangle(cornerRadius: CardSizes.contentManager.cornerRadius + CardSizes.selectionBorderAdditionalCornerRadius)
+                RoundedRectangle(cornerRadius: CardSizes.cornerRadiusForWidth(width) + CardSizes.selectionBorderAdditionalCornerRadius)
                     .stroke(card.state == .selected ? .white : .clear, lineWidth: 4)
             )
             .onTapGesture {

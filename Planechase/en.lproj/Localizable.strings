@@ -16,8 +16,9 @@
 // Mark: Play
 
 "play_app_title" = "Planechase Companion";
-"play_playClassic" = "Play Classic";
-"play_playEternities" = "Play Eternities Map";
+"play_mode" = "Play";
+"play_playClassic" = "Classic";
+"play_playEternities" = "Eternities Map";
 "play_playClassic_needMoreCards" = "You need at least 10 cards in your deck to play Classic";
 "play_playEternities_needMoreCards" = "You need at least 30 cards in your deck to play Eternities map";
 
@@ -35,13 +36,13 @@
 "premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots, dice customization and choice over 8 background colors.";
 
 "discord_title" = "Join us on Discord";
-"discord_content" = "Share your custom Planechase cards or find new ones in our Discord server.";
+"discord_content" = "Import the latest offial cards before release, share your custom Planechase cards, learn more about updates or ask for a new feature in our Discord server.";
 "discord_tapToJoin" = "Tap here to join";
 "discord_hide_title" = "Hide Discord invite";
 "discord_hide_content" = "You can still find a link in the options under 'Contact'";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- Life counter for up to 6 players (8 on iPad). See the rules section for more info on how to use it\n- 3 new dice skins and colors\n- New UI option to keep the tools panel always visible";
+"whatsNew_content" = "Small UI changes";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";

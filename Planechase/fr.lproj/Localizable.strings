@@ -16,8 +16,9 @@
 // Mark: Play
 
 "play_app_title" = "Planechase Companion";
-"play_playClassic" = "Mode Classic";
-"play_playEternities" = "Mode Eternities Map";
+"play_mode" = "Mode";
+"play_playClassic" = "Classic";
+"play_playEternities" = "Eternities Map";
 "play_playClassic_needMoreCards" = "Il faut au moins 10 cartes dans votre deck pour le mode Classic";
 "play_playEternities_needMoreCards" = "Il faut au moins 30 cartes dans votre deck pour le mode Eternities Map";
 
@@ -35,13 +36,13 @@
 "premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots, dice customization and choice over 8 background colors.";
 
 "discord_title" = "Rejoignez le Discord";
-"discord_content" = "Partagez vos propres cartes Planechase ou trouvez en des nouvelles sur notre serveur Discord";
+"discord_content" = "Importez les cartes officielles avant leur sortie, partagez vos cartes custom, apprenez-en d'avantages sur les mises à jour ou demandez l'ajout d'une nouvelle fonctionnalité sur notre serveur Discord";
 "discord_tapToJoin" = "Appuyez ici pour rejoindre";
 "discord_hide_title" = "Masquer l'invitation";
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Compteur de point de vie pour jusqu'à 6 joueurs (8 sur iPad). Voir les règles pour plus d'info sur son fonctionnement\n- 3 nouveaux styles et couleurs de dé\n- Nouvelle option pour toujours afficher le contenu du panneau d'outils";
+"whatsNew_content" = "Léger changement de l'interface.";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";

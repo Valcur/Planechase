@@ -17,55 +17,79 @@ struct MainMenuView: View {
         return planechaseVM.contentManagerVM.selectedCardsInCollection >= 30
     }
     var body: some View {
-        ZStack {
-            HStack {
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(alignment: .leading) {
-                        WhatsNew(whatsNew: whatsNew)
-                        DiscordInvite()
-                        GoingPremium()
-                        Spacer()
-                    }.padding(10).scaleEffect(UIDevice.isIPhone ? 0.75 : 1, anchor: .topLeading)
-                }
-                
-                Spacer()
-            }
+        HStack(spacing: 0) {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .leading) {
+                    WhatsNew(whatsNew: whatsNew)
+                    DiscordInvite()
+                    GoingPremium()
+                    Spacer()
+                }.scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .top).frame(maxWidth: UIDevice.isIPhone ? BubbleSizes.width * 0.6 : BubbleSizes.width).padding(.vertical, UIDevice.isIPhone ? 6 : 10).padding(.horizontal, UIDevice.isIPhone ? 3 : 10)
+            }.frame(maxHeight: .infinity)
             
-            VStack {
+            ZStack(alignment: .bottom) {
+                VStack(alignment: .leading) {
+                    Text("play_app_title".translate())
+                        .largeTitle().padding(UIDevice.isIPhone ? 10 : 40)
+                    HStack(spacing: 10) {
+                        Button(action: {
+                            planechaseVM.togglePlaying(classicGameMode: true)
+                        }, label: {
+                            ZStack {
+                                LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.6), Color.black.opacity(0)]), startPoint: .bottom, endPoint: .top)
+                                VStack(spacing: 15) {
+                                    Text("play_mode".translate())
+                                        .headline()
+                                    Text("play_playClassic".translate())
+                                        .title()
+                                    
+                                    if !isAllowedToPlayClassic {
+                                        Rectangle().opacity(0.00001).frame(height: 45)
+                                    }
+                                    
+                                    if !isAllowedToPlayEternities {
+                                        Rectangle().opacity(0.00001).frame(height: 45)
+                                    }
+                                }
+                            }
+                        }).disabled(!isAllowedToPlayClassic).opacity(isAllowedToPlayClassic ? 1 : 0.7)
+                        
+                        Button(action: {
+                            planechaseVM.togglePlaying(classicGameMode: false)
+                        }, label: {
+                            ZStack {
+                                LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0.6), Color.black.opacity(0)]), startPoint: .bottom, endPoint: .top)
+                                VStack(spacing: 15) {
+                                    Text("play_mode".translate())
+                                        .headline()
+                                    Text("play_playEternities".translate())
+                                        .title()
+                                    
+                                    if !isAllowedToPlayClassic {
+                                        Rectangle().opacity(0.00001).frame(height: 45)
+                                    }
+                                    
+                                    if !isAllowedToPlayEternities {
+                                        Rectangle().opacity(0.00001).frame(height: 45)
+                                    }
+                                }
+                            }
+                        }).disabled(!isAllowedToPlayEternities).opacity(isAllowedToPlayEternities ? 1 : 0.7)
+                    }
+                }
                 
-                Spacer()
-                
-                Text("play_app_title".translate())
-                    .title().padding(40)
-                
-                HStack(spacing: 50) {
-                    Button(action: {
-                        planechaseVM.togglePlaying(classicGameMode: true)
-                    }, label: {
-                        Text("play_playClassic".translate())
-                            .textButtonLabel()
-                    }).disabled(!isAllowedToPlayClassic).opacity(isAllowedToPlayClassic ? 1 : 0.7)
+                VStack(spacing: UIDevice.isIPhone ? 3 : 10) {
+                    if !isAllowedToPlayClassic {
+                        Text("play_playClassic_needMoreCards".translate())
+                            .textButtonLabel(style: .secondary)
+                    }
                     
-                    Button(action: {
-                        planechaseVM.togglePlaying(classicGameMode: false)
-                    }, label: {
-                        Text("play_playEternities".translate())
-                            .textButtonLabel()
-                    }).disabled(!isAllowedToPlayEternities).opacity(isAllowedToPlayEternities ? 1 : 0.7)
-                }
-                
-                if !isAllowedToPlayClassic {
-                    Text("play_playClassic_needMoreCards".translate())
-                        .headline()
-                }
-                
-                if !isAllowedToPlayEternities {
-                    Text("play_playEternities_needMoreCards".translate())
-                        .headline()
-                }
-                
-                Spacer()
-            }.scaleEffect(UIDevice.isIPad ? 1 : 0.9).padding(.leading, UIDevice.isIPhone && (planechaseVM.showDiscordInvite || !planechaseVM.isPremium || whatsNew.showWhatsNew) ? 200 : 0)
+                    if !isAllowedToPlayEternities {
+                        Text("play_playEternities_needMoreCards".translate())
+                            .textButtonLabel(style: .secondary)
+                    }
+                }.padding(.bottom, UIDevice.isIPhone ? 10 : 20)
+            }
         }.background(GradientView(gradientId: planechaseVM.gradientId).ignoresSafeArea())
     }
 }

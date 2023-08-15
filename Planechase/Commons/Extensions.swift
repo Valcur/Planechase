@@ -19,16 +19,16 @@ extension View {
             .shadow(color: Color("ShadowColor"), radius: radius, x: 0, y: y)
     }
     
-    func blurredBackground(style: ViewStyle = .primary) -> some View {
+    func blurredBackground(style: ViewStyle = .primary, cornerRadius: CGFloat = 15) -> some View {
         self
             .background( ZStack {
                 if style == .primary {
                     VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-                        .cornerRadius(15)
+                        .cornerRadius(cornerRadius)
                         .shadowed()
                 } else {
                     Color.black
-                        .cornerRadius(15)
+                        .cornerRadius(cornerRadius)
                         .shadowed()
                 }
             })
@@ -77,6 +77,13 @@ extension Text {
             .padding()
             .blurredBackground(style: style)
             .padding(5)
+    }
+    
+    func largeTitle() -> some View {
+        self
+            .font(UIDevice.isIPhone ? .title : .largeTitle)
+            .foregroundColor(.white)
+            .fontWeight(.bold)
     }
     
     func title() -> some View {

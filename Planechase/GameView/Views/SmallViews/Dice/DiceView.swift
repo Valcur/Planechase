@@ -31,7 +31,7 @@ struct DiceView: View {
     
     var body: some View {
         ZStack {
-            DismissCostView(rollCost: $rollCost)
+            DismissCostView(rollCost: $rollCost, diceResult: $diceResult)
                 .offset(y: rollCost > 0 ? 100 : 0)
                 .opacity(rollCost > 0 ? 1 : 0)
             
@@ -113,10 +113,12 @@ struct DiceView: View {
     
     struct DismissCostView: View {
         @Binding var rollCost: Int
+        @Binding var diceResult: Int
         var body: some View {
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     rollCost = 0
+                    diceResult = 0
                 }
             }, label: {
                 Text("game_dice_resetCost".translate()).textButtonLabel()

@@ -14,6 +14,60 @@ extension OptionsMenuView {
         var body: some View {
             VStack(alignment: .leading, spacing: 15) {
                 Group {
+                    Text("options_life_title".translate())
+                        .title()
+                    
+                    Toggle("options_life_useLifeCounter".translate(), isOn: $planechaseVM.lifeCounterOptions.useLifeCounter)
+                        .font(.subheadline).foregroundColor(.white)
+                    
+                    Toggle("options_life_useCommanderDamages".translate(), isOn: $planechaseVM.lifeCounterOptions.useCommanderDamages)
+                        .font(.subheadline).foregroundColor(.white)
+                    
+                    Text("options_life_colorPaletteId".translate())
+                        .headline()
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: -1)
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: 0)
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: 1)
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: 2)
+                            MenuLifeCounterBackgroundColorChoiceView(colorId: 3)
+                        }.padding(10)
+                    }
+                    
+                    HStack {
+                        Text("options_life_nbrPlayers".translate())
+                            .headline()
+                        
+                        Spacer()
+                        
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 2)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 3)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 4)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 5)
+                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 6)
+                        if !UIDevice.isIPhone {
+                            MenuNumberOfPlayerChoiceView(numberOfPlayers: 7)
+                            MenuNumberOfPlayerChoiceView(numberOfPlayers: 8)
+                        }
+                    }
+                    
+                    HStack {
+                        Text("options_life_startingLife".translate())
+                            .headline()
+                        
+                        Spacer()
+                        
+                        MenuStartingLifeChoiceView(startingLife: 20)
+                        MenuStartingLifeChoiceView(startingLife: 30)
+                        MenuStartingLifeChoiceView(startingLife: 40)
+                        MenuStartingLifeChoiceView(startingLife: 50)
+                        MenuStartingLifeChoiceView(startingLife: 60)
+                    }
+                }
+                
+                Group {
                     HStack {
                         if !planechaseVM.isPremium {
                             Image(systemName: "crown.fill")
@@ -153,60 +207,6 @@ extension OptionsMenuView {
                         MenuNumberOfFaceChoiceView(numberOfFace: 6)
                         MenuNumberOfFaceChoiceView(numberOfFace: 7)
                         MenuNumberOfFaceChoiceView(numberOfFace: 8)
-                    }
-                }
-                
-                Group {
-                    Text("options_life_title".translate())
-                        .title()
-                    
-                    Toggle("options_life_useLifeCounter".translate(), isOn: $planechaseVM.lifeCounterOptions.useLifeCounter)
-                        .font(.subheadline).foregroundColor(.white)
-                    
-                    Toggle("options_life_useCommanderDamages".translate(), isOn: $planechaseVM.lifeCounterOptions.useCommanderDamages)
-                        .font(.subheadline).foregroundColor(.white)
-                    
-                    Text("options_life_colorPaletteId".translate())
-                        .headline()
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: -1)
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: 0)
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: 1)
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: 2)
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: 3)
-                        }.padding(10)
-                    }
-                    
-                    HStack {
-                        Text("options_life_nbrPlayers".translate())
-                            .headline()
-                        
-                        Spacer()
-                        
-                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 2)
-                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 3)
-                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 4)
-                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 5)
-                        MenuNumberOfPlayerChoiceView(numberOfPlayers: 6)
-                        if !UIDevice.isIPhone {
-                            MenuNumberOfPlayerChoiceView(numberOfPlayers: 7)
-                            MenuNumberOfPlayerChoiceView(numberOfPlayers: 8)
-                        }
-                    }
-                    
-                    HStack {
-                        Text("options_life_startingLife".translate())
-                            .headline()
-                        
-                        Spacer()
-                        
-                        MenuStartingLifeChoiceView(startingLife: 20)
-                        MenuStartingLifeChoiceView(startingLife: 30)
-                        MenuStartingLifeChoiceView(startingLife: 40)
-                        MenuStartingLifeChoiceView(startingLife: 50)
-                        MenuStartingLifeChoiceView(startingLife: 60)
                     }
                 }
             }.scrollablePanel()
