@@ -24,7 +24,7 @@ struct MainMenuView: View {
                     DiscordInvite()
                     GoingPremium()
                     Spacer()
-                }.scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .top).frame(maxWidth: UIDevice.isIPhone ? BubbleSizes.width * 0.6 : BubbleSizes.width).padding(.vertical, UIDevice.isIPhone ? 6 : 10).padding(.horizontal, UIDevice.isIPhone ? 3 : 10)
+                }.scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .top).frame(maxWidth: UIDevice.isIPhone ? BubbleSizes.width * 0.6 : BubbleSizes.width * BubbleSizes.scale).padding(.vertical, UIDevice.isIPhone ? 6 : 10).padding(.horizontal, UIDevice.isIPhone ? 3 : 10)
             }.frame(maxHeight: .infinity)
             
             ZStack(alignment: .bottom) {

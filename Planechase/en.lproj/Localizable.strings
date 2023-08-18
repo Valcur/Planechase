@@ -83,7 +83,7 @@
 "game_tool_enablePlaneswalk" = "Enable Planeswalk";
 "game_tool_disablePlaneswalk" = "Disable Planeswalk";
 "game_tool_deckController" = "Deck Controller";
-"game_bubble_planeswalk" = "Hold on a plane to travel";
+"game_bubble_planeswalk" = "Hold on a plane to planeswalk";
 "game_exit_title" = "Are you sure you want to return to main menu ?";
 "game_exit_content" = "Game will be lost";
 "game_deckController_revealTop" = "Reveal top card";
@@ -124,7 +124,7 @@
 "options_life_nbrPlayers" = "Number of players";
 "options_life_startingLife" = "Starting life";
 
-"options_contact_discord" = "Want a place to share your custom Planechase cards or just to find more card made by the community ? Suggestion for the app ? Bugs that you want me to fix ?";
+"options_contact_discord" = "Suggestion for the app ? Bugs that you want me to fix ?";
 "options_contact_discordJoin" = "Join us on Discord !";
 
 "options_thanks_wizards" = "Planechase Companion is an unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.";

@@ -43,9 +43,6 @@ struct GameView: View {
                     .position(x: diceViewPositionX(width: geo.size.width),
                               y:  diceViewPositionY(height: geo.size.height))
                 
-                GameInfoView()
-                    .position(x: geo.size.width / 2, y: geo.size.height + 50)
-                
                 CurrentOtherPlanesView()
                     .position(x: diceViewPositionX(width: geo.size.width),
                               y:  diceViewPositionY(height: geo.size.height))
@@ -58,6 +55,9 @@ struct GameView: View {
                     LifePointsToggleView()
                         .environmentObject(lifePointsViewModel)
                 }
+                
+                GameInfoView()
+                    .position(x: geo.size.width / 2, y: geo.size.height + 50)
                 
                 PlanarDeckControlView()
             }

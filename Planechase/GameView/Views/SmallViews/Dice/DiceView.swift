@@ -118,7 +118,7 @@ struct DiceView: View {
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     rollCost = 0
-                    diceResult = 0
+                    diceResult = -2
                 }
             }, label: {
                 Text("game_dice_resetCost".translate()).textButtonLabel()

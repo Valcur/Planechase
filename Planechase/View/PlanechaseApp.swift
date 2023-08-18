@@ -97,8 +97,6 @@ class PlanechaseViewModel: ObservableObject {
         contentManagerVM.planechaseVM = self
         isPremium = UserDefaults.standard.object(forKey: "IsPremium") as? Bool ?? false
         showDiscordInvite = UserDefaults.standard.object(forKey: "ShowDiscordInvite") as? Bool ?? true
-        
-        showDiscordInvite = true
     }
     
     func togglePlaying(classicGameMode: Bool = false) {
