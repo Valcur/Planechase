@@ -10,6 +10,7 @@
 		DB0028DE29FE98C200E3DD74 /* LifePointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0028DD29FE98C200E3DD74 /* LifePointsView.swift */; };
 		DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3BF29B9E06400C15251 /* DiceOptions.swift */; };
 		DB18E3C329BE14E000C15251 /* OptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3C229BE14E000C15251 /* OptionsPanel.swift */; };
+		DB24CA3B2AB75B760002E17B /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB24CA3A2AB75B760002E17B /* FilterSheet.swift */; };
 		DB3AB7C929AD051E00B11E17 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AB7C829AD051E00B11E17 /* StoreKit.framework */; };
 		DB3AB7CC29AFAA6900B11E17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3AB7CE29AFAA6900B11E17 /* Localizable.strings */; };
 		DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */; };
@@ -67,6 +68,7 @@
 		DB0028DD29FE98C200E3DD74 /* LifePointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePointsView.swift; sourceTree = "<group>"; };
 		DB18E3BF29B9E06400C15251 /* DiceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceOptions.swift; sourceTree = "<group>"; };
 		DB18E3C229BE14E000C15251 /* OptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsPanel.swift; sourceTree = "<group>"; };
+		DB24CA3A2AB75B760002E17B /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
 		DB3AB7C829AD051E00B11E17 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DB3AB7CD29AFAA6900B11E17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB3AB7CF29AFB71700B11E17 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			children = (
 				DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */,
 				DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */,
+				DB24CA3A2AB75B760002E17B /* FilterSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				DBA02CF529A4CC4A004E94BC /* GameViewModel.swift in Sources */,
 				DBC339B729ACEA840089CB01 /* IAPManager.swift in Sources */,
 				DB9C22772A1E378000656BC7 /* Blueprints.swift in Sources */,
+				DB24CA3B2AB75B760002E17B /* FilterSheet.swift in Sources */,
 				DBA02CF129A419D1004E94BC /* MainMenuView.swift in Sources */,
 				DB9C22792A1FCDC400656BC7 /* CountersSheet.swift in Sources */,
 				DB9C22952A29F7D400656BC7 /* MenuLifeCounterBackgroundColorChoiceView.swift in Sources */,

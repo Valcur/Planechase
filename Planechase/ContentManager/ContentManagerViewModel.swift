@@ -77,7 +77,11 @@ class ContentManagerViewModel: ObservableObject {
         DispatchQueue.main.async {
             withAnimation(.easeInOut(duration: 0.3)) {
                 for card in cards {
-                    if !self.cardCollection.contains(where: { $0.id == card.id }) {
+                    let cardIndex = self.cardCollection.firstIndex(where: { $0.id == card.id })
+                    if let cardIndex = cardIndex {
+                        // For older user, update so they don't have to delete/redownload all cards
+                        self.cardCollection[cardIndex].cardSet = card.cardSet
+                    } else {
                         if card.imageURL != nil {
                             self.cardCollection.append(card)
                         } else {
@@ -162,6 +166,22 @@ class ContentManagerViewModel: ObservableObject {
         applyChangesToCollection()
     }
     
+    func removeAllOfficialCards() {
+        cardCollection.removeAll(where: { $0.imageURL != nil })
+        removeObsoleteCardIds()
+        updateSelectedCardsCountInCollection()
+        applyChangesToCollection()
+        
+    }
+    
+    func removeAllUnofficialCards() {
+        for card in cardCollection {
+            if card.imageURL == nil {
+                removeCardFromCollection(card)
+            }
+        }
+    }
+    
     func importNewImageToCollection(image: UIImage) {
         let newCard = Card(id: createIdForNewImportedCard(), image: image, state: .showed)
         addToCollection([newCard])
@@ -178,7 +198,7 @@ class ContentManagerViewModel: ObservableObject {
     }
     
     func updateFilteredCardCollection() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.filteredCardCollection = self.cardCollection
                 
@@ -188,6 +208,8 @@ class ContentManagerViewModel: ObservableObject {
                 if self.collectionFilter.cardType == .unofficial {
                     self.filteredCardCollection = self.filteredCardCollection.filter({ $0.imageURL == nil })
                 }
+                
+                
                 
                 if self.collectionFilter.cardsInDeck == .present {
                     self.filteredCardCollection = self.filteredCardCollection.filter({ self.selectedDeck.deckCardIds.firstIndex(of: $0.id) != nil})
@@ -199,6 +221,12 @@ class ContentManagerViewModel: ObservableObject {
                     for deck in self.decks {
                         self.filteredCardCollection = self.filteredCardCollection.filter({ deck.deckCardIds.firstIndex(of: $0.id) == nil})
                     }
+                }
+                
+                
+                for i in 0..<collectionFilter.cardSets.count {
+                    let cardSet = collectionFilter.cardSets[i]
+                    self.filteredCardCollection = self.filteredCardCollection.filter({ !($0.cardSet ?? CardSet.marchOfTheMachineCommander == cardSet) })
                 }
             }
         }

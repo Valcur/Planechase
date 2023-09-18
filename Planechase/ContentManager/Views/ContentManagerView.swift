@@ -12,6 +12,7 @@ struct ContentManagerView: View {
     @EnvironmentObject var contentManagerVM: ContentManagerViewModel
     @State var smallGridModEnable = true
     @State var showFilterRow = false
+    @State private var showingFilterSheet = false
     private var gridItemLayout: [GridItem]  {
         Array(repeating: GridItem(.flexible()), count: 2)
     }
@@ -50,13 +51,17 @@ struct ContentManagerView: View {
                     HStack() {
                         Button(action: {
                             //withAnimation(.easeInOut(duration: 0.3)) {
-                                showFilterRow.toggle()
+                                //showFilterRow.toggle()
                             //}
+                            showingFilterSheet.toggle()
                         }, label: {
                             Image(systemName: "slider.horizontal.3")
                                 .font(.title)
                                 .foregroundColor(.white)
                         }).opacity(showFilterRow ? 1 : 0.6)
+                        .sheet(isPresented: $showingFilterSheet) {
+                            FilterSheet()
+                        }
                         
                         Rectangle().frame(width: 2, height: 40).foregroundColor(.white)
                         

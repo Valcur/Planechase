@@ -16,6 +16,7 @@ struct Deck: Codable {
 struct Filter {
     var cardType: CollectionCardTypeFilter = .both
     var cardsInDeck: CollectionCardsInDeckFilter = .both
+    var cardSets = [CardSet]()
     
     enum CollectionCardTypeFilter {
         case official
@@ -44,5 +45,57 @@ struct Filter {
                 self = value
             }
         }
+    }
+}
+
+enum CardSet {
+    case planechasePlanes
+    case planechaseAnthologyPlanes
+    case planechase2012Planes
+    case marchOfTheMachineCommander
+    
+    func setCode() -> String {
+        switch self {
+        case .planechasePlanes:
+            return "OHOP"
+        case .planechaseAnthologyPlanes:
+            return "OPCA"
+        case .planechase2012Planes:
+            return "OPC2"
+        case .marchOfTheMachineCommander:
+            return "MOC"
+        }
+    }
+    
+    func setName() -> String {
+        switch self {
+        case .planechasePlanes:
+            return "Planechase Planes"
+        case .planechaseAnthologyPlanes:
+            return "Planechase Anthology Planes"
+        case .planechase2012Planes:
+            return "Planechase 2012 Planes"
+        case .marchOfTheMachineCommander:
+            return "March of the Machine Commander"
+        }
+    }
+    
+    static func cardSetForCode(_ code: String) -> CardSet {
+        switch code {
+        case "OHOP":
+            return .planechasePlanes
+        case "OPCA":
+            return .planechaseAnthologyPlanes
+        case "OPC2":
+            return .planechase2012Planes
+        case "MOC":
+            return .marchOfTheMachineCommander
+        default:
+            return .marchOfTheMachineCommander
+        }
+    }
+    
+    static func getAll() -> [CardSet] {
+        return [.planechasePlanes, .planechaseAnthologyPlanes, .planechase2012Planes, .marchOfTheMachineCommander]
     }
 }

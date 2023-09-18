@@ -42,7 +42,7 @@ extension ContentManagerViewModel {
             do {
                 // Parse the JSON data
                 let planechaseResult = try JSONDecoder().decode(PlanechaseURLs.self, from: data)
-                self.addCardsScryfallResults(planechaseResult)
+                self.addCardsScryfallResults(planechaseResult, setCode: setCode)
             } catch {
                 print(error)
                 return
@@ -51,13 +51,14 @@ extension ContentManagerViewModel {
         }.resume()
     }
     
-    func addCardsScryfallResults(_ planechaseURLs: PlanechaseURLs) {
+    func addCardsScryfallResults(_ planechaseURLs: PlanechaseURLs, setCode: String) {
         var cards: [Card] = []
         
         for plane in planechaseURLs.data {
             cards.append(Card(id: plane.oracleID,
                               imageURL: plane.imageUris.large,
-                              state: .showed
+                              state: .showed,
+                              cardSet: CardSet.cardSetForCode(setCode)
                              ))
         }
 
