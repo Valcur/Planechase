@@ -113,6 +113,10 @@ extension OptionsMenuView {
                         
                         Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
                         
+                        ZoomViewTypeView(zoomType: .two_cropped)
+                        
+                        Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
+                        
                         ZoomViewTypeView(zoomType: .four)
                     }
                     

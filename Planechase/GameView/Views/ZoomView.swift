@@ -20,6 +20,7 @@ struct ZoomView: View {
     func cardHeight(_ screenHeight: CGFloat) -> CGFloat {
         return CardSizes.heightForWidth(screenHeight - spacing)
     }
+    private let croppingGradient = Gradient(colors: [Color.black.opacity(0), Color.black.opacity(0), Color.black.opacity(0), Color.black.opacity(0.5), Color.black, Color.black, Color.black])
     
     var body: some View {
         GeometryReader { geo in
@@ -73,6 +74,30 @@ struct ZoomView: View {
                             .rotationEffect(.degrees(0))
                             .offset(y: 5)
                         }.zIndex(3)
+                    }
+                    if planechaseVM.zoomViewType == .two_cropped {
+                        ZStack {
+                            VStack {
+                                Spacer()
+                                ZoomCardView(card: card,
+                                             width: min(CardSizes.widthtForHeight(geo.size.height), geo.size.width * 0.80))
+                                .offset(y: 5)
+                            }
+                            .mask(
+                                LinearGradient(gradient: croppingGradient, startPoint: .top, endPoint: .bottom)
+                            )
+                            .rotationEffect(.degrees(180))
+                            
+                            VStack {
+                                Spacer()
+                                ZoomCardView(card: card,
+                                             width: min(CardSizes.widthtForHeight(geo.size.height), geo.size.width * 0.80))
+                                .offset(y: 5)
+                            }
+                            .mask(
+                                LinearGradient(gradient: croppingGradient, startPoint: .top, endPoint: .bottom)
+                            )
+                        }
                     }
                 }
             }.frame(width: geo.size.width, height: geo.size.height)

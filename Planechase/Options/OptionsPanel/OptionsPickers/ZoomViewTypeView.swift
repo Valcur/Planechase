@@ -15,9 +15,11 @@ extension OptionsMenuView {
             if zoomType == .one {
                 return "square"
             } else if zoomType == .two {
-                return "rectangle.grid.1x2"
+                return "rectangle.split.2x1"
+            } else if zoomType == .two_cropped {
+                return "rectangle.split.1x2"
             } else {
-                return "square.grid.2x2"
+                return "rectangle.split.2x2"
             }
         }
         

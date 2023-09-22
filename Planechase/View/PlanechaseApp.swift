@@ -59,7 +59,7 @@ struct PlanechaseApp: App {
                 }
                 .onAppear() {
                     // Not working from init
-                    IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId()], sharedSecret: IAPManager.getSharedSecret())
+                    IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId(), IAPManager.getLifetimeId()], sharedSecret: IAPManager.getSharedSecret())
                     planechaseVM.testPremium()
                 }
             }
@@ -145,6 +145,7 @@ class PlanechaseViewModel: ObservableObject {
 enum ZoomViewType: Codable {
     case one
     case two
+    case two_cropped
     case four
 }
 
