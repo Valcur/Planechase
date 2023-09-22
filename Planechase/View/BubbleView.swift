@@ -101,8 +101,10 @@ struct GoingPremium: View {
     
     struct GoingPremiumBubble: View {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
-        @State var showingBuyInfo = false
-        @State var price = "premium_unknown".translate()
+        @State var showingBuyInfoMonthly = false
+        @State var showingBuyInfoLifetime = false
+        @State var priceMonthly = "premium_unknown".translate()
+        @State var priceLifetime = "premium_unknown".translate()
         
         var body: some View {
             VStack(alignment: .leading, spacing: 20) {
@@ -117,37 +119,56 @@ struct GoingPremium: View {
                             .foregroundColor(.white)
                         
                         Button(action: {
-                            showingBuyInfo = true
+                            showingBuyInfoMonthly = true
                         }, label: {
                             HStack(spacing: 0) {
-                                Text(price)
+                                Text(priceMonthly)
                                     .headline()
                                 
                                 Text("premium_month".translate())
                                     .headline()
                             }.buttonLabel()
                         })
-                        .onAppear() {
-                            price = IAPManager.shared.price() ?? "premium_unknown".translate()
-                            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                                // STOP WHEN PRICE IS FOUND ?
-                                if self.price == "premium_unknown".translate() {
-                                    price = IAPManager.shared.price() ?? "premium_unknown".translate()
-                                }
-                            }
-                        }
-                        .alert(isPresented: $showingBuyInfo) {
+                        .alert(isPresented: $showingBuyInfoMonthly) {
                             Alert(
                                 title: Text("premium_info_title".translate()),
                                 message: Text("premium_info_content".translate()),
                                 primaryButton: .destructive(
                                     Text("cancel".translate()),
-                                    action: {showingBuyInfo = false}
+                                    action: {showingBuyInfoMonthly = false}
                                 ),
                                 secondaryButton: .default(
                                     Text("continue".translate()),
                                     action: {
-                                        planechaseVM.buy()
+                                        planechaseVM.buy(productId: IAPManager.getSubscriptionId())
+                                    }
+                                )
+                            )
+                        }
+                        
+                        Button(action: {
+                            showingBuyInfoLifetime = true
+                        }, label: {
+                            HStack(spacing: 0) {
+                                Text(priceLifetime)
+                                    .headline()
+                                
+                                Text("premium_lifetime".translate())
+                                    .headline()
+                            }.buttonLabel()
+                        })
+                        .alert(isPresented: $showingBuyInfoLifetime) {
+                            Alert(
+                                title: Text("premium_info_title".translate()),
+                                message: Text("premium_lifetime_info_content".translate()),
+                                primaryButton: .destructive(
+                                    Text("cancel".translate()),
+                                    action: {showingBuyInfoLifetime = false}
+                                ),
+                                secondaryButton: .default(
+                                    Text("continue".translate()),
+                                    action: {
+                                        planechaseVM.buy(productId: IAPManager.getSubscriptionId())
                                     }
                                 )
                             )
@@ -164,6 +185,17 @@ struct GoingPremium: View {
                             Text("premium_restore".translate())
                                 .textButtonLabel()
                         })
+                    }
+                    .onAppear() {
+                        priceMonthly = IAPManager.shared.price(forProduct: IAPManager.getSubscriptionId()) ?? "premium_unknown".translate()
+                        priceLifetime = IAPManager.shared.price(forProduct: IAPManager.getLifetimeId()) ?? "premium_unknown".translate()
+                        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                            // STOP WHEN PRICE IS FOUND ?
+                            if self.priceMonthly == "premium_unknown".translate() || self.priceLifetime == "premium_unknown".translate() {
+                                priceMonthly = IAPManager.shared.price(forProduct: IAPManager.getSubscriptionId()) ?? "premium_unknown".translate()
+                                priceLifetime = IAPManager.shared.price(forProduct: IAPManager.getLifetimeId()) ?? "premium_unknown".translate()
+                            }
+                        }
                     }
                 } else {
                     Text("Processing ...").title()

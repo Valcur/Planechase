@@ -28,12 +28,15 @@
 "premium_content" = "- Séparez votre collection dans 10 decks différent\n- Changer la couleur d'arrière plan \n- Changer le style et la couleur du dé \n- Mes remerciements les plus sincères";
 "premium_unknown" = "Inconnu";
 "premium_month" = " / Mois";
+"premium_lifetime" = " Lifetime";
 "premium_alreadyPremium" = "Déjà premium ?";
 "premium_restore" = "Restorer";
 "premium_viewOur" = "Consultez notre ";
 "premium_policy" = "Politique de confidentialité";
-"premium_info_title" = "Information sur l'abonnement";
+"premium_info_title" = "Information";
 "premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots, dice customization and choice over 8 background colors.";
+
+"premium_lifetime_info_content" = "You may purchase a lifetime premium access through an In-App Purchase.\n\n • (in USD) Premium - Lifetime ($19.99) \n\n • Being Premium will give you access to 9 more deck slots, dice customization and choice over 8 background colors.";
 
 "discord_title" = "Rejoignez le Discord";
 "discord_content" = "Importez les cartes officielles avant leur sortie, partagez vos cartes custom, apprenez-en d'avantages sur les mises à jour ou demandez l'ajout d'une nouvelle fonctionnalité sur notre serveur Discord";
