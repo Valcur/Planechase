@@ -114,7 +114,8 @@
 "options_ui_zoomType" = "Type de zoom";
 "options_ui_biggerCardsOnMap" = "Aggrandir les cartes sur la map";
 "options_ui_hellridePng" = "SUPER SECRET : utiliser red_evil_portal.png pour le hellride";
-"options_ui_noHammer" = "Panneau d'outils toujours visible";
+"options_ui_noHammer" = "Panneau d'outils toujours visible (recommandé si l'option 'Cacher le dé' est activée)";
+"options_ui_noDice" = "Cacher le dé";
 "options_dice_title" = "Dé";
 "options_dice_style" = "Style du dé :";
 "options_dice_color" = "Couleur du dé :";

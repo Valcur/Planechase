@@ -86,7 +86,7 @@ struct DiceView: View {
                     .cornerRadius(10)
                     .shadowed()
             )
-        }
+        }.opacity(planechaseVM.noDice ? 0 : 1)
     }
     
     func rollDice() {

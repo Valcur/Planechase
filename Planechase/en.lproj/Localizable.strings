@@ -115,7 +115,8 @@
 "options_ui_zoomType" = "Zoom type";
 "options_ui_biggerCardsOnMap" = "Bigger cards on map";
 "options_ui_hellridePng" = "SUPER SECRET : use red_evil_portal.png for hellride";
-"options_ui_noHammer" = "Tools menu always visible";
+"options_ui_noHammer" = "Tools menu always visible (recommanded if using 'Hide dice')";
+"options_ui_noDice" = "Hide dice";
 "options_dice_title" = "Dice";
 "options_dice_style" = "Dice style :";
 "options_dice_color" = "Dice color :";

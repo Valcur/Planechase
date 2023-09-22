@@ -126,6 +126,9 @@ extension OptionsMenuView {
                     Toggle("options_ui_hellridePng".translate(), isOn: $planechaseVM.useHellridePNG)
                         .font(.subheadline).foregroundColor(.white)
                     
+                    Toggle("options_ui_noDice".translate(), isOn: $planechaseVM.noDice)
+                        .font(.subheadline).foregroundColor(.white)
+                    
                     Toggle("options_ui_noHammer".translate(), isOn: $planechaseVM.noHammerRow)
                         .font(.subheadline).foregroundColor(.white)
                 }
@@ -221,6 +224,9 @@ extension OptionsMenuView {
                     planechaseVM.saveToggles()
                 }
                 .onChange(of: planechaseVM.noHammerRow) { _ in
+                    planechaseVM.saveToggles()
+                }
+                .onChange(of: planechaseVM.noDice) { _ in
                     planechaseVM.saveToggles()
                 }
                 .onChange(of: planechaseVM.lifeCounterOptions.useLifeCounter) { _ in
