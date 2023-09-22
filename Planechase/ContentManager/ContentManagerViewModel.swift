@@ -80,7 +80,14 @@ class ContentManagerViewModel: ObservableObject {
                     let cardIndex = self.cardCollection.firstIndex(where: { $0.id == card.id })
                     if let cardIndex = cardIndex {
                         // For older user, update so they don't have to delete/redownload all cards
-                        self.cardCollection[cardIndex].cardSet = card.cardSet
+                        if let cardSet = card.cardSets?.first {
+                            if self.cardCollection[cardIndex].cardSets == nil {
+                                self.cardCollection[cardIndex].cardSets = [cardSet]
+                            } else {
+                                self.cardCollection[cardIndex].cardSets!.removeAll(where: { $0 == cardSet })
+                                self.cardCollection[cardIndex].cardSets!.append(cardSet)
+                            }
+                        }
                     } else {
                         if card.imageURL != nil {
                             self.cardCollection.append(card)
@@ -222,11 +229,19 @@ class ContentManagerViewModel: ObservableObject {
                         self.filteredCardCollection = self.filteredCardCollection.filter({ deck.deckCardIds.firstIndex(of: $0.id) == nil})
                     }
                 }
-                
-                
+                /*
+                for card in self.filteredCardCollection {
+                    print(card.cardSets)
+                }
+                */
+                /*
                 for i in 0..<collectionFilter.cardSets.count {
                     let cardSet = collectionFilter.cardSets[i]
-                    self.filteredCardCollection = self.filteredCardCollection.filter({ !($0.cardSet ?? CardSet.marchOfTheMachineCommander == cardSet) })
+                    self.filteredCardCollection = self.filteredCardCollection.filter({ ($0.cardSets ?? [CardSet.marchOfTheMachineCommander]).contains(<#T##other: Collection##Collection#>) })
+                }
+                 */
+                if let cardSetFilter = collectionFilter.cardSet {
+                    self.filteredCardCollection = self.filteredCardCollection.filter({ ($0.cardSets ?? [CardSet.marchOfTheMachineCommander]).contains(cardSetFilter) })
                 }
             }
         }

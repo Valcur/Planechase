@@ -19,7 +19,8 @@ class SaveManager {
                     id: card.id,
                     isCustomImage: true,
                     imageURL: card.imageURL,
-                    state: card.state
+                    state: card.state,
+                    cardSets: card.cardSets
                 ))
             }
             // Card from scryfall
@@ -28,7 +29,8 @@ class SaveManager {
                     id: card.id,
                     isCustomImage: false,
                     imageURL: card.imageURL,
-                    state: card.state
+                    state: card.state,
+                    cardSets: card.cardSets
                 ))
             }
         }
@@ -51,7 +53,8 @@ class SaveManager {
                         cards.append(Card(id: card.id,
                                           image: image,
                                           imageURL: nil,
-                                          state: card.state
+                                          state: card.state,
+                                          cardSets: card.cardSets
                                          ))
                     }
                 }
@@ -60,7 +63,8 @@ class SaveManager {
                     cards.append(Card(id: card.id,
                                       image: nil,
                                       imageURL: card.imageURL,
-                                      state: card.state
+                                      state: card.state,
+                                      cardSets: card.cardSets
                                      ))
                 }
             }
@@ -122,6 +126,7 @@ class SaveManager {
         var isCustomImage: Bool
         var imageURL: String?
         var state: CardState
+        var cardSets: [CardSet]?
     }
 }
 

@@ -16,7 +16,7 @@ struct Deck: Codable {
 struct Filter {
     var cardType: CollectionCardTypeFilter = .both
     var cardsInDeck: CollectionCardsInDeckFilter = .both
-    var cardSets = [CardSet]()
+    var cardSet: CardSet?
     
     enum CollectionCardTypeFilter {
         case official
@@ -48,7 +48,7 @@ struct Filter {
     }
 }
 
-enum CardSet {
+enum CardSet: Codable {
     case planechasePlanes
     case planechaseAnthologyPlanes
     case planechase2012Planes

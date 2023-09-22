@@ -12,14 +12,14 @@ class Card: ObservableObject {
     var image: UIImage?
     var imageURL: String?
     var state: CardState
-    var cardSet: CardSet?
+    var cardSets: [CardSet]?
     
-    init(id: String, image: UIImage? = nil, imageURL: String? = nil, state: CardState, cardSet: CardSet? = nil) {
+    init(id: String, image: UIImage? = nil, imageURL: String? = nil, state: CardState, cardSets: [CardSet]? = nil) {
         self.state = state
         self.image = image
         self.imageURL = imageURL
         self.id = id
-        self.cardSet = cardSet
+        self.cardSets = cardSets
     }
     
     func cardAppears() {

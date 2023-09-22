@@ -58,7 +58,7 @@ extension ContentManagerViewModel {
             cards.append(Card(id: plane.oracleID,
                               imageURL: plane.imageUris.large,
                               state: .showed,
-                              cardSet: CardSet.cardSetForCode(setCode)
+                              cardSets: [CardSet.cardSetForCode(setCode)]
                              ))
         }
 

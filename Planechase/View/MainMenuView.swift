@@ -16,16 +16,21 @@ struct MainMenuView: View {
     var isAllowedToPlayEternities: Bool {
         return planechaseVM.contentManagerVM.selectedCardsInCollection >= 30
     }
+    var showLeftSection: Bool {
+        return whatsNew.showWhatsNew || !planechaseVM.isPremium || planechaseVM.showDiscordInvite
+    }
     var body: some View {
         HStack(spacing: 0) {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading) {
-                    WhatsNew(whatsNew: whatsNew)
-                    DiscordInvite()
-                    GoingPremium()
-                    Spacer()
-                }.scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .top).frame(maxWidth: UIDevice.isIPhone ? BubbleSizes.width * 0.6 : BubbleSizes.width * BubbleSizes.scale).padding(.vertical, UIDevice.isIPhone ? 6 : 10).padding(.horizontal, UIDevice.isIPhone ? 3 : 10)
-            }.frame(maxHeight: .infinity)
+            if showLeftSection {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .leading) {
+                        WhatsNew(whatsNew: whatsNew)
+                        DiscordInvite()
+                        GoingPremium()
+                        Spacer()
+                    }.scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .top).frame(maxWidth: UIDevice.isIPhone ? BubbleSizes.width * 0.6 : BubbleSizes.width * BubbleSizes.scale).padding(.vertical, UIDevice.isIPhone ? 6 : 10).padding(.horizontal, UIDevice.isIPhone ? 3 : 10)
+                }.frame(maxHeight: .infinity)
+            }
             
             ZStack(alignment: .bottom) {
                 VStack(alignment: .leading) {
