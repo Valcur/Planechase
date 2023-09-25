@@ -9,103 +9,120 @@ import SwiftUI
 
 extension ContentManagerView {
     struct FilterSheet: View {
+        @Environment(\.presentationMode) var presentationMode
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var contentVM: ContentManagerViewModel
         
+        let columns = [
+            GridItem(.adaptive(minimum: 150, maximum: 150))
+        ]
+        
         var body: some View {
-            VStack(alignment: .leading, spacing: 20) {
+            ScrollView(.vertical) {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("collection_filter_onlyShow".translate()).title()
-                    
-                    Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
-                    
                     HStack {
-                        Text("Cards type:")
-                            .headline()
                         Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                contentVM.collectionFilter.cardType.toggle(value: .official)
-                                contentVM.updateFilteredCardCollection()
-                            }
+                            presentationMode.wrappedValue.dismiss()
                         }, label: {
-                            Text("collection_filter_official".translate())
-                                .textButtonLabel(style: contentVM.collectionFilter.cardType == .official ? .secondary : .primary)
+                            Image(systemName: "xmark")
+                                .imageButtonLabel()
                         })
-                        
-                        Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                contentVM.collectionFilter.cardType.toggle(value: .unofficial)
+                        Text("collection_filter_onlyShow".translate()).title()
+                        Spacer()
+                        Text("\(contentVM.filteredCardCollection.count)/\(contentVM.cardCollection.count)").title()
+                    }
+                    
+                    //Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
+                    
+                    ZStack(alignment: .topLeading) {
+                        Text("Cards type:").headline().padding(.top, 15)
+                        HStack {
+                            Button(action: {
                                 withAnimation(.easeInOut(duration: 0.3)) {
-                                    contentVM.collectionFilter.cardSet = nil
+                                    contentVM.collectionFilter.cardType.toggle(value: .official)
+                                    contentVM.updateFilteredCardCollection()
                                 }
-                                contentVM.updateFilteredCardCollection()
-                            }
-                        }, label: {
-                            Text("collection_filter_unofficial".translate())
-                                .textButtonLabel(style: contentVM.collectionFilter.cardType == .unofficial ? .secondary : .primary)
-                        })
+                            }, label: {
+                                Text("collection_filter_official".translate())
+                                    .textButtonLabel(style: contentVM.collectionFilter.cardType == .official ? .secondary : .primary)
+                            })
+                            
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    contentVM.collectionFilter.cardType.toggle(value: .unofficial)
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        contentVM.collectionFilter.cardSet = nil
+                                    }
+                                    contentVM.updateFilteredCardCollection()
+                                }
+                            }, label: {
+                                Text("collection_filter_unofficial".translate())
+                                    .textButtonLabel(style: contentVM.collectionFilter.cardType == .unofficial ? .secondary : .primary)
+                            })
+                        }.padding(.leading, 120)
                     }
                     
-                    Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
+                    //Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
                     
-                    HStack {
-                        Text("Cards selection:")
-                            .headline()
-                        Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                contentVM.collectionFilter.cardsInDeck.toggle(value: .present)
-                                contentVM.updateFilteredCardCollection()
-                            }
-                        }, label: {
-                            Text("collection_filter_present".translate())
-                                .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .present ? .secondary : .primary)
-                        })
-                        
-                        Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                contentVM.collectionFilter.cardsInDeck.toggle(value: .absent)
-                                contentVM.updateFilteredCardCollection()
-                            }
-                        }, label: {
-                            Text("collection_filter_absent".translate())
-                                .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absent ? .secondary : .primary)
-                        })
-                        
-                        Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                contentVM.collectionFilter.cardsInDeck.toggle(value: .absentInAll)
-                                contentVM.updateFilteredCardCollection()
-                            }
-                        }, label: {
-                            Text("collection_filter_absentAll".translate())
-                                .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absentInAll ? .secondary : .primary)
-                        })
+                    ZStack(alignment: .topLeading) {
+                        Text("Cards selection:").headline().padding(.top, 15)
+                        HStack {
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    contentVM.collectionFilter.cardsInDeck.toggle(value: .present)
+                                    contentVM.updateFilteredCardCollection()
+                                }
+                            }, label: {
+                                Text("collection_filter_present".translate())
+                                    .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .present ? .secondary : .primary)
+                            })
+                            
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    contentVM.collectionFilter.cardsInDeck.toggle(value: .absent)
+                                    contentVM.updateFilteredCardCollection()
+                                }
+                            }, label: {
+                                Text("collection_filter_absent".translate())
+                                    .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absent ? .secondary : .primary)
+                            })
+                            
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    contentVM.collectionFilter.cardsInDeck.toggle(value: .absentInAll)
+                                    contentVM.updateFilteredCardCollection()
+                                }
+                            }, label: {
+                                Text("collection_filter_absentAll".translate())
+                                    .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absentInAll ? .secondary : .primary)
+                            })
+                        }.padding(.leading, 120)
                     }
                     
-                    Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
+                    //Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
+                    
+                    ZStack(alignment: .topLeading) {
+                        Text("Sort by set").headline().padding(.top, 15)
+                        HStack(alignment: .top) {
+                            LazyVGrid(columns: columns) {
+                                ForEach(CardSet.getAll(), id: \.self) { cardSet in
+                                    CardSetButtonView(cardSet: cardSet)
+                                }
+                            }.frame(maxWidth: .infinity)
+                        }.padding(.leading, 120)
+                    }
+                    
+                    Spacer()
+                    
+                    Group {
+                        Button(action: {
+                            contentVM.removeAllOfficialCards()
+                        }, label: {
+                            Text("Reset")
+                                .textButtonLabel()
+                        })
+                    }
                 }.padding(.horizontal, 30).padding(.top, 30)
-                ScrollView(.horizontal) {
-                    HStack(spacing: 10) {
-                        Text("Sort by set")
-                            .headline()
-                            .padding(.leading, 30)
-                        
-                        ForEach(CardSet.getAll(), id: \.self) { cardSet in
-                            CardSetButtonView(cardSet: cardSet)
-                        }
-                    }.padding(.vertical, 10)
-                }
-                
-                Spacer()
-                
-                Group {
-                    Button(action: {
-                        contentVM.removeAllOfficialCards()
-                    }, label: {
-                        Text("Reset")
-                            .textButtonLabel()
-                    })
-                }
             }
             .background(GradientView(gradientId: planechaseVM.gradientId))
         }
@@ -130,6 +147,7 @@ extension ContentManagerView {
                 }, label: {
                     Text(cardSet.setName())
                         .textButtonLabel(style: isSelected ? .secondary : .primary)
+                        .frame(width: 150)
                 })
             }
         }

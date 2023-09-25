@@ -15,7 +15,8 @@ struct LifePointsView: View {
     }
     let isMiniView: Bool
     @State var playersChoosenRandomly: [Bool]
-
+    @State var hideLifeTimer: Timer?
+    @State var hideLifeTimerToggler: Bool = true
     
     init(isMiniView: Bool = false) {
         self.isMiniView = isMiniView
@@ -29,30 +30,31 @@ struct LifePointsView: View {
                     EvenBlueprint(row1:
                                     AnyView(HStack(spacing: 0) {
                         ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                            LifePointsPlayerPanelView(playerId: i - 1, player: $lifePointsViewModel.players[i - 1], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i - 1])
+                            LifePointsPlayerPanelView(playerId: i - 1, player: $lifePointsViewModel.players[i - 1], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i - 1], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
                         }
                     }), row2:
                                     AnyView(HStack(spacing: 0) {
                         ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                            LifePointsPlayerPanelView(playerId: i + halfNumberOfPlayers - 1, player: $lifePointsViewModel.players[i + halfNumberOfPlayers - 1], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i + halfNumberOfPlayers - 1])
+                            LifePointsPlayerPanelView(playerId: i + halfNumberOfPlayers - 1, player: $lifePointsViewModel.players[i + halfNumberOfPlayers - 1], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i + halfNumberOfPlayers - 1], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
                         }
                     }))
                 } else {
                     UnevenBlueprint(row1: AnyView(HStack(spacing: 0) {
                         ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                            LifePointsPlayerPanelView(playerId: i, player: $lifePointsViewModel.players[i], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i])
+                            LifePointsPlayerPanelView(playerId: i, player: $lifePointsViewModel.players[i], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
                         }
                     }),
                                     row2: AnyView(                    HStack(spacing: 0) {
                         ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                            LifePointsPlayerPanelView(playerId: i + halfNumberOfPlayers, player: $lifePointsViewModel.players[i + halfNumberOfPlayers], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i + halfNumberOfPlayers])
+                            LifePointsPlayerPanelView(playerId: i + halfNumberOfPlayers, player: $lifePointsViewModel.players[i + halfNumberOfPlayers], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i + halfNumberOfPlayers], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
                         }
                     }),
-                                    sideElement: AnyView(LifePointsPlayerPanelView(playerId: 0, player: $lifePointsViewModel.players[0], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[0]))
+                                    sideElement: AnyView(LifePointsPlayerPanelView(playerId: 0, player: $lifePointsViewModel.players[0], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[0], lifepointHasBeenUsedToggler: $hideLifeTimerToggler))
                     )
                 }
                 if !isMiniView {
                     Button(action: {
+                        resetTimer()
                         let player = Int.random(in: 0..<lifePointsViewModel.numberOfPlayer)
                         playersChoosenRandomly[player] = true
                         withAnimation(.easeInOut(duration: 1).delay(0.15)) {
@@ -78,6 +80,29 @@ struct LifePointsView: View {
                     VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark)).opacity(isMiniView ? 0 : 1)
                 )
         }.ignoresSafeArea()
+        .onChange(of: gameVM.showLifePointsView) { isShowing in
+            if !isMiniView {
+                if isShowing {
+                    resetTimer()
+                } else {
+                    hideLifeTimer?.invalidate()
+                }
+            }
+        }
+        
+        .onChange(of: hideLifeTimerToggler) { _ in
+            resetTimer()
+        }
+    }
+    
+    private func resetTimer() {
+        print("Reset")
+        hideLifeTimer?.invalidate()
+        hideLifeTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { timer in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                gameVM.showLifePointsView = false
+            }
+        }
     }
 }
 
@@ -105,6 +130,7 @@ struct LifePointsPanelView: View {
                     Text(playerName)
                         .font(.title3)
                         .foregroundColor(.white)
+                        .shadow(color: isMiniView ? .clear : Color("ShadowColor"), radius: 2, x: 0, y: 0)
                     
                     Spacer()
                 }
@@ -113,6 +139,7 @@ struct LifePointsPanelView: View {
                     .font(.system(size: isMiniView ? 80 : (UIDevice.isIPhone ? 40 : 60)))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
+                    .shadow(color: isMiniView ? .clear : Color("ShadowColor"), radius: 2, x: 0, y: 0)
                     .offset(y: UIDevice.isIPhone && !isMiniView ? -10 : 0)
                 
                 if !isMiniView {
@@ -132,6 +159,7 @@ struct LifePointsPanelView: View {
                         Text(totalChange > 0  ? "+\(totalChange)" : "\(totalChange)")
                             .font(.title2)
                             .foregroundColor(.white)
+                            .shadow(color: isMiniView ? .clear : Color("ShadowColor"), radius: 2, x: 0, y: 0)
                             .padding(20)
                         if inverseChangeSide {
                             Spacer()

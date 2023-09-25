@@ -21,6 +21,7 @@ struct LifePointsPlayerPanelView: View {
     let blurEffect: UIBlurEffect.Style = .systemChromeMaterialDark
     let isMiniView: Bool
     let hasBeenChoosenRandomly: Bool
+    @Binding var lifepointHasBeenUsedToggler: Bool
     @State private var showingCountersSheet = false
     var isPlayerOnTheSide: Bool {
         playerId == 0 && lifePointsViewModel.numberOfPlayer % 2 == 1
@@ -37,7 +38,12 @@ struct LifePointsPlayerPanelView: View {
                 if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
                     VisualEffectView(effect: UIBlurEffect(style: blurEffect))
                 } else {
-                    players[playerId].backgroundColor
+                    ZStack {
+                        Image("PaperTexture")
+                            .resizable()
+                            .colorMultiply(players[playerId].backgroundColor)
+                    }
+                    
                 }
                 if planechaseVM.lifeCounterOptions.useCommanderDamages && !isMiniView {
                     HStack(alignment: .center) {
@@ -69,6 +75,7 @@ struct LifePointsPlayerPanelView: View {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showingCountersSheet = true
                             }
+                            lifepointHasBeenUsedToggler.toggle()
                         }.offset(y: -20)
                 }
             }.cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10))
@@ -100,12 +107,14 @@ struct LifePointsPlayerPanelView: View {
         totalChangeTimer?.invalidate()
         player.lifePoints += 1
         totalChange += 1
+        lifepointHasBeenUsedToggler.toggle()
     }
     
     private func removeLifepoint() {
         totalChangeTimer?.invalidate()
         player.lifePoints -= 1
         totalChange -= 1
+        lifepointHasBeenUsedToggler.toggle()
     }
     
     private func startTotalChangeTimer() {
