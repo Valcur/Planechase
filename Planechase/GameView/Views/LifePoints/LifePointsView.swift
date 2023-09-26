@@ -177,10 +177,10 @@ struct LifePointsView_Previews: PreviewProvider {
         if #available(iOS 15.0, *) {
             LifePointsView()
                 .previewInterfaceOrientation(.landscapeLeft)
-                .environmentObject(LifePointsViewModel(numberOfPlayer: 5, startingLife: 60, colorPalette: 1))
+                .environmentObject(LifePointsViewModel(numberOfPlayer: 5, startingLife: 60, colorPalette: 1, customProfiles: []))
         } else {
             LifePointsView()
-                .environmentObject(LifePointsViewModel(numberOfPlayer: 5, startingLife: 60, colorPalette: 1))
+                .environmentObject(LifePointsViewModel(numberOfPlayer: 5, startingLife: 60, colorPalette: 1, customProfiles: []))
         }
     }
 }
@@ -189,7 +189,7 @@ class LifePointsViewModel: ObservableObject {
     @Published var numberOfPlayer: Int
     @Published var players: [PlayerProfile]
     
-    init(numberOfPlayer: Int, startingLife: Int, colorPalette: Int) {
+    init(numberOfPlayer: Int, startingLife: Int, colorPalette: Int, customProfiles: [PlayerCustomProfile]) {
         self.numberOfPlayer = numberOfPlayer
         players = []
         
@@ -205,14 +205,31 @@ class LifePointsViewModel: ObservableObject {
         ]
         colors.shuffle()
         for i in 1...numberOfPlayer {
-            players.append(PlayerProfile(name: "\("lifepoints_player".translate()) \(i)", backgroundColor: colors[i - 1], lifePoints: startingLife, counters: PlayerCounters()))
+            var backgroundImage: UIImage? = nil
+            var name = "\("lifepoints_player".translate()) \(i)"
+            var id = UUID()
+            for customProfile in customProfiles {
+                if customProfile.lastUsedSlot == i {
+                    name = customProfile.name
+                    id = customProfile.id
+                    if let imageData = customProfile.customImageData {
+                        if let image = UIImage(data: imageData) {
+                            backgroundImage = image
+                        }
+                    }
+                }
+            }
+            
+            players.append(PlayerProfile(id: id, name: name, backgroundColor: colors[i - 1], backgroundImage: backgroundImage, lifePoints: startingLife, counters: PlayerCounters()))
         }
     }
 }
 
 struct PlayerProfile {
+    var id: UUID
     var name: String
     var backgroundColor: Color
+    var backgroundImage: UIImage?
     var lifePoints: Int
     var counters: PlayerCounters
 }

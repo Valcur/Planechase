@@ -21,7 +21,8 @@ extension OptionsMenuView {
                                                         useCommanderDamages: planechaseVM.lifeCounterOptions.useCommanderDamages,
                                                         colorPaletteId: planechaseVM.lifeCounterOptions.colorPaletteId,
                                                         nbrOfPlayers: numberOfPlayers,
-                                                        startingLife: planechaseVM.lifeCounterOptions.startingLife))
+                                                        startingLife: planechaseVM.lifeCounterOptions.startingLife,
+                                                        profiles: planechaseVM.lifeCounterOptions.profiles))
             }, label: {
                 Text(" \(numberOfPlayers) ")
                     .font(.title2)

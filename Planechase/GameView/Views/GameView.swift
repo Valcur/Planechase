@@ -16,7 +16,7 @@ struct GameView: View {
     
     init(lifeCounterOptions: LifeOptions) {
         lifePointsViewModel = LifePointsViewModel(numberOfPlayer: lifeCounterOptions.nbrOfPlayers,
-                                                  startingLife: lifeCounterOptions.startingLife, colorPalette: lifeCounterOptions.colorPaletteId)
+                                                  startingLife: lifeCounterOptions.startingLife, colorPalette: lifeCounterOptions.colorPaletteId, customProfiles: lifeCounterOptions.profiles)
     }
     
     var body: some View {

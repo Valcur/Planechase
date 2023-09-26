@@ -157,4 +157,6 @@ struct LifeOptions: Codable {
     var colorPaletteId: Int
     var nbrOfPlayers: Int
     var startingLife: Int
+    var profiles: [PlayerCustomProfile]
+    // custom background
 }

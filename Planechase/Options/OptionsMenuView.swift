@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OptionsMenuView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
-    @State var selectedMenu: MenuSelection = .options
+    @State var selectedMenu: MenuSelection = .life
     
     var body: some View {
         ZStack {
@@ -18,6 +18,8 @@ struct OptionsMenuView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 20) {
                     MenuSelectionView(menu: .options, selectedMenu: $selectedMenu)
+                    
+                    MenuSelectionView(menu: .life, selectedMenu: $selectedMenu)
                     
                     MenuSelectionView(menu: .rules, selectedMenu: $selectedMenu)
                     
@@ -34,8 +36,10 @@ struct OptionsMenuView: View {
                     ContactPanel()
                 } else if selectedMenu == .thanks {
                     ThanksPanel()
-                }  else if selectedMenu == .rules {
+                } else if selectedMenu == .rules {
                     RulesPanel()
+                } else if selectedMenu == .life {
+                    LifeOptionsPanel()
                 }
             }
         }
@@ -152,6 +156,7 @@ struct OptionsMenuView: View {
         case contact
         case thanks
         case rules
+        case life
         
         func title() -> String {
             switch self {
@@ -163,6 +168,8 @@ struct OptionsMenuView: View {
                 return "options_thanksTitle".translate()
             case .rules:
                 return "options_rulesTitle".translate()
+            case .life:
+                return "Life"
             }
         }
     }

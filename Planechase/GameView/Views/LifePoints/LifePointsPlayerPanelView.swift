@@ -35,16 +35,22 @@ struct LifePointsPlayerPanelView: View {
                 .opacity(showingCountersSheet ? 1 : 0)
 
             ZStack(alignment: .bottom) {
-                if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
-                    VisualEffectView(effect: UIBlurEffect(style: blurEffect))
+                // BACKGROUND
+                if let image = player.backgroundImage {
+                    Image(uiImage: image)
+                        .resizable()
                 } else {
-                    ZStack {
-                        Image("PaperTexture")
-                            .resizable()
-                            .colorMultiply(players[playerId].backgroundColor)
+                    if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
+                        VisualEffectView(effect: UIBlurEffect(style: blurEffect))
+                    } else {
+                        ZStack {
+                            Image("PaperTexture")
+                                .resizable()
+                                .colorMultiply(players[playerId].backgroundColor)
+                        }
                     }
-                    
                 }
+                
                 if planechaseVM.lifeCounterOptions.useCommanderDamages && !isMiniView {
                     HStack(alignment: .center) {
                         Spacer()
@@ -78,6 +84,19 @@ struct LifePointsPlayerPanelView: View {
                             lifepointHasBeenUsedToggler.toggle()
                         }.offset(y: -20)
                 }
+                
+                if !isMiniView {
+                    VStack {
+                        Button(action: {
+                            changePlayerProfile()
+                        }, label: {
+                            Text("Change profile")
+                                .textButtonLabel()
+                        })
+                        Spacer()
+                    }.padding(5)
+                }
+                
             }.cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10))
                 .gesture(DragGesture()
                     .onChanged { value in
@@ -101,6 +120,45 @@ struct LifePointsPlayerPanelView: View {
             Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0).cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10)).allowsHitTesting(false)
         }
         
+    }
+    
+    private func changePlayerProfile() {
+        let customProfiles = planechaseVM.lifeCounterOptions.profiles
+        if customProfiles.count == 0 {
+            return
+        }
+        var currentIndex = customProfiles.firstIndex(where: { $0.id == player.id }) ?? -1
+        currentIndex += 1
+        if currentIndex >= customProfiles.count {
+            currentIndex = -1
+        }
+        
+        var backgroundImage: UIImage? = nil
+        var name = ""
+        var id = UUID()
+        print(currentIndex)
+        if currentIndex == -1 {
+            name = "Player \(playerId + 1)" // A TRADUIRE
+        } else {
+            let newProfile = customProfiles[currentIndex]
+            if let imageData = newProfile.customImageData {
+                if let image = UIImage(data: imageData) {
+                    backgroundImage = image
+                }
+            }
+            id = newProfile.id
+            name = newProfile.name
+        }
+        withAnimation(.easeInOut(duration: 0.3)) {
+            player = PlayerProfile(id: id,
+                                   name: name,
+                                   backgroundColor: player.backgroundColor,
+                                   backgroundImage: backgroundImage,
+                                   lifePoints: player.lifePoints,
+                                   counters: player.counters)
+        }
+        lifepointHasBeenUsedToggler.toggle()
+        // save last slot used
     }
     
     private func addLifepoint() {

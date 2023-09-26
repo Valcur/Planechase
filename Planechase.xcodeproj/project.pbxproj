@@ -52,6 +52,7 @@
 		DBC339B729ACEA840089CB01 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC339B629ACEA840089CB01 /* IAPManager.swift */; };
 		DBC339BB29ACED690089CB01 /* PlanechaseVM+IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC339BA29ACED690089CB01 /* PlanechaseVM+IAP.swift */; };
 		DBD42B0129A78F1B008451BD /* OptionsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */; };
+		DBD8AC4D2AC1D15F00C9F89A /* LifeOptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD8AC4C2AC1D15F00C9F89A /* LifeOptionsPanel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		DBC339B629ACEA840089CB01 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		DBC339BA29ACED690089CB01 /* PlanechaseVM+IAP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlanechaseVM+IAP.swift"; sourceTree = "<group>"; };
 		DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuView.swift; sourceTree = "<group>"; };
+		DBD8AC4C2AC1D15F00C9F89A /* LifeOptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeOptionsPanel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				DB18E3C229BE14E000C15251 /* OptionsPanel.swift */,
+				DBD8AC4C2AC1D15F00C9F89A /* LifeOptionsPanel.swift */,
 				DB9C22852A29F71000656BC7 /* OptionsPickers */,
 			);
 			path = OptionsPanel;
@@ -450,6 +453,7 @@
 				DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */,
 				DB9C22932A29F7C100656BC7 /* MenuStartingLifeChoiceView.swift in Sources */,
 				DB9C22912A29F7AE00656BC7 /* MenuNumberOfPlayerChoiceView.swift in Sources */,
+				DBD8AC4D2AC1D15F00C9F89A /* LifeOptionsPanel.swift in Sources */,
 				DB9C22872A29F72300656BC7 /* ZoomViewTypeView.swift in Sources */,
 				DBC339AF29A8E4BC0089CB01 /* BubbleView.swift in Sources */,
 				DBA02CF729A4FDB8004E94BC /* Coord.swift in Sources */,
