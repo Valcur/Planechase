@@ -10,6 +10,7 @@ import SwiftUI
 extension OptionsMenuView {
     struct LifeOptionsPanel: View {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
+        @State var profiles: [PlayerCustomProfile] = []
         
         var body: some View {
             VStack(alignment: .leading, spacing: 15) {
@@ -75,12 +76,13 @@ extension OptionsMenuView {
                         .headline()
                     
                     VStack(alignment: .leading, spacing: 20) {
-                        ForEach(0..<planechaseVM.lifeCounterOptions.profiles.count, id: \.self) { i in
-                            CustomProfileView(profileIndex: i, profiles: $planechaseVM.lifeCounterOptions.profiles).id(i)
+                        ForEach(0..<profiles.count, id: \.self) { i in
+                            CustomProfileView(profileIndex: i, profiles: $profiles).id(profiles[i].id)
                         }
                         Button(action: {
-                            planechaseVM.lifeCounterOptions.profiles.append(PlayerCustomProfile(name: "Player \(planechaseVM.lifeCounterOptions.profiles.count + 1)"))
-                            planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
+                            planechaseVM.lifeCounterProfiles.append(PlayerCustomProfile(name: "Player \(planechaseVM.lifeCounterProfiles.count + 1)"))
+                            planechaseVM.saveProfiles_Info()
+                            profiles = planechaseVM.lifeCounterProfiles
                         }, label: {
                             Text("+")
                                 .textButtonLabel()
@@ -94,15 +96,17 @@ extension OptionsMenuView {
             .onChange(of: planechaseVM.lifeCounterOptions.useCommanderDamages) { _ in
                 planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
             }
+            .onAppear() {
+                profiles = planechaseVM.lifeCounterProfiles
+            }
         }
         
         struct CustomProfileView: View {
             @EnvironmentObject var planechaseVM: PlanechaseViewModel
             let profileIndex: Int
-            @Binding var profiles: [PlayerCustomProfile]
             var profile: PlayerCustomProfile {
-                if profileIndex < profiles.count {
-                    return profiles[profileIndex]
+                if profileIndex < planechaseVM.lifeCounterProfiles.count {
+                    return planechaseVM.lifeCounterProfiles[profileIndex]
                 }
                 return PlayerCustomProfile()
             }
@@ -110,6 +114,7 @@ extension OptionsMenuView {
             @State var showingImagePicker: Bool = false
             @State private var inputImage: UIImage?
             @State var saveChangesTimer: Timer?
+            @Binding var profiles: [PlayerCustomProfile]
             
             var body: some View {
                 HStack(spacing: 20) {
@@ -144,12 +149,19 @@ extension OptionsMenuView {
                             profileName = profile.name
                         }
                         .onChange(of: profileName) { _ in
-                            profiles[profileIndex].name = profileName
-                            resetSaveChangesTimer()
+                            saveChangesTimer?.invalidate()
+                            saveChangesTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { timer in
+                                planechaseVM.lifeCounterProfiles[profileIndex].name = profileName
+                                planechaseVM.saveProfiles_Info()
+                            }
+                            profiles = planechaseVM.lifeCounterProfiles
                         }
                     
                     Button(action: {
-                        profiles.remove(at: profileIndex)
+                        planechaseVM.lifeCounterProfiles.remove(at: profileIndex)
+                        planechaseVM.saveProfiles_Info()
+                        profiles = planechaseVM.lifeCounterProfiles
+                        // REMOVE CUSTOM IMAGE TOO
                     }, label: {
                         Image(systemName: "trash")
                             .resizable()
@@ -163,22 +175,23 @@ extension OptionsMenuView {
             private func saveProfileImage() {
                 guard let inputImage = inputImage else { return }
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    profiles[profileIndex].customImageData = inputImage.pngData()
-                    planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
+                    planechaseVM.lifeCounterProfiles[profileIndex].customImageData = inputImage.pngData()
+                    planechaseVM.saveProfiles_Image(index: profileIndex)
+                    profiles = planechaseVM.lifeCounterProfiles
                 }
             }
             
             private func resetSaveChangesTimer() {
                 saveChangesTimer?.invalidate()
                 saveChangesTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { timer in
-                    planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
+                    planechaseVM.saveProfiles_Info()
                 }
             }
         }
     }
 }
 
-struct PlayerCustomProfile: Codable {
+struct PlayerCustomProfile: Codable, Identifiable {
     var id = UUID()
     var name: String
     var lastUsedSlot: Int

@@ -27,7 +27,7 @@ struct PlanechaseApp: App {
     var body: some Scene {
         WindowGroup {
             if planechaseVM.isPlaying {
-                GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions)
+                GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles)
                     .statusBar(hidden: true)
                     .environmentObject(planechaseVM)
                     .environmentObject(planechaseVM.gameVM)
@@ -79,6 +79,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var noDice: Bool
     @Published var diceOptions: DiceOptions
     @Published var lifeCounterOptions: LifeOptions
+    var lifeCounterProfiles: [PlayerCustomProfile]
     @Published var isPremium = false
     @Published var showDiscordInvite = false
     @Published var paymentProcessing = false
@@ -93,6 +94,7 @@ class PlanechaseViewModel: ObservableObject {
         noDice = optionToggles.3
         diceOptions = SaveManager.getOptions_DiceOptions()
         lifeCounterOptions = SaveManager.getOptions_LifeOptions()
+        lifeCounterProfiles = SaveManager.getOptions_LifePlayerProfiles()
         
         gameVM = GameViewModel()
         contentManagerVM = ContentManagerViewModel()
@@ -132,6 +134,14 @@ class PlanechaseViewModel: ObservableObject {
         SaveManager.saveOptions_LifeOptions(life)
     }
     
+    func saveProfiles_Info() {
+        SaveManager.saveOptions_LifePlayerProfiles(lifeCounterProfiles)
+    }
+    
+    func saveProfiles_Image(index: Int) {
+        SaveManager.saveOptions_LifePlayerProfiles_CustomImage(lifeCounterProfiles, i: index)
+    }
+    
     func setZoomViewType(_ zoomType: ZoomViewType) {
         withAnimation(.easeInOut(duration: 0.3)) {
             zoomViewType = zoomType
@@ -157,6 +167,6 @@ struct LifeOptions: Codable {
     var colorPaletteId: Int
     var nbrOfPlayers: Int
     var startingLife: Int
-    var profiles: [PlayerCustomProfile]
+    
     // custom background
 }

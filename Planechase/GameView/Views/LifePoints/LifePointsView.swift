@@ -98,7 +98,7 @@ struct LifePointsView: View {
     private func resetTimer() {
         print("Reset")
         hideLifeTimer?.invalidate()
-        hideLifeTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { timer in
+        hideLifeTimer = Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { timer in
             withAnimation(.easeInOut(duration: 0.3)) {
                 gameVM.showLifePointsView = false
             }
@@ -208,8 +208,11 @@ class LifePointsViewModel: ObservableObject {
             var backgroundImage: UIImage? = nil
             var name = "\("lifepoints_player".translate()) \(i)"
             var id = UUID()
-            for customProfile in customProfiles {
-                if customProfile.lastUsedSlot == i {
+            var profileIndex = -1
+            for j in 0..<customProfiles.count {
+                profileIndex = j
+                let customProfile = customProfiles[j]
+                if customProfile.lastUsedSlot == i - 1 {
                     name = customProfile.name
                     id = customProfile.id
                     if let imageData = customProfile.customImageData {
@@ -220,7 +223,7 @@ class LifePointsViewModel: ObservableObject {
                 }
             }
             
-            players.append(PlayerProfile(id: id, name: name, backgroundColor: colors[i - 1], backgroundImage: backgroundImage, lifePoints: startingLife, counters: PlayerCounters()))
+            players.append(PlayerProfile(id: id, name: name, backgroundColor: colors[i - 1], backgroundImage: backgroundImage, lifePoints: startingLife, counters: PlayerCounters(), profileIndex: profileIndex))
         }
     }
 }
@@ -232,6 +235,7 @@ struct PlayerProfile {
     var backgroundImage: UIImage?
     var lifePoints: Int
     var counters: PlayerCounters
+    var profileIndex: Int
 }
 
 struct PlayerCounters {

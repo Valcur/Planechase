@@ -24,7 +24,7 @@ extension OptionsMenuView {
                                                             useCommanderDamages: planechaseVM.lifeCounterOptions.useCommanderDamages,
                                                             colorPaletteId: colorId,
                                                             nbrOfPlayers: planechaseVM.lifeCounterOptions.nbrOfPlayers,
-                                                            startingLife: planechaseVM.lifeCounterOptions.startingLife, profiles: planechaseVM.lifeCounterOptions.profiles))
+                                                            startingLife: planechaseVM.lifeCounterOptions.startingLife))
                 }, label: {
                     VStack {
                         if colorId == -1 {

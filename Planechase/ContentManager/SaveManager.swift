@@ -171,7 +171,42 @@ extension SaveManager {
            let lifeOptions = try? JSONDecoder().decode(LifeOptions.self, from: data) {
             return lifeOptions
         }
-        return LifeOptions(useLifeCounter: true, useCommanderDamages: true, colorPaletteId: 0, nbrOfPlayers: 4, startingLife: 40, profiles: [])
+        return LifeOptions(useLifeCounter: true, useCommanderDamages: true, colorPaletteId: 0, nbrOfPlayers: 4, startingLife: 40)
+    }
+    
+    static func saveOptions_LifePlayerProfiles(_ profiles: [PlayerCustomProfile]) {
+        var profilesData = profiles
+        for i in 0..<profilesData.count {
+            profilesData[i].customImageData = nil
+        }
+        print(profilesData)
+        if let encoded = try? JSONEncoder().encode(profilesData) {
+            UserDefaults.standard.set(encoded, forKey: "LifePlayerProfilesOptions")
+        }
+    }
+    
+    static func saveOptions_LifePlayerProfiles_CustomImage(_ profiles: [PlayerCustomProfile], i: Int) {
+        let profile = profiles[i]
+        if let data = profile.customImageData {
+            let encoded = try! PropertyListEncoder().encode(data)
+            UserDefaults.standard.set(encoded, forKey: "ProfileImage_\(profile.id)")
+        }
+    }
+    
+    static func getOptions_LifePlayerProfiles() -> [PlayerCustomProfile] {
+        if let data = UserDefaults.standard.object(forKey: "LifePlayerProfilesOptions") as? Data,
+            var profiles = try? JSONDecoder().decode([PlayerCustomProfile].self, from: data) {
+            // Get images
+            for i in 0..<profiles.count {
+                if let data = UserDefaults.standard.data(forKey: "ProfileImage_\(profiles[i].id)") {
+                    let decoded = try! PropertyListDecoder().decode(Data.self, from: data)
+                    profiles[i].customImageData = decoded
+                }
+            }
+            
+            return profiles
+        }
+        return []
     }
     
     static func saveOptions_GradientId(_ gradientId: Int) {
