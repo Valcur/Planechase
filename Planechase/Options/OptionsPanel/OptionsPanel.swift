@@ -112,6 +112,7 @@ extension OptionsMenuView {
                             MenuCustomDiceChoiceView(diceStyleId: 9)
                             MenuCustomDiceChoiceView(diceStyleId: 10)
                             MenuCustomDiceChoiceView(diceStyleId: 11)
+                            MenuCustomDiceChoiceView(diceStyleId: 12)
                         }.padding(10)
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     
@@ -143,6 +144,7 @@ extension OptionsMenuView {
                             MenuCustomDiceColorChoiceView(diceColorId: 8)
                             MenuCustomDiceColorChoiceView(diceColorId: 9)
                             MenuCustomDiceColorChoiceView(diceColorId: 10)
+                            MenuCustomDiceColorChoiceView(diceColorId: 11)
                         }.padding(10)
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     

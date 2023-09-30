@@ -78,6 +78,13 @@ struct DiceOverlay: View {
                             .scaledToFit()
                             .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
                             .scaleEffect(1.1)
+                    } else if diceStyleId == 12 {
+                        Image("Tardis")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(DiceOptions.getForegroundColor(diceColorId))
+                            .scaleEffect(1.0)
                     }
                 }
             }
