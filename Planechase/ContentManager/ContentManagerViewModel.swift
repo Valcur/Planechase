@@ -88,6 +88,7 @@ class ContentManagerViewModel: ObservableObject {
                                 self.cardCollection[cardIndex].cardSets!.append(cardSet)
                             }
                         }
+                        self.cardCollection[cardIndex].cardType = card.cardType
                     } else {
                         if card.imageURL != nil {
                             self.cardCollection.append(card)
@@ -204,6 +205,19 @@ class ContentManagerViewModel: ObservableObject {
         return "\(beforeId)\(id)"
     }
     
+    func toggleCardTypeLineFilter(_ typeLine: CardTypeLine) {
+        if collectionFilter.cardTypeLine == nil {
+            collectionFilter.cardTypeLine = typeLine
+        } else {
+            if collectionFilter.cardTypeLine == typeLine {
+                collectionFilter.cardTypeLine = nil
+            } else {
+                collectionFilter.cardTypeLine = typeLine
+            }
+        }
+        updateFilteredCardCollection()
+    }
+    
     func updateFilteredCardCollection() {
         DispatchQueue.main.async { [self] in
             withAnimation(.easeInOut(duration: 0.3)) {
@@ -229,19 +243,18 @@ class ContentManagerViewModel: ObservableObject {
                         self.filteredCardCollection = self.filteredCardCollection.filter({ deck.deckCardIds.firstIndex(of: $0.id) == nil})
                     }
                 }
-                /*
-                for card in self.filteredCardCollection {
-                    print(card.cardSets)
-                }
-                */
-                /*
-                for i in 0..<collectionFilter.cardSets.count {
-                    let cardSet = collectionFilter.cardSets[i]
-                    self.filteredCardCollection = self.filteredCardCollection.filter({ ($0.cardSets ?? [CardSet.marchOfTheMachineCommander]).contains(<#T##other: Collection##Collection#>) })
-                }
-                 */
+
                 if let cardSetFilter = collectionFilter.cardSet {
                     self.filteredCardCollection = self.filteredCardCollection.filter({ ($0.cardSets ?? [CardSet.marchOfTheMachineCommander]).contains(cardSetFilter) })
+                }
+                
+                if let cardTypeFilter = collectionFilter.cardTypeLine {
+                    if cardTypeFilter == .plane {
+                        self.filteredCardCollection = self.filteredCardCollection.filter({ $0.cardType == .plane })
+                    }
+                    if cardTypeFilter == .phenomenon {
+                        self.filteredCardCollection = self.filteredCardCollection.filter({ $0.cardType == .phenomenon })
+                    }
                 }
             }
         }

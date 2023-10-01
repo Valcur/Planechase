@@ -29,7 +29,7 @@ struct ZoomView: View {
                     if planechaseVM.zoomViewType == .one {
                         if UIDevice.isIPhone {
                             ZoomCardView(card: card,
-                                         width: CardSizes.widthtForHeight(geo.size.height - 10))
+                                         width: CardSizes.widthtForHeight(geo.size.height/* - 10*/))
                         } else {
                             ZoomCardView(card: card,
                                          width: cardWidth(geo.size.width * 0.9))

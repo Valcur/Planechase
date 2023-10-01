@@ -27,6 +27,8 @@ struct LifePointsPlayerPanelView: View {
     var isPlayerOnTheSide: Bool {
         playerId == 0 && lifePointsViewModel.numberOfPlayer % 2 == 1
     }
+    @State var profileChangeTimerProgress: CGFloat = 1
+    @State var isAllowedToChangeProfile: Bool = true
     
     var body: some View {
         ZStack {
@@ -42,10 +44,8 @@ struct LifePointsPlayerPanelView: View {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: geo.size.width, height: geo.size.height)
                             .clipped()
                     }
-                    
                 } else {
                     if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
                         VisualEffectView(effect: UIBlurEffect(style: blurEffect))
@@ -55,7 +55,6 @@ struct LifePointsPlayerPanelView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .colorMultiply(players[playerId].backgroundColor)
-                                .frame(width: geo.size.width, height: geo.size.height)
                                 .clipped()
                         }
                     }
@@ -96,16 +95,27 @@ struct LifePointsPlayerPanelView: View {
                 }
                 
                 if !isMiniView {
-                    VStack {
-                        Button(action: {
-                            showProfileSelector = true
-                            lifepointHasBeenUsedToggler.toggle()
-                        }, label: {
-                            Text("Change profile")
-                                .textButtonLabel()
-                        })
-                        Spacer()
-                    }.padding(5)
+                    GeometryReader { geo in
+                        VStack {
+                            Button(action: {
+                                showProfileSelector = true
+                                lifepointHasBeenUsedToggler.toggle()
+                            }, label: {
+                                ZStack(alignment: .top) {
+                                    LinearGradient(gradient: Gradient(colors: [.black.opacity(0.6), .black.opacity(0)]), startPoint: .top, endPoint: .bottom)
+                                    Text("Change profile")
+                                        .title()
+                                    HStack {
+                                        Rectangle()
+                                            .foregroundColor(.white)
+                                            .frame(width: profileChangeTimerProgress * geo.size.width, height: 4)
+                                        Spacer()
+                                    }
+                                }
+                            }).frame(height: geo.size.height / 4)
+                            Spacer()
+                        }
+                    }.opacity(isAllowedToChangeProfile ? 1 : 0)
                 }
                 if showProfileSelector {
                     ProfileSelector(showSelector: $showProfileSelector, playerId: playerId, player: $player, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler)
@@ -132,6 +142,17 @@ struct LifePointsPlayerPanelView: View {
                 .opacity(!showingCountersSheet ? 1 : 0)
             
             Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0).cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10)).allowsHitTesting(false)
+        }
+        .onAppear() {
+            print("Eerzrezrzerzre")
+            withAnimation(.easeInOut(duration: 60)) {
+                profileChangeTimerProgress = 0
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 60, execute: {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isAllowedToChangeProfile = false
+                }
+            })
         }
     }
     

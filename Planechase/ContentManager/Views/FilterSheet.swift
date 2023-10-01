@@ -12,10 +12,12 @@ extension ContentManagerView {
         @Environment(\.presentationMode) var presentationMode
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var contentVM: ContentManagerViewModel
-        
-        let columns = [
+        private var columns: [GridItem]  {
+            Array(repeating: GridItem(.flexible()), count: 2)
+        }
+        /*let columns = [
             GridItem(.adaptive(minimum: 150, maximum: 150))
-        ]
+        ]*/
         
         var body: some View {
             ScrollView(.vertical) {
@@ -99,7 +101,28 @@ extension ContentManagerView {
                         }.padding(.leading, 120)
                     }
                     
-                    //Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
+                    ZStack(alignment: .topLeading) {
+                        Text("Type:").headline().padding(.top, 15)
+                        HStack {
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    contentVM.toggleCardTypeLineFilter(.plane)
+                                }
+                            }, label: {
+                                Text("Plane".translate())
+                                    .textButtonLabel(style: contentVM.collectionFilter.cardTypeLine == .plane ? .secondary : .primary)
+                            })
+                            
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    contentVM.toggleCardTypeLineFilter(.phenomenon)
+                                }
+                            }, label: {
+                                Text("Phenomenon".translate())
+                                    .textButtonLabel(style: contentVM.collectionFilter.cardTypeLine == .phenomenon ? .secondary : .primary)
+                            })
+                        }.padding(.leading, 120)
+                    }
                     
                     ZStack(alignment: .topLeading) {
                         Text("Sort by set").headline().padding(.top, 15)
@@ -113,7 +136,7 @@ extension ContentManagerView {
                     }
                     
                     Spacer()
-                    
+                    /*
                     Group {
                         Button(action: {
                             contentVM.removeAllOfficialCards()
@@ -121,7 +144,7 @@ extension ContentManagerView {
                             Text("Reset")
                                 .textButtonLabel()
                         })
-                    }
+                    }*/
                 }.padding(.horizontal, 30).padding(.top, 30)
             }
             .background(GradientView(gradientId: planechaseVM.gradientId))
@@ -134,21 +157,23 @@ extension ContentManagerView {
                 return contentVM.collectionFilter.cardSet == cardSet
             }
             var body: some View {
-                Button(action: {
-                    if isSelected {
-                        contentVM.collectionFilter.cardSet = nil
-                    } else {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            contentVM.collectionFilter.cardType = .official
+                HStack {
+                    Button(action: {
+                        if isSelected {
+                            contentVM.collectionFilter.cardSet = nil
+                        } else {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                contentVM.collectionFilter.cardType = .official
+                            }
+                            contentVM.collectionFilter.cardSet = cardSet
                         }
-                        contentVM.collectionFilter.cardSet = cardSet
-                    }
-                    contentVM.updateFilteredCardCollection()
-                }, label: {
-                    Text(cardSet.setName())
-                        .textButtonLabel(style: isSelected ? .secondary : .primary)
-                        .frame(width: 150)
-                })
+                        contentVM.updateFilteredCardCollection()
+                    }, label: {
+                        Text(cardSet.setName())
+                            .textButtonLabel(style: isSelected ? .secondary : .primary)
+                    })
+                    Spacer()
+                }
             }
         }
     }

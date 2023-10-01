@@ -17,7 +17,7 @@ extension ContentManagerViewModel {
     
     func fetchCardsImageURLForSet(_ setCode: String, minCN: Int = -1, maxCN: Int = -1) {
         let ulrBase = "https://api.scryfall.com/cards/search?q=set%3A\(setCode)+%28cn%3E%3D\(minCN >= 0 ? minCN : 0)+cn%3C%3D\(maxCN >= 0 ? maxCN : 999)%29&unique=prints"
-        
+
         print(ulrBase)
         
         // Create URL
@@ -58,7 +58,8 @@ extension ContentManagerViewModel {
             cards.append(Card(id: plane.oracleID,
                               imageURL: plane.imageUris.large,
                               state: .showed,
-                              cardSets: [CardSet.cardSetForCode(setCode)]
+                              cardSets: [CardSet.cardSetForCode(setCode)],
+                              cardType: CardTypeLine.typeForTypeLine(plane.typeLine)
                              ))
         }
 

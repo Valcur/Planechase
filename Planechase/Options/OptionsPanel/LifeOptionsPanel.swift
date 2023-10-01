@@ -135,7 +135,7 @@ extension OptionsMenuView {
                                     .foregroundColor(.white)
                             }
                         }
-                    }).frame(width: 80, height: 50)
+                    }).frame(width: 80, height: 50).cornerRadius(5).clipped()
                         .onChange(of: inputImage) { _ in saveProfileImage() }
                         .sheet(isPresented: $showingImagePicker) {
                             ImagePicker(image: $inputImage).preferredColorScheme(.dark)

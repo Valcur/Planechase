@@ -26,6 +26,11 @@ struct GameView: View {
                     RecenterView()
                         .position(x: planechaseVM.lifeCounterOptions.useLifeCounter ? 120 : 40, y: geo.size.height - 40)
                 } else {
+                    if gameVM.isPlayingClassicMode {
+                        if let card = gameVM.cardToZoomIn {
+                            CardImageBackground(card: card)
+                        }
+                    }
                     ZoomView(card: gameVM.cardToZoomIn)
                 }
                 
@@ -102,6 +107,22 @@ struct GameView: View {
             return 70
         } else {
             return 70
+        }
+    }
+    
+    struct CardImageBackground: View {
+        @ObservedObject var card: Card
+
+        var body: some View {
+            GeometryReader { geo in
+                if let image = card.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaleEffect(3)
+                        .scaledToFill()
+                        .frame(width: geo.size.width, height: geo.size.height)
+                }
+            }
         }
     }
     

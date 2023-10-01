@@ -17,6 +17,7 @@ struct Filter {
     var cardType: CollectionCardTypeFilter = .both
     var cardsInDeck: CollectionCardsInDeckFilter = .both
     var cardSet: CardSet?
+    var cardTypeLine: CardTypeLine?
     
     enum CollectionCardTypeFilter {
         case official
@@ -44,6 +45,20 @@ struct Filter {
             } else {
                 self = value
             }
+        }
+    }
+}
+
+enum CardTypeLine: Codable {
+    case plane
+    case phenomenon
+    
+    static func typeForTypeLine(_ typleLine: String?) -> CardTypeLine? {
+        guard let typeLine = typleLine else { return nil }
+        if typeLine.contains("lane") {
+            return .plane
+        } else {
+            return .phenomenon
         }
     }
 }
