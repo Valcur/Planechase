@@ -40,11 +40,14 @@ struct LifePointsPlayerPanelView: View {
             ZStack(alignment: .bottom) {
                 // BACKGROUND
                 if let image = player.backgroundImage {
-                    GeometryReader { geo in
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .clipped()
+                    ZStack {
+                        GeometryReader { geo in
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .clipped()
+                        }
+                        Color.black.opacity(0.2)
                     }
                 } else {
                     if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
@@ -96,25 +99,29 @@ struct LifePointsPlayerPanelView: View {
                 
                 if !isMiniView {
                     GeometryReader { geo in
-                        VStack {
+                        VStack  {
                             Button(action: {
                                 showProfileSelector = true
                                 lifepointHasBeenUsedToggler.toggle()
                             }, label: {
-                                ZStack(alignment: .top) {
-                                    LinearGradient(gradient: Gradient(colors: [.black.opacity(0.6), .black.opacity(0)]), startPoint: .top, endPoint: .bottom)
-                                    Text("Change profile")
-                                        .title()
-                                    HStack {
-                                        Rectangle()
-                                            .foregroundColor(.white)
-                                            .frame(width: profileChangeTimerProgress * geo.size.width, height: 4)
-                                        Spacer()
-                                    }
-                                }
-                            }).frame(height: geo.size.height / 4)
+                                ZStack {
+                                    Image(systemName: "pencil")
+                                        .font(.title)
+                                        .foregroundColor(.white)
+                                    Circle()
+                                        .trim(from: 0, to: profileChangeTimerProgress)
+                                        .stroke(
+                                            Color.white,
+                                            style: StrokeStyle(
+                                                lineWidth: 4,
+                                                lineCap: .round
+                                            )
+                                        )
+                                        .rotationEffect(.degrees(-90))
+                                }.frame(width: 45, height: 45).padding(10)
+                            }).frame(width: 100)
                             Spacer()
-                        }
+                        }.frame(maxWidth: .infinity)
                     }.opacity(isAllowedToChangeProfile ? 1 : 0)
                 }
                 if showProfileSelector {
