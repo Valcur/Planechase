@@ -9,7 +9,7 @@ import Foundation
 
 struct Deck: Codable {
     let deckId: Int
-    let name: String
+    var name: String
     var deckCardIds: [String]
 }
 

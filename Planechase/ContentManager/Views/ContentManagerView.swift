@@ -11,7 +11,6 @@ struct ContentManagerView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var contentManagerVM: ContentManagerViewModel
     @State var smallGridModEnable = true
-    @State var showFilterRow = false
     @State private var showingFilterSheet = false
     private var gridItemLayout: [GridItem]  {
         Array(repeating: GridItem(.flexible()), count: 2)
@@ -39,8 +38,6 @@ struct ContentManagerView: View {
                         
                         Spacer()
                         
-                        Text(contentManagerVM.selectedDeck.name).headline().padding(.trailing, 20)
-                        
                         Text("\("collection_deckSize".translate()) : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
                             .headline()
                         
@@ -50,26 +47,19 @@ struct ContentManagerView: View {
                     // MARK: Bottom bar
                     HStack() {
                         Button(action: {
-                            //withAnimation(.easeInOut(duration: 0.3)) {
-                                //showFilterRow.toggle()
-                            //}
                             showingFilterSheet.toggle()
                         }, label: {
                             Image(systemName: "slider.horizontal.3")
                                 .font(.title)
                                 .foregroundColor(.white)
-                        }).opacity(showFilterRow ? 1 : 0.6)
+                        })
                         .sheet(isPresented: $showingFilterSheet) {
                             FilterSheet()
                         }
                         
                         Rectangle().frame(width: 2, height: 40).foregroundColor(.white)
                         
-                        if showFilterRow {
-                            FilterRow()
-                        } else {
-                            BottomRow(smallGridModEnable: $smallGridModEnable)
-                        }
+                        BottomRow(smallGridModEnable: $smallGridModEnable)
                     }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 44)
                     
                     GeometryReader { scrollGeo in
@@ -105,10 +95,37 @@ struct ContentManagerView: View {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var contentManagerVM: ContentManagerViewModel
         @State var deckSelected: Int = 0
+        @State private var showingDeckNameChange = false
+        @State private var newDeckName: String = ""
         
         var body: some View {
             HStack {
-                if !planechaseVM.isPremium {
+                if planechaseVM.isPremium {
+                    if #available(iOS 15.0, *) {
+                        Button(action: {
+                            withAnimation {
+                                self.showingDeckNameChange.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "pencil")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding(.trailing, 0)
+                        })
+                        .alert("New deck name", isPresented: $showingDeckNameChange) {
+                            TextField("", text: $newDeckName)
+                            Button("OK") {
+                                contentManagerVM.decks[contentManagerVM.selectedDeckId].name = newDeckName
+                                SaveManager.saveDecks(contentManagerVM.decks)
+                            }
+                            Button("Cancel", role: .cancel) {
+                                newDeckName = contentManagerVM.selectedDeck.name
+                            }
+                        } message: {
+                            Text("Enter a new deck name.")
+                        }
+                    }
+                } else {
                     Image(systemName: "crown.fill")
                         .font(.title)
                         .foregroundColor(.white)
@@ -121,12 +138,16 @@ struct ContentManagerView: View {
                     } else {
                         Text(contentManagerVM.decks[0].name).tag(contentManagerVM.decks[0].deckId)
                     }
-                }.pickerStyle(.menu).font(.subheadline).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(width: 150)
+                }.pickerStyle(.menu).font(.subheadline).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(minWidth: 150)
                 .onChange(of: deckSelected) { newValue in
-                    contentManagerVM.changeSelectedDeck(newDeckId: newValue)
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        contentManagerVM.changeSelectedDeck(newDeckId: newValue)
+                        newDeckName = contentManagerVM.selectedDeck.name
+                    }
                 }
                 .onAppear() {
                     deckSelected = contentManagerVM.selectedDeckId
+                    newDeckName = contentManagerVM.selectedDeck.name
                 }
             }
         }
@@ -165,7 +186,6 @@ struct ContentManagerView: View {
             withAnimation(.easeInOut(duration: 0.3)) {
                 contentManagerVM.importNewImageToCollection(image: inputImage)
             }
-            
         }
     }
     

@@ -168,7 +168,7 @@ struct GoingPremium: View {
                                 secondaryButton: .default(
                                     Text("continue".translate()),
                                     action: {
-                                        planechaseVM.buy(productId: IAPManager.getSubscriptionId())
+                                        planechaseVM.buy(productId: IAPManager.getLifetimeId())
                                     }
                                 )
                             )

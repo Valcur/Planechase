@@ -21,7 +21,7 @@ extension ContentManagerView {
         
         var body: some View {
             ScrollView(.vertical) {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 30) {
                     HStack {
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
