@@ -17,11 +17,9 @@ extension OptionsMenuView {
         
         var body: some View {
             Button(action: {
-                planechaseVM.setLifeOptions(LifeOptions(useLifeCounter: planechaseVM.lifeCounterOptions.useLifeCounter,
-                                                        useCommanderDamages: planechaseVM.lifeCounterOptions.useCommanderDamages,
-                                                        colorPaletteId: planechaseVM.lifeCounterOptions.colorPaletteId,
-                                                        nbrOfPlayers: numberOfPlayers,
-                                                        startingLife: planechaseVM.lifeCounterOptions.startingLife))
+                var lifeTmp = planechaseVM.lifeCounterOptions
+                lifeTmp.nbrOfPlayers = numberOfPlayers
+                planechaseVM.setLifeOptions(lifeTmp)
             }, label: {
                 Text(" \(numberOfPlayers) ")
                     .font(.title2)

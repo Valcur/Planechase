@@ -24,19 +24,6 @@ extension OptionsMenuView {
                     Toggle("options_life_useCommanderDamages".translate(), isOn: $planechaseVM.lifeCounterOptions.useCommanderDamages)
                         .font(.subheadline).foregroundColor(.white)
                     
-                    Text("options_life_colorPaletteId".translate())
-                        .headline()
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: -1)
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: 0)
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: 1)
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: 2)
-                            MenuLifeCounterBackgroundColorChoiceView(colorId: 3)
-                        }.padding(10)
-                    }
-                    
                     HStack {
                         Text("options_life_nbrPlayers".translate())
                             .headline()
@@ -65,6 +52,33 @@ extension OptionsMenuView {
                         MenuStartingLifeChoiceView(startingLife: 40)
                         MenuStartingLifeChoiceView(startingLife: 50)
                         MenuStartingLifeChoiceView(startingLife: 60)
+                    }
+                }
+                
+                Text("options_life_colorPaletteId".translate())
+                    .headline()
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        MenuLifeCounterBackgroundColorChoiceView(colorId: -1)
+                        MenuLifeCounterBackgroundColorChoiceView(colorId: 0)
+                        MenuLifeCounterBackgroundColorChoiceView(colorId: 1)
+                        MenuLifeCounterBackgroundColorChoiceView(colorId: 2)
+                        MenuLifeCounterBackgroundColorChoiceView(colorId: 3)
+                    }.padding(10)
+                }
+                
+                if planechaseVM.lifeCounterOptions.colorPaletteId > -1 {
+                    Text("Style de fond".translate())
+                        .headline()
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            MenuLifeCounterBackgroundStyleChoiceView(backgroundStyleId: -1)
+                            MenuLifeCounterBackgroundStyleChoiceView(backgroundStyleId: 0)
+                            MenuLifeCounterBackgroundStyleChoiceView(backgroundStyleId: 1)
+                            MenuLifeCounterBackgroundStyleChoiceView(backgroundStyleId: 2)
+                        }.padding(10)
                     }
                 }
                 
@@ -115,18 +129,18 @@ extension OptionsMenuView {
             @State private var inputImage: UIImage?
             @State var saveChangesTimer: Timer?
             @Binding var profiles: [PlayerCustomProfile]
+            @State var imageView: Image?
+            private let maxNameLength = 15
             
             var body: some View {
                 HStack(spacing: 20) {
                     Button(action: {
                         showingImagePicker = true
                     }, label: {
-                        if let imageData = profile.customImageData {
-                            if let image = UIImage(data: imageData) {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .scaledToFill()
-                            }
+                        if let image = imageView {
+                            image
+                                .resizable()
+                                .scaledToFill()
                         } else {
                             ZStack {
                                 Color.black.opacity(0.5)
@@ -135,20 +149,27 @@ extension OptionsMenuView {
                                     .foregroundColor(.white)
                             }
                         }
-                    }).frame(width: 80, height: 50).cornerRadius(5).clipped()
+                    }).frame(width: 80, height: 50).cornerRadius(8).clipped()
                         .onChange(of: inputImage) { _ in saveProfileImage() }
                         .sheet(isPresented: $showingImagePicker) {
                             ImagePicker(image: $inputImage).preferredColorScheme(.dark)
                         }
                     
                     TextField("Placeholder", text: $profileName)
-                        .font(.subheadline)
+                        .font(.title2)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal, 15)
+                        .background(Color.black.opacity(0.2).cornerRadius(5))
                         .onAppear() {
+                            updateImageView()
                             profileName = profile.name
                         }
                         .onChange(of: profileName) { _ in
+                            if profileName.count > maxNameLength {
+                                profileName = String(profileName.prefix(maxNameLength))
+                            }
                             saveChangesTimer?.invalidate()
                             saveChangesTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { timer in
                                 planechaseVM.lifeCounterProfiles[profileIndex].name = profileName
@@ -178,6 +199,15 @@ extension OptionsMenuView {
                     planechaseVM.lifeCounterProfiles[profileIndex].customImageData = inputImage.pngData()
                     planechaseVM.saveProfiles_Image(index: profileIndex)
                     profiles = planechaseVM.lifeCounterProfiles
+                    updateImageView()
+                }
+            }
+            
+            private func updateImageView() {
+                if let imageData = profile.customImageData {
+                    if let image = UIImage(data: imageData) {
+                        imageView = Image(uiImage: image)
+                    }
                 }
             }
             

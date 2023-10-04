@@ -11,6 +11,7 @@
 		DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3BF29B9E06400C15251 /* DiceOptions.swift */; };
 		DB18E3C329BE14E000C15251 /* OptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3C229BE14E000C15251 /* OptionsPanel.swift */; };
 		DB24CA3B2AB75B760002E17B /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB24CA3A2AB75B760002E17B /* FilterSheet.swift */; };
+		DB360F872ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB360F862ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift */; };
 		DB3AB7C929AD051E00B11E17 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AB7C829AD051E00B11E17 /* StoreKit.framework */; };
 		DB3AB7CC29AFAA6900B11E17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3AB7CE29AFAA6900B11E17 /* Localizable.strings */; };
 		DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */; };
@@ -70,6 +71,7 @@
 		DB18E3BF29B9E06400C15251 /* DiceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceOptions.swift; sourceTree = "<group>"; };
 		DB18E3C229BE14E000C15251 /* OptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsPanel.swift; sourceTree = "<group>"; };
 		DB24CA3A2AB75B760002E17B /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
+		DB360F862ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLifeCounterBackgroundStyleChoiceView.swift; sourceTree = "<group>"; };
 		DB3AB7C829AD051E00B11E17 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DB3AB7CD29AFAA6900B11E17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB3AB7CF29AFB71700B11E17 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				DB9C22902A29F7AE00656BC7 /* MenuNumberOfPlayerChoiceView.swift */,
 				DB9C22922A29F7C100656BC7 /* MenuStartingLifeChoiceView.swift */,
 				DB9C22942A29F7D400656BC7 /* MenuLifeCounterBackgroundColorChoiceView.swift */,
+				DB360F862ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift */,
 			);
 			path = OptionsPickers;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				DB9C22912A29F7AE00656BC7 /* MenuNumberOfPlayerChoiceView.swift in Sources */,
 				DBD8AC4D2AC1D15F00C9F89A /* LifeOptionsPanel.swift in Sources */,
 				DB9C22872A29F72300656BC7 /* ZoomViewTypeView.swift in Sources */,
+				DB360F872ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift in Sources */,
 				DBC339AF29A8E4BC0089CB01 /* BubbleView.swift in Sources */,
 				DBA02CF729A4FDB8004E94BC /* Coord.swift in Sources */,
 				DBD42B0129A78F1B008451BD /* OptionsMenuView.swift in Sources */,
@@ -619,7 +623,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Planechase/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
@@ -653,7 +657,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Planechase/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;

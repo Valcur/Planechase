@@ -34,6 +34,11 @@ extension View {
             })
     }
     
+    func blackTransparentBackground(cornerRadius: CGFloat = 15) -> some View {
+        self
+            .background(Color.black.cornerRadius(cornerRadius).opacity(0.5))
+    }
+    
     func buttonLabel() -> some View {
         self
             .padding()

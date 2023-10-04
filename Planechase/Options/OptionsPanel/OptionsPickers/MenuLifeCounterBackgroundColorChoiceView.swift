@@ -19,12 +19,9 @@ extension OptionsMenuView {
         var body: some View {
             ZStack {
                 Button(action: {
-                    print("Changing life counter color to \(colorId)")
-                    planechaseVM.setLifeOptions(LifeOptions(useLifeCounter: planechaseVM.lifeCounterOptions.useLifeCounter,
-                                                            useCommanderDamages: planechaseVM.lifeCounterOptions.useCommanderDamages,
-                                                            colorPaletteId: colorId,
-                                                            nbrOfPlayers: planechaseVM.lifeCounterOptions.nbrOfPlayers,
-                                                            startingLife: planechaseVM.lifeCounterOptions.startingLife))
+                    var lifeTmp = planechaseVM.lifeCounterOptions
+                    lifeTmp.colorPaletteId = colorId
+                    planechaseVM.setLifeOptions(lifeTmp)
                 }, label: {
                     VStack {
                         if colorId == -1 {

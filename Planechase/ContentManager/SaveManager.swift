@@ -176,7 +176,7 @@ extension SaveManager {
            let lifeOptions = try? JSONDecoder().decode(LifeOptions.self, from: data) {
             return lifeOptions
         }
-        return LifeOptions(useLifeCounter: true, useCommanderDamages: true, colorPaletteId: 0, nbrOfPlayers: 4, startingLife: 40)
+        return LifeOptions(useLifeCounter: true, useCommanderDamages: true, colorPaletteId: 0, nbrOfPlayers: 4, startingLife: 40, backgroundStyleId: -1)
     }
     
     static func saveOptions_LifePlayerProfiles(_ profiles: [PlayerCustomProfile]) {

@@ -130,16 +130,16 @@ struct LifePointsPanelView: View {
                     Text(playerName)
                         .font(.title3)
                         .foregroundColor(.white)
-                        .shadow(color: isMiniView ? .clear : Color("ShadowColor"), radius: 2, x: 0, y: 0)
+                        .shadow(color: isMiniView ? .clear : Color("ShadowColorDarker"), radius: 3, x: 0, y: 0)
                     
                     Spacer()
                 }
                 
                 Text("\(lifepoints)")
-                    .font(.system(size: isMiniView ? 80 : (UIDevice.isIPhone ? 40 : 60)))
+                    .font(.system(size: isMiniView ? 80 : (UIDevice.isIPhone ? 40 : 65)))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                    .shadow(color: isMiniView ? .clear : Color("ShadowColor"), radius: 2, x: 0, y: 0)
+                    .shadow(color: isMiniView ? .clear : Color("ShadowColorDarker"), radius: 3, x: 0, y: 0)
                     .offset(y: UIDevice.isIPhone && !isMiniView ? -10 : 0)
                 
                 if !isMiniView {
@@ -157,9 +157,10 @@ struct LifePointsPanelView: View {
                             Spacer()
                         }
                         Text(totalChange > 0  ? "+\(totalChange)" : "\(totalChange)")
-                            .font(.title2)
+                            .font(UIDevice.isIPhone ? .title2 : .title)
                             .foregroundColor(.white)
-                            .shadow(color: isMiniView ? .clear : Color("ShadowColor"), radius: 2, x: 0, y: 0)
+                            .fontWeight(.semibold)
+                            .shadow(color: isMiniView ? .clear : Color("ShadowColorDarker"), radius: 3, x: 0, y: 0)
                             .padding(20)
                         if inverseChangeSide {
                             Spacer()

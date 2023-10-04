@@ -47,18 +47,21 @@ struct LifePointsPlayerPanelView: View {
                                 .scaledToFill()
                                 .clipped()
                         }
-                        Color.black.opacity(0.2)
+                        Color.black.opacity(0.1)
                     }
                 } else {
                     if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
                         VisualEffectView(effect: UIBlurEffect(style: blurEffect))
                     } else {
                         GeometryReader { geo in
-                            Image("PaperTexture")
-                                .resizable()
-                                .scaledToFill()
-                                .colorMultiply(players[playerId].backgroundColor)
-                                .clipped()
+                            if let style = planechaseVM.lifeCounterOptions.backgroundStyleId, style >= 0 {
+                                CustomBackgroundStyle.getSelectedBackgroundImage(style)
+                                    .scaledToFill()
+                                    .colorMultiply(players[playerId].backgroundColor)
+                                    .clipped()
+                            } else {
+                                players[playerId].backgroundColor
+                            }
                         }
                     }
                 }
@@ -119,7 +122,7 @@ struct LifePointsPlayerPanelView: View {
                                         )
                                         .rotationEffect(.degrees(-90))
                                 }.frame(width: 45, height: 45).padding(10)
-                            }).frame(width: 100)
+                            }).frame(width: 100).iPhoneScaler(width: 100, height: 45)
                             Spacer()
                         }.frame(maxWidth: .infinity)
                     }.opacity(isAllowedToChangeProfile ? 1 : 0)
@@ -209,8 +212,7 @@ struct LifePointsPlayerPanelView: View {
         @Binding var player: PlayerProfile
         @Binding var lifepointHasBeenUsedToggler: Bool
         var body: some View {
-            ZStack(alignment: .topLeading) {
-                VisualEffectView(effect: UIBlurEffect(style: UIBlurEffect.Style.systemMaterialDark))
+            VStack {
                 ScrollView(.vertical) {
                     VStack {
                         Button(action: {
@@ -227,7 +229,7 @@ struct LifePointsPlayerPanelView: View {
                         }, label: {
                             Text("No profile")
                                 .textButtonLabel()
-                        })
+                        }).padding(.top, 5)
                         ForEach(0..<planechaseVM.lifeCounterProfiles.count, id: \.self) { i in
                             if let profile = planechaseVM.lifeCounterProfiles[i] {
                                 Button(action: {
@@ -251,7 +253,7 @@ struct LifePointsPlayerPanelView: View {
                                     planechaseVM.saveProfiles_Info()
                                 }, label: {
                                     Text(profile.name)
-                                        .textButtonLabel()
+                                        .textButtonLabel(style: player.id == profile.id ? .secondary : .primary)
                                 })
                             }
                         }
@@ -262,10 +264,14 @@ struct LifePointsPlayerPanelView: View {
                         showSelector = false
                     }
                 }, label: {
-                    Text("Cancel")
-                        .textButtonLabel()
+                    ZStack {
+                        LinearGradient(colors: [Color.black.opacity(0.8), Color.black.opacity(0)], startPoint: .bottom, endPoint: .top)
+                        Text("Cancel")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    }.frame(height: 50)
                 })
-            }
+            }.background(VisualEffectView(effect: UIBlurEffect(style: UIBlurEffect.Style.systemMaterialDark)))
         }
         
         func cancelLastUsedSlot(slot: Int) {

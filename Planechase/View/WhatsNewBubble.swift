@@ -17,7 +17,7 @@ struct WhatsNew: View {
                 WhatsNewBubble()
                     .padding(BubbleSizes.padding)
                     .frame(width: BubbleSizes.width, height: BubbleSizes.whatsNewHeight)
-                    .blurredBackground()
+                    .blackTransparentBackground()
                     .scaleEffect(BubbleSizes.scale).frame(width: BubbleSizes.width * BubbleSizes.scale, height: BubbleSizes.whatsNewHeight * BubbleSizes.scale)
                 Button(action: {
                     showHideBubbleAlert = true

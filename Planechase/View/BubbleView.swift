@@ -26,7 +26,7 @@ struct DiscordInvite: View {
                 DiscordInviteBubble()
                     .padding(BubbleSizes.padding)
                     .frame(width: BubbleSizes.width, height: BubbleSizes.discordHeight)
-                    .blurredBackground()
+                    .blackTransparentBackground()
                     .scaleEffect(BubbleSizes.scale).frame(width: BubbleSizes.width * BubbleSizes.scale, height: BubbleSizes.discordHeight * BubbleSizes.scale)
                 Button(action: {
                     showHideDiscordAlert = true
@@ -92,7 +92,7 @@ struct GoingPremium: View {
                 GoingPremiumBubble()
                     .padding(BubbleSizes.padding)
                     .frame(width: BubbleSizes.width, height: BubbleSizes.premiumHeight)
-                    .blurredBackground()
+                    .blackTransparentBackground()
                     .scaleEffect(BubbleSizes.scale)
                     .frame(width: BubbleSizes.width * BubbleSizes.scale, height: BubbleSizes.premiumHeight * BubbleSizes.scale)
             }

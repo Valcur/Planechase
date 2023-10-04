@@ -115,6 +115,7 @@ struct ContentManagerView: View {
                         .alert("New deck name", isPresented: $showingDeckNameChange) {
                             TextField("", text: $newDeckName)
                             Button("OK") {
+                                newDeckName = String(newDeckName.prefix(25))
                                 contentManagerVM.decks[contentManagerVM.selectedDeckId].name = newDeckName
                                 SaveManager.saveDecks(contentManagerVM.decks)
                             }
@@ -122,7 +123,7 @@ struct ContentManagerView: View {
                                 newDeckName = contentManagerVM.selectedDeck.name
                             }
                         } message: {
-                            Text("Enter a new deck name.")
+                            Text("25 characters max")
                         }
                     }
                 } else {
@@ -138,7 +139,7 @@ struct ContentManagerView: View {
                     } else {
                         Text(contentManagerVM.decks[0].name).tag(contentManagerVM.decks[0].deckId)
                     }
-                }.pickerStyle(.menu).font(.subheadline).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(minWidth: 150)
+                }.pickerStyle(.menu).font(.subheadline).frame(height: 24).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(minWidth: 180)
                 .onChange(of: deckSelected) { newValue in
                     withAnimation(.easeInOut(duration: 0.3)) {
                         contentManagerVM.changeSelectedDeck(newDeckId: newValue)
