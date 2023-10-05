@@ -45,6 +45,8 @@
 		DBA02CFB29A4FFA7004E94BC /* CurrentOtherPlanesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFA29A4FFA7004E94BC /* CurrentOtherPlanesView.swift */; };
 		DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFD29A50500004E94BC /* ZoomView.swift */; };
 		DBA02D0029A61E42004E94BC /* CardSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFF29A61E42004E94BC /* CardSizes.swift */; };
+		DBA757E22ACEC34400DE2D16 /* MonarchTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */; };
+		DBA757E42ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E32ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift */; };
 		DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */; };
 		DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */; };
 		DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */; };
@@ -108,6 +110,8 @@
 		DBA02CFA29A4FFA7004E94BC /* CurrentOtherPlanesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOtherPlanesView.swift; sourceTree = "<group>"; };
 		DBA02CFD29A50500004E94BC /* ZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomView.swift; sourceTree = "<group>"; };
 		DBA02CFF29A61E42004E94BC /* CardSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSizes.swift; sourceTree = "<group>"; };
+		DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonarchTokenView.swift; sourceTree = "<group>"; };
+		DBA757E32ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHideLifeCooldownView.swift; sourceTree = "<group>"; };
 		DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager_Structs.swift; sourceTree = "<group>"; };
 		DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerView+Filter.swift"; sourceTree = "<group>"; };
 		DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewBubble.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 				DB9C22762A1E378000656BC7 /* Blueprints.swift */,
 				DB9C22782A1FCDC400656BC7 /* CountersSheet.swift */,
 				DB9C227A2A26624A00656BC7 /* LifePointsPlayerPanelView.swift */,
+				DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */,
 			);
 			path = LifePoints;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 				DB9C22922A29F7C100656BC7 /* MenuStartingLifeChoiceView.swift */,
 				DB9C22942A29F7D400656BC7 /* MenuLifeCounterBackgroundColorChoiceView.swift */,
 				DB360F862ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift */,
+				DBA757E32ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift */,
 			);
 			path = OptionsPickers;
 			sourceTree = "<group>";
@@ -456,8 +462,10 @@
 				DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */,
 				DB9C22932A29F7C100656BC7 /* MenuStartingLifeChoiceView.swift in Sources */,
 				DB9C22912A29F7AE00656BC7 /* MenuNumberOfPlayerChoiceView.swift in Sources */,
+				DBA757E42ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift in Sources */,
 				DBD8AC4D2AC1D15F00C9F89A /* LifeOptionsPanel.swift in Sources */,
 				DB9C22872A29F72300656BC7 /* ZoomViewTypeView.swift in Sources */,
+				DBA757E22ACEC34400DE2D16 /* MonarchTokenView.swift in Sources */,
 				DB360F872ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift in Sources */,
 				DBC339AF29A8E4BC0089CB01 /* BubbleView.swift in Sources */,
 				DBA02CF729A4FDB8004E94BC /* Coord.swift in Sources */,

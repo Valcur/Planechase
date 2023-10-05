@@ -39,6 +39,9 @@ extension OptionsMenuView {
                             MenuCustomBackgroundColorChoiceView(gradientId: 8)
                         }
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
+                    
+                    Toggle("Blurred background for classic mode view".translate(), isOn: $planechaseVM.useBlurredBackground)
+                        .font(.subheadline).foregroundColor(.white)
                 }
                 
                 Group {
@@ -175,6 +178,9 @@ extension OptionsMenuView {
                     planechaseVM.saveToggles()
                 }
                 .onChange(of: planechaseVM.noDice) { _ in
+                    planechaseVM.saveToggles()
+                }
+                .onChange(of: planechaseVM.useBlurredBackground) { _ in
                     planechaseVM.saveToggles()
                 }
         }

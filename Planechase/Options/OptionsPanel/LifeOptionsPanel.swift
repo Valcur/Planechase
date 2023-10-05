@@ -53,6 +53,18 @@ extension OptionsMenuView {
                         MenuStartingLifeChoiceView(startingLife: 50)
                         MenuStartingLifeChoiceView(startingLife: 60)
                     }
+                    
+                    HStack {
+                        Text("Auto hide lifepoints".translate())
+                            .headline()
+                        
+                        Spacer()
+                        
+                        MenuHideLifeCooldownView(cooldown: -1)
+                        MenuHideLifeCooldownView(cooldown: 15)
+                        MenuHideLifeCooldownView(cooldown: 30)
+                        MenuHideLifeCooldownView(cooldown: 60)
+                    }
                 }
                 
                 Text("options_life_colorPaletteId".translate())
@@ -83,6 +95,17 @@ extension OptionsMenuView {
                 }
                 
                 Group {
+                    Text("Monarch token")
+                        .title()
+                    
+                    Toggle("Add a monarch token button".translate(), isOn: $planechaseVM.lifeCounterOptions.useMonarchToken)
+                        .font(.subheadline).foregroundColor(.white)
+                    
+                    Text("Monarch token style".translate())
+                        .headline()
+                }
+                
+                Group {
                     Text("Profiles")
                         .title()
                     
@@ -108,6 +131,9 @@ extension OptionsMenuView {
                 planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
             }
             .onChange(of: planechaseVM.lifeCounterOptions.useCommanderDamages) { _ in
+                planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
+            }
+            .onChange(of: planechaseVM.lifeCounterOptions.useMonarchToken) { _ in
                 planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
             }
             .onAppear() {
@@ -155,12 +181,12 @@ extension OptionsMenuView {
                             ImagePicker(image: $inputImage).preferredColorScheme(.dark)
                         }
                     
-                    TextField("Placeholder", text: $profileName)
+                    TextField("REMOVE CUSTOM IMAGE TOO", text: $profileName)
                         .font(.title2)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 5)
-                        .padding(.horizontal, 15)
+                        .padding(.horizontal, 10)
                         .background(Color.black.opacity(0.2).cornerRadius(5))
                         .onAppear() {
                             updateImageView()
@@ -204,9 +230,11 @@ extension OptionsMenuView {
             }
             
             private func updateImageView() {
-                if let imageData = profile.customImageData {
-                    if let image = UIImage(data: imageData) {
-                        imageView = Image(uiImage: image)
+                DispatchQueue.main.async {
+                    if let imageData = profile.customImageData {
+                        if let image = UIImage(data: imageData) {
+                            imageView = Image(uiImage: image)
+                        }
                     }
                 }
             }

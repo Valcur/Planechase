@@ -176,7 +176,7 @@ extension SaveManager {
            let lifeOptions = try? JSONDecoder().decode(LifeOptions.self, from: data) {
             return lifeOptions
         }
-        return LifeOptions(useLifeCounter: true, useCommanderDamages: true, colorPaletteId: 0, nbrOfPlayers: 4, startingLife: 40, backgroundStyleId: -1)
+        return LifeOptions(useLifeCounter: true, useCommanderDamages: true, colorPaletteId: 0, nbrOfPlayers: 4, startingLife: 40, backgroundStyleId: -1, autoHideLifepointsCooldown: 15,  useMonarchToken: true, monarchTokenStyleId: -1)
     }
     
     static func saveOptions_LifePlayerProfiles(_ profiles: [PlayerCustomProfile]) {
@@ -222,18 +222,20 @@ extension SaveManager {
         return UserDefaults.standard.object(forKey: "GradientId") as? Int ?? 1
     }
     
-    static func saveOptions_Toggles(bigCard: Bool, hellride: Bool, noHammer: Bool, noDice: Bool) {
+    static func saveOptions_Toggles(bigCard: Bool, hellride: Bool, noHammer: Bool, noDice: Bool, blurredBackground: Bool) {
         UserDefaults.standard.set(bigCard, forKey: "BiggerCardsOnMap")
         UserDefaults.standard.set(hellride, forKey: "UseHellridePNG")
         UserDefaults.standard.set(noHammer, forKey: "NoHammer")
         UserDefaults.standard.set(noDice, forKey: "NoDice")
+        UserDefaults.standard.set(blurredBackground, forKey: "BlurredBackground")
     }
     
-    static func getOptions_Toggles() -> (Bool, Bool, Bool, Bool) {
+    static func getOptions_Toggles() -> (Bool, Bool, Bool, Bool, Bool) {
         let bigCards = UserDefaults.standard.object(forKey: "BiggerCardsOnMap") as? Bool ?? false
         let hellRide = UserDefaults.standard.object(forKey: "UseHellridePNG") as? Bool ?? false
         let noHammer = UserDefaults.standard.object(forKey: "NoHammer") as? Bool ?? false
         let noDice = UserDefaults.standard.object(forKey: "NoDice") as? Bool ?? false
-        return (bigCards, hellRide, noHammer, noDice)
+        let blurredBackground = UserDefaults.standard.object(forKey: "BlurredBackground") as? Bool ?? false
+        return (bigCards, hellRide, noHammer, noDice, blurredBackground)
     }
 }

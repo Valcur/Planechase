@@ -102,7 +102,12 @@ struct ZoomView: View {
                 }
             }.frame(width: geo.size.width, height: geo.size.height)
             .background(
-                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark)).ignoresSafeArea()
+                ZStack {
+                    if planechaseVM.useBlurredBackground, let card = card {
+                        CardImageBackground(card: card)
+                    }
+                    VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                }.ignoresSafeArea()
             ).opacity(card == nil ? 0 : 1)
             .onTapGesture {
                 if !gameVM.isPlayingClassicMode {
@@ -134,6 +139,22 @@ struct ZoomView: View {
                     .resizable()
                     .frame(width: width, height: height)
                     .cornerRadius(CardSizes.cornerRadiusForWidth(width))
+            }
+        }
+    }
+    
+    struct CardImageBackground: View {
+        @ObservedObject var card: Card
+
+        var body: some View {
+            GeometryReader { geo in
+                if let image = card.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaleEffect(3)
+                        .scaledToFill()
+                        .frame(width: geo.size.width, height: geo.size.height)
+                }
             }
         }
     }

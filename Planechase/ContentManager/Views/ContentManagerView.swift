@@ -139,7 +139,7 @@ struct ContentManagerView: View {
                     } else {
                         Text(contentManagerVM.decks[0].name).tag(contentManagerVM.decks[0].deckId)
                     }
-                }.pickerStyle(.menu).font(.subheadline).frame(height: 24).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(minWidth: 180)
+                }.pickerStyle(.menu).font(.subheadline).frame(height: 24).frame(width: 200).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6)
                 .onChange(of: deckSelected) { newValue in
                     withAnimation(.easeInOut(duration: 0.3)) {
                         contentManagerVM.changeSelectedDeck(newDeckId: newValue)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LifePointsView: View {
+    @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var gameVM: GameViewModel
     @EnvironmentObject var lifePointsViewModel: LifePointsViewModel
     var halfNumberOfPlayers: Int {
@@ -17,6 +18,7 @@ struct LifePointsView: View {
     @State var playersChoosenRandomly: [Bool]
     @State var hideLifeTimer: Timer?
     @State var hideLifeTimerToggler: Bool = true
+    @State var showMonarchToken = false
     
     init(isMiniView: Bool = false) {
         self.isMiniView = isMiniView
@@ -53,6 +55,8 @@ struct LifePointsView: View {
                     )
                 }
                 if !isMiniView {
+                    MonarchTokenView(lifepointHasBeenUsedToggler: $hideLifeTimerToggler).opacity(showMonarchToken ? 1 : 0)
+                    
                     Button(action: {
                         resetTimer()
                         let player = Int.random(in: 0..<lifePointsViewModel.numberOfPlayer)
@@ -74,6 +78,18 @@ struct LifePointsView: View {
                         Image(systemName: "xmark")
                             .imageButtonLabel()
                     }).position(x: 35, y: geo.size.height - 35)
+                    
+                    if planechaseVM.lifeCounterOptions.useMonarchToken {
+                        Button(action: {
+                            resetTimer()
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showMonarchToken.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "crown.fill")
+                                .imageButtonLabel()
+                        }).position(x: 35, y: 35).opacity(showMonarchToken ? 0.7 : 1)
+                    }
                 }
             }.frame(width: geo.size.width, height: geo.size.height)
                 .background(
@@ -97,8 +113,12 @@ struct LifePointsView: View {
     
     private func resetTimer() {
         print("Reset")
+        let timer = planechaseVM.lifeCounterOptions.autoHideLifepointsCooldown
+        if timer == -1 {
+            return
+        }
         hideLifeTimer?.invalidate()
-        hideLifeTimer = Timer.scheduledTimer(withTimeInterval: 15, repeats: false) { timer in
+        hideLifeTimer = Timer.scheduledTimer(withTimeInterval: timer, repeats: false) { timer in
             withAnimation(.easeInOut(duration: 0.3)) {
                 gameVM.showLifePointsView = false
             }

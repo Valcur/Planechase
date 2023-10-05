@@ -83,6 +83,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var isPremium = false
     @Published var showDiscordInvite = false
     @Published var paymentProcessing = false
+    @Published var useBlurredBackground = false
     
     init() {
         gradientId = SaveManager.getOptions_GradientId()
@@ -92,6 +93,7 @@ class PlanechaseViewModel: ObservableObject {
         useHellridePNG = optionToggles.1
         noHammerRow = optionToggles.2
         noDice = optionToggles.3
+        useBlurredBackground = optionToggles.4
         diceOptions = SaveManager.getOptions_DiceOptions()
         lifeCounterOptions = SaveManager.getOptions_LifeOptions()
         lifeCounterProfiles = SaveManager.getOptions_LifePlayerProfiles()
@@ -150,7 +152,7 @@ class PlanechaseViewModel: ObservableObject {
     }
     
     func saveToggles() {
-        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG, noHammer: noHammerRow, noDice: noDice)
+        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG, noHammer: noHammerRow, noDice: noDice, blurredBackground: useBlurredBackground)
     }
 }
 
@@ -168,4 +170,7 @@ struct LifeOptions: Codable {
     var nbrOfPlayers: Int
     var startingLife: Int
     var backgroundStyleId: Int
+    var autoHideLifepointsCooldown: Double
+    var useMonarchToken: Bool
+    var monarchTokenStyleId: Int
 }

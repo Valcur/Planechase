@@ -154,15 +154,17 @@ struct LifePointsPlayerPanelView: View {
             Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0).cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10)).allowsHitTesting(false)
         }
         .onAppear() {
-            print("Eerzrezrzerzre")
-            withAnimation(.easeInOut(duration: 60)) {
-                profileChangeTimerProgress = 0
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 60, execute: {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    isAllowedToChangeProfile = false
+            if profileChangeTimerProgress > 0 {
+                print("Eerzrezrzerzre")
+                withAnimation(.easeInOut(duration: 60)) {
+                    profileChangeTimerProgress = 0
                 }
-            })
+                DispatchQueue.main.asyncAfter(deadline: .now() + 60, execute: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        isAllowedToChangeProfile = false
+                    }
+                })
+            }
         }
     }
     
