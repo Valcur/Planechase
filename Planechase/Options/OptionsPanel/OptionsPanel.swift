@@ -40,7 +40,7 @@ extension OptionsMenuView {
                         }
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     
-                    Toggle("Blurred background for classic mode view".translate(), isOn: $planechaseVM.useBlurredBackground)
+                    Toggle("options_blurredBackground".translate(), isOn: $planechaseVM.useBlurredBackground)
                         .font(.subheadline).foregroundColor(.white)
                 }
                 

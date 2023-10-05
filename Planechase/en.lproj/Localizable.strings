@@ -12,6 +12,7 @@
 "delete" = "Delete";
 "exit" = "Exit";
 "discard" = "Discard";
+"disabled" = "Disabled";
 
 // Mark: Play
 
@@ -115,8 +116,9 @@
 "options_ui_zoomType" = "Zoom type";
 "options_ui_biggerCardsOnMap" = "Bigger cards on map";
 "options_ui_hellridePng" = "SUPER SECRET : use red_evil_portal.png for hellride";
-"options_ui_noHammer" = "Tools menu always visible (recommanded if using 'Hide dice')";
+"options_ui_noHammer" = "Tools menu always visible";
 "options_ui_noDice" = "Hide dice";
+"options_blurredBackground" = "Blurred background effect";
 "options_dice_title" = "Dice";
 "options_dice_style" = "Dice style :";
 "options_dice_color" = "Dice color :";
@@ -128,6 +130,12 @@
 "options_life_colorPaletteId" = "Color palette :";
 "options_life_nbrPlayers" = "Number of players";
 "options_life_startingLife" = "Starting life";
+"options_autoHide" = "Hide lifepoints when unused";
+"options_monarch_title" = "Monarch Token";
+"options_monarch_toggle" = "Enable monarch token";
+"options_monarch_style" = "Monarch token style :";
+"options_profiles_title" = "Player profiles";
+"options_profiles_intro" = "Save player names and background images. Choose them in game.";
 
 "options_contact_discord" = "Suggestion for the app ? Bugs that you want me to fix ?";
 "options_contact_discordJoin" = "Join us on Discord !";

@@ -55,7 +55,7 @@ extension OptionsMenuView {
                     }
                     
                     HStack {
-                        Text("Auto hide lifepoints".translate())
+                        Text("options_autoHide".translate())
                             .headline()
                         
                         Spacer()
@@ -95,21 +95,21 @@ extension OptionsMenuView {
                 }
                 
                 Group {
-                    Text("Monarch token")
+                    Text("options_monarch_title".translate())
                         .title()
                     
-                    Toggle("Add a monarch token button".translate(), isOn: $planechaseVM.lifeCounterOptions.useMonarchToken)
+                    Toggle("options_monarch_toggle".translate(), isOn: $planechaseVM.lifeCounterOptions.useMonarchToken)
                         .font(.subheadline).foregroundColor(.white)
                     
-                    Text("Monarch token style".translate())
+                    Text("options_monarch_style".translate())
                         .headline()
                 }
                 
                 Group {
-                    Text("Profiles")
+                    Text("options_profiles_title".translate())
                         .title()
                     
-                    Text("Save player names and bakcgorund images")
+                    Text("options_profiles_intro".translate())
                         .headline()
                     
                     VStack(alignment: .leading, spacing: 20) {

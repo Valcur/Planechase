@@ -21,7 +21,7 @@ extension OptionsMenuView {
                 lifeTmp.autoHideLifepointsCooldown = cooldown
                 planechaseVM.setLifeOptions(lifeTmp)
             }, label: {
-                Text(" \(cooldown == -1 ? "Disabled" : "\(Int(cooldown))") ")
+                Text(" \(cooldown == -1 ? "disabled".translate() : "\(Int(cooldown))") ")
                     .font(.title2)
                     .fontWeight(isSelected ? .bold : .regular)
                     .foregroundColor(.white)

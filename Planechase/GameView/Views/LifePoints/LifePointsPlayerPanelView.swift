@@ -268,7 +268,7 @@ struct LifePointsPlayerPanelView: View {
                 }, label: {
                     ZStack {
                         LinearGradient(colors: [Color.black.opacity(0.8), Color.black.opacity(0)], startPoint: .bottom, endPoint: .top)
-                        Text("Cancel")
+                        Text("cancel".translate())
                             .font(.title)
                             .foregroundColor(.white)
                     }.frame(height: 50)

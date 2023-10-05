@@ -12,6 +12,7 @@
 "delete" = "Supprimer";
 "exit" = "Quitter";
 "discard" = "Défausser";
+"disabled" = "Disabled";
 
 // Mark: Play
 
@@ -114,8 +115,9 @@
 "options_ui_zoomType" = "Type de zoom";
 "options_ui_biggerCardsOnMap" = "Aggrandir les cartes sur la map";
 "options_ui_hellridePng" = "SUPER SECRET : utiliser red_evil_portal.png pour le hellride";
-"options_ui_noHammer" = "Panneau d'outils toujours visible (recommandé si l'option 'Cacher le dé' est activée)";
+"options_ui_noHammer" = "Panneau d'outils toujours visible";
 "options_ui_noDice" = "Cacher le dé";
+"options_blurredBackground" = "Blurred background effect";
 "options_dice_title" = "Dé";
 "options_dice_style" = "Style du dé :";
 "options_dice_color" = "Couleur du dé :";
@@ -127,6 +129,12 @@
 "options_life_colorPaletteId" = "Palette de couleurs :";
 "options_life_nbrPlayers" = "Nombre de joueurs";
 "options_life_startingLife" = "Points de vie de départ";
+"options_autoHide" = "Hide lifepoints when unused";
+"options_monarch_title" = "Monarch Token";
+"options_monarch_toggle" = "Enable monarch token";
+"options_monarch_style" = "Monarch token style :";
+"options_profiles_title" = "Player profiles";
+"options_profiles_intro" = "Save player names and background images. Choose them in game.";
 
 "options_contact_discord" = "Des suggestion sur l'app ? Un bug que vous aimeriez que je règle ?";
 "options_contact_discordJoin" = "Rejoignez nous sur Discord !";
