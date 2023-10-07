@@ -101,8 +101,21 @@ extension OptionsMenuView {
                     Toggle("options_monarch_toggle".translate(), isOn: $planechaseVM.lifeCounterOptions.useMonarchToken)
                         .font(.subheadline).foregroundColor(.white)
                     
-                    Text("options_monarch_style".translate())
-                        .headline()
+                    if planechaseVM.lifeCounterOptions.useMonarchToken {
+                        VStack {
+                            Text("options_monarch_style".translate())
+                                .headline()
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 10) {
+                                    MenuMonarchStyleChoiceView(styleId: -1)
+                                    MenuMonarchStyleChoiceView(styleId: 0)
+                                    MenuMonarchStyleChoiceView(styleId: 1)
+                                    MenuMonarchStyleChoiceView(styleId: 2)
+                                }.padding(10)
+                            }
+                        }
+                    }
                 }
                 
                 Group {
@@ -181,7 +194,7 @@ extension OptionsMenuView {
                             ImagePicker(image: $inputImage).preferredColorScheme(.dark)
                         }
                     
-                    TextField("REMOVE CUSTOM IMAGE TOO", text: $profileName)
+                    TextField("", text: $profileName)
                         .font(.title2)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -205,10 +218,10 @@ extension OptionsMenuView {
                         }
                     
                     Button(action: {
+                        SaveManager.deleteOptions_LifePlayerProfile_CustomImage(profile: planechaseVM.lifeCounterProfiles[profileIndex])
                         planechaseVM.lifeCounterProfiles.remove(at: profileIndex)
                         planechaseVM.saveProfiles_Info()
                         profiles = planechaseVM.lifeCounterProfiles
-                        // REMOVE CUSTOM IMAGE TOO
                     }, label: {
                         Image(systemName: "trash")
                             .resizable()

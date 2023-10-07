@@ -38,10 +38,12 @@ extension OptionsMenuView {
                             MenuCustomBackgroundColorChoiceView(gradientId: 7)
                             MenuCustomBackgroundColorChoiceView(gradientId: 8)
                         }
-                    }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
+                    }.premiumRestricted(planechaseVM.isPremium)
                     
                     Toggle("options_blurredBackground".translate(), isOn: $planechaseVM.useBlurredBackground)
                         .font(.subheadline).foregroundColor(.white)
+                        .premiumRestricted(planechaseVM.isPremium)
+                        .premiumCrowned(planechaseVM.isPremium)
                 }
                 
                 Group {

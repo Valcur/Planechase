@@ -198,6 +198,10 @@ extension SaveManager {
         }
     }
     
+    static func deleteOptions_LifePlayerProfile_CustomImage(profile: PlayerCustomProfile) {
+        UserDefaults.standard.removeObject(forKey: "ProfileImage_\(profile.id)")
+    }
+    
     static func getOptions_LifePlayerProfiles() -> [PlayerCustomProfile] {
         if let data = UserDefaults.standard.object(forKey: "LifePlayerProfilesOptions") as? Data,
             var profiles = try? JSONDecoder().decode([PlayerCustomProfile].self, from: data) {

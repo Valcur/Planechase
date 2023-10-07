@@ -47,6 +47,7 @@
 		DBA02D0029A61E42004E94BC /* CardSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02CFF29A61E42004E94BC /* CardSizes.swift */; };
 		DBA757E22ACEC34400DE2D16 /* MonarchTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */; };
 		DBA757E42ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E32ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift */; };
+		DBA757E62ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E52ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift */; };
 		DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */; };
 		DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */; };
 		DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */; };
@@ -112,6 +113,7 @@
 		DBA02CFF29A61E42004E94BC /* CardSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSizes.swift; sourceTree = "<group>"; };
 		DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonarchTokenView.swift; sourceTree = "<group>"; };
 		DBA757E32ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHideLifeCooldownView.swift; sourceTree = "<group>"; };
+		DBA757E52ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMonarchStyleChoiceView.swift; sourceTree = "<group>"; };
 		DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager_Structs.swift; sourceTree = "<group>"; };
 		DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerView+Filter.swift"; sourceTree = "<group>"; };
 		DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewBubble.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				DB9C22942A29F7D400656BC7 /* MenuLifeCounterBackgroundColorChoiceView.swift */,
 				DB360F862ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift */,
 				DBA757E32ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift */,
+				DBA757E52ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift */,
 			);
 			path = OptionsPickers;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				DB9C22792A1FCDC400656BC7 /* CountersSheet.swift in Sources */,
 				DB9C22952A29F7D400656BC7 /* MenuLifeCounterBackgroundColorChoiceView.swift in Sources */,
 				DB9C227B2A26624A00656BC7 /* LifePointsPlayerPanelView.swift in Sources */,
+				DBA757E62ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift in Sources */,
 				DBA02CF329A41BB7004E94BC /* GameView.swift in Sources */,
 				DB9C228D2A29F77F00656BC7 /* MenuCustomDiceColorChoiceView.swift in Sources */,
 				DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */,
