@@ -154,7 +154,7 @@ struct LifePointsPlayerPanelView: View {
             Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0).cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10)).allowsHitTesting(false)
         }
         .onAppear() {
-            if profileChangeTimerProgress > 0 {
+            if profileChangeTimerProgress > 0 && !isMiniView {
                 print("Eerzrezrzerzre")
                 withAnimation(.easeInOut(duration: 60)) {
                     profileChangeTimerProgress = 0

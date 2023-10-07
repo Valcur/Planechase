@@ -9,14 +9,13 @@ import Foundation
 
 extension ContentManagerViewModel {
     func addAllPlanechaseCardsFromScryfall() {
-        fetchCardsImageURLForSet("OHOP")
-        fetchCardsImageURLForSet("OPCA")
-        fetchCardsImageURLForSet("OPC2")
-        fetchCardsImageURLForSet("MOC", minCN: 47, maxCN: 71)
+        for set in CardSet.getAll() {
+            fetchCardsImageURLForSet(set.setCode())
+        }
     }
     
-    func fetchCardsImageURLForSet(_ setCode: String, minCN: Int = -1, maxCN: Int = -1) {
-        let ulrBase = "https://api.scryfall.com/cards/search?q=set%3A\(setCode)+%28cn%3E%3D\(minCN >= 0 ? minCN : 0)+cn%3C%3D\(maxCN >= 0 ? maxCN : 999)%29&unique=prints"
+    func fetchCardsImageURLForSet(_ setCode: String) {
+        let ulrBase = "https://api.scryfall.com/cards/search?q=set%3A\(setCode)+%28type%3Aphenomenon+OR+type%3Aplane%29+&unique=prints"
 
         print(ulrBase)
         

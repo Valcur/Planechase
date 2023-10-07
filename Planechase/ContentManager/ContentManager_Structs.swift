@@ -68,6 +68,7 @@ enum CardSet: Codable {
     case planechaseAnthologyPlanes
     case planechase2012Planes
     case marchOfTheMachineCommander
+    case drWho
     
     func setCode() -> String {
         switch self {
@@ -79,6 +80,8 @@ enum CardSet: Codable {
             return "OPC2"
         case .marchOfTheMachineCommander:
             return "MOC"
+        case .drWho:
+            return "WHO"
         }
     }
     
@@ -92,6 +95,9 @@ enum CardSet: Codable {
             return "Planechase 2012 Planes"
         case .marchOfTheMachineCommander:
             return "March of the Machine Commander"
+        case .drWho:
+            return "Dr Who"
+            
         }
     }
     
@@ -105,12 +111,14 @@ enum CardSet: Codable {
             return .planechase2012Planes
         case "MOC":
             return .marchOfTheMachineCommander
+        case "WHO":
+            return .drWho
         default:
             return .marchOfTheMachineCommander
         }
     }
     
     static func getAll() -> [CardSet] {
-        return [.planechasePlanes, .planechaseAnthologyPlanes, .planechase2012Planes, .marchOfTheMachineCommander]
+        return [.planechasePlanes, .planechaseAnthologyPlanes, .planechase2012Planes, .marchOfTheMachineCommander, .drWho]
     }
 }
