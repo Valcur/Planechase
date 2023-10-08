@@ -103,8 +103,11 @@ extension OptionsMenuView {
                     
                     if planechaseVM.lifeCounterOptions.useMonarchToken {
                         VStack {
-                            Text("options_monarch_style".translate())
-                                .headline()
+                            HStack {
+                                Text("options_monarch_style".translate())
+                                    .headline()
+                                Spacer()
+                            }
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 10) {
@@ -112,6 +115,8 @@ extension OptionsMenuView {
                                     MenuMonarchStyleChoiceView(styleId: 0)
                                     MenuMonarchStyleChoiceView(styleId: 1)
                                     MenuMonarchStyleChoiceView(styleId: 2)
+                                    MenuMonarchStyleChoiceView(styleId: 3)
+                                    MenuMonarchStyleChoiceView(styleId: 4)
                                 }.padding(10)
                             }
                         }

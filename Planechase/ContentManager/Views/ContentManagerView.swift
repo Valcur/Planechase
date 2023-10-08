@@ -41,7 +41,7 @@ struct ContentManagerView: View {
                         Text("\("collection_deckSize".translate()) : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
                             .headline()
                         
-                        DeckSelection()
+                        DeckSelection(selectedDeck: contentManagerVM.selectedDeckId)
                     }.padding(.horizontal, 15).padding(.top, 5).iPhoneScaler(width: geo.size.width, height: 44)
                     
                     // MARK: Bottom bar
@@ -94,15 +94,20 @@ struct ContentManagerView: View {
     struct DeckSelection: View {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var contentManagerVM: ContentManagerViewModel
-        @State var deckSelected: Int = 0
+        @State var deckSelected: Int
         @State private var showingDeckNameChange = false
-        @State private var newDeckName: String = ""
+        @State private var newDeckName: String = "a"
+        
+        init(selectedDeck: Int) {
+            deckSelected = selectedDeck
+        }
         
         var body: some View {
             HStack {
-                if planechaseVM.isPremium {
+               if planechaseVM.isPremium {
                     if #available(iOS 15.0, *) {
                         Button(action: {
+                            newDeckName = contentManagerVM.selectedDeck.name
                             withAnimation {
                                 self.showingDeckNameChange.toggle()
                             }
@@ -131,6 +136,7 @@ struct ContentManagerView: View {
                         .font(.title)
                         .foregroundColor(.white)
                 }
+                
                 Picker("collection_SelectDeck".translate(), selection: $deckSelected) {
                     if planechaseVM.isPremium {
                         ForEach(contentManagerVM.decks, id: \.deckId) { deck in
@@ -139,7 +145,7 @@ struct ContentManagerView: View {
                     } else {
                         Text(contentManagerVM.decks[0].name).tag(contentManagerVM.decks[0].deckId)
                     }
-                }.pickerStyle(.menu).font(.subheadline).frame(height: 24).frame(width: 200).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6)
+                }.pickerStyle(.menu).font(.subheadline).frame(height: 20).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(width: 200)
                 .onChange(of: deckSelected) { newValue in
                     withAnimation(.easeInOut(duration: 0.3)) {
                         contentManagerVM.changeSelectedDeck(newDeckId: newValue)
@@ -148,7 +154,6 @@ struct ContentManagerView: View {
                 }
                 .onAppear() {
                     deckSelected = contentManagerVM.selectedDeckId
-                    newDeckName = contentManagerVM.selectedDeck.name
                 }
             }
         }
@@ -264,6 +269,7 @@ struct ContentManagerView: View {
             Text(text).textButtonLabel(style: .secondary)
                 .offset(y: showInfoView ? -80 : 0)
                 .scaleEffect(1.2)
+                .opacity(showInfoView ? 1 : 0)
         }
     }
 }

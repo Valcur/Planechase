@@ -47,7 +47,7 @@ struct LifePointsPlayerPanelView: View {
                                 .scaledToFill()
                                 .clipped()
                         }
-                        Color.black.opacity(0.1)
+                        Color.black.opacity(0.15)
                     }
                 } else {
                     if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
@@ -107,22 +107,33 @@ struct LifePointsPlayerPanelView: View {
                                 showProfileSelector = true
                                 lifepointHasBeenUsedToggler.toggle()
                             }, label: {
-                                ZStack {
-                                    Image(systemName: "pencil")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                    Circle()
-                                        .trim(from: 0, to: profileChangeTimerProgress)
-                                        .stroke(
-                                            Color.white,
-                                            style: StrokeStyle(
-                                                lineWidth: 4,
-                                                lineCap: .round
+                                ZStack(alignment: .top) {
+                                    Color.black.opacity(0.000001).frame(width: 100, height: 80)
+                                    ZStack {
+                                        Image(systemName: "pencil")
+                                            .font(.title)
+                                            .foregroundColor(.white)
+                                        Circle()
+                                            .stroke(
+                                                Color.white.opacity(0.5),
+                                                style: StrokeStyle(
+                                                    lineWidth: 4,
+                                                    lineCap: .round
+                                                )
                                             )
-                                        )
-                                        .rotationEffect(.degrees(-90))
-                                }.frame(width: 45, height: 45).padding(10)
-                            }).frame(width: 100).iPhoneScaler(width: 100, height: 45)
+                                        Circle()
+                                            .trim(from: 0, to: profileChangeTimerProgress)
+                                            .stroke(
+                                                Color.white,
+                                                style: StrokeStyle(
+                                                    lineWidth: 4,
+                                                    lineCap: .round
+                                                )
+                                            )
+                                            .rotationEffect(.degrees(-90))
+                                    }.frame(width: 45, height: 45).padding(8)
+                                }
+                            }).iPhoneScaler(width: 100, height: 80, scaleEffect: 0.6, anchor: .top)
                             Spacer()
                         }.frame(maxWidth: .infinity)
                     }.opacity(isAllowedToChangeProfile ? 1 : 0)
