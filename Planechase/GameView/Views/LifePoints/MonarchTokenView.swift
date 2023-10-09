@@ -47,7 +47,14 @@ struct MonarchTokenStyle: View {
     let tokenSize: CGFloat = 80
     var body: some View {
         ZStack {
-            if styleId == 0 {
+            if styleId == -1 {
+                VisualEffectView(effect: UIBlurEffect(style: blurEffect)).cornerRadius(tokenSize / 2)
+                Image("Crown 1")
+                    .resizable()
+                    .scaledToFill()
+                    .colorMultiply(.white)
+                    .padding(20)
+            } else if styleId == 0 {
                 VisualEffectView(effect: UIBlurEffect(style: blurEffect)).cornerRadius(tokenSize / 2)
                 Circle().stroke(Color("DiceGold"), lineWidth: 3).frame(width: 77, height: 77)
                 Circle().stroke(Color("DiceGold"), lineWidth: 3).frame(width: 65, height: 65)
@@ -56,13 +63,6 @@ struct MonarchTokenStyle: View {
                     .scaledToFill()
                     .colorMultiply(Color("DiceGold"))
                     .padding(20)
-            } else if styleId == -1 {
-                VisualEffectView(effect: UIBlurEffect(style: blurEffect)).cornerRadius(tokenSize / 2)
-                Image("Crown 1")
-                    .resizable()
-                    .scaledToFill()
-                    .colorMultiply(.white)
-                    .padding(25)
             } else if styleId == 1 {
                 VisualEffectView(effect: UIBlurEffect(style: blurEffect)).cornerRadius(tokenSize / 2)
                 Circle().foregroundColor(Color("DiceGold")).opacity(0.3)
@@ -79,17 +79,16 @@ struct MonarchTokenStyle: View {
                     Color("MTBorder").cornerRadius(10)
                     Color("MTBackground").cornerRadius(7).padding(5)
                 }.padding(10).rotationEffect(.degrees(-45))
-                Image("Crown 1")
+                Image("Crown 2")
                     .resizable()
                     .scaledToFill()
                     .colorMultiply(Color("MTCrown"))
                     .padding(15)
             } else if styleId == 3 {
-                Image("Crown 1")
+                Image("Crown 3")
                     .resizable()
                     .scaledToFill()
-                    .colorMultiply(Color.white)
-                    .padding(10)
+                    .padding(0)
             } else if styleId == 4 {
                 VisualEffectView(effect: UIBlurEffect(style: blurEffect)).cornerRadius(tokenSize / 2)
                 ZStack {

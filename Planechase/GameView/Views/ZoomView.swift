@@ -30,9 +30,11 @@ struct ZoomView: View {
                         if UIDevice.isIPhone {
                             ZoomCardView(card: card,
                                          width: CardSizes.widthtForHeight(geo.size.height/* - 10*/))
+                            .shadowed()
                         } else {
                             ZoomCardView(card: card,
                                          width: cardWidth(geo.size.width * 0.9))
+                            .shadowed()
                         }
                     }
                     if planechaseVM.zoomViewType == .two || planechaseVM.zoomViewType == .four {
@@ -42,11 +44,13 @@ struct ZoomView: View {
                                              width: geo.size.height - 10)
                                 .rotationEffect(.degrees(90))
                                 .offset(x: (cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                                .shadowed()
                                 Spacer()
                                 ZoomCardView(card: card,
                                              width: geo.size.height - 10)
                                 .rotationEffect(.degrees(-90))
                                 .offset(x: -(cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                                .shadowed()
                             }
                         } else {
                             HStack {
@@ -54,11 +58,13 @@ struct ZoomView: View {
                                              width: cardWidth(geo.size.height))
                                 .rotationEffect(.degrees(90))
                                 .offset(x: (cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                                .shadowed()
                                 Spacer()
                                 ZoomCardView(card: card,
                                              width: cardWidth(geo.size.height))
                                 .rotationEffect(.degrees(-90))
                                 .offset(x: -(cardWidth(geo.size.height) - cardHeight(geo.size.height)) / 2)
+                                .shadowed()
                             }.zIndex(2)
                         }
                     }
@@ -68,11 +74,13 @@ struct ZoomView: View {
                                          width: CardSizes.widthtForHeight(geo.size.height / 2))
                             .rotationEffect(.degrees(180))
                             .offset(y: -5)
+                            .shadowed()
                             Spacer()
                             ZoomCardView(card: card,
                                          width: CardSizes.widthtForHeight(geo.size.height / 2))
                             .rotationEffect(.degrees(0))
                             .offset(y: 5)
+                            .shadowed()
                         }.zIndex(3)
                     }
                     if planechaseVM.zoomViewType == .two_cropped {
@@ -97,7 +105,7 @@ struct ZoomView: View {
                             .mask(
                                 LinearGradient(gradient: croppingGradient, startPoint: .top, endPoint: .bottom)
                             )
-                        }
+                        }.shadowed()
                     }
                 }
             }.frame(width: geo.size.width, height: geo.size.height)
@@ -132,7 +140,7 @@ struct ZoomView: View {
                     .frame(width: width, height: height)
                     .cornerRadius(CardSizes.cornerRadiusForWidth(width))
                     .onAppear {
-                        card.cardAppears()
+                        card.cardAppears(isPrioritary: true)
                     }
             } else {
                 Image(uiImage: card.image!)
@@ -151,8 +159,9 @@ struct ZoomView: View {
                 if let image = card.image {
                     Image(uiImage: image)
                         .resizable()
-                        .scaleEffect(3)
+                        .scaleEffect(2.5)
                         .scaledToFill()
+                        .offset(y: geo.size.height * 0.25)
                         .frame(width: geo.size.width, height: geo.size.height)
                 }
             }

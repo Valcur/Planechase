@@ -46,6 +46,7 @@ struct LifePointsPlayerPanelView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .clipped()
+                                
                         }
                         Color.black.opacity(0.15)
                     }

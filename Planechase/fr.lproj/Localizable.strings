@@ -109,6 +109,7 @@
 "options_contactTitle" = "Contact";
 "options_thanksTitle" = "Thanks";
 "options_rulesTitle" = "Règles";
+"options_lifeTitle" = "Life";
 
 "options_backgroundColor" = "Couleur d'arrière plan";
 "options_ui_title" = "Interface";

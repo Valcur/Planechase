@@ -113,7 +113,7 @@ extension OptionsMenuView {
                                 HStack(spacing: 10) {
                                     MenuMonarchStyleChoiceView(styleId: -1)
                                     MenuMonarchStyleChoiceView(styleId: 0)
-                                    MenuMonarchStyleChoiceView(styleId: 1)
+                                    //MenuMonarchStyleChoiceView(styleId: 1)
                                     MenuMonarchStyleChoiceView(styleId: 2)
                                     MenuMonarchStyleChoiceView(styleId: 3)
                                     MenuMonarchStyleChoiceView(styleId: 4)
@@ -140,7 +140,10 @@ extension OptionsMenuView {
                             profiles = planechaseVM.lifeCounterProfiles
                         }, label: {
                             Text("+")
-                                .textButtonLabel()
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                                .frame(width: 150)
+                                .buttonLabel()
                         })
                     }
                 }

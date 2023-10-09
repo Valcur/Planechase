@@ -110,6 +110,7 @@
 "options_contactTitle" = "Contact";
 "options_thanksTitle" = "Thanks";
 "options_rulesTitle" = "Rules";
+"options_lifeTitle" = "Life";
 
 "options_backgroundColor" = "Background Color";
 "options_ui_title" = "Game UI";

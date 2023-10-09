@@ -17,9 +17,9 @@ struct OptionsMenuView: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 20) {
-                    MenuSelectionView(menu: .options, selectedMenu: $selectedMenu)
-                    
                     MenuSelectionView(menu: .life, selectedMenu: $selectedMenu)
+                    
+                    MenuSelectionView(menu: .options, selectedMenu: $selectedMenu)
                     
                     MenuSelectionView(menu: .rules, selectedMenu: $selectedMenu)
                     
@@ -169,7 +169,7 @@ struct OptionsMenuView: View {
             case .rules:
                 return "options_rulesTitle".translate()
             case .life:
-                return "Life"
+                return "options_lifeTitle".translate()
             }
         }
     }

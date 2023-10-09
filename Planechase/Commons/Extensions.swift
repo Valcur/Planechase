@@ -59,6 +59,34 @@ extension View {
             }
         }
     }
+    
+    func iPhoneScaler_widthOnly(width: CGFloat, scaleEffect: CGFloat = 0.8, anchor: UnitPoint = .center) -> some View {
+        ZStack {
+            if UIDevice.isIPhone {
+                self
+                    .frame(width: width / scaleEffect)
+                    .scaleEffect(scaleEffect, anchor: anchor)
+                    .frame(width: width)
+            } else {
+                self
+            }
+        }
+    }
+    
+    func premiumRestricted(_ isPremium: Bool) -> some View {
+        self.opacity(isPremium ? 1 : 0.6).disabled(!isPremium)
+    }
+    
+    func premiumCrowned(_ isPremium: Bool) -> some View {
+        HStack {
+            if !isPremium {
+                Image(systemName: "crown.fill")
+                    .font(.title)
+                    .foregroundColor(.white)
+            }
+            self
+        }
+    }
 }
 
 extension Image {
