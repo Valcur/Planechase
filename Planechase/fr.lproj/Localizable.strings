@@ -48,7 +48,7 @@
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Appuyez sur 'Télécharger depuis Scryfall' pour jouer avec les nouvelles cartes Dr Who\n- Le compteur de points de vie prend en charge les noms de joueurs et les images de fond personalisées, jeton monarque, masquage automatique et style de fond coloré\n- Amélioration du filtrage de la collection\n- Nouveau type d'affichage horizontal pour permettre de lire le texte des cartes des deux côtés en mode paysage\n- Renommer vos decks\n- Fond flou derrière les cartes\n- Options pour masquer le dé si vous préférez jouer avec un vrai dé\n- Nouvel option d'achat in-app Premium à vie";
+"whatsNew_content" = "- Appuyez sur 'Télécharger depuis Scryfall' pour jouer avec les nouvelles cartes Dr Who\n- Le compteur de points de vie prend en charge les noms de joueurs et les images de fond personalisées, jeton monarque, masquage automatique et style de fond coloré\n- Amélioration du filtrage de la collection\n- Nouveau type d'affichage vertical pour permettre de lire le texte des cartes des deux côtés en mode paysage\n- Renommer vos decks\n- Fond flou derrière les cartes\n- Options pour masquer le dé si vous préférez jouer avec un vrai dé\n- Nouvel option d'achat in-app Premium à vie";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
