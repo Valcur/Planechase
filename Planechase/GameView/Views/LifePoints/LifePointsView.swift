@@ -86,7 +86,7 @@ struct LifePointsView: View {
                                 showMonarchToken.toggle()
                             }
                         }, label: {
-                            Image(systemName: "crown.fill")
+                            Image("Crown 1")
                                 .imageButtonLabel()
                         }).position(x: 35, y: 35).opacity(showMonarchToken ? 0.7 : 1)
                     }

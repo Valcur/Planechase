@@ -83,7 +83,7 @@ struct MonarchTokenStyle: View {
                     .resizable()
                     .scaledToFill()
                     .colorMultiply(Color("MTCrown"))
-                    .padding(15)
+                    .padding(20)
             } else if styleId == 3 {
                 Image("Crown 3")
                     .resizable()

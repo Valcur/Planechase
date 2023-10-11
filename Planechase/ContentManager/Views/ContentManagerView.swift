@@ -117,18 +117,18 @@ struct ContentManagerView: View {
                                 .foregroundColor(.white)
                                 .padding(.trailing, 0)
                         })
-                        .alert("New deck name", isPresented: $showingDeckNameChange) {
+                        .alert("collection_rename_title".translate(), isPresented: $showingDeckNameChange) {
                             TextField("", text: $newDeckName)
-                            Button("OK") {
+                            Button("confirm".translate()) {
                                 newDeckName = String(newDeckName.prefix(25))
                                 contentManagerVM.decks[contentManagerVM.selectedDeckId].name = newDeckName
                                 SaveManager.saveDecks(contentManagerVM.decks)
                             }
-                            Button("Cancel", role: .cancel) {
+                            Button("cancel".translate(), role: .cancel) {
                                 newDeckName = contentManagerVM.selectedDeck.name
                             }
                         } message: {
-                            Text("25 characters max")
+                            Text("collection_rename_content".translate())
                         }
                     }
                 } else {

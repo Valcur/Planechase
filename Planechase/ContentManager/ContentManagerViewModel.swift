@@ -245,7 +245,7 @@ class ContentManagerViewModel: ObservableObject {
                 }
 
                 if let cardSetFilter = collectionFilter.cardSet {
-                    self.filteredCardCollection = self.filteredCardCollection.filter({ ($0.cardSets ?? [CardSet.marchOfTheMachineCommander]).contains(cardSetFilter) })
+                    self.filteredCardCollection = self.filteredCardCollection.filter({ ($0.cardSets ?? []).contains(cardSetFilter) })
                 }
                 
                 if let cardTypeFilter = collectionFilter.cardTypeLine {

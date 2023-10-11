@@ -167,7 +167,6 @@ struct LifePointsPlayerPanelView: View {
         }
         .onAppear() {
             if profileChangeTimerProgress > 0 && !isMiniView {
-                print("Eerzrezrzerzre")
                 withAnimation(.easeInOut(duration: 60)) {
                     profileChangeTimerProgress = 0
                 }
@@ -220,6 +219,7 @@ struct LifePointsPlayerPanelView: View {
     }
     
     struct ProfileSelector: View {
+        @EnvironmentObject var lifePointsViewModel: LifePointsViewModel
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @Binding var showSelector: Bool
         let playerId: Int
@@ -233,7 +233,7 @@ struct LifePointsPlayerPanelView: View {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 player.backgroundImage = nil
                                 player.id = UUID()
-                                player.name = "Player \(playerId + 1)" // Translate pls
+                                player.name = "\("lifepoints_player".translate()) \(playerId + 1)"
                                 
                                 showSelector = false
                             }
@@ -241,13 +241,12 @@ struct LifePointsPlayerPanelView: View {
                             cancelLastUsedSlot(slot: playerId)
                             planechaseVM.saveProfiles_Info()
                         }, label: {
-                            Text("No profile")
+                            Text("lifepoints_noProfile".translate())
                                 .textButtonLabel()
                         }).padding(.top, 5)
                         ForEach(0..<planechaseVM.lifeCounterProfiles.count, id: \.self) { i in
                             if let profile = planechaseVM.lifeCounterProfiles[i] {
                                 Button(action: {
-                                    cancelLastUsedSlot(slot: playerId)
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         var backgroundImage: UIImage? = nil
                                         if let imageData = profile.customImageData {
@@ -263,6 +262,7 @@ struct LifePointsPlayerPanelView: View {
                                         showSelector = false
                                     }
                                     lifepointHasBeenUsedToggler.toggle()
+                                    cancelLastUsedSlot(slot: playerId)
                                     planechaseVM.lifeCounterProfiles[i].lastUsedSlot = playerId
                                     planechaseVM.saveProfiles_Info()
                                 }, label: {
@@ -292,6 +292,16 @@ struct LifePointsPlayerPanelView: View {
             for i in 0..<planechaseVM.lifeCounterProfiles.count {
                 if planechaseVM.lifeCounterProfiles[i].lastUsedSlot == slot {
                     planechaseVM.lifeCounterProfiles[i].lastUsedSlot = -1
+                }
+            }
+            for i in 0..<lifePointsViewModel.players.count {
+                if lifePointsViewModel.players[i].id == player.id && i != slot {
+                    print("Found at \(i) for \(slot)")
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        lifePointsViewModel.players[i].backgroundImage = nil
+                        lifePointsViewModel.players[i].id = UUID()
+                        lifePointsViewModel.players[i].name = "\("lifepoints_player".translate()) \(i + 1)"
+                    }
                 }
             }
         }

@@ -81,7 +81,7 @@ extension OptionsMenuView {
                 }
                 
                 if planechaseVM.lifeCounterOptions.colorPaletteId > -1 {
-                    Text("Style de fond".translate())
+                    Text("options_background_style".translate())
                         .headline()
                     
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -132,10 +132,13 @@ extension OptionsMenuView {
                     
                     VStack(alignment: .leading, spacing: 20) {
                         ForEach(0..<profiles.count, id: \.self) { i in
-                            CustomProfileView(profileIndex: i, profiles: $profiles).id(profiles[i].id)
+                            CustomProfileView(profileIndex: i, profiles: $profiles, profileId: profiles[i].id).id(profiles[i].id)
                         }
                         Button(action: {
-                            planechaseVM.lifeCounterProfiles.append(PlayerCustomProfile(name: "Player \(planechaseVM.lifeCounterProfiles.count + 1)"))
+                            if planechaseVM.lifeCounterProfiles.count >= 10 {
+                                return
+                            }
+                            planechaseVM.lifeCounterProfiles.append(PlayerCustomProfile(name: "\("lifepoints_player".translate()) \(planechaseVM.lifeCounterProfiles.count + 1)"))
                             planechaseVM.saveProfiles_Info()
                             profiles = planechaseVM.lifeCounterProfiles
                         }, label: {
@@ -144,7 +147,7 @@ extension OptionsMenuView {
                                 .foregroundColor(.white)
                                 .frame(width: 150)
                                 .buttonLabel()
-                        })
+                        }).opacity(planechaseVM.lifeCounterProfiles.count >= 10 ? 0 : 1)
                     }
                 }
             }.scrollablePanel()
@@ -178,6 +181,7 @@ extension OptionsMenuView {
             @Binding var profiles: [PlayerCustomProfile]
             @State var imageView: Image?
             private let maxNameLength = 15
+            let profileId: UUID
             
             var body: some View {
                 HStack(spacing: 20) {
@@ -219,17 +223,22 @@ extension OptionsMenuView {
                             }
                             saveChangesTimer?.invalidate()
                             saveChangesTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { timer in
-                                planechaseVM.lifeCounterProfiles[profileIndex].name = profileName
-                                planechaseVM.saveProfiles_Info()
+                                if let index = planechaseVM.lifeCounterProfiles.firstIndex(where: {$0.id == profileId}) {
+                                    planechaseVM.lifeCounterProfiles[index].name = profileName
+                                    planechaseVM.saveProfiles_Info()
+                                }
                             }
                             profiles = planechaseVM.lifeCounterProfiles
                         }
                     
                     Button(action: {
-                        SaveManager.deleteOptions_LifePlayerProfile_CustomImage(profile: planechaseVM.lifeCounterProfiles[profileIndex])
-                        planechaseVM.lifeCounterProfiles.remove(at: profileIndex)
-                        planechaseVM.saveProfiles_Info()
-                        profiles = planechaseVM.lifeCounterProfiles
+                        saveChangesTimer?.invalidate()
+                        if let index = planechaseVM.lifeCounterProfiles.firstIndex(where: {$0.id == profileId}) {
+                            SaveManager.deleteOptions_LifePlayerProfile_CustomImage(profile: planechaseVM.lifeCounterProfiles[index])
+                            planechaseVM.lifeCounterProfiles.remove(at: index)
+                            planechaseVM.saveProfiles_Info()
+                            profiles = planechaseVM.lifeCounterProfiles
+                        }
                     }, label: {
                         Image(systemName: "trash")
                             .resizable()

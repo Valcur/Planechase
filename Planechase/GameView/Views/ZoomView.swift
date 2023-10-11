@@ -113,8 +113,9 @@ struct ZoomView: View {
                 ZStack {
                     if planechaseVM.useBlurredBackground, let card = card {
                         CardImageBackground(card: card)
+                    } else {
+                        VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
                     }
-                    VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
                 }.ignoresSafeArea()
             ).opacity(card == nil ? 0 : 1)
             .onTapGesture {
@@ -159,6 +160,7 @@ struct ZoomView: View {
                 if let image = card.image {
                     Image(uiImage: image)
                         .resizable()
+                        .blur(radius: 8)
                         .scaleEffect(2.5)
                         .scaledToFill()
                         .offset(y: geo.size.height * 0.25)

@@ -117,7 +117,7 @@ extension OptionsMenuView {
                             MenuCustomDiceChoiceView(diceStyleId: 9)
                             MenuCustomDiceChoiceView(diceStyleId: 10)
                             MenuCustomDiceChoiceView(diceStyleId: 11)
-                            MenuCustomDiceChoiceView(diceStyleId: 12)
+                            //MenuCustomDiceChoiceView(diceStyleId: 12)
                         }.padding(10)
                     }.disabled(!planechaseVM.isPremium).opacity(planechaseVM.isPremium ? 1 : 0.6)
                     

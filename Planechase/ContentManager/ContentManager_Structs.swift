@@ -94,7 +94,7 @@ enum CardSet: Codable {
         case .planechase2012Planes:
             return "Planechase 2012 Planes"
         case .marchOfTheMachineCommander:
-            return "March of the Machine Commander"
+            return "March of the Machine"
         case .drWho:
             return "Dr Who"
             

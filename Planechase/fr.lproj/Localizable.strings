@@ -12,7 +12,9 @@
 "delete" = "Supprimer";
 "exit" = "Quitter";
 "discard" = "Défausser";
-"disabled" = "Disabled";
+"disabled" = "Désactivé";
+"plane" = "Plan";
+"phenomenon" = "Phénomène";
 
 // Mark: Play
 
@@ -26,18 +28,18 @@
 // Mark: Bubbles
 
 "premium_title" = "Soutenez l'app";
-"premium_content" = "- Séparez votre collection dans 10 decks différent\n- Changer la couleur d'arrière plan \n- Changer le style et la couleur du dé \n- Mes remerciements les plus sincères";
+"premium_content" = "- Séparez votre collection dans 10 decks différent\n- Changer la couleur d'arrière plan \n- Changer le style et la couleur du dé \n- Davantage d'options visuelles \n- Mes remerciements les plus sincères";
 "premium_unknown" = "Inconnu";
 "premium_month" = " / Mois";
-"premium_lifetime" = " Lifetime";
+"premium_lifetime" = " Définitif";
 "premium_alreadyPremium" = "Déjà premium ?";
 "premium_restore" = "Restorer";
 "premium_viewOur" = "Consultez notre ";
 "premium_policy" = "Politique de confidentialité";
 "premium_info_title" = "Information";
-"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots, dice customization and choice over 8 background colors.";
+"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($1.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will give you, for the duration of your subsription, access to 9 more deck slots, dice customization and various visual styles to personalize your experience.";
 
-"premium_lifetime_info_content" = "You may purchase a lifetime premium access through an In-App Purchase.\n\n • (in USD) Premium - Lifetime ($19.99) \n\n • Being Premium will give you access to 9 more deck slots, dice customization and choice over 8 background colors.";
+"premium_lifetime_info_content" = "You may purchase a lifetime premium access through an In-App Purchase.\n\n • (in USD) Premium - Lifetime ($19.99) \n\n • Being Premium will give you access to 9 more deck slots, dice customization and various visual styles to personalize your experience.";
 
 "discord_title" = "Rejoignez le Discord";
 "discord_content" = "Importez les cartes officielles avant leur sortie, partagez vos cartes custom, apprenez-en d'avantages sur les mises à jour ou demandez l'ajout d'une nouvelle fonctionnalité sur notre serveur Discord";
@@ -46,7 +48,7 @@
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "Léger changement de l'interface.";
+"whatsNew_content" = "- Appuyez sur 'Télécharger depuis Scryfall' pour jouer avec les nouvelles cartes Dr Who\n- Le compteur de points de vie prend en charge les noms de joueurs et les images de fond personalisées, jeton monarque, masquage automatique et style de fond coloré\n- Amélioration du filtrage de la collection\n- Nouveau type d'affichage horizontal pour permettre de lire le texte des cartes des deux côtés en mode paysage\n- Renommer vos decks\n- Fond flou derrière les cartes\n- Options pour masquer le dé si vous préférez jouer avec un vrai dé\n- Nouvel option d'achat in-app Premium à vie";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -74,6 +76,12 @@
 "collection_filter_present" = "Présent";
 "collection_filter_absent" = "Absent";
 "collection_filter_absentAll" = "Dans aucun decks";
+"collection_rename_title" = "Renommer le deck";
+"collection_rename_content" = "25 lettres maximum";
+"collection_filter_title_source" = "Source :";
+"collection_filter_title_selection" = "Sélection :";
+"collection_filter_title_type" = "Type :";
+"collection_filter_title_set" = "Extension :";
 
 // Mark: Game
 
@@ -109,16 +117,17 @@
 "options_contactTitle" = "Contact";
 "options_thanksTitle" = "Thanks";
 "options_rulesTitle" = "Règles";
-"options_lifeTitle" = "Life";
+"options_lifeTitle" = "Compteur";
+"lifepoints_noProfile" = "Enlever profil";
 
 "options_backgroundColor" = "Couleur d'arrière plan";
 "options_ui_title" = "Interface";
-"options_ui_zoomType" = "Type de zoom";
+"options_ui_zoomType" = "Affichage des cartes";
 "options_ui_biggerCardsOnMap" = "Aggrandir les cartes sur la map";
 "options_ui_hellridePng" = "SUPER SECRET : utiliser red_evil_portal.png pour le hellride";
 "options_ui_noHammer" = "Panneau d'outils toujours visible";
 "options_ui_noDice" = "Cacher le dé";
-"options_blurredBackground" = "Blurred background effect";
+"options_blurredBackground" = "Effet flouté pour le fond";
 "options_dice_title" = "Dé";
 "options_dice_style" = "Style du dé :";
 "options_dice_color" = "Couleur du dé :";
@@ -130,12 +139,13 @@
 "options_life_colorPaletteId" = "Palette de couleurs :";
 "options_life_nbrPlayers" = "Nombre de joueurs";
 "options_life_startingLife" = "Points de vie de départ";
-"options_autoHide" = "Hide lifepoints when unused";
-"options_monarch_title" = "Monarch Token";
-"options_monarch_toggle" = "Enable monarch token";
-"options_monarch_style" = "Monarch token style :";
-"options_profiles_title" = "Player profiles";
-"options_profiles_intro" = "Save player names and background images. Choose them in game.";
+"options_background_style" = "Style de fond :";
+"options_autoHide" = "Masquer le compteur automatiquement si plus utilisé";
+"options_monarch_title" = "Jeton monarque";
+"options_monarch_toggle" = "Afficher le jeton monarque";
+"options_monarch_style" = "Style de jeton :";
+"options_profiles_title" = "Profils de joueur";
+"options_profiles_intro" = "Sauvegardez les noms des joueurs et ajoutez une image de fond personnalisé. Affectez-les en jeu.";
 
 "options_contact_discord" = "Des suggestion sur l'app ? Un bug que vous aimeriez que je règle ?";
 "options_contact_discordJoin" = "Rejoignez nous sur Discord !";
@@ -146,6 +156,8 @@
 "options_thanks_hellride" = "Image Hellride par upklyak de Freepik";
 "options_thanks_diceSkin1" = "Skin de dé 1,2,3 et 4 par shiruji";
 "options_thanks_diceSkin2" = "Autres styles de dé par Freepik";
+"options_thanks_background" = "Styles de fond par Freepik";
+"options_thanks_monarch" = "Jeton monarque par Dental Care, iconixar, Freepik et max.icons";
 
 // Mark: Rules
 

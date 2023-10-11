@@ -10,8 +10,8 @@ import SwiftUI
 struct BubbleSizes {
     static let width: CGFloat = 400
     static let discordHeight: CGFloat = 330
-    static let premiumHeight: CGFloat = 400
-    static let whatsNewHeight: CGFloat = 350
+    static let premiumHeight: CGFloat = 440
+    static let whatsNewHeight: CGFloat = 600
     static let scale: CGFloat = 0.8
     static let padding: CGFloat = 15
 }

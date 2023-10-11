@@ -146,6 +146,10 @@ struct OptionsMenuView: View {
                     .headline()
                 Text("options_thanks_diceSkin2".translate())
                     .headline()
+                Text("options_thanks_background".translate())
+                    .headline()
+                Text("options_thanks_monarch".translate())
+                    .headline()
                 // shield by Maniprasanth
             }.scrollablePanel()
         }

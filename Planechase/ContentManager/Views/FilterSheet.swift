@@ -39,7 +39,7 @@ extension ContentManagerView {
                         //Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
                         
                         ZStack(alignment: .topLeading) {
-                            Text("Source:").headline().padding(.top, 15)
+                            Text("collection_filter_title_source".translate()).headline().padding(.top, 15)
                             HStack {
                                 Button(action: {
                                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -69,7 +69,7 @@ extension ContentManagerView {
                         //Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
                         
                         ZStack(alignment: .topLeading) {
-                            Text("Selection:").headline().padding(.top, 15)
+                            Text("collection_filter_title_selection".translate()).headline().padding(.top, 15)
                             HStack {
                                 Button(action: {
                                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -104,14 +104,14 @@ extension ContentManagerView {
                         }
                         
                         ZStack(alignment: .topLeading) {
-                            Text("Type:").headline().padding(.top, 15)
+                            Text("collection_filter_title_type".translate()).headline().padding(.top, 15)
                             HStack {
                                 Button(action: {
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         contentVM.toggleCardTypeLineFilter(.plane)
                                     }
                                 }, label: {
-                                    Text("Plane".translate())
+                                    Text("plane".translate())
                                         .textButtonLabel(style: contentVM.collectionFilter.cardTypeLine == .plane ? .secondary : .primary)
                                 })
                                 
@@ -120,14 +120,14 @@ extension ContentManagerView {
                                         contentVM.toggleCardTypeLineFilter(.phenomenon)
                                     }
                                 }, label: {
-                                    Text("Phenomenon".translate())
+                                    Text("phenomenon".translate())
                                         .textButtonLabel(style: contentVM.collectionFilter.cardTypeLine == .phenomenon ? .secondary : .primary)
                                 })
                             }.padding(.leading, 120)
                         }
                         
                         ZStack(alignment: .topLeading) {
-                            Text("Set").headline().padding(.top, 15)
+                            Text("collection_filter_title_set".translate()).headline().padding(.top, 15)
                             HStack(alignment: .top) {
                                 LazyVGrid(columns: columns, spacing: 15) {
                                     ForEach(CardSet.getAll(), id: \.self) { cardSet in

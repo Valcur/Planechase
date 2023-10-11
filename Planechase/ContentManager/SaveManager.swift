@@ -237,7 +237,7 @@ extension SaveManager {
     static func getOptions_Toggles() -> (Bool, Bool, Bool, Bool, Bool) {
         let bigCards = UserDefaults.standard.object(forKey: "BiggerCardsOnMap") as? Bool ?? false
         let hellRide = UserDefaults.standard.object(forKey: "UseHellridePNG") as? Bool ?? false
-        let noHammer = UserDefaults.standard.object(forKey: "NoHammer") as? Bool ?? false
+        let noHammer = UserDefaults.standard.object(forKey: "NoHammer") as? Bool ?? true
         let noDice = UserDefaults.standard.object(forKey: "NoDice") as? Bool ?? false
         let blurredBackground = UserDefaults.standard.object(forKey: "BlurredBackground") as? Bool ?? false
         return (bigCards, hellRide, noHammer, noDice, blurredBackground)
