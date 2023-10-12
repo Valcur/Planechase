@@ -49,7 +49,7 @@
 "discord_hide_content" = "You can still find a link in the options under 'Contact'";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- Press 'Download from Scryfall' to get the new Dr Who cards\n- Life counter now supports custom player name and background image, monarch token, auto hide when unused and mixing colors with background styles\n- Improved filter to sort your collection\n- New vertical split display style for cards to read text from both side in landscape mode\n- Rename you decks\n- Blurred background style behind cards\n- Hide the dice section toggle for players using a real dice\n- New lifetime Premium in-app purchase";
+"whatsNew_content" = "- Press 'Download from Scryfall' to get the new Dr Who cards\n- Life counter now supports custom player name and background image, monarch token, auto hide when unused and mixing colors with background styles\n- Improved filter to sort your collection\n- New vertical split display style for cards to read text from both side in landscape mode\n- Rename you decks\n- Blurred background style behind cards\n- Hide the dice section toggle for players using a real dice\n- In classic mode, swipe right to go back to the previous plane\n- New lifetime Premium in-app purchase";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";

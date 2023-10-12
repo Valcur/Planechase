@@ -11,6 +11,7 @@ class GameViewModel: ObservableObject {
     
     var deck: [Card] = []                       // The current cards pool to draw from
     var deckFull: [Card] = []                   // The whole card pool selected by the user
+    var previousPlane: Card?                    // To cancel and get back to the previous plane (classic only)
     @Published var map: [[Card?]]               // The eternities map board
     internal let center = Coord(x: 3, y: 3)      // The center coordinate of the map where should always be the selected plane
     @Published var travelModeEnable: Bool       // Has the user rolled a 6 and need to change plane
@@ -32,6 +33,7 @@ class GameViewModel: ObservableObject {
            )
         cardToZoomIn = nil
         travelModeEnable = false
+        previousPlane = nil
     }
     
     func startGame(withDeck: [Card], classicGameMode: Bool) {
@@ -53,6 +55,7 @@ class GameViewModel: ObservableObject {
            )
         cardToZoomIn = nil
         travelModeEnable = false
+        previousPlane = nil
         
         addCardAtCoord(card: drawCard(), center)
         setupNeighbors()
@@ -260,6 +263,7 @@ class GameViewModel: ObservableObject {
 // MARK: Classic game mode
 extension GameViewModel {
     func toggleTravelMode_Classic() {
+        previousPlane = cardToZoomIn
         withAnimation(.easeInOut(duration: 0.3)) {
             cardToZoomIn = drawCard()
         }
@@ -272,6 +276,18 @@ extension GameViewModel {
            )
         cardToZoomIn = drawCard()
         travelModeEnable = false
+    }
+    
+    func cancelPlaneswalk() {
+        if let previous = previousPlane {
+            if let zoomedCard = cardToZoomIn {
+                deck.insert(zoomedCard, at: 0)
+            }
+            withAnimation(.easeInOut(duration: 0.3)) {
+                cardToZoomIn = previous
+            }
+            previousPlane = nil
+        }
     }
 }
 

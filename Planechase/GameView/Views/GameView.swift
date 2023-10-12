@@ -27,6 +27,12 @@ struct GameView: View {
                         .position(x: planechaseVM.lifeCounterOptions.useLifeCounter ? 120 : 40, y: geo.size.height - 40)
                 } else {
                     ZoomView(card: gameVM.cardToZoomIn)
+                        .gesture(DragGesture(minimumDistance: 100, coordinateSpace: .local)
+                            .onEnded({ value in
+                                if value.translation.width > 0 {
+                                    gameVM.cancelPlaneswalk()
+                                }
+                            }))
                 }
                 
                 ReturnToMenuView()

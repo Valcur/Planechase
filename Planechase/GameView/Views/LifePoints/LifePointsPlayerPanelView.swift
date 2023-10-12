@@ -101,7 +101,7 @@ struct LifePointsPlayerPanelView: View {
                         }.offset(y: -20)
                 }
                 
-                if !isMiniView {
+                if !isMiniView && planechaseVM.lifeCounterProfiles.count > 0 {
                     GeometryReader { geo in
                         VStack  {
                             Button(action: {
