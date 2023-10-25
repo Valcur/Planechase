@@ -386,4 +386,12 @@ extension GameViewModel {
     private func removeCardFromRevealed(_ card: Card) {
         revealedCards.removeAll(where: { $0.id == card.id })
     }
+    
+    func planeswalkAwayFromPhenomenon() {
+        let card = drawCard()
+        cardToZoomIn = card
+        if !isPlayingClassicMode {
+            addCardAtCoord(card: card, center)
+        }
+    }
 }

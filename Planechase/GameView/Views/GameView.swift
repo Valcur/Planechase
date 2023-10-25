@@ -45,9 +45,13 @@ struct GameView: View {
                 ToolView()
                     .position(x: geo.size.width - 40, y: geo.size.height - 40)
                 
-                DiceView(diceResult: $diceResult)
-                    .position(x: diceViewPositionX(width: geo.size.width),
-                              y:  diceViewPositionY(height: geo.size.height))
+                ZStack {
+                    DiceView(diceResult: $diceResult)
+                    
+                    PlaneswalkAwayFromPhenomenon()
+                }
+                .position(x: diceViewPositionX(width: geo.size.width),
+                          y:  diceViewPositionY(height: geo.size.height))
                 
                 CurrentOtherPlanesView()
                     .position(x: diceViewPositionX(width: geo.size.width),

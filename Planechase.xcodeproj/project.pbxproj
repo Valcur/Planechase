@@ -48,6 +48,8 @@
 		DBA757E22ACEC34400DE2D16 /* MonarchTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */; };
 		DBA757E42ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E32ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift */; };
 		DBA757E62ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E52ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift */; };
+		DBA757E92ADEB8FE00DE2D16 /* Treachery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E82ADEB8FE00DE2D16 /* Treachery.swift */; };
+		DBA757EB2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757EA2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift */; };
 		DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */; };
 		DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */; };
 		DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */; };
@@ -114,6 +116,8 @@
 		DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonarchTokenView.swift; sourceTree = "<group>"; };
 		DBA757E32ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHideLifeCooldownView.swift; sourceTree = "<group>"; };
 		DBA757E52ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMonarchStyleChoiceView.swift; sourceTree = "<group>"; };
+		DBA757E82ADEB8FE00DE2D16 /* Treachery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Treachery.swift; sourceTree = "<group>"; };
+		DBA757EA2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LifePointsPlayerPanelView+Treachery.swift"; sourceTree = "<group>"; };
 		DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager_Structs.swift; sourceTree = "<group>"; };
 		DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerView+Filter.swift"; sourceTree = "<group>"; };
 		DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewBubble.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 		DB9C22752A1E377300656BC7 /* LifePoints */ = {
 			isa = PBXGroup;
 			children = (
+				DBA757E72ADEB8D800DE2D16 /* Treachery */,
 				DB0028DD29FE98C200E3DD74 /* LifePointsView.swift */,
 				DB9C22762A1E378000656BC7 /* Blueprints.swift */,
 				DB9C22782A1FCDC400656BC7 /* CountersSheet.swift */,
@@ -308,6 +313,15 @@
 				DBC339BC29ACEDC80089CB01 /* Views */,
 			);
 			path = GameView;
+			sourceTree = "<group>";
+		};
+		DBA757E72ADEB8D800DE2D16 /* Treachery */ = {
+			isa = PBXGroup;
+			children = (
+				DBA757E82ADEB8FE00DE2D16 /* Treachery.swift */,
+				DBA757EA2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift */,
+			);
+			path = Treachery;
 			sourceTree = "<group>";
 		};
 		DBC339BC29ACEDC80089CB01 /* Views */ = {
@@ -445,7 +459,9 @@
 				DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */,
 				DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */,
 				DBC339B329AB8AC60089CB01 /* PlanarDeckControlView.swift in Sources */,
+				DBA757EB2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift in Sources */,
 				DB18E3C329BE14E000C15251 /* OptionsPanel.swift in Sources */,
+				DBA757E92ADEB8FE00DE2D16 /* Treachery.swift in Sources */,
 				DBA02D0029A61E42004E94BC /* CardSizes.swift in Sources */,
 				DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */,
 				DBA02CF529A4CC4A004E94BC /* GameViewModel.swift in Sources */,
