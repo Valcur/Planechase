@@ -149,7 +149,7 @@ struct TreacheryPlayer {
             TreacheryRoleData(name: "The Grenadier", rarity: .unco, role: .traitor),
             TreacheryRoleData(name: "The Metamorph", rarity: .unco, role: .traitor),
             TreacheryRoleData(name: "The Oneiromancer", rarity: .unco, role: .traitor),
-            TreacheryRoleData(name: "The Puppet Master", rarity: .unco, role: .traitor),
+            //TreacheryRoleData(name: "The Puppet Master", rarity: .unco, role: .traitor),
             TreacheryRoleData(name: "The Reflector", rarity: .unco, role: .traitor),
             TreacheryRoleData(name: "The Time Bender", rarity: .unco, role: .traitor),
             TreacheryRoleData(name: "The Wearer of Masks", rarity: .unco, role: .traitor),

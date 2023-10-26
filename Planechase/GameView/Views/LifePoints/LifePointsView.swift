@@ -19,6 +19,7 @@ struct LifePointsView: View {
     @State var hideLifeTimer: Timer?
     @State var hideLifeTimerToggler: Bool = true
     @State var showMonarchToken = false
+    @State var isAllowedToChangeProfile: Bool = false
     
     init(isMiniView: Bool = false) {
         self.isMiniView = isMiniView
@@ -32,43 +33,74 @@ struct LifePointsView: View {
                     EvenBlueprint(row1:
                                     AnyView(HStack(spacing: 0) {
                         ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                            LifePointsPlayerPanelView(playerId: i - 1, player: $lifePointsViewModel.players[i - 1], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i - 1], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
+                            LifePointsPlayerPanelView(playerId: i - 1, player: $lifePointsViewModel.players[i - 1], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i - 1], lifepointHasBeenUsedToggler: $hideLifeTimerToggler, isAllowedToChangeProfile: $isAllowedToChangeProfile)
                         }
                     }), row2:
                                     AnyView(HStack(spacing: 0) {
                         ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                            LifePointsPlayerPanelView(playerId: i + halfNumberOfPlayers - 1, player: $lifePointsViewModel.players[i + halfNumberOfPlayers - 1], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i + halfNumberOfPlayers - 1], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
+                            LifePointsPlayerPanelView(playerId: i + halfNumberOfPlayers - 1, player: $lifePointsViewModel.players[i + halfNumberOfPlayers - 1], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i + halfNumberOfPlayers - 1], lifepointHasBeenUsedToggler: $hideLifeTimerToggler, isAllowedToChangeProfile: $isAllowedToChangeProfile)
                         }
                     }))
                 } else {
                     UnevenBlueprint(row1: AnyView(HStack(spacing: 0) {
                         ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                            LifePointsPlayerPanelView(playerId: i, player: $lifePointsViewModel.players[i], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
+                            LifePointsPlayerPanelView(playerId: i, player: $lifePointsViewModel.players[i], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i], lifepointHasBeenUsedToggler: $hideLifeTimerToggler, isAllowedToChangeProfile: $isAllowedToChangeProfile)
                         }
                     }),
                                     row2: AnyView(                    HStack(spacing: 0) {
                         ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                            LifePointsPlayerPanelView(playerId: i + halfNumberOfPlayers, player: $lifePointsViewModel.players[i + halfNumberOfPlayers], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i + halfNumberOfPlayers], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
+                            LifePointsPlayerPanelView(playerId: i + halfNumberOfPlayers, player: $lifePointsViewModel.players[i + halfNumberOfPlayers], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[i + halfNumberOfPlayers], lifepointHasBeenUsedToggler: $hideLifeTimerToggler, isAllowedToChangeProfile: $isAllowedToChangeProfile)
                         }
                     }),
-                                    sideElement: AnyView(LifePointsPlayerPanelView(playerId: 0, player: $lifePointsViewModel.players[0], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[0], lifepointHasBeenUsedToggler: $hideLifeTimerToggler))
+                                    sideElement: AnyView(LifePointsPlayerPanelView(playerId: 0, player: $lifePointsViewModel.players[0], isMiniView: isMiniView, hasBeenChoosenRandomly: playersChoosenRandomly[0], lifepointHasBeenUsedToggler: $hideLifeTimerToggler, isAllowedToChangeProfile: $isAllowedToChangeProfile))
                     )
                 }
+                
                 if !isMiniView {
                     MonarchTokenView(lifepointHasBeenUsedToggler: $hideLifeTimerToggler).opacity(showMonarchToken ? 1 : 0)
                     
-                    Button(action: {
-                        resetTimer()
-                        let player = Int.random(in: 0..<lifePointsViewModel.numberOfPlayer)
-                        playersChoosenRandomly[player] = true
-                        withAnimation(.easeInOut(duration: 1).delay(0.15)) {
-                            playersChoosenRandomly[player] = false
-                        }
-                    }, label: {
-                        Image(systemName: "dice.fill")
-                            .imageButtonLabel()
-                    }).position(x: geo.size.width - 35, y: geo.size.height - 35)
-                    
+                    CircularButtonView(buttons: [
+                        AnyView(
+                            Button(action: {
+                                resetTimer()
+                                let player = Int.random(in: 0..<lifePointsViewModel.numberOfPlayer)
+                                playersChoosenRandomly[player] = true
+                                withAnimation(.easeInOut(duration: 1).delay(0.15)) {
+                                    playersChoosenRandomly[player] = false
+                                }
+                            }, label: {
+                                Image(systemName: "dice.fill")
+                                    .imageButtonLabel()
+                            })
+                        ),
+                        
+                        AnyView(
+                            Button(action: {
+                                resetTimer()
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    showMonarchToken.toggle()
+                                }
+                            }, label: {
+                                Image("Crown 1")
+                                    .imageButtonLabel()
+                                    .opacity(showMonarchToken ? 0.7 : 1)
+                            }).opacity(planechaseVM.lifeCounterOptions.useMonarchToken ? 1 : 0)
+                        ),
+
+                        AnyView(
+                            Button(action: {
+                                resetTimer()
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    isAllowedToChangeProfile.toggle()
+                                }
+                            }, label: {
+                                Image(systemName: "pencil")
+                                    .imageButtonLabel()
+                                    .opacity(isAllowedToChangeProfile ? 0.7 : 1)
+                            })
+                        )
+                    ], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
+                    .position(x: geo.size.width - 35, y: geo.size.height - 35)
                     
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
@@ -78,18 +110,6 @@ struct LifePointsView: View {
                         Image(systemName: "xmark")
                             .imageButtonLabel()
                     }).position(x: 35, y: geo.size.height - 35)
-                    
-                    if planechaseVM.lifeCounterOptions.useMonarchToken {
-                        Button(action: {
-                            resetTimer()
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showMonarchToken.toggle()
-                            }
-                        }, label: {
-                            Image("Crown 1")
-                                .imageButtonLabel()
-                        }).position(x: 35, y: 35).opacity(showMonarchToken ? 0.7 : 1)
-                    }
                 }
             }.frame(width: geo.size.width, height: geo.size.height)
                 .background(
@@ -225,6 +245,9 @@ class LifePointsViewModel: ObservableObject {
             Color("\(colorPalette) Player 8"),
         ]
         colors.shuffle()
+        
+        var treacheryRoles = TreacheryPlayer.getRandomizedRoleArray(nbrOfPlayer: numberOfPlayer)
+        
         for i in 1...numberOfPlayer {
             var backgroundImage: UIImage? = nil
             var name = "\("lifepoints_player".translate()) \(i)"
@@ -244,7 +267,14 @@ class LifePointsViewModel: ObservableObject {
                 }
             }
             
-            players.append(PlayerProfile(id: id, name: name, backgroundColor: colors[i - 1], backgroundImage: backgroundImage, lifePoints: startingLife, counters: PlayerCounters(), profileIndex: profileIndex))
+            var role: TreacheryPlayer? = nil
+            if true {
+                if treacheryRoles.count > 0 {
+                    role = TreacheryPlayer(role: treacheryRoles.removeFirst())
+                }
+            }
+            
+            players.append(PlayerProfile(id: id, name: name, backgroundColor: colors[i - 1], backgroundImage: backgroundImage, lifePoints: startingLife, counters: PlayerCounters(), profileIndex: profileIndex, treachery: role))
         }
     }
 }
@@ -257,6 +287,7 @@ struct PlayerProfile {
     var lifePoints: Int
     var counters: PlayerCounters
     var profileIndex: Int
+    var treachery: TreacheryPlayer?
 }
 
 struct PlayerCounters {

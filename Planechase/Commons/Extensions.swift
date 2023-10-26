@@ -87,17 +87,24 @@ extension View {
             self
         }
     }
+    
+    func genericButtonLabel(style: ViewStyle = .primary) -> some View {
+        self
+            .padding()
+            .blurredBackground(style: style)
+            .padding(5)
+    }
 }
 
 extension Image {
-    func imageButtonLabel(customSize: CGFloat = 27) -> some View {
+    func imageButtonLabel(style: ViewStyle = .primary, customSize: CGFloat = 27) -> some View {
         self
             .resizable()
             .frame(width: customSize, height: customSize)
             .foregroundColor(.white)
             .padding()
             .frame(width: 60, height: 60)
-            .blurredBackground()
+            .blurredBackground(style: style)
             .padding(5)
     }
 }

@@ -50,6 +50,7 @@
 		DBA757E62ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E52ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift */; };
 		DBA757E92ADEB8FE00DE2D16 /* Treachery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757E82ADEB8FE00DE2D16 /* Treachery.swift */; };
 		DBA757EB2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757EA2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift */; };
+		DBA757F32AE9725600DE2D16 /* CircularButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757F22AE9725600DE2D16 /* CircularButtonView.swift */; };
 		DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */; };
 		DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */; };
 		DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */; };
@@ -118,6 +119,7 @@
 		DBA757E52ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMonarchStyleChoiceView.swift; sourceTree = "<group>"; };
 		DBA757E82ADEB8FE00DE2D16 /* Treachery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Treachery.swift; sourceTree = "<group>"; };
 		DBA757EA2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LifePointsPlayerPanelView+Treachery.swift"; sourceTree = "<group>"; };
+		DBA757F22AE9725600DE2D16 /* CircularButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButtonView.swift; sourceTree = "<group>"; };
 		DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager_Structs.swift; sourceTree = "<group>"; };
 		DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerView+Filter.swift"; sourceTree = "<group>"; };
 		DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewBubble.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				DB9C22782A1FCDC400656BC7 /* CountersSheet.swift */,
 				DB9C227A2A26624A00656BC7 /* LifePointsPlayerPanelView.swift */,
 				DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */,
+				DBA757F22AE9725600DE2D16 /* CircularButtonView.swift */,
 			);
 			path = LifePoints;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				DB9C22802A29F42E00656BC7 /* DiceOverlay.swift in Sources */,
 				DBC339BB29ACED690089CB01 /* PlanechaseVM+IAP.swift in Sources */,
 				DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */,
+				DBA757F32AE9725600DE2D16 /* CircularButtonView.swift in Sources */,
 				DB5098E929A392880058FCCB /* Extensions.swift in Sources */,
 				DB9C228B2A29F76400656BC7 /* MenuCustomDiceChoiceView.swift in Sources */,
 				DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */,
@@ -670,7 +674,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.2;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -704,7 +708,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.2;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

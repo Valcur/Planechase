@@ -10,49 +10,68 @@ import SwiftUI
 extension LifePointsPlayerPanelView {
     struct TreacheryPanelView: View {
         @Binding var treacheryData: TreacheryPlayer?
+        @Binding var showPanel: Bool
+        @Binding var lifepointHasBeenUsedToggler: Bool
+        let isOnTheOppositeSide: Bool
+        
         var body: some View {
             GeometryReader { geo in
-                VStack {
-                    if let treachery = treacheryData {
-                        HStack {
-                            Text(treachery.isRoleRevealed ? "" : "Scan to see your role")
-                                .headline()
-                            Spacer()
-                            Button(action: {
-                                treacheryData!.isRoleRevealed.toggle()
-                            }, label: {
-                                Text(treachery.isRoleRevealed ? "Hide" : "Reveal")
-                                    .buttonLabel()
-                            })
-                        }.padding(.horizontal, 5)
-                        ZStack {
-                            if treachery.isRoleRevealed {
-                                if let image = treachery.cardImage {
-                                    /*ZStack {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(height: geo.size.height * 2)
-                                    }.frame(height: geo.size.height, alignment: .bottom).clipped()*/
-                                    ScrollView(.vertical) {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(maxWidth: geo.size.height)
-                                            .cornerRadius(geo.size.height / 10)
-                                    }
+                if let treachery = treacheryData {
+                    ZStack {
+                        if treachery.isRoleRevealed {
+                            if let image = treachery.cardImage {
+                                ScrollView(.vertical) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: geo.size.height)
+                                        .cornerRadius(geo.size.height / 10)
+                                        .onTapGesture {  }
+                                        .onLongPressGesture(minimumDuration: 1, perform: {
+                                            treacheryData!.isRoleRevealed.toggle()
+                                            lifepointHasBeenUsedToggler.toggle()
+                                        })
                                 }
-                            } else {
-                                Image(uiImage: treachery.QRCode)
-                                    .interpolation(.none)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding(.horizontal, 45)
                             }
+                        } else {
+                            Image(uiImage: treachery.QRCode)
+                                .interpolation(.none)
+                                .resizable()
+                                .scaledToFit()
+                                .padding(.horizontal, 45)
+                                .padding(.top, 45)
+                                .onLongPressGesture(minimumDuration: 1, perform: {
+                                    treacheryData!.isRoleRevealed.toggle()
+                                    lifepointHasBeenUsedToggler.toggle()
+                                })
                         }
-                    }
-                    Spacer()
-                }.background(Color.black)
+                        VStack {
+                            HStack(alignment: .top, spacing: 10) {
+                                Spacer().frame(width: 50)
+                                Spacer()
+                                VStack {
+                                    Text(treachery.isRoleRevealed ? "" : "Scan to see your role")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                    Text(treachery.isRoleRevealed ? "" : "Hold to reveal/Hide")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                }.padding(.top, 5)
+                                Spacer()
+                                Button(action: {
+                                    showPanel = false
+                                    lifepointHasBeenUsedToggler.toggle()
+                                }, label: {
+                                    Image(systemName: "xmark")
+                                        .resizable()
+                                        .frame(width: 15, height: 15)
+                                        .genericButtonLabel()
+                                }).frame(width: 50)
+                            }.padding(.horizontal, 2).environment(\.layoutDirection, isOnTheOppositeSide ? .rightToLeft : .leftToRight)
+                            Spacer()
+                        }
+                    }.background(Color.black)
+                }
             }
         }
     }
@@ -60,11 +79,15 @@ extension LifePointsPlayerPanelView {
     struct TreacheryCardView: View {
         @State private var cardImage: UIImage? = nil
         @Binding var player: PlayerProfile
+        let putCardOnTheRight: Bool
         private let croppingGradient = Gradient(colors: [Color.black, Color.black, Color.black, Color.black, Color.black, Color.black, Color.black.opacity(0), Color.black.opacity(0)])
         
         var body: some View {
             GeometryReader { geo in
                 HStack {
+                    if putCardOnTheRight {
+                        Spacer()
+                    }
                     if let treachery = player.treachery {
                         ZStack {
                             if treachery.isRoleRevealed {
@@ -83,9 +106,11 @@ extension LifePointsPlayerPanelView {
                         /*.mask(
                             LinearGradient(gradient: croppingGradient, startPoint: .leading, endPoint: .trailing)
                         )*/
-                        .offset(x: -geo.size.height / 4)
+                        .offset(x: (geo.size.height / 4) * (putCardOnTheRight ? 1 : -1))
                     }
-                    Spacer()
+                    if !putCardOnTheRight {
+                        Spacer()
+                    }
                 }
                 .onAppear() {
                     loadCardImage()

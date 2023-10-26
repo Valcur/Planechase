@@ -24,11 +24,15 @@ struct LifePointsPlayerPanelView: View {
     @Binding var lifepointHasBeenUsedToggler: Bool
     @State private var showingCountersSheet = false
     @State var showProfileSelector: Bool = false
+    @State var showTreacheryPanel: Bool = false
     var isPlayerOnTheSide: Bool {
         playerId == 0 && lifePointsViewModel.numberOfPlayer % 2 == 1
     }
+    var isPlayerOnOppositeSide: Bool {
+        (playerId < lifePointsViewModel.numberOfPlayer / 2 + lifePointsViewModel.numberOfPlayer % 2) && (!isPlayerOnTheSide)
+    }
     @State var profileChangeTimerProgress: CGFloat = 1
-    @State var isAllowedToChangeProfile: Bool = true
+    @Binding var isAllowedToChangeProfile: Bool
     
     var body: some View {
         ZStack {
@@ -54,17 +58,19 @@ struct LifePointsPlayerPanelView: View {
                     if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
                         VisualEffectView(effect: UIBlurEffect(style: blurEffect))
                     } else {
-                        GeometryReader { geo in
-                            if let style = planechaseVM.lifeCounterOptions.backgroundStyleId, style >= 0 {
-                                CustomBackgroundStyle.getSelectedBackgroundImage(style)
-                                    .scaledToFill()
-                                    .colorMultiply(players[playerId].backgroundColor)
-                                    .clipped()
-                            } else {
-                                players[playerId].backgroundColor
-                            }
+                        if let style = planechaseVM.lifeCounterOptions.backgroundStyleId, style >= 0 {
+                            CustomBackgroundStyle.getSelectedBackgroundImage(style)
+                                .scaledToFill()
+                                .colorMultiply(players[playerId].backgroundColor)
+                                .clipped()
+                        } else {
+                            players[playerId].backgroundColor
                         }
                     }
+                }
+                
+                if true && !isMiniView {
+                    TreacheryCardView(player: $player, putCardOnTheRight: isPlayerOnOppositeSide)
                 }
                 
                 if planechaseVM.lifeCounterOptions.useCommanderDamages && !isMiniView {
@@ -76,7 +82,7 @@ struct LifePointsPlayerPanelView: View {
                         Spacer()
                     }.offset(y: -15)
                 }
-                LifePointsPanelView(playerName: player.name, lifepoints: $player.lifePoints, totalChange: $totalChange, isMiniView: isMiniView, inverseChangeSide: playerId < lifePointsViewModel.numberOfPlayer / 2 + lifePointsViewModel.numberOfPlayer % 2).cornerRadius(15)
+                LifePointsPanelView(playerName: player.name, lifepoints: $player.lifePoints, totalChange: $totalChange, isMiniView: isMiniView, inverseChangeSide: isPlayerOnOppositeSide || isPlayerOnTheSide).cornerRadius(15)
                 VStack(spacing: 0) {
                     Rectangle()
                         .opacity(0.0001)
@@ -91,6 +97,28 @@ struct LifePointsPlayerPanelView: View {
                             startTotalChangeTimer()
                         }
                 }
+                
+                if !isMiniView {
+                    GeometryReader { geo in
+                        HStack {
+                            if isPlayerOnOppositeSide {
+                                Spacer()
+                            }
+                            Button(action: {
+                                showTreacheryPanel = true
+                                lifepointHasBeenUsedToggler.toggle()
+                            }, label: {
+                                Color.black
+                                    .frame(width: CardSizes.classic_widthForHeight(geo.size.height ) - (geo.size.height / 4))
+                                    .opacity(0.000001)
+                            })
+                            if !isPlayerOnOppositeSide {
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+                
                 if planechaseVM.lifeCounterOptions.useCommanderDamages && !isMiniView {
                     CommanderRecapView(playerId: playerId, lifePoints: $player.lifePoints, playerCounters: $player.counters)
                         .onTapGesture {
@@ -116,22 +144,12 @@ struct LifePointsPlayerPanelView: View {
                                             .foregroundColor(.white)
                                         Circle()
                                             .stroke(
-                                                Color.white.opacity(0.5),
-                                                style: StrokeStyle(
-                                                    lineWidth: 4,
-                                                    lineCap: .round
-                                                )
-                                            )
-                                        Circle()
-                                            .trim(from: 0, to: profileChangeTimerProgress)
-                                            .stroke(
                                                 Color.white,
                                                 style: StrokeStyle(
                                                     lineWidth: 4,
                                                     lineCap: .round
                                                 )
                                             )
-                                            .rotationEffect(.degrees(-90))
                                     }.frame(width: 45, height: 45).padding(8)
                                 }
                             }).iPhoneScaler(width: 100, height: 80, scaleEffect: 0.6, anchor: .top)
@@ -142,40 +160,35 @@ struct LifePointsPlayerPanelView: View {
                 if showProfileSelector {
                     ProfileSelector(showSelector: $showProfileSelector, playerId: playerId, player: $player, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler)
                 }
+                if showTreacheryPanel {
+                    TreacheryPanelView(treacheryData: $player.treachery, showPanel: $showTreacheryPanel, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler, isOnTheOppositeSide: isPlayerOnOppositeSide)
+                }
                 
             }.cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10))
                 .gesture(DragGesture()
                     .onChanged { value in
-                        let newValue = value.translation.height
-                        if newValue > prevValue + 6 {
-                            prevValue = newValue
-                            removeLifepoint()
-                        }
-                        else if newValue < prevValue - 6 {
-                            prevValue = newValue
-                            addLifepoint()
+                        if !showTreacheryPanel {
+                            let newValue = value.translation.height
+                            if newValue > prevValue + 6 {
+                                prevValue = newValue
+                                removeLifepoint()
+                            }
+                            else if newValue < prevValue - 6 {
+                                prevValue = newValue
+                                addLifepoint()
+                            }
                         }
                     }
                     .onEnded({ _ in
-                        startTotalChangeTimer()
+                        if !showTreacheryPanel {
+                            startTotalChangeTimer()
+                        }
                     })
                 )
                 .allowsHitTesting(!showingCountersSheet)
                 .opacity(!showingCountersSheet ? 1 : 0)
             
             Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0).cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10)).allowsHitTesting(false)
-        }
-        .onAppear() {
-            if profileChangeTimerProgress > 0 && !isMiniView {
-                withAnimation(.easeInOut(duration: 60)) {
-                    profileChangeTimerProgress = 0
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 60, execute: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        isAllowedToChangeProfile = false
-                    }
-                })
-            }
         }
     }
     
