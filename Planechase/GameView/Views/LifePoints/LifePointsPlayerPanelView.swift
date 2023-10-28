@@ -50,7 +50,6 @@ struct LifePointsPlayerPanelView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .clipped()
-                                
                         }
                         Color.black.opacity(0.15)
                     }
@@ -59,10 +58,13 @@ struct LifePointsPlayerPanelView: View {
                         VisualEffectView(effect: UIBlurEffect(style: blurEffect))
                     } else {
                         if let style = planechaseVM.lifeCounterOptions.backgroundStyleId, style >= 0 {
-                            CustomBackgroundStyle.getSelectedBackgroundImage(style)
-                                .scaledToFill()
-                                .colorMultiply(players[playerId].backgroundColor)
-                                .clipped()
+                            GeometryReader { geo in
+                                CustomBackgroundStyle.getSelectedBackgroundImage(style)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .colorMultiply(players[playerId].backgroundColor)
+                                    .clipped()
+                            }
                         } else {
                             players[playerId].backgroundColor
                         }
