@@ -20,17 +20,23 @@ extension LifePointsPlayerPanelView {
                     ZStack {
                         if treachery.isRoleRevealed {
                             if let image = treachery.cardImage {
-                                ScrollView(.vertical) {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: geo.size.height)
-                                        .cornerRadius(geo.size.height / 10)
-                                        .onTapGesture {  }
-                                        .onLongPressGesture(minimumDuration: 1, perform: {
-                                            treacheryData!.isRoleRevealed.toggle()
-                                            lifepointHasBeenUsedToggler.toggle()
-                                        })
+                                ScrollView(.vertical, showsIndicators: false) {
+                                    ScrollViewReader { value in
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(maxWidth: geo.size.height)
+                                            .cornerRadius(CardSizes.classic_cornerRadiusForHeight(geo.size.height))
+                                            .onTapGesture {  }
+                                            .onLongPressGesture(minimumDuration: 1, perform: {
+                                                treacheryData!.isRoleRevealed.toggle()
+                                                lifepointHasBeenUsedToggler.toggle()
+                                            })
+                                            .id(0)
+                                            .onAppear {
+                                                value.scrollTo(0, anchor: .bottom)
+                                            }
+                                    }
                                 }
                             }
                         } else {
@@ -102,7 +108,7 @@ extension LifePointsPlayerPanelView {
                                     .scaledToFit()
                                     
                             }
-                        }.cornerRadius(CardSizes.cornerRadiusForWidth(geo.size.width) / 1.8)
+                        }.cornerRadius(CardSizes.classic_cornerRadiusForHeight(geo.size.height))
                         /*.mask(
                             LinearGradient(gradient: croppingGradient, startPoint: .leading, endPoint: .trailing)
                         )*/

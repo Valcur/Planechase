@@ -104,8 +104,8 @@ struct TreacheryPlayer {
         ]
         
         private static let guardians = [
-            TreacheryRoleData(name: "The Ã†therist", rarity: .unco, role: .guardian),
-            TreacheryRoleData(name: "The Augur", rarity: .unco, role: .guardian),
+            TreacheryRoleData(name: "The Ætherist", rarity: .unco, role: .guardian),
+            /*TreacheryRoleData(name: "The Augur", rarity: .unco, role: .guardian),
             TreacheryRoleData(name: "The Bodyguard", rarity: .unco, role: .guardian),
             TreacheryRoleData(name: "The Cathar", rarity: .unco, role: .guardian),
             TreacheryRoleData(name: "The Cryomancer", rarity: .unco, role: .guardian),
@@ -119,7 +119,7 @@ struct TreacheryPlayer {
             TreacheryRoleData(name: "The Spellsnatcher", rarity: .unco, role: .guardian),
             TreacheryRoleData(name: "The Summoner", rarity: .unco, role: .guardian),
             TreacheryRoleData(name: "The Supplier", rarity: .unco, role: .guardian),
-            TreacheryRoleData(name: "The Warlock", rarity: .unco, role: .guardian)
+            TreacheryRoleData(name: "The Warlock", rarity: .unco, role: .guardian)*/
         ]
         
         private static let assassins = [
@@ -174,9 +174,16 @@ struct TreacheryPlayer {
             let rarity: Rarity
             
             init(name: String, rarity: Rarity, role: TreacheryRole) {
-                self.roleUrl = "https://mtgtreachery.net/rules/oracle/?card=\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
+                var fixedName = name
+                if name == "The Ætherist" {
+                    fixedName = "the Ætherist"
+                } else {
+                    fixedName = fixedName.lowercased()
+                }
+                self.roleUrl = "https://mtgtreachery.net/rules/oracle/?card=\(fixedName.replacingOccurrences(of: " ", with: "-"))"
                 self.imageUrl = "https://mtgtreachery.net/images/cards/en/trd/\(role.name())%20-%20\(name.replacingOccurrences(of: " ", with: "%20")).jpg"
                 self.rarity = rarity
+                print(imageUrl)
             }
             
             enum Rarity {

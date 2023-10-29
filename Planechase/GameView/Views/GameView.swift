@@ -14,9 +14,9 @@ struct GameView: View {
     static let biggerCardsOnMapCoeff: CGFloat = 1.3
     let lifePointsViewModel: LifePointsViewModel
     
-    init(lifeCounterOptions: LifeOptions, profiles: [PlayerCustomProfile]) {
+    init(lifeCounterOptions: LifeOptions, profiles: [PlayerCustomProfile], playWithTreachery: Bool) {
         lifePointsViewModel = LifePointsViewModel(numberOfPlayer: lifeCounterOptions.nbrOfPlayers,
-                                                  startingLife: lifeCounterOptions.startingLife, colorPalette: lifeCounterOptions.colorPaletteId, customProfiles: profiles)
+                                                  startingLife: lifeCounterOptions.startingLife, colorPalette: lifeCounterOptions.colorPaletteId, customProfiles: profiles, playWithTreachery: playWithTreachery)
     }
     
     var body: some View {

@@ -74,4 +74,8 @@ struct CardSizes {
         // Width 6.3 for height 8.8
         return height * 0.72
     }
+    
+    static func classic_cornerRadiusForHeight(_ width: CGFloat) -> CGFloat {
+        return width / 22
+    }
 }

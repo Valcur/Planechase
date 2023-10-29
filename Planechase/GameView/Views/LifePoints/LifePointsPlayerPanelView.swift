@@ -33,6 +33,7 @@ struct LifePointsPlayerPanelView: View {
     }
     @State var profileChangeTimerProgress: CGFloat = 1
     @Binding var isAllowedToChangeProfile: Bool
+    let gradientOverlay = Gradient(colors: [.black.opacity(0.4), .black.opacity(0.1), .black.opacity(0.1), .black.opacity(0.1), .black.opacity(0.4)])
     
     var body: some View {
         ZStack {
@@ -43,38 +44,43 @@ struct LifePointsPlayerPanelView: View {
 
             ZStack(alignment: .bottom) {
                 // BACKGROUND
-                if let image = player.backgroundImage {
-                    ZStack {
-                        GeometryReader { geo in
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .clipped()
-                        }
-                        Color.black.opacity(0.15)
-                    }
-                } else {
-                    if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
-                        VisualEffectView(effect: UIBlurEffect(style: blurEffect))
-                    } else {
-                        if let style = planechaseVM.lifeCounterOptions.backgroundStyleId, style >= 0 {
+                Group {
+                    if let image = player.backgroundImage {
+                        ZStack {
                             GeometryReader { geo in
-                                CustomBackgroundStyle.getSelectedBackgroundImage(style)
+                                Image(uiImage: image)
                                     .resizable()
                                     .scaledToFill()
-                                    .colorMultiply(players[playerId].backgroundColor)
                                     .clipped()
                             }
+                            if !isMiniView {
+                                LinearGradient(gradient: gradientOverlay, startPoint: .leading, endPoint: .trailing)
+                            }
+                        }
+                    } else {
+                        if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
+                            VisualEffectView(effect: UIBlurEffect(style: blurEffect))
                         } else {
-                            players[playerId].backgroundColor
+                            if let style = planechaseVM.lifeCounterOptions.backgroundStyleId, style >= 0 {
+                                GeometryReader { geo in
+                                    CustomBackgroundStyle.getSelectedBackgroundImage(style)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .colorMultiply(players[playerId].backgroundColor)
+                                        .clipped()
+                                }
+                            } else {
+                                players[playerId].backgroundColor
+                            }
                         }
                     }
+                    
+                    if planechaseVM.isTreacheryEnable && !isMiniView {
+                        TreacheryCardView(player: $player, putCardOnTheRight: isPlayerOnOppositeSide)
+                    }
+                    
+                    Color.black.opacity(0.15)
                 }
-                
-                if true && !isMiniView {
-                    TreacheryCardView(player: $player, putCardOnTheRight: isPlayerOnOppositeSide)
-                }
-                
                 if planechaseVM.lifeCounterOptions.useCommanderDamages && !isMiniView {
                     HStack(alignment: .center) {
                         Spacer()
@@ -100,7 +106,7 @@ struct LifePointsPlayerPanelView: View {
                         }
                 }
                 
-                if !isMiniView {
+                if planechaseVM.isTreacheryEnable && !isMiniView {
                     GeometryReader { geo in
                         HStack {
                             if isPlayerOnOppositeSide {
@@ -166,7 +172,7 @@ struct LifePointsPlayerPanelView: View {
                     TreacheryPanelView(treacheryData: $player.treachery, showPanel: $showTreacheryPanel, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler, isOnTheOppositeSide: isPlayerOnOppositeSide)
                 }
                 
-            }.cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10))
+            }.cornerRadius(isMiniView ? 0 : 0).padding(0).padding(.horizontal, isMiniView ? 0 : (isPlayerOnTheSide ? 0 : 2)).padding(.top, isMiniView ? 0 : (isPlayerOnTheSide ? 0 : 2))
                 .gesture(DragGesture()
                     .onChanged { value in
                         if !showTreacheryPanel {
@@ -190,7 +196,9 @@ struct LifePointsPlayerPanelView: View {
                 .allowsHitTesting(!showingCountersSheet)
                 .opacity(!showingCountersSheet ? 1 : 0)
             
-            Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0).cornerRadius(isMiniView ? 0 : 15).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 2 : 10)).allowsHitTesting(false)
+            Color.black.opacity(player.lifePoints > 0 ? 0 : 0.7).allowsHitTesting(false)
+            
+            Color.white.opacity(hasBeenChoosenRandomly ? 1 : 0).cornerRadius(0).padding(isMiniView ? 0 : (UIDevice.isIPhone ? 1 : 1)).allowsHitTesting(false)
         }
     }
     

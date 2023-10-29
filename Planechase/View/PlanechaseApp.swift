@@ -27,7 +27,7 @@ struct PlanechaseApp: App {
     var body: some Scene {
         WindowGroup {
             if planechaseVM.isPlaying {
-                GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles)
+                GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles, playWithTreachery: planechaseVM.isTreacheryEnable)
                     .statusBar(hidden: true)
                     .environmentObject(planechaseVM)
                     .environmentObject(planechaseVM.gameVM)
@@ -84,6 +84,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var showDiscordInvite = false
     @Published var paymentProcessing = false
     @Published var useBlurredBackground = false
+    @Published var isTreacheryEnable = true
     
     init() {
         gradientId = SaveManager.getOptions_GradientId()
