@@ -177,7 +177,7 @@ struct LifePointsPanelView: View {
                 }
                 
                 Text("\(lifepoints)")
-                    .font(.system(size: isMiniView ? 80 : (UIDevice.isIPhone ? 40 : 65)))
+                    .font(.system(size: isMiniView ? 80 : (UIDevice.isIPhone ? 40 : 70)))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .shadow(color: isMiniView ? .clear : Color("ShadowColorDarker"), radius: 3, x: 0, y: 0)

@@ -16,11 +16,11 @@ struct CircularButtonView: View {
     var body: some View {
         ZStack {
             // Hidden Buttons
-            buttons[0].offset(x: showMenu ? -spacing : 0)
+            buttons[0].offset(x: showMenu ? -spacing : 0).opacity(showMenu ? 1 : 0)
             
-            buttons[1].offset(x: showMenu ? -spacing : 0, y: showMenu ? -spacing : 0)
+            buttons[1].offset(x: showMenu ? -spacing : 0, y: showMenu ? -spacing : 0).opacity(showMenu ? 1 : 0)
             
-            buttons[2].offset(y: showMenu ? -spacing : 0)
+            buttons[2].offset(y: showMenu ? -spacing : 0).opacity(showMenu ? 1 : 0)
             
             
             // Enable

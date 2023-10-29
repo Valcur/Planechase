@@ -10,8 +10,7 @@ import CoreImage.CIFilterBuiltins
 
 struct TreacheryPlayer {
     var role: TreacheryRole
-    var cardImageUrl: String
-    var cardImage: UIImage?
+    var cardImageName: String
     var roleUrl: String
     var QRCode: UIImage
     var isRoleRevealed: Bool
@@ -21,7 +20,7 @@ struct TreacheryPlayer {
         self.isRoleRevealed = role == .leader ? true : false
         let roleData = TreacheryData.getRandomRole(role) ?? TreacheryData.TreacheryRoleData(name: "", rarity: .unco, role: .traitor)
         self.roleUrl = roleData.roleUrl
-        self.cardImageUrl = roleData.imageUrl
+        self.cardImageName = roleData.name
         self.QRCode = UIImage()
         self.QRCode = generateQRCode(from: roleData.roleUrl)
     }
@@ -170,7 +169,7 @@ struct TreacheryPlayer {
         
         struct TreacheryRoleData {
             let roleUrl: String
-            let imageUrl: String
+            let name: String
             let rarity: Rarity
             
             init(name: String, rarity: Rarity, role: TreacheryRole) {
@@ -181,9 +180,8 @@ struct TreacheryPlayer {
                     fixedName = fixedName.lowercased()
                 }
                 self.roleUrl = "https://mtgtreachery.net/rules/oracle/?card=\(fixedName.replacingOccurrences(of: " ", with: "-"))"
-                self.imageUrl = "https://mtgtreachery.net/images/cards/en/trd/\(role.name())%20-%20\(name.replacingOccurrences(of: " ", with: "%20")).jpg"
+                self.name = name
                 self.rarity = rarity
-                print(imageUrl)
             }
             
             enum Rarity {

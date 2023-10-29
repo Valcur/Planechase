@@ -19,24 +19,22 @@ extension LifePointsPlayerPanelView {
                 if let treachery = treacheryData {
                     ZStack {
                         if treachery.isRoleRevealed {
-                            if let image = treachery.cardImage {
-                                ScrollView(.vertical, showsIndicators: false) {
-                                    ScrollViewReader { value in
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(maxWidth: geo.size.height)
-                                            .cornerRadius(CardSizes.classic_cornerRadiusForHeight(geo.size.height))
-                                            .onTapGesture {  }
-                                            .onLongPressGesture(minimumDuration: 1, perform: {
-                                                treacheryData!.isRoleRevealed.toggle()
-                                                lifepointHasBeenUsedToggler.toggle()
-                                            })
-                                            .id(0)
-                                            .onAppear {
-                                                value.scrollTo(0, anchor: .bottom)
-                                            }
-                                    }
+                            ScrollView(.vertical, showsIndicators: false) {
+                                ScrollViewReader { value in
+                                    Image(treachery.cardImageName)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: geo.size.height)
+                                        .cornerRadius(CardSizes.classic_cornerRadiusForHeight(geo.size.height))
+                                        .onTapGesture {  }
+                                        .onLongPressGesture(minimumDuration: 1, perform: {
+                                            treacheryData!.isRoleRevealed.toggle()
+                                            lifepointHasBeenUsedToggler.toggle()
+                                        })
+                                        .id(0)
+                                        .onAppear {
+                                            value.scrollTo(0, anchor: .bottom)
+                                        }
                                 }
                             }
                         } else {
@@ -83,7 +81,6 @@ extension LifePointsPlayerPanelView {
     }
     
     struct TreacheryCardView: View {
-        @State private var cardImage: UIImage? = nil
         @Binding var player: PlayerProfile
         let putCardOnTheRight: Bool
         private let croppingGradient = Gradient(colors: [Color.black, Color.black, Color.black, Color.black, Color.black, Color.black, Color.black.opacity(0), Color.black.opacity(0)])
@@ -97,11 +94,9 @@ extension LifePointsPlayerPanelView {
                     if let treachery = player.treachery {
                         ZStack {
                             if treachery.isRoleRevealed {
-                                if let image = cardImage {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFit()
-                                }
+                                Image(treachery.cardImageName)
+                                    .resizable()
+                                    .scaledToFit()
                             } else {
                                 Image("TreacheryCardBack")
                                     .resizable()
@@ -118,32 +113,7 @@ extension LifePointsPlayerPanelView {
                         Spacer()
                     }
                 }
-                .onAppear() {
-                    loadCardImage()
-                }
             }.allowsHitTesting(false)
-        }
-        
-        func loadCardImage() {
-            guard let treacheryData = player.treachery else { return }
-            if treacheryData.cardImage == nil {
-                print("loading")
-                guard let url = URL(string: treacheryData.cardImageUrl) else { return }
-                
-                URLSession.shared.dataTask(with: url) { data, response, error in
-                    guard let data = data, error == nil else {
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.cardImage = UIImage(data: data)
-                        player.treachery?.cardImage = self.cardImage
-                    }
-                }.resume()
-            } else {
-                print("already loaded")
-                cardImage = treacheryData.cardImage
-            }
         }
     }
 }

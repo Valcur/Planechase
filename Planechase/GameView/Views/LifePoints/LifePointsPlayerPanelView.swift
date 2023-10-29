@@ -79,7 +79,7 @@ struct LifePointsPlayerPanelView: View {
                         TreacheryCardView(player: $player, putCardOnTheRight: isPlayerOnOppositeSide)
                     }
                     
-                    Color.black.opacity(0.15)
+                    Color.black.opacity(0.1)
                 }
                 if planechaseVM.lifeCounterOptions.useCommanderDamages && !isMiniView {
                     HStack(alignment: .center) {
