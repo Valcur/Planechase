@@ -26,7 +26,7 @@ extension View {
                     VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
                         .cornerRadius(cornerRadius)
                         .shadowed()
-                } else {
+                } else if style == .secondary {
                     Color.black
                         .cornerRadius(cornerRadius)
                         .shadowed()
@@ -103,7 +103,7 @@ extension Image {
             .frame(width: customSize, height: customSize)
             .foregroundColor(.white)
             .padding()
-            .frame(width: 60, height: 60)
+            .frame(width: style == .noBackground ? 40 : 60, height: style == .noBackground ? 40 : 60)
             .blurredBackground(style: style)
             .padding(5)
     }
@@ -140,6 +140,14 @@ extension Text {
             .fixedSize(horizontal: false, vertical: true)
             //.fontWeight(.bold)
     }
+    
+    func underlinedLink() -> some View {
+        self
+            .font(.headline)
+            .fontWeight(.bold)
+            .foregroundColor(.white)
+            .underline()
+    }
 }
 
 extension UIImage {
@@ -169,6 +177,7 @@ extension UIImage {
 enum ViewStyle {
     case primary
     case secondary
+    case noBackground
 }
 
 struct VisualEffectView: UIViewRepresentable {

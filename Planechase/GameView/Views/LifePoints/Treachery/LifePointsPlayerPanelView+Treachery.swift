@@ -24,7 +24,7 @@ extension LifePointsPlayerPanelView {
                                     Image(treachery.cardImageName)
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(maxWidth: geo.size.height)
+                                        .frame(maxWidth: geo.size.height * 1.2)
                                         .cornerRadius(CardSizes.classic_cornerRadiusForHeight(geo.size.height))
                                         .onTapGesture {  }
                                         .onLongPressGesture(minimumDuration: 1, perform: {
@@ -44,6 +44,7 @@ extension LifePointsPlayerPanelView {
                                 .scaledToFit()
                                 .padding(.horizontal, 45)
                                 .padding(.top, 45)
+                                .padding(.bottom, UIDevice.isIPhone ? 10 : 0)
                                 .onLongPressGesture(minimumDuration: 1, perform: {
                                     treacheryData!.isRoleRevealed.toggle()
                                     lifepointHasBeenUsedToggler.toggle()
@@ -52,7 +53,6 @@ extension LifePointsPlayerPanelView {
                         VStack {
                             HStack(alignment: .top, spacing: 10) {
                                 Spacer().frame(width: 50)
-                                Spacer()
                                 VStack {
                                     Text(treachery.isRoleRevealed ? "" : "Scan to see your role")
                                         .font(.footnote)
@@ -60,8 +60,7 @@ extension LifePointsPlayerPanelView {
                                     Text(treachery.isRoleRevealed ? "" : "Hold to reveal/Hide")
                                         .font(.footnote)
                                         .foregroundColor(.white)
-                                }.padding(.top, 5)
-                                Spacer()
+                                }.frame(maxWidth: .infinity).padding(.top, 5)
                                 Button(action: {
                                     showPanel = false
                                     lifepointHasBeenUsedToggler.toggle()
@@ -107,7 +106,7 @@ extension LifePointsPlayerPanelView {
                         /*.mask(
                             LinearGradient(gradient: croppingGradient, startPoint: .leading, endPoint: .trailing)
                         )*/
-                        .offset(x: (geo.size.height / 4) * (putCardOnTheRight ? 1 : -1))
+                        .offset(x: (geo.size.height / 3) * (putCardOnTheRight ? 1 : -1))
                     }
                     if !putCardOnTheRight {
                         Spacer()

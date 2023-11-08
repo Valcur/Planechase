@@ -27,7 +27,7 @@ struct PlanechaseApp: App {
     var body: some Scene {
         WindowGroup {
             if planechaseVM.isPlaying {
-                GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles, playWithTreachery: planechaseVM.isTreacheryEnable)
+                GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles, planechaseVM: planechaseVM)
                     .statusBar(hidden: true)
                     .environmentObject(planechaseVM)
                     .environmentObject(planechaseVM.gameVM)
@@ -77,14 +77,16 @@ class PlanechaseViewModel: ObservableObject {
     @Published var biggerCardsOnMap: Bool
     @Published var noHammerRow: Bool
     @Published var noDice: Bool
+    @Published var showPlusMinus: Bool
     @Published var diceOptions: DiceOptions
     @Published var lifeCounterOptions: LifeOptions
-    var lifeCounterProfiles: [PlayerCustomProfile]
+    var lifeCounterProfiles: [PlayerCustomProfileInfo]
     @Published var isPremium = false
     @Published var showDiscordInvite = false
     @Published var paymentProcessing = false
     @Published var useBlurredBackground = false
-    @Published var isTreacheryEnable = true
+    @Published var treacheryOptions: TreacheryOptions
+    @Published var treacheryData: TreacheryData
     
     init() {
         gradientId = SaveManager.getOptions_GradientId()
@@ -95,15 +97,19 @@ class PlanechaseViewModel: ObservableObject {
         noHammerRow = optionToggles.2
         noDice = optionToggles.3
         useBlurredBackground = optionToggles.4
+        showPlusMinus = optionToggles.5
         diceOptions = SaveManager.getOptions_DiceOptions()
         lifeCounterOptions = SaveManager.getOptions_LifeOptions()
         lifeCounterProfiles = SaveManager.getOptions_LifePlayerProfiles()
+        treacheryOptions = SaveManager.getOptions_TreacheryOptions()
+        treacheryData = TreacheryData()
         
         gameVM = GameViewModel()
         contentManagerVM = ContentManagerViewModel()
         contentManagerVM.planechaseVM = self
         isPremium = UserDefaults.standard.object(forKey: "IsPremium") as? Bool ?? false
         showDiscordInvite = UserDefaults.standard.object(forKey: "ShowDiscordInvite") as? Bool ?? true
+        treacheryData.filter(getSelectedRarities())
     }
     
     func togglePlaying(classicGameMode: Bool = false) {
@@ -137,6 +143,10 @@ class PlanechaseViewModel: ObservableObject {
         SaveManager.saveOptions_LifeOptions(life)
     }
     
+    func saveTreacheryOptions() {
+        SaveManager.saveOptions_TreacheryOptions(treacheryOptions)
+    }
+    
     func saveProfiles_Info() {
         SaveManager.saveOptions_LifePlayerProfiles(lifeCounterProfiles)
     }
@@ -153,7 +163,21 @@ class PlanechaseViewModel: ObservableObject {
     }
     
     func saveToggles() {
-        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG, noHammer: noHammerRow, noDice: noDice, blurredBackground: useBlurredBackground)
+        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG, noHammer: noHammerRow, noDice: noDice, blurredBackground: useBlurredBackground, showPlusMinus: showPlusMinus)
+    }
+    
+    func getSelectedRarities() -> [TreacheryData.Rarity] {
+        var rarities = [TreacheryData.Rarity]()
+        if treacheryOptions.isUsingUnco {
+            rarities.append(.unco)
+        }
+        if treacheryOptions.isUsingRare {
+            rarities.append(.rare)
+        }
+        if treacheryOptions.isUsingMythic {
+            rarities.append(.mythic)
+        }
+        return rarities
     }
 }
 
@@ -162,16 +186,4 @@ enum ZoomViewType: Codable {
     case two
     case two_cropped
     case four
-}
-
-struct LifeOptions: Codable {
-    var useLifeCounter: Bool
-    var useCommanderDamages: Bool
-    var colorPaletteId: Int
-    var nbrOfPlayers: Int
-    var startingLife: Int
-    var backgroundStyleId: Int
-    var autoHideLifepointsCooldown: Double
-    var useMonarchToken: Bool
-    var monarchTokenStyleId: Int
 }

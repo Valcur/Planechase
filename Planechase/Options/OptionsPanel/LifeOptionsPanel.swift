@@ -10,7 +10,7 @@ import SwiftUI
 extension OptionsMenuView {
     struct LifeOptionsPanel: View {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
-        @State var profiles: [PlayerCustomProfile] = []
+        @State var profiles: [PlayerCustomProfileInfo] = []
         
         var body: some View {
             VStack(alignment: .leading, spacing: 15) {
@@ -138,7 +138,7 @@ extension OptionsMenuView {
                             if planechaseVM.lifeCounterProfiles.count >= 10 {
                                 return
                             }
-                            planechaseVM.lifeCounterProfiles.append(PlayerCustomProfile(name: "\("lifepoints_player".translate()) \(planechaseVM.lifeCounterProfiles.count + 1)"))
+                            planechaseVM.lifeCounterProfiles.append(PlayerCustomProfileInfo(name: "\("lifepoints_player".translate()) \(planechaseVM.lifeCounterProfiles.count + 1)"))
                             planechaseVM.saveProfiles_Info()
                             profiles = planechaseVM.lifeCounterProfiles
                         }, label: {
@@ -160,6 +160,9 @@ extension OptionsMenuView {
             .onChange(of: planechaseVM.lifeCounterOptions.useMonarchToken) { _ in
                 planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
             }
+            .onChange(of: planechaseVM.showPlusMinus) { _ in
+                planechaseVM.saveToggles()
+            }
             .onAppear() {
                 profiles = planechaseVM.lifeCounterProfiles
             }
@@ -168,17 +171,17 @@ extension OptionsMenuView {
         struct CustomProfileView: View {
             @EnvironmentObject var planechaseVM: PlanechaseViewModel
             let profileIndex: Int
-            var profile: PlayerCustomProfile {
+            var profile: PlayerCustomProfileInfo {
                 if profileIndex < planechaseVM.lifeCounterProfiles.count {
                     return planechaseVM.lifeCounterProfiles[profileIndex]
                 }
-                return PlayerCustomProfile()
+                return PlayerCustomProfileInfo()
             }
             @State var profileName = ""
             @State var showingImagePicker: Bool = false
             @State private var inputImage: UIImage?
             @State var saveChangesTimer: Timer?
-            @Binding var profiles: [PlayerCustomProfile]
+            @Binding var profiles: [PlayerCustomProfileInfo]
             @State var imageView: Image?
             private let maxNameLength = 15
             let profileId: UUID
@@ -204,6 +207,7 @@ extension OptionsMenuView {
                         .onChange(of: inputImage) { _ in saveProfileImage() }
                         .sheet(isPresented: $showingImagePicker) {
                             ImagePicker(image: $inputImage).preferredColorScheme(.dark)
+                                .ignoresSafeArea()
                         }
                     
                     TextField("", text: $profileName)
@@ -252,7 +256,7 @@ extension OptionsMenuView {
             private func saveProfileImage() {
                 guard let inputImage = inputImage else { return }
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    planechaseVM.lifeCounterProfiles[profileIndex].customImageData = inputImage.pngData()
+                    planechaseVM.lifeCounterProfiles[profileIndex].customImage = inputImage
                     planechaseVM.saveProfiles_Image(index: profileIndex)
                     profiles = planechaseVM.lifeCounterProfiles
                     updateImageView()
@@ -261,10 +265,8 @@ extension OptionsMenuView {
             
             private func updateImageView() {
                 DispatchQueue.main.async {
-                    if let imageData = profile.customImageData {
-                        if let image = UIImage(data: imageData) {
-                            imageView = Image(uiImage: image)
-                        }
+                    if let image = profile.customImage {
+                        imageView = Image(uiImage: image)
                     }
                 }
             }
@@ -285,9 +287,37 @@ struct PlayerCustomProfile: Codable, Identifiable {
     var lastUsedSlot: Int
     var customImageData: Data?
     
-    init(name: String = "", lastUsedSlot: Int = -1, customImageData: Data? = nil) {
+    init(name: String = "", customImageData: Data? = nil) {
         self.name = name
-        self.lastUsedSlot = lastUsedSlot
+        self.lastUsedSlot = -1
         self.customImageData = customImageData
+    }
+    
+    init(profile: PlayerCustomProfileInfo) {
+        self.id = profile.id
+        self.name = profile.name
+        self.customImageData = nil
+        self.lastUsedSlot = -1
+    }
+}
+
+struct PlayerCustomProfileInfo: Identifiable {
+    var id = UUID()
+    var name: String
+    var customImage: UIImage?
+    
+    init(name: String = "", customImage: UIImage? = nil) {
+        self.name = name
+        self.customImage = customImage
+    }
+    
+    init(profileData: PlayerCustomProfile) {
+        self.id = profileData.id
+        self.name = profileData.name
+        if let imageData = profileData.customImageData {
+            if let image = UIImage(data: imageData) {
+                customImage = image
+            }
+        }
     }
 }

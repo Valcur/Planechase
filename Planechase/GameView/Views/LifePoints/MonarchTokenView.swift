@@ -9,35 +9,82 @@ import SwiftUI
 
 struct MonarchTokenView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
+    @EnvironmentObject var lifePointsViewModel: LifePointsViewModel
     @Binding var lifepointHasBeenUsedToggler: Bool
     @State var isDragging = false
     @State private var offset = CGSize.zero
     @State private var newset = CGSize.zero
-    @State var reverseCrown = false
+    @State var crownRotation: CGFloat = 0
+    
+    var unevenScalerDivider: CGFloat {
+        let nbrOfPlayer = lifePointsViewModel.numberOfPlayer
+        if nbrOfPlayer == 5 {
+            return UIDevice.isIPhone ? 1.95 : 2.6
+        }
+        return UIDevice.isIPhone ? 1.4 : 2
+    }
     
     var body: some View {
-        MonarchTokenStyle(styleId: planechaseVM.lifeCounterOptions.monarchTokenStyleId)
-        .rotationEffect(.degrees(reverseCrown ? 180 : 0))
-        .shadowed()
-        .offset(x: offset.width, y: offset.height)
-        .gesture(
-            DragGesture()
-                .onChanged { g in
-                    if !isDragging {
-                        isDragging = true
-                        lifepointHasBeenUsedToggler.toggle()
-                    }
-                    offset = CGSize(width: g.translation.width + newset.width, height: g.translation.height + newset.height)
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        reverseCrown = offset.height <= 0
-                    }
-                }
-                .onEnded { _ in
-                    newset = offset
-                    lifepointHasBeenUsedToggler.toggle()
-                    isDragging = false
-                }
-        )
+        GeometryReader { geo in
+            ZStack {
+                MonarchTokenStyle(styleId: planechaseVM.lifeCounterOptions.monarchTokenStyleId)
+                    .rotationEffect(.degrees(crownRotation))
+                    .shadowed()
+                    .offset(x: offset.width, y: offset.height)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { g in
+                                if !isDragging {
+                                    isDragging = true
+                                    lifepointHasBeenUsedToggler.toggle()
+                                }
+                                offset = CGSize(width: g.translation.width + newset.width, height: g.translation.height + newset.height)
+                            }
+                            .onEnded { g in
+                                updateMonarchId(width: geo.size.width, height: geo.size.height)
+                                newset = offset
+                                lifepointHasBeenUsedToggler.toggle()
+                                isDragging = false
+                            }
+                    )
+            }.frame(width: geo.size.width, height: geo.size.height)
+        }
+    }
+    
+    private func updateMonarchId(width: CGFloat, height: CGFloat) {
+        var remainingWidth = width
+        let posX = offset.width + width / 2
+        let posY = offset.height
+        let unevenLimit = lifePointsViewModel.numberOfPlayer % 2 == 1 ? height / unevenScalerDivider : 0
+        var newCrownRotation = crownRotation
+        
+        if posX > remainingWidth - unevenLimit {
+            lifePointsViewModel.currentMonarchId = 0
+            newCrownRotation = -90
+        } else {
+            remainingWidth = remainingWidth - unevenLimit
+            let evenNumberOfPlayersPerRow = (lifePointsViewModel.numberOfPlayer - lifePointsViewModel.numberOfPlayer % 2) / 2
+            let segmentWidth = remainingWidth / CGFloat(evenNumberOfPlayersPerRow)
+            let player = Int(posX / segmentWidth)
+            
+            if posY < 0 {
+                setNewMonarch(id: evenNumberOfPlayersPerRow - player)
+                newCrownRotation = 180
+            } else {
+                setNewMonarch(id: evenNumberOfPlayersPerRow + player + 1)
+                newCrownRotation = 0
+            }
+        }
+        
+        withAnimation(.easeInOut(duration: 0.3)) {
+            crownRotation = newCrownRotation
+        }
+    }
+    
+    private func setNewMonarch(id: Int) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            lifePointsViewModel.currentMonarchId = id
+        }
     }
 }
 
