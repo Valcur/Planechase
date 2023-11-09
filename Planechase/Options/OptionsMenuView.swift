@@ -21,6 +21,8 @@ struct OptionsMenuView: View {
                     
                     MenuSelectionView(menu: .options, selectedMenu: $selectedMenu)
                     
+                    MenuSelectionView(menu: .treachery, selectedMenu: $selectedMenu)
+                    
                     MenuSelectionView(menu: .rules, selectedMenu: $selectedMenu)
                     
                     MenuSelectionView(menu: .contact, selectedMenu: $selectedMenu)
@@ -40,7 +42,9 @@ struct OptionsMenuView: View {
                     RulesPanel()
                 } else if selectedMenu == .life {
                     LifeOptionsPanel()
-                }
+                } else if selectedMenu == .treachery {
+                    TreacheryOptionsPanel()
+               }
             }
         }
     }
@@ -161,6 +165,7 @@ struct OptionsMenuView: View {
         case thanks
         case rules
         case life
+        case treachery
         
         func title() -> String {
             switch self {
@@ -174,6 +179,8 @@ struct OptionsMenuView: View {
                 return "options_rulesTitle".translate()
             case .life:
                 return "options_lifeTitle".translate()
+            case .treachery:
+                return "Treachery"
             }
         }
     }

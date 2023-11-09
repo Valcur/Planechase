@@ -84,10 +84,9 @@ struct LifePointsView: View {
                                     gameVM.showLifePointsView.toggle()
                                 }
                             }, label: {
-                                Image(systemName: "gear")
+                                Image(systemName: "xmark")
                                     .imageButtonLabel(style: .noBackground)
-                                    .offset(x: UIDevice.isIPhone ? 10 : 0)
-                            })
+                            }).offset(x: UIDevice.isIPhone ? 10 : 0)
                         }
                     }
                     

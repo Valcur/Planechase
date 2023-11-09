@@ -257,22 +257,31 @@ extension SaveManager {
         return UserDefaults.standard.object(forKey: "GradientId") as? Int ?? 1
     }
     
-    static func saveOptions_Toggles(bigCard: Bool, hellride: Bool, noHammer: Bool, noDice: Bool, blurredBackground: Bool, showPlusMinus: Bool) {
+    static func saveOptions_Toggles(bigCard: Bool, hellride: Bool, noHammer: Bool, noDice: Bool, blurredBackground: Bool) {
         UserDefaults.standard.set(bigCard, forKey: "BiggerCardsOnMap")
         UserDefaults.standard.set(hellride, forKey: "UseHellridePNG")
         UserDefaults.standard.set(noHammer, forKey: "NoHammer")
         UserDefaults.standard.set(noDice, forKey: "NoDice")
         UserDefaults.standard.set(blurredBackground, forKey: "BlurredBackground")
-        UserDefaults.standard.set(showPlusMinus, forKey: "ShowPlusMinus")
     }
     
-    static func getOptions_Toggles() -> (Bool, Bool, Bool, Bool, Bool, Bool) {
+    static func getOptions_Toggles() -> (Bool, Bool, Bool, Bool, Bool) {
         let bigCards = UserDefaults.standard.object(forKey: "BiggerCardsOnMap") as? Bool ?? false
         let hellRide = UserDefaults.standard.object(forKey: "UseHellridePNG") as? Bool ?? false
         let noHammer = UserDefaults.standard.object(forKey: "NoHammer") as? Bool ?? true
         let noDice = UserDefaults.standard.object(forKey: "NoDice") as? Bool ?? false
         let blurredBackground = UserDefaults.standard.object(forKey: "BlurredBackground") as? Bool ?? false
+        return (bigCards, hellRide, noHammer, noDice, blurredBackground)
+    }
+    
+    static func saveOptions_LifeToggles(showPlusMinus: Bool, biggerLifeTotal: Bool) {
+        UserDefaults.standard.set(showPlusMinus, forKey: "ShowPlusMinus")
+        UserDefaults.standard.set(biggerLifeTotal, forKey: "BiggerLifeTotal")
+    }
+    
+    static func getOptions_LifeToggles() -> (Bool, Bool) {
         let showPlusMinus = UserDefaults.standard.object(forKey: "ShowPlusMinus") as? Bool ?? true
-        return (bigCards, hellRide, noHammer, noDice, blurredBackground, showPlusMinus)
+        let biggerLifeTotal = UserDefaults.standard.object(forKey: "BiggerLifeTotal") as? Bool ?? false
+        return (showPlusMinus, biggerLifeTotal)
     }
 }

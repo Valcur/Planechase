@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LifePointsPanelView: View {
+    @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var lifePointsViewModel: LifePointsViewModel
     
     let playerName: String
@@ -21,7 +22,7 @@ struct LifePointsPanelView: View {
         ZStack {
             VStack(spacing: 0) {
                 Spacer()
-                if !isMiniView {
+                if !isMiniView && !planechaseVM.biggerLifeTotal {
                     Text(playerName)
                         .font(.system(size: (UIDevice.isIPhone ? 15 : 20)))
                         .foregroundColor(.white)
@@ -31,9 +32,9 @@ struct LifePointsPanelView: View {
                 }
                 
                 Text("\(lifepoints)")
-                    .font(.system(size: isMiniView ? 80 : (UIDevice.isIPhone ? 60 : 110)))
+                    .font(.system(size: isMiniView ? 90 : (UIDevice.isIPhone ? 60 : 110) + (planechaseVM.biggerLifeTotal ? (UIDevice.isIPhone ? 15 : 20) : 0)))
                     //.fontWeight(.bold)
-                    .fontWeight(.semibold)
+                    .fontWeight(isMiniView ? .bold : .semibold)
                     .foregroundColor(.white)
                     .shadow(color: isMiniView ? .clear : Color("ShadowColorDarker"), radius: 3, x: 0, y: 0)
                 

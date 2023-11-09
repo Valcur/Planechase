@@ -67,11 +67,13 @@ struct MonarchTokenView: View {
             let segmentWidth = remainingWidth / CGFloat(evenNumberOfPlayersPerRow)
             let player = Int(posX / segmentWidth)
             
+            let evenFixer = lifePointsViewModel.numberOfPlayer % 2 == 1 ? 0 : 1
+            
             if posY < 0 {
-                setNewMonarch(id: evenNumberOfPlayersPerRow - player)
+                setNewMonarch(id: evenNumberOfPlayersPerRow - player - evenFixer)
                 newCrownRotation = 180
             } else {
-                setNewMonarch(id: evenNumberOfPlayersPerRow + player + 1)
+                setNewMonarch(id: evenNumberOfPlayersPerRow + player + 1 - evenFixer)
                 newCrownRotation = 0
             }
         }

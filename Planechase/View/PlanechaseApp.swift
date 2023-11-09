@@ -78,6 +78,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var noHammerRow: Bool
     @Published var noDice: Bool
     @Published var showPlusMinus: Bool
+    @Published var biggerLifeTotal: Bool
     @Published var diceOptions: DiceOptions
     @Published var lifeCounterOptions: LifeOptions
     var lifeCounterProfiles: [PlayerCustomProfileInfo]
@@ -97,7 +98,9 @@ class PlanechaseViewModel: ObservableObject {
         noHammerRow = optionToggles.2
         noDice = optionToggles.3
         useBlurredBackground = optionToggles.4
-        showPlusMinus = optionToggles.5
+        let lifeOptionToggles = SaveManager.getOptions_LifeToggles()
+        showPlusMinus = lifeOptionToggles.0
+        biggerLifeTotal = lifeOptionToggles.1
         diceOptions = SaveManager.getOptions_DiceOptions()
         lifeCounterOptions = SaveManager.getOptions_LifeOptions()
         lifeCounterProfiles = SaveManager.getOptions_LifePlayerProfiles()
@@ -163,7 +166,11 @@ class PlanechaseViewModel: ObservableObject {
     }
     
     func saveToggles() {
-        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG, noHammer: noHammerRow, noDice: noDice, blurredBackground: useBlurredBackground, showPlusMinus: showPlusMinus)
+        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG, noHammer: noHammerRow, noDice: noDice, blurredBackground: useBlurredBackground)
+    }
+    
+    func saveLifeToggles() {
+        SaveManager.saveOptions_LifeToggles(showPlusMinus: showPlusMinus, biggerLifeTotal: biggerLifeTotal)
     }
     
     func getSelectedRarities() -> [TreacheryData.Rarity] {

@@ -177,4 +177,23 @@
 
 "options_rules_lifepointsCounter_Title" = "Using lifepoint counter";
 "options_rules_lifepointsCounter_01"  = "Tap the top to add, tap the bottom to remove or hold and move up/down to add/remove.";
-"options_rules_lifepointsCounter_02"  = "Tap commander damages recap to open counters and commander damages panel. Tap to add, hold to reset. The panel dismiss itself after a few seconds.";
+"options_rules_lifepointsCounter_02"  = "Tap commander damages recap to open the commander damages panel. Tap to add, hold to reset. The panel dismiss itself after a few seconds.";
+"options_rules_lifepointsCounter_03"  = "Tap commander the life total or the counters recap to open the counters panel. Tap the top to add, tap the bottom to remove or hold and move up/down to add/remove. The panel dismiss itself after a few seconds.";
+
+
+// Mark: Treachery
+"options_toggle_+/-" = "Show +/- marks";
+"options_toggle_bigerLifeTotal" = "Bigger life total";
+"options_contact_link_title" = "Discover my other MTG apps";
+"options_contact_linkPC" = "Planechase Companion - iOS";
+"options_contact_linkHordeWeb" = "Against the Horde - Web";
+"options_contact_linkHordeiOS" = "Against the Horde - iOS";
+
+"options_noProfilesYet" = "Create profiles in the options to add custom names and background images";
+
+"options_treachery_enable" = "Enable Treachery mode";
+"options_treachery_link" = "Press here to learn how to play the Treachery variant";
+"options_treachery_recommanded" = "If it’s your first game of Treachery, it is recommend to use only uncommon Identities";
+"options_treachery_unco" = "Use uncommon Identities";
+"options_treachery_rare" = "Use rare Identities";
+"options_treachery_mythic" = "Use mythic Identities";
