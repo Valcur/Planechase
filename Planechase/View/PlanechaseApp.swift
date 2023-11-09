@@ -61,6 +61,7 @@ struct PlanechaseApp: App {
                     // Not working from init
                     IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId(), IAPManager.getLifetimeId()], sharedSecret: IAPManager.getSharedSecret())
                     planechaseVM.testPremium()
+                    UIApplication.shared.isIdleTimerDisabled = true
                 }
             }
         }
