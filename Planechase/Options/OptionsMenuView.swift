@@ -16,21 +16,23 @@ struct OptionsMenuView: View {
             GradientView(gradientId: planechaseVM.gradientId)
             
             HStack {
-                VStack(alignment: .leading, spacing: 20) {
-                    MenuSelectionView(menu: .life, selectedMenu: $selectedMenu)
-                    
-                    MenuSelectionView(menu: .options, selectedMenu: $selectedMenu)
-                    
-                    MenuSelectionView(menu: .treachery, selectedMenu: $selectedMenu)
-                    
-                    MenuSelectionView(menu: .rules, selectedMenu: $selectedMenu)
-                    
-                    MenuSelectionView(menu: .contact, selectedMenu: $selectedMenu)
-                    
-                    MenuSelectionView(menu: .thanks, selectedMenu: $selectedMenu)
-                    
-                    Spacer()
-                }.frame(width: 200).padding(.top, 15)
+                ScrollView(.vertical) {
+                    VStack(alignment: .leading, spacing: 20) {
+                        MenuSelectionView(menu: .life, selectedMenu: $selectedMenu)
+                        
+                        MenuSelectionView(menu: .options, selectedMenu: $selectedMenu)
+                        
+                        MenuSelectionView(menu: .treachery, selectedMenu: $selectedMenu)
+                        
+                        MenuSelectionView(menu: .rules, selectedMenu: $selectedMenu)
+                        
+                        MenuSelectionView(menu: .contact, selectedMenu: $selectedMenu)
+                        
+                        MenuSelectionView(menu: .thanks, selectedMenu: $selectedMenu)
+                        
+                        Spacer()
+                    }.frame(width: 200).padding(.top, 15)
+                }
                 
                 if selectedMenu == .options {
                     OptionsPanel()

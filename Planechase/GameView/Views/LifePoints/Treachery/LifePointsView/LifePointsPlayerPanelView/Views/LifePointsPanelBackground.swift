@@ -14,6 +14,7 @@ extension LifePointsPlayerPanelView {
         let isMiniView: Bool
         let isPlayerOnOppositeSide: Bool
         let gradientOverlay = Gradient(colors: [.black.opacity(0.2), .black.opacity(0.1), .black.opacity(0.1), .black.opacity(0.1), .black.opacity(0.2)])
+        let gradientOverlayDarker = Gradient(colors: [.black.opacity(0.3), .black.opacity(0.1), .black.opacity(0.1), .black.opacity(0.1), .black.opacity(0.3)])
         let blurEffect: UIBlurEffect.Style = .systemChromeMaterialDark
         
         var body: some View {
@@ -34,7 +35,21 @@ extension LifePointsPlayerPanelView {
                     if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
                         VisualEffectView(effect: UIBlurEffect(style: blurEffect))
                     } else {
-                        player.backgroundColor
+                        if let backgroundStyle = planechaseVM.lifeCounterOptions.backgroundStyleId, backgroundStyle >= 0 {
+                            ZStack {
+                                GeometryReader { geo in
+                                    CustomBackgroundStyle.getSelectedBackgroundImage(backgroundStyle)
+                                        .scaledToFill()
+                                        .colorMultiply(player.backgroundColor)
+                                        .clipped()
+                                }
+                                if !isMiniView && (backgroundStyle == 0 || backgroundStyle == 1) {
+                                    LinearGradient(gradient: gradientOverlayDarker, startPoint: .leading, endPoint: .trailing)
+                                }
+                            }
+                        } else {
+                            player.backgroundColor
+                        }
                         
                         //LinearGradient(gradient: Gradient(colors: [player.backgroundColor, player.backgroundColor.opacity(0.5)]), startPoint: .topTrailing, endPoint: .bottomLeading)
                         /*ZStack {

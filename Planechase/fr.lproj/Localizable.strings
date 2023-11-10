@@ -48,7 +48,7 @@
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Appuyez sur 'Télécharger depuis Scryfall' pour jouer avec les nouvelles cartes Dr Who\n- Le compteur de points de vie prend en charge les noms de joueurs et les images de fond personalisées, jeton monarque, masquage automatique et style de fond coloré\n- Amélioration du filtrage de la collection\n- Nouveau type d'affichage vertical pour permettre de lire le texte des cartes des deux côtés en mode paysage\n- Renommez vos decks\n- Fond flou derrière les cartes\n- Option pour masquer le dé si vous préférez jouer avec un vrai dé\n- Dans le mode classic, swipe à droite pour retourner au plan précédent\n- Nouvel option d'achat in-app Premium à vie";
+"whatsNew_content" = "- Mise à jour du compteur de points de vie\n- Jouer au mode de jeu Treachery\n- Bouton 'Planeswalk Away' lorsque vous rencontrez un phénomène\n- Changez le type des cartes importées (plan/phénomène)";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -181,13 +181,13 @@
 
 // Mark: Treachery
 "options_toggle_+/-" = "Afficher les marques +/-";
-"options_toggle_bigerLifeTotal" = "Bigger life total";
+"options_toggle_bigerLifeTotal" = "Aggrandir le total de point de vie";
 "options_contact_link_title" = "Découvrez mes autres applications MTG";
 "options_contact_linkPC" = "Planechase Companion - iOS";
 "options_contact_linkHordeWeb" = "Against the Horde - Web";
 "options_contact_linkHordeiOS" = "Against the Horde - iOS";
 
-"options_noProfilesYet" = "Create profiles in the options to add custom names and background images";
+"options_noProfilesYet" = "Créez des profils dans les options pour ajouter des noms et images de fond personalisés";
 
 "options_treachery_enable" = "Activer le mode Treachery";
 "options_treachery_link" = "Appuyez ici pour découvrir comment jouer au mode Treachery";

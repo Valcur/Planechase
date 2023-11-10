@@ -114,6 +114,16 @@ class ContentManagerViewModel: ObservableObject {
         SaveManager.saveDecks(decks)
     }
     
+    func switchCardType(_ card: Card) {
+        if let cardIndex = cardCollection.firstIndex(where: { $0.id == card.id }) {
+            cardCollection[cardIndex].cardType = card.cardType == nil || card.cardType == .plane ? .phenomenon : .plane
+            updateFilteredCardCollection()
+            DispatchQueue.main.async {
+                self.saveCollection()
+            }
+        }
+    }
+    
     func selectAll() {
         for card in filteredCardCollection {
             if selectedDeck.deckCardIds.firstIndex(where: { $0 == card.id }) == nil {

@@ -203,7 +203,7 @@ struct ContentManagerView: View {
         let height: CGFloat
         
         var body: some View {
-            ZStack {
+            ZStack(alignment: .topLeading) {
                 if card.image == nil {
                     Color.black
                         .frame(width: width,
@@ -218,6 +218,14 @@ struct ContentManagerView: View {
                         .frame(width: width,
                                height: height)
                         .cornerRadius(CardSizes.cornerRadiusForWidth(width))
+                }
+                if card.imageURL == nil {
+                    Button(action: {
+                        contentManagerVM.switchCardType(card)
+                    }, label: {
+                        Text(card.cardType == nil || card.cardType == .plane ? "plane".translate() : "phenomenon".translate())
+                            .buttonLabel()
+                    })
                 }
             }
             .padding(5)

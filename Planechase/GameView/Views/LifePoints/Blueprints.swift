@@ -16,7 +16,7 @@ struct EvenBlueprint: View {
         VStack(spacing: 0) {
             row1.rotationEffect(.degrees(180))
             row2
-        }.ignoresSafeArea()
+        }
     }
 }
 
@@ -29,7 +29,7 @@ struct UnevenBlueprint: View {
     var unevenScalerDivider: CGFloat {
         let nbrOfPlayer = lifePointsViewModel.numberOfPlayer
         if nbrOfPlayer == 5 {
-            return UIDevice.isIPhone ? 2.1 : 2.4
+            return UIDevice.isIPhone ? 1.95 : 2.6
         } else  if nbrOfPlayer == 7 {
             return UIDevice.isIPhone ? 2.3 : 3
         }
@@ -44,10 +44,10 @@ struct UnevenBlueprint: View {
                     row2
                 }
                 sideElement
-                    .frame(width: geo.size.height, height: geo.size.height / unevenScalerDivider)
+                    .frame(width: geo.size.height, height: geo.size.height / unevenScalerDivider).clipped()
                     .rotationEffect(.degrees(-90))
                     .frame(width: geo.size.height / unevenScalerDivider)
             }
-        }.ignoresSafeArea()
+        }
     }
 }

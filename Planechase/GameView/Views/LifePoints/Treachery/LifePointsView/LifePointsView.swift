@@ -86,7 +86,8 @@ struct LifePointsView: View {
                             }, label: {
                                 Image(systemName: "xmark")
                                     .imageButtonLabel(style: .noBackground)
-                            }).offset(x: UIDevice.isIPhone ? 10 : 0)
+                                    .frame(height: 100)
+                            }).frame(height: 40).offset(x: UIDevice.isIPhone ? 10 : 0, y: 0)
                         }
                     }
                     

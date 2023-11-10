@@ -132,16 +132,15 @@ struct LifePointsPlayerPanelView: View {
                     if !showAlternativeCounters {
                         VStack {
                             Spacer()
-                            Button(action: {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    showAlternativeCounters = true
+                            Rectangle()
+                                .foregroundColor(.black.opacity(0.00005))
+                                .frame(width: 100, height: UIDevice.isIPhone ? 100 : 150)
+                                .onTapGesture {
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        showAlternativeCounters = true
+                                    }
+                                    lifepointHasBeenUsedToggler.toggle()
                                 }
-                                lifepointHasBeenUsedToggler.toggle()
-                            }, label: {
-                                Rectangle()
-                                    .foregroundColor(.black.opacity(0.00005))
-                                    .frame(width: 100, height: UIDevice.isIPhone ? 100 : 150)
-                            })
                             Spacer()
                         }
                     }
