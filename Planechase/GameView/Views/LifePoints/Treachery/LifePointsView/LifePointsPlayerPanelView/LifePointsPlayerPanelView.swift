@@ -93,14 +93,13 @@ struct LifePointsPlayerPanelView: View {
                             if isPlayerOnOppositeSide {
                                 Spacer()
                             }
-                            Button(action: {
-                                showTreacheryPanel = true
-                                lifepointHasBeenUsedToggler.toggle()
-                            }, label: {
-                                Color.red
-                                    .frame(width: CardSizes.classic_widthForHeight(geo.size.height ) - (geo.size.height / 3))
-                                    .opacity(0.00001)
-                            })
+                            Color.black
+                                .frame(width: CardSizes.classic_widthForHeight(geo.size.height ) - (geo.size.height / 3))
+                                .opacity(0.00001)
+                                .onTapGesture {
+                                    showTreacheryPanel = true
+                                    lifepointHasBeenUsedToggler.toggle()
+                                }
                             if !isPlayerOnOppositeSide {
                                 Spacer()
                             }

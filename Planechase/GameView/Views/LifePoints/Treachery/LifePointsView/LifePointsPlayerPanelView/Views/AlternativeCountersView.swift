@@ -45,7 +45,7 @@ struct AlternativeCountersView: View {
                         Color.black
                         if showCountersList {
                             ScrollView(.vertical) {
-                                VStack(spacing: 5) {
+                                VStack(spacing: 0) {
                                     ForEach(0..<existingCounters.count, id: \.self) { i in
                                         NewCounterButton(counterName: existingCounters[i], counters: $counters, showCountersList: $showCountersList)
                                     }
@@ -110,7 +110,7 @@ struct AlternativeCountersView: View {
                             Text(counterName)
                                 .headline()
                         }
-                    }).frame(width: 80, height: 80).background(VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))).cornerRadius(5)
+                    }).frame(width: 80, height: 80).background(VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))).cornerRadius(5).padding(.vertical, 3)
                 }
             }
             .onAppear() {
@@ -171,11 +171,13 @@ struct AlternativeCountersView: View {
                             prevValue = newValue
                             if counter.value > 0 {
                                 counter.value -= 1
+                                hasOneOfTheValuesChanged.toggle()
                             }
                         }
                         else if newValue < prevValue - 12 {
                             prevValue = newValue
                             counter.value += 1
+                            hasOneOfTheValuesChanged.toggle()
                         }
                     }
                     .onEnded({ _ in

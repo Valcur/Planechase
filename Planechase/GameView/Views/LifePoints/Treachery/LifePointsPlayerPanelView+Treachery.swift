@@ -26,11 +26,6 @@ extension LifePointsPlayerPanelView {
                                         .scaledToFit()
                                         .frame(maxWidth: geo.size.height * 1.2)
                                         .cornerRadius(CardSizes.classic_cornerRadiusForHeight(geo.size.height))
-                                        .onTapGesture {  }
-                                        .onLongPressGesture(minimumDuration: 1, perform: {
-                                            treacheryData!.isRoleRevealed.toggle()
-                                            lifepointHasBeenUsedToggler.toggle()
-                                        })
                                         .id(0)
                                         .onAppear {
                                             value.scrollTo(0, anchor: .bottom)
@@ -45,10 +40,6 @@ extension LifePointsPlayerPanelView {
                                 .padding(.horizontal, 45)
                                 .padding(.top, 45)
                                 .padding(.bottom, UIDevice.isIPhone ? 10 : 0)
-                                .onLongPressGesture(minimumDuration: 1, perform: {
-                                    treacheryData!.isRoleRevealed.toggle()
-                                    lifepointHasBeenUsedToggler.toggle()
-                                })
                         }
                         VStack {
                             HStack(alignment: .top, spacing: 10) {
@@ -74,6 +65,10 @@ extension LifePointsPlayerPanelView {
                             Spacer()
                         }
                     }.background(Color.black)
+                    .onLongPressGesture(minimumDuration: 1, perform: {
+                        treacheryData!.isRoleRevealed.toggle()
+                        lifepointHasBeenUsedToggler.toggle()
+                    })
                 }
             }
         }
