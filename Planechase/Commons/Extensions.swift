@@ -269,14 +269,14 @@ struct ImagePicker: UIViewControllerRepresentable {
                            guard let image = image as? UIImage else {
                                debugPrint("Error: UIImage is nil")
                                return }
-                           self.parent.image = image
+                           self.parent.image = image.compressImage()
                        }
                    })
             } else if provider.hasItemConformingToTypeIdentifier(UTType.webP.identifier) {
                 provider.loadDataRepresentation(forTypeIdentifier: UTType.webP.identifier) {data, err in
                     if let data = data, let img = UIImage.init(data: data) {
                         DispatchQueue.main.async {
-                            self.parent.image = img
+                            self.parent.image = img.compressImage()
                         }
                     }
                 }
@@ -298,5 +298,26 @@ extension UIDevice {
 extension String {
     func translate() -> String {
         return NSLocalizedString(self, comment: self)
+    }
+}
+
+extension UIImage {
+    private func aspectFittedToHeight(_ newHeight: CGFloat) -> UIImage {
+        let scale = newHeight / self.size.height
+        let newWidth = self.size.width * scale
+        let newSize = CGSize(width: newWidth, height: newHeight)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: newSize))
+        }
+    }
+    
+    func compressImage(height: CGFloat = 500) -> UIImage {
+        let resizedImage = self.aspectFittedToHeight(height)
+        resizedImage.jpegData(compressionQuality: 0.2)
+        print("Compressing")
+    
+        return resizedImage
     }
 }
