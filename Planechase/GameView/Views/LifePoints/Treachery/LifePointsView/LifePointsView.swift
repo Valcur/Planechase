@@ -20,6 +20,7 @@ struct LifePointsView: View {
     @State var hideLifeTimerToggler: Bool = true
     @State var showMonarchToken = false
     @State var isAllowedToChangeProfile: Bool = false
+    @State var showDiceRoller = false
     
     init(isMiniView: Bool = false) {
         self.isMiniView = isMiniView
@@ -74,6 +75,19 @@ struct LifePointsView: View {
                                             .imageButtonLabel(style: .noBackground)
                                             .opacity(isAllowedToChangeProfile ? 0.7 : 1)
                                     })
+                                ),
+                                
+                                AnyView(
+                                    Button(action: {
+                                        resetTimer()
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            showDiceRoller.toggle()
+                                        }
+                                    }, label: {
+                                        Image(systemName: "dice")
+                                            .imageButtonLabel(style: .noBackground)
+                                            .opacity(showDiceRoller ? 0.7 : 1)
+                                    })
                                 )
                             ], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
                             
@@ -120,6 +134,10 @@ struct LifePointsView: View {
                         }
                         if !isMiniView {
                             MonarchTokenView(lifepointHasBeenUsedToggler: $hideLifeTimerToggler).opacity(showMonarchToken ? 1 : 0)
+                            
+                            if showDiceRoller {
+                                DiceRollerView()
+                            }
                         }
                     }.clipped()
                 }

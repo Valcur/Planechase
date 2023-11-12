@@ -22,6 +22,7 @@
 		DB5098EC29A3940B0058FCCB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098EB29A3940B0058FCCB /* Card.swift */; };
 		DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098EE29A39D880058FCCB /* ContentManagerViewModel.swift */; };
 		DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */; };
+		DB6AD6942B0108A5000B491B /* DiceRollerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6AD6932B0108A5000B491B /* DiceRollerView.swift */; };
 		DB9C22772A1E378000656BC7 /* Blueprints.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C22762A1E378000656BC7 /* Blueprints.swift */; };
 		DB9C22792A1FCDC400656BC7 /* AlternativeCountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C22782A1FCDC400656BC7 /* AlternativeCountersView.swift */; };
 		DB9C227B2A26624A00656BC7 /* LifePointsPlayerPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C227A2A26624A00656BC7 /* LifePointsPlayerPanelView.swift */; };
@@ -98,6 +99,7 @@
 		DB5098EE29A39D880058FCCB /* ContentManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManagerViewModel.swift; sourceTree = "<group>"; };
 		DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerViewModel+Scryfall.swift"; sourceTree = "<group>"; };
 		DB5098F629A3A1880058FCCB /* PlanechaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanechaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB6AD6932B0108A5000B491B /* DiceRollerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DiceRollerView.swift; path = Planechase/GameView/Views/LifePoints/DiceRollerView.swift; sourceTree = SOURCE_ROOT; };
 		DB9C22762A1E378000656BC7 /* Blueprints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blueprints.swift; sourceTree = "<group>"; };
 		DB9C22782A1FCDC400656BC7 /* AlternativeCountersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativeCountersView.swift; sourceTree = "<group>"; };
 		DB9C227A2A26624A00656BC7 /* LifePointsPlayerPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePointsPlayerPanelView.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				DBA757F42AED399A00DE2D16 /* LifePointsViewModel.swift */,
 				DBFEBCEF2AFBEC5600A78F16 /* LifePointsView */,
 				DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */,
+				DB6AD6932B0108A5000B491B /* DiceRollerView.swift */,
 				DBA757F22AE9725600DE2D16 /* CircularButtonView.swift */,
 				DBFEBCF12AFBECE500A78F16 /* LP_Struct.swift */,
 				DB9C22762A1E378000656BC7 /* Blueprints.swift */,
@@ -527,6 +530,7 @@
 				DB9C227B2A26624A00656BC7 /* LifePointsPlayerPanelView.swift in Sources */,
 				DBA757E62ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift in Sources */,
 				DBA02CF329A41BB7004E94BC /* GameView.swift in Sources */,
+				DB6AD6942B0108A5000B491B /* DiceRollerView.swift in Sources */,
 				DBA758112AEE982400DE2D16 /* LifePointsPanelView.swift in Sources */,
 				DB9C228D2A29F77F00656BC7 /* MenuCustomDiceColorChoiceView.swift in Sources */,
 				DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */,

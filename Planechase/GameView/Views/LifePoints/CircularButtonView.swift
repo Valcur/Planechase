@@ -40,6 +40,7 @@ struct CircularButtonView: View {
                             buttons[0]
                             buttons[1]
                             buttons[2]
+                            buttons[3]
                             
                             Spacer()
                         }.padding(.top, 50)
@@ -52,6 +53,7 @@ struct CircularButtonView: View {
                     buttons[0]
                     buttons[1]
                     buttons[2]
+                    buttons[3]
                     
                     Spacer()
                 }.padding(.top, 50)
