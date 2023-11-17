@@ -121,8 +121,16 @@ struct LifePointsPlayerPanelView: View {
                         .cornerRadius(8)
                         .scaleEffect(UIDevice.isIPhone ? 0.65 : 1, anchor: .top)
                         .onTapGesture {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showAlternativeCounters = true
+                            if planechaseVM.fullscreenCommanderAndCounters {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    lifePointsViewModel.fullscreenView = FullscreenView(
+                                        view: AnyView(AlternativeCountersView(counters: $player.counters.alternativeCounters, playerId: playerId, showAlternativeCounters: $showAlternativeCounters)),
+                                        orientation: isPlayerOnOppositeSide ? .opposite : (isPlayerOnTheSide ? .side : .classic))
+                                }
+                            } else {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    showAlternativeCounters = true
+                                }
                             }
                             lifepointHasBeenUsedToggler.toggle()
                         }
@@ -136,8 +144,16 @@ struct LifePointsPlayerPanelView: View {
                                 .foregroundColor(.black.opacity(0.00005))
                                 .frame(width: 100, height: UIDevice.isIPhone ? 100 : 150)
                                 .onTapGesture {
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        showAlternativeCounters = true
+                                    if planechaseVM.fullscreenCommanderAndCounters {
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            lifePointsViewModel.fullscreenView = FullscreenView(
+                                                view: AnyView(AlternativeCountersView(counters: $player.counters.alternativeCounters, playerId: playerId, showAlternativeCounters: $showAlternativeCounters)),
+                                                orientation: isPlayerOnOppositeSide ? .opposite : (isPlayerOnTheSide ? .side : .classic))
+                                        }
+                                    } else {
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            showAlternativeCounters = true
+                                        }
                                     }
                                     lifepointHasBeenUsedToggler.toggle()
                                 }
@@ -147,8 +163,16 @@ struct LifePointsPlayerPanelView: View {
                     
                     CommanderRecapView(playerId: playerId, lifePoints: $player.lifePoints, playerCounters: $player.counters)
                         .onTapGesture {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showingCountersSheet = true
+                            if planechaseVM.fullscreenCommanderAndCounters {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    lifePointsViewModel.fullscreenView = FullscreenView(
+                                        view: AnyView(CommanderDamagesPanel(showSheet: $showingCountersSheet, playerCounters: $player.counters, lifePoints: $player.lifePoints, playerId: playerId, isFullscreen: true)),
+                                        orientation: isPlayerOnOppositeSide ? .opposite : (isPlayerOnTheSide ? .side : .classic))
+                                }
+                            } else {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    showingCountersSheet = true
+                                }
                             }
                             lifepointHasBeenUsedToggler.toggle()
                         }
@@ -165,7 +189,7 @@ struct LifePointsPlayerPanelView: View {
                         TreacheryPanelView(treacheryData: $player.treachery, showPanel: $showTreacheryPanel, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler, isOnTheOppositeSide: isPlayerOnOppositeSide)
                     }
                     if showingCountersSheet {
-                        CommanderDamagesPanel(showSheet: $showingCountersSheet, playerCounters: $player.counters, lifePoints: $player.lifePoints, playerId: playerId)
+                        CommanderDamagesPanel(showSheet: $showingCountersSheet, playerCounters: $player.counters, lifePoints: $player.lifePoints, playerId: playerId, isFullscreen: false)
                     }
                 }
             }

@@ -55,6 +55,7 @@
 		DBA757F52AED399A00DE2D16 /* LifePointsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA757F42AED399A00DE2D16 /* LifePointsViewModel.swift */; };
 		DBA758112AEE982400DE2D16 /* LifePointsPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA758102AEE982400DE2D16 /* LifePointsPanelView.swift */; };
 		DBA833A92AFD26EE004C0096 /* TreacheryOptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA833A82AFD26EE004C0096 /* TreacheryOptionsPanel.swift */; };
+		DBB78C0E2B063F9C008A3EAD /* FullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB78C0D2B063F9C008A3EAD /* FullScreenView.swift */; };
 		DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */; };
 		DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */; };
 		DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */; };
@@ -132,6 +133,7 @@
 		DBA757F42AED399A00DE2D16 /* LifePointsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePointsViewModel.swift; sourceTree = "<group>"; };
 		DBA758102AEE982400DE2D16 /* LifePointsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePointsPanelView.swift; sourceTree = "<group>"; };
 		DBA833A82AFD26EE004C0096 /* TreacheryOptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreacheryOptionsPanel.swift; sourceTree = "<group>"; };
+		DBB78C0D2B063F9C008A3EAD /* FullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenView.swift; sourceTree = "<group>"; };
 		DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager_Structs.swift; sourceTree = "<group>"; };
 		DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerView+Filter.swift"; sourceTree = "<group>"; };
 		DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewBubble.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				DBA757F42AED399A00DE2D16 /* LifePointsViewModel.swift */,
 				DBFEBCEF2AFBEC5600A78F16 /* LifePointsView */,
 				DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */,
+				DBB78C0D2B063F9C008A3EAD /* FullScreenView.swift */,
 				DB6AD6932B0108A5000B491B /* DiceRollerView.swift */,
 				DBA757F22AE9725600DE2D16 /* CircularButtonView.swift */,
 				DBFEBCF12AFBECE500A78F16 /* LP_Struct.swift */,
@@ -557,6 +560,7 @@
 				DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */,
 				DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */,
 				DB0028DE29FE98C200E3DD74 /* LifePointsView.swift in Sources */,
+				DBB78C0E2B063F9C008A3EAD /* FullScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

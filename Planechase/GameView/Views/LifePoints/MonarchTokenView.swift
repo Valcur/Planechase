@@ -19,9 +19,11 @@ struct MonarchTokenView: View {
     var unevenScalerDivider: CGFloat {
         let nbrOfPlayer = lifePointsViewModel.numberOfPlayer
         if nbrOfPlayer == 5 {
-            return UIDevice.isIPhone ? 1.95 : 2.6
+            return UIDevice.isIPhone ? 3.5 : 3.25
+        } else if nbrOfPlayer == 7 {
+            return UIDevice.isIPhone ? 4 : 4
         }
-        return UIDevice.isIPhone ? 1.4 : 2
+        return UIDevice.isIPhone ? 2.8 : 2.8
     }
     
     var body: some View {
@@ -41,7 +43,7 @@ struct MonarchTokenView: View {
                                 offset = CGSize(width: g.translation.width + newset.width, height: g.translation.height + newset.height)
                             }
                             .onEnded { g in
-                                updateMonarchId(width: geo.size.width, height: geo.size.height)
+                                updateMonarchId(width: geo.size.width)
                                 newset = offset
                                 lifepointHasBeenUsedToggler.toggle()
                                 isDragging = false
@@ -51,11 +53,11 @@ struct MonarchTokenView: View {
         }
     }
     
-    private func updateMonarchId(width: CGFloat, height: CGFloat) {
+    private func updateMonarchId(width: CGFloat) {
         var remainingWidth = width
         let posX = offset.width + width / 2
         let posY = offset.height
-        let unevenLimit = lifePointsViewModel.numberOfPlayer % 2 == 1 ? height / unevenScalerDivider : 0
+        let unevenLimit = lifePointsViewModel.numberOfPlayer % 2 == 1 ? width / unevenScalerDivider : 0
         var newCrownRotation = crownRotation
         
         if posX > remainingWidth - unevenLimit {

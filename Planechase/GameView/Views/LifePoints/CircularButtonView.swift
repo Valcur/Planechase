@@ -18,20 +18,23 @@ struct CircularButtonView: View {
         ZStack {
             if UIDevice.isIPhone {
                 HStack(alignment: .top) {
-                    Button(action: {
-                        withAnimation(.spring()) {
-                            showMenu.toggle()
-                        }
-                        lifepointHasBeenUsedToggler.toggle()
-                    }, label: {
-                        Image(systemName: "chevron.right")
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 40, height: 40)
-                            .rotationEffect(.degrees(showMenu ? 180 : 0))
-                            .offset(x: UIDevice.isIPhone ? 15 : 0)
-                    })
+                    VStack {
+                        Button(action: {
+                            withAnimation(.spring()) {
+                                showMenu.toggle()
+                            }
+                            lifepointHasBeenUsedToggler.toggle()
+                        }, label: {
+                            Image(systemName: "chevron.right")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(width: 40, height: 40)
+                                .rotationEffect(.degrees(showMenu ? 180 : 0))
+                                .offset(x: 14, y: 10)
+                        })
+                        Spacer()
+                    }
                     
                     if showMenu {
                         VStack {
@@ -43,7 +46,7 @@ struct CircularButtonView: View {
                             buttons[3]
                             
                             Spacer()
-                        }.padding(.top, 50)
+                        }
                     }
                 }
             } else {
@@ -56,7 +59,7 @@ struct CircularButtonView: View {
                     buttons[3]
                     
                     Spacer()
-                }.padding(.top, 50)
+                }
             }
         }
     }

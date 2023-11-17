@@ -85,7 +85,7 @@ extension GameView {
                                 .imageButtonLabel(customSize: 40)
                         } else {
                             Text(gameVM.travelModeEnable ? "game_tool_disablePlaneswalk".translate() : "game_tool_enablePlaneswalk".translate())
-                                .buttonLabel()
+                                .textButtonLabel()
                         }
                     }).offset(y: planechaseVM.noHammerRow ? 10 : 0)
                     
@@ -99,7 +99,7 @@ extension GameView {
                                 .imageButtonLabel()
                         } else {
                             Text("game_tool_deckController".translate())
-                                .buttonLabel()
+                                .textButtonLabel()
                         }
                     })
                 }.offset(x: planechaseVM.noHammerRow ? 0 : (UIDevice.isIPhone ? -50 : -60))

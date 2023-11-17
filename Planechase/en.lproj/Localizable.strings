@@ -177,13 +177,15 @@
 
 "options_rules_lifepointsCounter_Title" = "Using lifepoint counter";
 "options_rules_lifepointsCounter_01"  = "Tap the top to add, tap the bottom to remove or hold and move up/down to add/remove.";
-"options_rules_lifepointsCounter_02"  = "Tap commander damages recap to open the commander damages panel. Tap to add, hold to reset. The panel dismiss itself after a few seconds.";
-"options_rules_lifepointsCounter_03"  = "Tap commander the life total or the counters recap to open the counters panel. Tap the top to add, tap the bottom to remove or hold and move up/down to add/remove. The panel dismiss itself after a few seconds.";
+"options_rules_lifepointsCounter_02"  = "Tap commander damages recap to open the commander damages panel. Tap to add, hold to reset. When not in fullscreen, the panel dismiss itself after a few seconds.";
+"options_rules_lifepointsCounter_03"  = "Tap commander the life total or the counters recap to open the counters panel. Tap the top to add, tap the bottom to remove or hold and move up/down to add/remove. When not in fullscreen, the panel dismiss itself after a few seconds.";
+
 
 
 // Mark: Treachery
 "options_toggle_+/-" = "Show +/- marks";
 "options_toggle_bigerLifeTotal" = "Bigger life total";
+"options_toggle_fullscreenCommanderAndCounters" = "Fullscreen panel to change commander damages and counters";
 "options_contact_link_title" = "Discover my other MTG apps";
 "options_contact_linkPC" = "Planechase Companion - iOS";
 "options_contact_linkHordeWeb" = "Against the Horde - Web";

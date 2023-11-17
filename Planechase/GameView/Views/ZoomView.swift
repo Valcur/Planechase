@@ -161,6 +161,7 @@ struct ZoomView: View {
                     Image(uiImage: image)
                         .resizable()
                         .blur(radius: 8)
+                        .contrast(0.85)
                         .scaleEffect(2.5)
                         .scaledToFill()
                         .offset(y: geo.size.height * 0.25)

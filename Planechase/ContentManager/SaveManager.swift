@@ -220,9 +220,9 @@ extension SaveManager {
     static func getOptions_LifePlayerProfiles() -> [PlayerCustomProfileInfo] {
         if let data = UserDefaults.standard.object(forKey: "LifePlayerProfilesOptions") as? Data,
             var profilesData = try? JSONDecoder().decode([PlayerCustomProfile].self, from: data) {
-            // Get images
             var profiles = [PlayerCustomProfileInfo]()
             for i in 0..<profilesData.count {
+                // Get images
                 if let data = UserDefaults.standard.data(forKey: "ProfileImage_\(profilesData[i].id)") {
                     let decoded = try! PropertyListDecoder().decode(Data.self, from: data)
                     profilesData[i].customImageData = decoded
@@ -274,14 +274,17 @@ extension SaveManager {
         return (bigCards, hellRide, noHammer, noDice, blurredBackground)
     }
     
-    static func saveOptions_LifeToggles(showPlusMinus: Bool, biggerLifeTotal: Bool) {
+    static func saveOptions_LifeToggles(showPlusMinus: Bool, biggerLifeTotal: Bool, fullscreenCommanderAndCounters: Bool) {
         UserDefaults.standard.set(showPlusMinus, forKey: "ShowPlusMinus")
         UserDefaults.standard.set(biggerLifeTotal, forKey: "BiggerLifeTotal")
+        UserDefaults.standard.set(fullscreenCommanderAndCounters, forKey: "FullscreenCommanderAndCounters")
     }
     
-    static func getOptions_LifeToggles() -> (Bool, Bool) {
+    static func getOptions_LifeToggles() -> (Bool, Bool, Bool) {
         let showPlusMinus = UserDefaults.standard.object(forKey: "ShowPlusMinus") as? Bool ?? true
         let biggerLifeTotal = UserDefaults.standard.object(forKey: "BiggerLifeTotal") as? Bool ?? false
-        return (showPlusMinus, biggerLifeTotal)
+        let fullscreenCommanderAndCounters = UserDefaults.standard.object(forKey: "FullscreenCommanderAndCounters") as? Bool ?? UIDevice.isIPhone
+        return (showPlusMinus, biggerLifeTotal, UIDevice.isIPhone ? fullscreenCommanderAndCounters : true)
+
     }
 }

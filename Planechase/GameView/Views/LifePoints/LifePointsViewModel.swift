@@ -12,12 +12,14 @@ class LifePointsViewModel: ObservableObject {
     @Published var players: [PlayerProfile]
     @Published var lastUsedSetup: LastUsedSetup
     @Published var currentMonarchId: Int
+    @Published var fullscreenView: FullscreenView?
     
     init(numberOfPlayer: Int, startingLife: Int, colorPalette: Int, playWithTreachery: Bool, treacheryData: TreacheryData, customProfiles: [PlayerCustomProfileInfo]) {
         self.lastUsedSetup = SaveManager.getLastUsedSetup()
         self.numberOfPlayer = numberOfPlayer
         self.players = []
         self.currentMonarchId = -1
+        self.fullscreenView = nil
         
         iniGame(numberOfPlayer: numberOfPlayer, startingLife: startingLife, colorPalette: colorPalette, playWithTreachery: playWithTreachery, treacheryData: treacheryData, customProfiles: customProfiles)
     }
@@ -27,6 +29,7 @@ class LifePointsViewModel: ObservableObject {
         self.numberOfPlayer = numberOfPlayer
         self.players = []
         self.currentMonarchId = -1
+        self.fullscreenView = nil
         
         iniGame(numberOfPlayer: numberOfPlayer, startingLife: startingLife, colorPalette: colorPalette, playWithTreachery: playWithTreachery, treacheryData: treacheryData, customProfiles: customProfiles)
     }

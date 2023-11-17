@@ -70,7 +70,7 @@ struct WhatsNew: View {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }, label: {
-                        Text("whatsNew_rateUs_button".translate()).buttonLabel()
+                        Text("whatsNew_rateUs_button".translate()).textButtonLabel()
                     })
                 }.frame(maxWidth: .infinity)
             }

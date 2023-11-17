@@ -136,7 +136,10 @@ struct AlternativeCountersView: View {
         
         var body: some View {
             ZStack(alignment: .bottom) {
-                VStack(alignment: .center) {
+                VStack {
+                    Text(counter.imageName)
+                        .headline()
+                        .frame(height: 30)
                     Spacer()
                     Text("\(counter.value)")
                         .title()
@@ -145,7 +148,7 @@ struct AlternativeCountersView: View {
                         .frame(width: 40, height: 40)
                         .foregroundColor(.white)
                     Spacer()
-                }.frame(maxWidth: .infinity)
+                }.frame(maxWidth: .infinity).padding(.bottom, 30)
                 VStack(spacing: 0) {
                     Rectangle()
                         .opacity(0.0001)
@@ -184,6 +187,7 @@ struct AlternativeCountersView: View {
                         hasOneOfTheValuesChanged.toggle()
                     })
                 )
+                
                 Button(action: {
                     counter.enabled = false
                     withAnimation(.easeInOut(duration: 0.3)) {

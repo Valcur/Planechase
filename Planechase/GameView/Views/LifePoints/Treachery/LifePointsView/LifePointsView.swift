@@ -29,80 +29,66 @@ struct LifePointsView: View {
     
     var body: some View {
         GeometryReader { geo in
-            ZStack {
+            ZStack(alignment: .bottomLeading) {
                 HStack {
                     if !isMiniView {
-                        VStack(alignment: .leading) {
-                            CircularButtonView(buttons: [
-                                AnyView(
-                                    Button(action: {
-                                        resetTimer()
-                                        let player = Int.random(in: 0..<lifePointsViewModel.numberOfPlayer)
-                                        playersChoosenRandomly[player] = true
-                                        withAnimation(.easeInOut(duration: 1).delay(0.15)) {
-                                            playersChoosenRandomly[player] = false
-                                        }
-                                    }, label: {
-                                        Image(systemName: "questionmark.square")
-                                            .imageButtonLabel(style: .noBackground)
-                                    })
-                                ),
-                                
-                                AnyView(
-                                    Button(action: {
-                                        resetTimer()
-                                        withAnimation(.easeInOut(duration: 0.3)) {
-                                            showMonarchToken.toggle()
-                                        }
-                                    }, label: {
-                                        Image("Crown 1")
-                                            .imageButtonLabel(style: .noBackground)
-                                            .opacity(showMonarchToken ? 0.7 : 1)
-                                    }).opacity(planechaseVM.lifeCounterOptions.useMonarchToken ? 1 : 0)
-                                ),
+                        CircularButtonView(buttons: [
+                            AnyView(
+                                Button(action: {
+                                    resetTimer()
+                                    let player = Int.random(in: 0..<lifePointsViewModel.numberOfPlayer)
+                                    playersChoosenRandomly[player] = true
+                                    withAnimation(.easeInOut(duration: 1).delay(0.15)) {
+                                        playersChoosenRandomly[player] = false
+                                    }
+                                }, label: {
+                                    Image(systemName: "questionmark.square")
+                                        .imageButtonLabel(style: .noBackground)
+                                })
+                            ),
+                            
+                            AnyView(
+                                Button(action: {
+                                    resetTimer()
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        showMonarchToken.toggle()
+                                    }
+                                }, label: {
+                                    Image("Crown 1")
+                                        .imageButtonLabel(style: .noBackground)
+                                        .opacity(showMonarchToken ? 0.7 : 1)
+                                }).opacity(planechaseVM.lifeCounterOptions.useMonarchToken ? 1 : 0)
+                            ),
 
-                                AnyView(
-                                    Button(action: {
-                                        resetTimer()
-                                        withAnimation(.easeInOut(duration: 0.3)) {
-                                            isAllowedToChangeProfile.toggle()
-                                        }
-                                        if isAllowedToChangeProfile == false {
-                                            SaveManager.saveLastUsedSetup(lifePointsViewModel.lastUsedSetup)
-                                        }
-                                    }, label: {
-                                        Image(systemName: "pencil")
-                                            .imageButtonLabel(style: .noBackground)
-                                            .opacity(isAllowedToChangeProfile ? 0.7 : 1)
-                                    })
-                                ),
-                                
-                                AnyView(
-                                    Button(action: {
-                                        resetTimer()
-                                        withAnimation(.easeInOut(duration: 0.3)) {
-                                            showDiceRoller.toggle()
-                                        }
-                                    }, label: {
-                                        Image(systemName: "dice")
-                                            .imageButtonLabel(style: .noBackground)
-                                            .opacity(showDiceRoller ? 0.7 : 1)
-                                    })
-                                )
-                            ], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
+                            AnyView(
+                                Button(action: {
+                                    resetTimer()
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        isAllowedToChangeProfile.toggle()
+                                    }
+                                    if isAllowedToChangeProfile == false {
+                                        SaveManager.saveLastUsedSetup(lifePointsViewModel.lastUsedSetup)
+                                    }
+                                }, label: {
+                                    Image(systemName: "pencil")
+                                        .imageButtonLabel(style: .noBackground)
+                                        .opacity(isAllowedToChangeProfile ? 0.7 : 1)
+                                })
+                            ),
                             
-                            Spacer()
-                            
-                            Button(action: {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    gameVM.showLifePointsView.toggle()
-                                }
-                            }, label: {
-                                Image(systemName: "xmark")
-                                    .imageButtonLabel(style: .noBackground)
-                                    .frame(height: 100)
-                            }).frame(height: 40).offset(x: UIDevice.isIPhone ? 10 : 0, y: 0)
-                        }
+                            AnyView(
+                                Button(action: {
+                                    resetTimer()
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        showDiceRoller.toggle()
+                                    }
+                                }, label: {
+                                    Image(systemName: "dice")
+                                        .imageButtonLabel(style: .noBackground)
+                                        .opacity(showDiceRoller ? 0.7 : 1)
+                                })
+                            )
+                        ], lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
                     }
                     
                     ZStack {
@@ -141,6 +127,20 @@ struct LifePointsView: View {
                         }
                     }.clipped()
                 }
+                if !isMiniView {
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            gameVM.showLifePointsView.toggle()
+                        }
+                    }, label: {
+                        ZStack(alignment: .bottomLeading) {
+                            Color.red.frame(width: 100, height: 100).opacity(0.0001)
+                            Image(systemName: "xmark")
+                                .imageButtonLabel(style: .noBackground)
+                        }
+                    }).offset(y: UIDevice.isIPhone ? -10 : 0)
+                }
+                FullScreenView(fullscreenView: $lifePointsViewModel.fullscreenView)
             }.frame(width: geo.size.width, height: geo.size.height)
                 .background(
                     Color.black.opacity(isMiniView ? 0 : 1)

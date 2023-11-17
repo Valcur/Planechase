@@ -224,7 +224,7 @@ struct ContentManagerView: View {
                         contentManagerVM.switchCardType(card)
                     }, label: {
                         Text(card.cardType == nil || card.cardType == .plane ? "plane".translate() : "phenomenon".translate())
-                            .buttonLabel()
+                            .textButtonLabel()
                     })
                 }
             }

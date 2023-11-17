@@ -18,33 +18,33 @@ extension LifePointsPlayerPanelView {
         @Binding var playerCounters: PlayerCounters
         @Binding var lifePoints: Int
         let playerId: Int
+        let isFullscreen: Bool
         
         var body: some View {
             ZStack {
-                //ScrollView(.vertical) {
-                    if playerId == 0 && lifePointsViewModel.numberOfPlayer % 2 == 1 {
-                        HStack(spacing: 20) {
+                if !isFullscreen && playerId == 0 && lifePointsViewModel.numberOfPlayer % 2 == 1 {
+                    HStack(spacing: 20) {
+                        Spacer()
+                        VStack {
                             Spacer()
-                            VStack {
-                                Spacer()
-                                Text("Tap to increase, Hold to reset").headline()
-                                Spacer()
-                                PartnerSwitch(playerId: playerId)
-                                Spacer()
-                            }
-                            Spacer()
-                            CommanderVStack(playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId)
-                            Spacer()
-                        }.padding(5)
-                    } else {
-                        VStack(spacing: UIDevice.isIPhone ? 0 : 20) {
                             Text("Tap to increase, Hold to reset").headline()
-                            CommanderVStack(playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId)
                             Spacer()
                             PartnerSwitch(playerId: playerId)
-                        }.padding(5).padding(.vertical, UIDevice.isIPhone ? 5 : 20)
-                    }
-                //}
+                            Spacer()
+                        }
+                        Spacer()
+                        CommanderVStack(playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId, isFullscreen: isFullscreen)
+                            .frame(maxWidth: UIDevice.isIPhone ? .infinity : 200)
+                        Spacer()
+                    }.padding(5)
+                } else {
+                    VStack(spacing: UIDevice.isIPhone ? 0 : 20) {
+                        Text("Tap to increase, Hold to reset").headline()
+                        CommanderVStack(playerCounters: $playerCounters, lifePoints: $lifePoints, playerId: playerId, isFullscreen: isFullscreen)
+                        Spacer()
+                        PartnerSwitch(playerId: playerId)
+                    }.padding(5).padding(.vertical, UIDevice.isIPhone ? 5 : 20)
+                }
             }.background(Color.black)
             .onAppear() {
                 exitTimer?.invalidate()
@@ -82,7 +82,7 @@ extension LifePointsPlayerPanelView {
                     }
                 }, label: {
                     Text("\(isEnabled ? "Disable" : "Enable") partner")
-                        .buttonLabel()
+                        .textButtonLabel()
                 })
             }
         }
@@ -95,6 +95,7 @@ extension LifePointsPlayerPanelView {
             @Binding var playerCounters: PlayerCounters
             @Binding var lifePoints: Int
             let playerId: Int
+            let isFullscreen: Bool
             
             var rotationAngle: Double {
                 if lifePointsViewModel.numberOfPlayer % 2 == 1 {
@@ -120,39 +121,49 @@ extension LifePointsPlayerPanelView {
                         if lifePointsViewModel.numberOfPlayer % 2 == 0 {
                             EvenBlueprint(row1: AnyView(HStack(spacing: 0) {
                                 ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                                    CommanderDamage(damageTaken: $playerCounters.commanderDamages[i - 1], lifePoints: $lifePoints)
+                                    CommanderDamage(damageTaken: $playerCounters.commanderDamages[i - 1],
+                                                    lifePoints: $lifePoints,
+                                                    isFullscreen: isFullscreen)
                                         .commanderDamageToYourself(i - 1 == playerId)
                                 }
                             }), row2: AnyView(HStack(spacing: 0) {
                                 ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                                    CommanderDamage(damageTaken: $playerCounters.commanderDamages[i + halfNumberOfPlayers - 1], lifePoints: $lifePoints)
+                                    CommanderDamage(damageTaken: $playerCounters.commanderDamages[i + halfNumberOfPlayers - 1],
+                                                    lifePoints: $lifePoints,
+                                                    isFullscreen: isFullscreen)
                                         .commanderDamageToYourself(i + halfNumberOfPlayers - 1 == playerId)
                                 }
                             }))
                         } else {
                             UnevenBlueprint(row1: AnyView(HStack(spacing: 0) {
                                 ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                                    CommanderDamage(damageTaken: $playerCounters.commanderDamages[i], lifePoints: $lifePoints)
+                                    CommanderDamage(damageTaken: $playerCounters.commanderDamages[i],
+                                                    lifePoints: $lifePoints,
+                                                    isFullscreen: isFullscreen)
                                         .commanderDamageToYourself(i == playerId)
                                 }
                             }),
                                             row2: AnyView(                    HStack(spacing: 0) {
                                 ForEach(1...halfNumberOfPlayers, id: \.self) { i in
-                                    CommanderDamage(damageTaken: $playerCounters.commanderDamages[i + halfNumberOfPlayers], lifePoints: $lifePoints)
+                                    CommanderDamage(damageTaken: $playerCounters.commanderDamages[i + halfNumberOfPlayers],
+                                                    lifePoints: $lifePoints,
+                                                    isFullscreen: isFullscreen)
                                         .commanderDamageToYourself(i + halfNumberOfPlayers == playerId)
                                 }
                             }),
-                                            sideElement: AnyView(CommanderDamage(damageTaken: $playerCounters.commanderDamages[0], lifePoints: $lifePoints)
+                                            sideElement: AnyView(CommanderDamage(damageTaken: $playerCounters.commanderDamages[0],
+                                                                                 lifePoints: $lifePoints,
+                                                                                 isFullscreen: isFullscreen)
                                                 .commanderDamageToYourself(0 == playerId))
                             )
                         }
                     }
-                    .frame(width: rotationAngle == 90 ? geo.size.height : geo.size.width)
-                    .frame(maxHeight: UIDevice.isIPhone ? 100 : 200)
-                    .rotationEffect(.degrees(rotationAngle), anchor: rotationAngle == 90 ? .topTrailing : .center)
-                    .offset(y: rotationAngle == 90 ? geo.size.height : 0)
-                    .frame(width: rotationAngle == 90 ? (UIDevice.isIPhone ? 100 : 200) : geo.size.width)
-                }
+                    .frame(width: rotationAngle == 90 ? (isFullscreen ? geo.size.width * 1.3 : geo.size.height) : geo.size.width)
+                    .frame(maxHeight: isFullscreen ? geo.size.height : (UIDevice.isIPhone ? 100 : 200))
+                    .rotationEffect(.degrees(rotationAngle), anchor: rotationAngle == 90 && !isFullscreen ? .topTrailing : .center)
+                    .offset(y: rotationAngle == 90 && !isFullscreen ? geo.size.height : 0)
+                    .frame(width: !isFullscreen && rotationAngle == 90 ? (UIDevice.isIPhone ? 100 : 200) : geo.size.width)
+                }.padding(.vertical, isFullscreen ? (rotationAngle == 90 ? 115 : 10) : 0)
             }
         }
         
@@ -160,15 +171,23 @@ extension LifePointsPlayerPanelView {
             let blurEffect: UIBlurEffect.Style = .systemThinMaterialDark
             @Binding var damageTaken: [Int]
             @Binding var lifePoints: Int
+            let isFullscreen: Bool
             
             var body: some View {
                 HStack(spacing: 2) {
                     ForEach(0..<damageTaken.count, id: \.self) { i in
                         ZStack {
                             VisualEffectView(effect: UIBlurEffect(style: blurEffect))
-                            Text("\(damageTaken[i])")
-                                .font(.title2)
-                                .foregroundColor(.white)
+                            if isFullscreen {
+                                Text("\(damageTaken[i])")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                            } else {
+                                Text("\(damageTaken[i])")
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                            }
                         }
                         .onTapGesture {
                             damageTaken[i] += 1
@@ -179,7 +198,13 @@ extension LifePointsPlayerPanelView {
                             damageTaken[i] = 0
                         }
                     }
-                }.cornerRadius(10).padding(3)
+                }
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.white, lineWidth: 1)
+                )
+                .padding(3)
             }
         }
         
