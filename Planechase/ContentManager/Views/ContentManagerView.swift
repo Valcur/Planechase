@@ -201,6 +201,7 @@ struct ContentManagerView: View {
         @State private var showingDeleteAlert = false
         let width: CGFloat
         let height: CGFloat
+        @State var cardType: CardTypeLine = .plane
         
         var body: some View {
             ZStack(alignment: .topLeading) {
@@ -222,11 +223,19 @@ struct ContentManagerView: View {
                 if card.imageURL == nil {
                     Button(action: {
                         contentManagerVM.switchCardType(card)
+                        if cardType == .plane {
+                            cardType = .phenomenon
+                        } else {
+                            cardType = .plane
+                        }
                     }, label: {
-                        Text(card.cardType == nil || card.cardType == .plane ? "plane".translate() : "phenomenon".translate())
+                        Text(cardType == .plane ? "plane".translate() : "phenomenon".translate())
                             .textButtonLabel()
                     })
                 }
+            }
+            .onAppear() {
+                cardType = card.cardType == nil ? .plane : card.cardType!
             }
             .padding(5)
             .overlay(
@@ -269,12 +278,36 @@ struct ContentManagerView: View {
         var text: String {
             return "collection_empty_bubble".translate()
         }
-        var showInfoView: Bool {
+        var showTypeChange: Bool {
+            return contentVM.importedCardsToChangeType.count > 0
+        }
+        var showDeckEmpty: Bool {
             return contentVM.cardCollection.count > 0 && contentVM.selectedDeck.deckCardIds.count == 0
+        }
+        var showInfoView: Bool {
+            return showDeckEmpty || showTypeChange
         }
         
         var body: some View {
-            Text(text).textButtonLabel(style: .secondary)
+            ZStack {
+                HStack {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            contentVM.applyCardTypesChanges()
+                        }
+                    }, label: {
+                        Text("collection_confirmTypeChange".translate()).textButtonLabel(style: .secondary)
+                    })
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            contentVM.importedCardsToChangeType = []
+                        }
+                    }, label: {
+                        Text("cancel".translate()).textButtonLabel(style: .secondary)
+                    })
+                }.opacity(showTypeChange ? 1 : 0)
+                Text(text).textButtonLabel(style: .secondary).opacity(showDeckEmpty && !showTypeChange ? 1 : 0)
+            }
                 .offset(y: showInfoView ? -80 : 0)
                 .scaleEffect(1.2)
                 .opacity(showInfoView ? 1 : 0)

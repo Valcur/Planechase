@@ -8,14 +8,17 @@
 import SwiftUI
 
 class SaveManager {
-    static func saveCardArray(_ cards: [Card]) {
+    static func saveCardArray(_ cards: [Card], shouldSaveCustomImages: Bool = true) {
         // Save id, url and image if its a custom card
         var cardsToSave: [SavedCardData] = []
+        var customCardsToSave: [SavedCardData] = []
         for card in cards {
             // Custom card imported
             if card.imageURL == nil {
-                SaveManager.saveCustomImageFromCard(card)
-                cardsToSave.append(SavedCardData(
+                if shouldSaveCustomImages {
+                    SaveManager.saveCustomImageFromCard(card)
+                }
+                customCardsToSave.append(SavedCardData(
                     id: card.id,
                     isCustomImage: true,
                     imageURL: card.imageURL,
@@ -36,15 +39,39 @@ class SaveManager {
                 ))
             }
         }
+        
         if let encoded = try? JSONEncoder().encode(cardsToSave) {
             UserDefaults.standard.set(encoded, forKey: "CardsCollection")
         }
-        
+
+        if let customEncoded = try? JSONEncoder().encode(customCardsToSave) {
+            UserDefaults.standard.set(customEncoded, forKey: "CustomCardsCollection")
+        }
     }
     
     static func getSavedCardArray() -> [Card] {
         var cards: [Card] = []
 
+        if let data = UserDefaults.standard.object(forKey: "CustomCardsCollection") as? Data,
+           let cardsSaved = try? JSONDecoder().decode([SavedCardData].self, from: data) {
+            
+            for card in cardsSaved {
+                // Custom card imported
+                if card.isCustomImage {
+                    if let image = getCustomImageFromCard(card) {
+                        cards.append(Card(id: card.id,
+                                          image: image,
+                                          imageURL: nil,
+                                          state: card.state,
+                                          cardSets: card.cardSets,
+                                          cardType: card.cardType
+                                         ))
+                    }
+                }
+            }
+        }
+        
+        // Leaving custom card support so it still work for older users
         if let data = UserDefaults.standard.object(forKey: "CardsCollection") as? Data,
            let cardsSaved = try? JSONDecoder().decode([SavedCardData].self, from: data) {
             

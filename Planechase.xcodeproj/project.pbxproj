@@ -56,6 +56,7 @@
 		DBA758112AEE982400DE2D16 /* LifePointsPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA758102AEE982400DE2D16 /* LifePointsPanelView.swift */; };
 		DBA833A92AFD26EE004C0096 /* TreacheryOptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA833A82AFD26EE004C0096 /* TreacheryOptionsPanel.swift */; };
 		DBB78C0E2B063F9C008A3EAD /* FullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB78C0D2B063F9C008A3EAD /* FullScreenView.swift */; };
+		DBB78C102B0CE0DF008A3EAD /* PlaneswalkAwayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB78C0F2B0CE0DF008A3EAD /* PlaneswalkAwayView.swift */; };
 		DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */; };
 		DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */; };
 		DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */; };
@@ -134,6 +135,7 @@
 		DBA758102AEE982400DE2D16 /* LifePointsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePointsPanelView.swift; sourceTree = "<group>"; };
 		DBA833A82AFD26EE004C0096 /* TreacheryOptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreacheryOptionsPanel.swift; sourceTree = "<group>"; };
 		DBB78C0D2B063F9C008A3EAD /* FullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenView.swift; sourceTree = "<group>"; };
+		DBB78C0F2B0CE0DF008A3EAD /* PlaneswalkAwayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneswalkAwayView.swift; sourceTree = "<group>"; };
 		DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager_Structs.swift; sourceTree = "<group>"; };
 		DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerView+Filter.swift"; sourceTree = "<group>"; };
 		DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewBubble.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				DB9C22812A29F48100656BC7 /* Dice */,
 				DB9C22822A29F4BB00656BC7 /* GameViewUIView.swift */,
 				DBA02CFA29A4FFA7004E94BC /* CurrentOtherPlanesView.swift */,
+				DBB78C0F2B0CE0DF008A3EAD /* PlaneswalkAwayView.swift */,
 			);
 			path = SmallViews;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				DB6AD6942B0108A5000B491B /* DiceRollerView.swift in Sources */,
 				DBA758112AEE982400DE2D16 /* LifePointsPanelView.swift in Sources */,
 				DB9C228D2A29F77F00656BC7 /* MenuCustomDiceColorChoiceView.swift in Sources */,
+				DBB78C102B0CE0DF008A3EAD /* PlaneswalkAwayView.swift in Sources */,
 				DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */,
 				DB9C22832A29F4BB00656BC7 /* GameViewUIView.swift in Sources */,
 				DB9C22892A29F74D00656BC7 /* MenuCustomBackgroundColorChoiceView.swift in Sources */,

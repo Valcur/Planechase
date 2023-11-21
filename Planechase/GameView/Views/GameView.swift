@@ -49,7 +49,7 @@ struct GameView: View {
                 ZStack {
                     DiceView(diceResult: $diceResult)
                     
-                    PlaneswalkAwayFromPhenomenon()
+                    PlaneswalkAwayView()
                 }
                 .position(x: diceViewPositionX(width: geo.size.width),
                           y:  diceViewPositionY(height: geo.size.height))

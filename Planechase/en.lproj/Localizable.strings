@@ -83,6 +83,7 @@
 "collection_filter_title_selection" = "Selection :";
 "collection_filter_title_type" = "Type :";
 "collection_filter_title_set" = "Set :";
+"collection_confirmTypeChange" = "Confirm type changes";
 
 // Mark: Game
 

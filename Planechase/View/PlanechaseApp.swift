@@ -23,7 +23,8 @@ struct PlanechaseApp: App {
             UITabBar.appearance().barTintColor = .black
         }
     }
-    
+        // A AJOUTER .defersSystemGestures(on: .all)
+
     var body: some Scene {
         WindowGroup {
             if planechaseVM.isPlaying {
@@ -80,6 +81,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var noDice: Bool
     @Published var showPlusMinus: Bool
     @Published var biggerLifeTotal: Bool
+    @Published var fullscreenCommanderAndCounters: Bool
     @Published var diceOptions: DiceOptions
     @Published var lifeCounterOptions: LifeOptions
     var lifeCounterProfiles: [PlayerCustomProfileInfo]
@@ -102,6 +104,7 @@ class PlanechaseViewModel: ObservableObject {
         let lifeOptionToggles = SaveManager.getOptions_LifeToggles()
         showPlusMinus = lifeOptionToggles.0
         biggerLifeTotal = lifeOptionToggles.1
+        fullscreenCommanderAndCounters = lifeOptionToggles.2
         diceOptions = SaveManager.getOptions_DiceOptions()
         lifeCounterOptions = SaveManager.getOptions_LifeOptions()
         lifeCounterProfiles = SaveManager.getOptions_LifePlayerProfiles()
@@ -171,7 +174,7 @@ class PlanechaseViewModel: ObservableObject {
     }
     
     func saveLifeToggles() {
-        SaveManager.saveOptions_LifeToggles(showPlusMinus: showPlusMinus, biggerLifeTotal: biggerLifeTotal)
+        SaveManager.saveOptions_LifeToggles(showPlusMinus: showPlusMinus, biggerLifeTotal: biggerLifeTotal, fullscreenCommanderAndCounters: fullscreenCommanderAndCounters)
     }
     
     func getSelectedRarities() -> [TreacheryData.Rarity] {

@@ -15,6 +15,7 @@ class ContentManagerViewModel: ObservableObject {
     @Published var selectedCardsInCollection: Int = 0
     @Published var selectedDeckId: Int
     @Published var collectionFilter: Filter = Filter()
+    @Published var importedCardsToChangeType: [Card] = []
     var selectedDeck: Deck {
         return decks[selectedDeckId]
     }
@@ -115,13 +116,32 @@ class ContentManagerViewModel: ObservableObject {
     }
     
     func switchCardType(_ card: Card) {
-        if let cardIndex = cardCollection.firstIndex(where: { $0.id == card.id }) {
-            cardCollection[cardIndex].cardType = card.cardType == nil || card.cardType == .plane ? .phenomenon : .plane
-            updateFilteredCardCollection()
-            DispatchQueue.main.async {
-                self.saveCollection()
+        withAnimation(.easeInOut(duration: 0.3)) {
+            if let index = importedCardsToChangeType.firstIndex(where: { $0.id == card.id }) {
+                importedCardsToChangeType.remove(at: index)
+            } else {
+                importedCardsToChangeType.append(card)
             }
         }
+    }
+    
+    func applyCardTypesChanges() {
+        print("\(importedCardsToChangeType.count)")
+        for card in importedCardsToChangeType {
+            if let index = cardCollection.firstIndex(where: { $0.id == card.id }) {
+                print("changing type")
+                var cardType = cardCollection[index].cardType
+                if cardType == .plane {
+                    cardType = .phenomenon
+                } else {
+                    cardType = .plane
+                }
+                cardCollection[index].cardType = cardType
+                print(cardCollection[index].cardType)
+            }
+        }
+        applyChangesToCollection(shouldSaveCustomImages: false)
+        importedCardsToChangeType = []
     }
     
     func selectAll() {
@@ -158,13 +178,13 @@ class ContentManagerViewModel: ObservableObject {
         }
     }
     
-    func applyChangesToCollection() {
+    func applyChangesToCollection(shouldSaveCustomImages: Bool = true) {
         updateSelectedCardsCountInCollection()
-        saveCollection()
+        saveCollection(shouldSaveCustomImages: shouldSaveCustomImages)
     }
     
-    private func saveCollection() {
-        SaveManager.saveCardArray(cardCollection)
+    private func saveCollection(shouldSaveCustomImages: Bool = true) {
+        SaveManager.saveCardArray(cardCollection, shouldSaveCustomImages: shouldSaveCustomImages)
     }
     
     // Return all cards selected by the user
@@ -189,7 +209,6 @@ class ContentManagerViewModel: ObservableObject {
         removeObsoleteCardIds()
         updateSelectedCardsCountInCollection()
         applyChangesToCollection()
-        
     }
     
     func removeAllUnofficialCards() {
