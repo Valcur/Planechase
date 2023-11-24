@@ -32,7 +32,9 @@ struct LifePointsPanelView: View {
                 }
                 
                 Text("\(lifepoints)")
-                    .font(.system(size: isMiniView ? 80 : (UIDevice.isIPhone ? 60 : 110) + (planechaseVM.biggerLifeTotal ? (UIDevice.isIPhone ? 15 : 20) : 0)))
+                    .font(.system(size: isMiniView ? 80 : (UIDevice.isIPhone ? 60 : 110) +
+                                  (planechaseVM.biggerLifeTotal ? (UIDevice.isIPhone ? 15 : 20) : 0) +
+                                  (planechaseVM.lifeCounterOptions.useCommanderDamages ? 0 : 30)))
                     //.fontWeight(.bold)
                     .fontWeight(isMiniView ? .bold : .semibold)
                     .foregroundColor(.white)

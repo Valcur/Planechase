@@ -195,37 +195,60 @@ extension OptionsMenuView {
                 return PlayerCustomProfileInfo()
             }
             @State var profileName = ""
-            @State var showingImagePicker: Bool = false
+            @State var showImagePicker: Bool = false
             @State private var inputImage: UIImage?
             @State var saveChangesTimer: Timer?
             @Binding var profiles: [PlayerCustomProfileInfo]
             @State var imageView: Image?
+            @State var showSearchImageSheet = false
             private let maxNameLength = 15
             let profileId: UUID
             
             var body: some View {
                 HStack(spacing: 20) {
-                    Button(action: {
-                        showingImagePicker = true
-                    }, label: {
+                    // PROFILE IMAGE
+                    ZStack {
+                        Color.black
+                        
                         if let image = imageView {
                             image
                                 .resizable()
                                 .scaledToFill()
-                        } else {
-                            ZStack {
-                                Color.black.opacity(0.5)
+                        }
+                        
+                        Color.black.opacity(0.3)
+                        
+                        HStack(spacing: 0) {
+                            Button(action: {
+                                showImagePicker = true
+                            }, label: {
                                 Image(systemName: "square.and.arrow.up")
                                     .font(.title)
                                     .foregroundColor(.white)
-                            }
+                            }).frame(maxWidth: .infinity)
+                            
+                            Rectangle().frame(width: 1, height: 40).foregroundColor(.white)
+                            
+                            Button(action: {
+                                showSearchImageSheet = true
+                            }, label: {
+                                Image(systemName: "magnifyingglass")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                            }).frame(maxWidth: .infinity)
                         }
-                    }).frame(width: 80, height: 50).cornerRadius(8).clipped()
-                        .onChange(of: inputImage) { _ in saveProfileImage() }
-                        .sheet(isPresented: $showingImagePicker) {
-                            ImagePicker(image: $inputImage).preferredColorScheme(.dark)
-                                .ignoresSafeArea()
-                        }
+                    }.frame(width: 130, height: 50).cornerRadius(8).clipped()
+                    .onChange(of: inputImage) { _ in saveProfileImage() }
+                    .sheet(isPresented: $showImagePicker) {
+                        ImagePicker(image: $inputImage).preferredColorScheme(.dark)
+                            .ignoresSafeArea()
+                    }
+                    .sheet(isPresented: $showSearchImageSheet) {
+                        ImageBrowserSheet(image: $inputImage)
+                    }
+                    
+                    // PROFILE NAME
+                        
                     
                     TextField("", text: $profileName)
                         .font(.title2)

@@ -93,9 +93,10 @@ extension LifePointsPlayerPanelView {
             }
             lifepointHasBeenUsedToggler.toggle()
             lifePointsViewModel.lastUsedSetup.playersProfilesIds[playerId] = profile == nil ? nil : profile!.id
-            cancelLastUsedSlot(slot: playerId)
+            //cancelLastUsedSlot(slot: playerId)
         }
         
+        // UNUSED
         func cancelLastUsedSlot(slot: Int) {
             for i in 0..<lifePointsViewModel.players.count {
                 if lifePointsViewModel.players[i].id == player.id && i != slot {

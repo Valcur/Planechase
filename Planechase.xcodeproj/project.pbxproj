@@ -23,6 +23,7 @@
 		DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098EE29A39D880058FCCB /* ContentManagerViewModel.swift */; };
 		DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */; };
 		DB6AD6942B0108A5000B491B /* DiceRollerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6AD6932B0108A5000B491B /* DiceRollerView.swift */; };
+		DB8F80142B10D01700188893 /* ImageBrowserSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F80132B10D01700188893 /* ImageBrowserSheet.swift */; };
 		DB9C22772A1E378000656BC7 /* Blueprints.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C22762A1E378000656BC7 /* Blueprints.swift */; };
 		DB9C22792A1FCDC400656BC7 /* AlternativeCountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C22782A1FCDC400656BC7 /* AlternativeCountersView.swift */; };
 		DB9C227B2A26624A00656BC7 /* LifePointsPlayerPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C227A2A26624A00656BC7 /* LifePointsPlayerPanelView.swift */; };
@@ -102,6 +103,7 @@
 		DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerViewModel+Scryfall.swift"; sourceTree = "<group>"; };
 		DB5098F629A3A1880058FCCB /* PlanechaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanechaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6AD6932B0108A5000B491B /* DiceRollerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DiceRollerView.swift; path = Planechase/GameView/Views/LifePoints/DiceRollerView.swift; sourceTree = SOURCE_ROOT; };
+		DB8F80132B10D01700188893 /* ImageBrowserSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBrowserSheet.swift; sourceTree = "<group>"; };
 		DB9C22762A1E378000656BC7 /* Blueprints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blueprints.swift; sourceTree = "<group>"; };
 		DB9C22782A1FCDC400656BC7 /* AlternativeCountersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativeCountersView.swift; sourceTree = "<group>"; };
 		DB9C227A2A26624A00656BC7 /* LifePointsPlayerPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePointsPlayerPanelView.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				DBD8AC4C2AC1D15F00C9F89A /* LifeOptionsPanel.swift */,
 				DBA833A82AFD26EE004C0096 /* TreacheryOptionsPanel.swift */,
 				DB9C22852A29F71000656BC7 /* OptionsPickers */,
+				DB8F80132B10D01700188893 /* ImageBrowserSheet.swift */,
 			);
 			path = OptionsPanel;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				DBD42B0129A78F1B008451BD /* OptionsMenuView.swift in Sources */,
 				DBA02CEE29A3E886004E94BC /* SaveManager.swift in Sources */,
 				DBA02CEC29A3B6A2004E94BC /* DownloadManager.swift in Sources */,
+				DB8F80142B10D01700188893 /* ImageBrowserSheet.swift in Sources */,
 				DBA02CFE29A50500004E94BC /* ZoomView.swift in Sources */,
 				DBB8311629CDD5FF0023E81A /* WhatsNewBubble.swift in Sources */,
 				DBB8311229CDB8AB0023E81A /* ContentManager_Structs.swift in Sources */,
