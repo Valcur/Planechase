@@ -130,6 +130,7 @@
 "options_ui_hellridePng" = "SUPER SECRET : use red_evil_portal.png for hellride";
 "options_ui_noHammer" = "Tools menu always visible";
 "options_ui_noDice" = "Hide dice";
+"options_ui_typeButtons" = "Show buttons to change custom cards type";
 "options_blurredBackground" = "Blurred background effect";
 "options_dice_title" = "Dice";
 "options_dice_style" = "Dice style :";

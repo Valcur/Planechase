@@ -145,7 +145,7 @@ struct ContentManagerView: View {
                     } else {
                         Text(contentManagerVM.decks[0].name).tag(contentManagerVM.decks[0].deckId)
                     }
-                }.pickerStyle(.menu).font(.subheadline).frame(height: 20).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(width: 200)
+                }.pickerStyle(.menu).accentColor(.white).font(.subheadline).frame(height: 20).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(width: 200)
                 .onChange(of: deckSelected) { newValue in
                     withAnimation(.easeInOut(duration: 0.3)) {
                         contentManagerVM.changeSelectedDeck(newDeckId: newValue)
@@ -196,6 +196,7 @@ struct ContentManagerView: View {
     }
     
     struct CardView: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var contentManagerVM: ContentManagerViewModel
         @ObservedObject var card: Card
         @State private var showingDeleteAlert = false
@@ -220,9 +221,9 @@ struct ContentManagerView: View {
                                height: height)
                         .cornerRadius(CardSizes.cornerRadiusForWidth(width))
                 }
-                if card.imageURL == nil {
+                if card.imageURL == nil && planechaseVM.showCustomCardsTypeButtons {
                     Button(action: {
-                        contentManagerVM.switchCardType(card)
+                        contentManagerVM.switchCardType(card, typeLink: $cardType)
                         if cardType == .plane {
                             cardType = .phenomenon
                         } else {
@@ -300,7 +301,7 @@ struct ContentManagerView: View {
                     })
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            contentVM.importedCardsToChangeType = []
+                            contentVM.cancelCardTypeChanges()
                         }
                     }, label: {
                         Text("cancel".translate()).textButtonLabel(style: .secondary)

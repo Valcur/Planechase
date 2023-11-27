@@ -131,6 +131,7 @@
 "options_ui_noDice" = "Cacher le dé";
 "options_blurredBackground" = "Effet flouté pour le fond";
 "options_dice_title" = "Dé";
+"options_ui_typeButtons" = "Afficher les boutons pour changer le type des cartes";
 "options_dice_style" = "Style du dé :";
 "options_dice_color" = "Couleur du dé :";
 "options_dice_choiceFace" = "Ajoute une face planeswalk/chaos au choix du joueur";

@@ -122,7 +122,7 @@ struct LifePointsView: View {
                             MonarchTokenView(lifepointHasBeenUsedToggler: $hideLifeTimerToggler).opacity(showMonarchToken ? 1 : 0)
                             
                             if showDiceRoller {
-                                DiceRollerView()
+                                DiceRollerView(lifepointHasBeenUsedToggler: $hideLifeTimerToggler)
                             }
                         }
                     }.clipped()

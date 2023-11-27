@@ -73,10 +73,8 @@ extension OptionsMenuView {
                 Toggle("options_toggle_bigerLifeTotal".translate(), isOn: $planechaseVM.biggerLifeTotal)
                     .font(.subheadline).foregroundColor(.white)
             
-                if UIDevice.isIPhone {
-                    Toggle("options_toggle_fullscreenCommanderAndCounters".translate(), isOn: $planechaseVM.fullscreenCommanderAndCounters)
-                        .font(.subheadline).foregroundColor(.white)
-                }
+                Toggle("options_toggle_fullscreenCommanderAndCounters".translate(), isOn: $planechaseVM.fullscreenCommanderAndCounters)
+                    .font(.subheadline).foregroundColor(.white)
                 
                 Text("options_life_colorPaletteId".translate())
                     .headline()

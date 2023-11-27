@@ -57,7 +57,7 @@ struct PlanechaseApp: App {
                             Image(systemName: "gear")
                             Text("tab_options".translate())
                         }
-                }
+                }.accentColor(.white)
                 .onAppear() {
                     // Not working from init
                     IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId(), IAPManager.getLifetimeId()], sharedSecret: IAPManager.getSharedSecret())
@@ -79,6 +79,7 @@ class PlanechaseViewModel: ObservableObject {
     @Published var biggerCardsOnMap: Bool
     @Published var noHammerRow: Bool
     @Published var noDice: Bool
+    @Published var showCustomCardsTypeButtons: Bool
     @Published var showPlusMinus: Bool
     @Published var biggerLifeTotal: Bool
     @Published var fullscreenCommanderAndCounters: Bool
@@ -101,6 +102,7 @@ class PlanechaseViewModel: ObservableObject {
         noHammerRow = optionToggles.2
         noDice = optionToggles.3
         useBlurredBackground = optionToggles.4
+        showCustomCardsTypeButtons = optionToggles.5
         let lifeOptionToggles = SaveManager.getOptions_LifeToggles()
         showPlusMinus = lifeOptionToggles.0
         biggerLifeTotal = lifeOptionToggles.1
@@ -170,7 +172,7 @@ class PlanechaseViewModel: ObservableObject {
     }
     
     func saveToggles() {
-        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG, noHammer: noHammerRow, noDice: noDice, blurredBackground: useBlurredBackground)
+        SaveManager.saveOptions_Toggles(bigCard: biggerCardsOnMap, hellride: useHellridePNG, noHammer: noHammerRow, noDice: noDice, blurredBackground: useBlurredBackground, showCustomCardsTypeButtons: showCustomCardsTypeButtons)
     }
     
     func saveLifeToggles() {

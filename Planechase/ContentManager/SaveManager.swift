@@ -284,21 +284,23 @@ extension SaveManager {
         return UserDefaults.standard.object(forKey: "GradientId") as? Int ?? 1
     }
     
-    static func saveOptions_Toggles(bigCard: Bool, hellride: Bool, noHammer: Bool, noDice: Bool, blurredBackground: Bool) {
+    static func saveOptions_Toggles(bigCard: Bool, hellride: Bool, noHammer: Bool, noDice: Bool, blurredBackground: Bool, showCustomCardsTypeButtons: Bool) {
         UserDefaults.standard.set(bigCard, forKey: "BiggerCardsOnMap")
         UserDefaults.standard.set(hellride, forKey: "UseHellridePNG")
         UserDefaults.standard.set(noHammer, forKey: "NoHammer")
         UserDefaults.standard.set(noDice, forKey: "NoDice")
         UserDefaults.standard.set(blurredBackground, forKey: "BlurredBackground")
+        UserDefaults.standard.set(showCustomCardsTypeButtons, forKey: "ShowCustomCardsTypeButtons")
     }
     
-    static func getOptions_Toggles() -> (Bool, Bool, Bool, Bool, Bool) {
+    static func getOptions_Toggles() -> (Bool, Bool, Bool, Bool, Bool, Bool) {
         let bigCards = UserDefaults.standard.object(forKey: "BiggerCardsOnMap") as? Bool ?? false
         let hellRide = UserDefaults.standard.object(forKey: "UseHellridePNG") as? Bool ?? false
         let noHammer = UserDefaults.standard.object(forKey: "NoHammer") as? Bool ?? true
         let noDice = UserDefaults.standard.object(forKey: "NoDice") as? Bool ?? false
         let blurredBackground = UserDefaults.standard.object(forKey: "BlurredBackground") as? Bool ?? false
-        return (bigCards, hellRide, noHammer, noDice, blurredBackground)
+        let showCustomCardsTypeButtons = UserDefaults.standard.object(forKey: "ShowCustomCardsTypeButtons") as? Bool ?? true
+        return (bigCards, hellRide, noHammer, noDice, blurredBackground, showCustomCardsTypeButtons)
     }
     
     static func saveOptions_LifeToggles(showPlusMinus: Bool, biggerLifeTotal: Bool, fullscreenCommanderAndCounters: Bool) {
@@ -311,7 +313,7 @@ extension SaveManager {
         let showPlusMinus = UserDefaults.standard.object(forKey: "ShowPlusMinus") as? Bool ?? true
         let biggerLifeTotal = UserDefaults.standard.object(forKey: "BiggerLifeTotal") as? Bool ?? false
         let fullscreenCommanderAndCounters = UserDefaults.standard.object(forKey: "FullscreenCommanderAndCounters") as? Bool ?? UIDevice.isIPhone
-        return (showPlusMinus, biggerLifeTotal, UIDevice.isIPhone ? fullscreenCommanderAndCounters : true)
+        return (showPlusMinus, biggerLifeTotal, fullscreenCommanderAndCounters)
 
     }
 }

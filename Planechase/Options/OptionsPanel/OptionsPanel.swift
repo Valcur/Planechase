@@ -82,6 +82,9 @@ extension OptionsMenuView {
                     
                     Toggle("options_ui_noHammer".translate(), isOn: $planechaseVM.noHammerRow)
                         .font(.subheadline).foregroundColor(.white)
+                    
+                    Toggle("options_ui_typeButtons".translate(), isOn: $planechaseVM.showCustomCardsTypeButtons)
+                        .font(.subheadline).foregroundColor(.white)
                 }
                 
                 Group {
@@ -183,6 +186,9 @@ extension OptionsMenuView {
                     planechaseVM.saveToggles()
                 }
                 .onChange(of: planechaseVM.useBlurredBackground) { _ in
+                    planechaseVM.saveToggles()
+                }
+                .onChange(of: planechaseVM.showCustomCardsTypeButtons) { _ in
                     planechaseVM.saveToggles()
                 }
         }

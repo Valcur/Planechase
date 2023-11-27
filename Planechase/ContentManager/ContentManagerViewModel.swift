@@ -15,7 +15,7 @@ class ContentManagerViewModel: ObservableObject {
     @Published var selectedCardsInCollection: Int = 0
     @Published var selectedDeckId: Int
     @Published var collectionFilter: Filter = Filter()
-    @Published var importedCardsToChangeType: [Card] = []
+    @Published var importedCardsToChangeType: [(Card, Binding<CardTypeLine>)] = []
     var selectedDeck: Deck {
         return decks[selectedDeckId]
     }
@@ -115,12 +115,12 @@ class ContentManagerViewModel: ObservableObject {
         SaveManager.saveDecks(decks)
     }
     
-    func switchCardType(_ card: Card) {
+    func switchCardType(_ card: Card, typeLink: Binding<CardTypeLine>) {
         withAnimation(.easeInOut(duration: 0.3)) {
-            if let index = importedCardsToChangeType.firstIndex(where: { $0.id == card.id }) {
+            if let index = importedCardsToChangeType.firstIndex(where: { $0.0.id == card.id }) {
                 importedCardsToChangeType.remove(at: index)
             } else {
-                importedCardsToChangeType.append(card)
+                importedCardsToChangeType.append((card, typeLink))
             }
         }
     }
@@ -128,7 +128,7 @@ class ContentManagerViewModel: ObservableObject {
     func applyCardTypesChanges() {
         print("\(importedCardsToChangeType.count)")
         for card in importedCardsToChangeType {
-            if let index = cardCollection.firstIndex(where: { $0.id == card.id }) {
+            if let index = cardCollection.firstIndex(where: { $0.id == card.0.id }) {
                 print("changing type")
                 var cardType = cardCollection[index].cardType
                 if cardType == .plane {
@@ -137,10 +137,21 @@ class ContentManagerViewModel: ObservableObject {
                     cardType = .plane
                 }
                 cardCollection[index].cardType = cardType
-                print(cardCollection[index].cardType)
             }
         }
         applyChangesToCollection(shouldSaveCustomImages: false)
+        importedCardsToChangeType = []
+    }
+    
+    func cancelCardTypeChanges() {
+        for i in 0..<importedCardsToChangeType.count {
+            let cardType = importedCardsToChangeType[i].1.wrappedValue
+            if cardType == .plane {
+                importedCardsToChangeType[i].1.wrappedValue = .phenomenon
+            } else {
+                importedCardsToChangeType[i].1.wrappedValue = .plane
+            }
+        }
         importedCardsToChangeType = []
     }
     

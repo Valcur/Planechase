@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DiceRollerView: View {
+    @Binding var lifepointHasBeenUsedToggler: Bool
     @State var result: Int = -2
     var body: some View {
         ZStack {
@@ -19,19 +20,19 @@ struct DiceRollerView: View {
                 Spacer()
                 HStack {
                     Group {
-                        DiceView(dice: .d4, result: $result)
+                        DiceView(dice: .d4, result: $result, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler)
                         Spacer()
-                        DiceView(dice: .d6, result: $result)
+                        DiceView(dice: .d6, result: $result, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler)
                         Spacer()
-                        DiceView(dice: .d8, result: $result)
+                        DiceView(dice: .d8, result: $result, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler)
                     }
                     Spacer()
                     Group {
-                        DiceView(dice: .d10, result: $result)
+                        DiceView(dice: .d10, result: $result, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler)
                         Spacer()
-                        DiceView(dice: .d12, result: $result)
+                        DiceView(dice: .d12, result: $result, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler)
                         Spacer()
-                        DiceView(dice: .d20, result: $result)
+                        DiceView(dice: .d20, result: $result, lifepointHasBeenUsedToggler: $lifepointHasBeenUsedToggler)
                     }
                 }
                 Spacer()
@@ -72,6 +73,7 @@ struct DiceRollerView: View {
     struct DiceView: View {
         let dice: Dice
         @Binding var result: Int
+        @Binding var lifepointHasBeenUsedToggler: Bool
         var size: CGFloat {
             UIDevice.isIPhone ? 65 : 80
         }
@@ -83,6 +85,7 @@ struct DiceRollerView: View {
                         result = Int.random(in: 1...dice.numberOfFace())
                     }
                 }
+                lifepointHasBeenUsedToggler.toggle()
             }, label: {
                 VStack {
                     Image(dice.imageName())
