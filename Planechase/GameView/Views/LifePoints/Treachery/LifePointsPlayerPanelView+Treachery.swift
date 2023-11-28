@@ -65,6 +65,7 @@ extension LifePointsPlayerPanelView {
                             Spacer()
                         }
                     }.background(Color.black)
+                    .onTapGesture {  }
                     .onLongPressGesture(minimumDuration: 1, perform: {
                         treacheryData!.isRoleRevealed.toggle()
                         lifepointHasBeenUsedToggler.toggle()

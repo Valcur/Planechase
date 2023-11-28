@@ -200,3 +200,6 @@
 "options_treachery_unco" = "Utiliser les identités unco";
 "options_treachery_rare" = "Utiliser les identités rare";
 "options_treachery_mythic" = "Utiliser les identités mythique";
+"options_treachery_player" = "Joueur";
+"options_treachery_players" = "Joueurs";
+"options_treachery_role" = "Rôle";

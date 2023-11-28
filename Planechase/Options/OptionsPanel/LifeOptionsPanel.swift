@@ -107,28 +107,15 @@ extension OptionsMenuView {
                     Text("options_monarch_title".translate())
                         .title()
                     
-                    Toggle("options_monarch_toggle".translate(), isOn: $planechaseVM.lifeCounterOptions.useMonarchToken)
-                        .font(.subheadline).foregroundColor(.white)
-                    
-                    if planechaseVM.lifeCounterOptions.useMonarchToken {
-                        VStack {
-                            HStack {
-                                Text("options_monarch_style".translate())
-                                    .headline()
-                                Spacer()
-                            }
-                            
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 10) {
-                                    MenuMonarchStyleChoiceView(styleId: -1)
-                                    MenuMonarchStyleChoiceView(styleId: 0)
-                                    //MenuMonarchStyleChoiceView(styleId: 1)
-                                    MenuMonarchStyleChoiceView(styleId: 2)
-                                    MenuMonarchStyleChoiceView(styleId: 3)
-                                    MenuMonarchStyleChoiceView(styleId: 4)
-                                }.padding(10)
-                            }
-                        }
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            MenuMonarchStyleChoiceView(styleId: -1)
+                            MenuMonarchStyleChoiceView(styleId: 0)
+                            //MenuMonarchStyleChoiceView(styleId: 1)
+                            MenuMonarchStyleChoiceView(styleId: 2)
+                            MenuMonarchStyleChoiceView(styleId: 3)
+                            MenuMonarchStyleChoiceView(styleId: 4)
+                        }.padding(10)
                     }
                 }
                 
@@ -164,9 +151,6 @@ extension OptionsMenuView {
                 planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
             }
             .onChange(of: planechaseVM.lifeCounterOptions.useCommanderDamages) { _ in
-                planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
-            }
-            .onChange(of: planechaseVM.lifeCounterOptions.useMonarchToken) { _ in
                 planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
             }
             .onChange(of: planechaseVM.showPlusMinus) { _ in
@@ -354,7 +338,7 @@ struct PlayerCustomProfileInfo: Identifiable {
         self.name = profileData.name
         if let imageData = profileData.customImageData {
             if let image = UIImage(data: imageData) {
-                customImage = image.compressImage(height: 500)
+                customImage = image.compressImage()
             }
         }
     }

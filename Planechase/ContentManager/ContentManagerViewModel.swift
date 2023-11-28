@@ -126,10 +126,8 @@ class ContentManagerViewModel: ObservableObject {
     }
     
     func applyCardTypesChanges() {
-        print("\(importedCardsToChangeType.count)")
         for card in importedCardsToChangeType {
             if let index = cardCollection.firstIndex(where: { $0.id == card.0.id }) {
-                print("changing type")
                 var cardType = cardCollection[index].cardType
                 if cardType == .plane {
                     cardType = .phenomenon

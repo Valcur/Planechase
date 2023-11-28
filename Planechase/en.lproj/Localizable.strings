@@ -202,3 +202,6 @@
 "options_treachery_unco" = "Use uncommon Identities";
 "options_treachery_rare" = "Use rare Identities";
 "options_treachery_mythic" = "Use mythic Identities";
+"options_treachery_player" = "Player";
+"options_treachery_players" = "Players";
+"options_treachery_role" = "Role";

@@ -388,6 +388,9 @@ extension GameViewModel {
     }
     
     func planeswalkAwayFromPhenomenon() {
+        if isPlayingClassicMode {
+            previousPlane = cardToZoomIn
+        }
         let card = drawCard()
         cardToZoomIn = card
         if !isPlayingClassicMode {

@@ -27,7 +27,7 @@ extension OptionsMenuView {
                         if backgroundStyleId == -1 {
                             Color("\(planechaseVM.lifeCounterOptions.colorPaletteId) Player \(colorId)")
                         } else {
-                            if backgroundStyleId >= 0 {
+                            if backgroundStyleId >= 0 && colorId != 0 {
                                 CustomBackgroundStyle.getSelectedBackgroundImage(backgroundStyleId)
                                     .scaledToFill()
                                     .colorMultiply(Color("\(planechaseVM.lifeCounterOptions.colorPaletteId) Player \(colorId)"))
@@ -57,7 +57,7 @@ extension OptionsMenuView {
         
         func changeColorMultiplier() {
             if colorId == 0 { return }
-            print("Change color")
+            //print("Change color")
             let duration: CGFloat = 2
             withAnimation(.easeInOut(duration: 0.3)) {
                 colorId += 1
