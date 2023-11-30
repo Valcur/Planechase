@@ -16,6 +16,7 @@
 "plane" = "Plane";
 "phenomenon" = "Phenomenon";
 "close" = "Close";
+"reset" = "Reset";
 
 // Mark: Play
 
@@ -50,7 +51,7 @@
 "discord_hide_content" = "You can still find a link in the options under 'Contact'";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- Reworked lifecounter\n- Play the Treachery variant\n- 'Planeswalk Away' button when you encounter a phenomenon\n- Change imported card types (plane/phenomenon)";
+"whatsNew_content" = "- Reworked lifecounter\n- Play the Treachery variant\n- 'Planeswalk Away' button when you encounter a phenomenon\n- Change imported card types (plane/phenomenon)\n- Disable screen turning off while on the app";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
@@ -150,6 +151,8 @@
 "options_monarch_style" = "Monarch token style :";
 "options_profiles_title" = "Player profiles";
 "options_profiles_intro" = "Save player names and background images. Choose them in game.";
+"options_profiles_search" = "Search";
+"options_profiles_cardName" = "Card name...";
 
 "options_contact_discord" = "Suggestion for the app ? Bugs that you want me to fix ?";
 "options_contact_discordJoin" = "Join us on Discord !";
@@ -190,7 +193,7 @@
 "options_toggle_bigerLifeTotal" = "Bigger life total";
 "options_toggle_fullscreenCommanderAndCounters" = "Fullscreen panel to change commander damages and counters";
 "options_contact_link_title" = "Discover my other MTG apps";
-"options_contact_linkPC" = "Planechase Companion - iOS";
+"options_contact_linkLife" = "Standalone Life Counter - iOS";
 "options_contact_linkHordeWeb" = "Against the Horde - Web";
 "options_contact_linkHordeiOS" = "Against the Horde - iOS";
 
@@ -205,3 +208,4 @@
 "options_treachery_player" = "Player";
 "options_treachery_players" = "Players";
 "options_treachery_role" = "Role";
+"options_treachery_roleRepartition" = "Roles distribution :";

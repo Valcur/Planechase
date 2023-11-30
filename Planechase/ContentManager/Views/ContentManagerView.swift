@@ -81,6 +81,9 @@ struct ContentManagerView: View {
                     .position(x: geo.size.width / 2, y: geo.size.height + 50)
             }
         }
+        .onAppear() {
+            contentManagerVM.importedCardsToChangeType = []
+        }
     }
     
     private func cardWidth(scrollViewWidth: CGFloat) -> CGFloat {

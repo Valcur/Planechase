@@ -134,7 +134,7 @@ struct LifePointsView: View {
                         }
                     }, label: {
                         ZStack(alignment: .bottomLeading) {
-                            Color.red.frame(width: 100, height: 100).opacity(0.0001)
+                            Color.red.frame(width: 100, height: 70).opacity(0.0000001)
                             Image(systemName: "xmark")
                                 .imageButtonLabel(style: .noBackground)
                         }

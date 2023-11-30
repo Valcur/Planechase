@@ -16,6 +16,7 @@
 "plane" = "Plan";
 "phenomenon" = "Phénomène";
 "close" = "Fermer";
+"reset" = "Réinitialiser";
 
 // Mark: Play
 
@@ -49,7 +50,7 @@
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Mise à jour du compteur de points de vie\n- Jouer au mode de jeu Treachery\n- Bouton 'Planeswalk Away' lorsque vous rencontrez un phénomène\n- Changez le type des cartes importées (plan/phénomène)";
+"whatsNew_content" = "- Mise à jour du compteur de points de vie\n- Jouer au mode de jeu Treachery\n- Bouton 'Planeswalk Away' lorsque vous rencontrez un phénomène\n- Changez le type des cartes importées (plan/phénomène)\n- Empêche l'appareil de s'éteindre automatiquement tant que vous êtes sur l'app";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -149,6 +150,8 @@
 "options_monarch_style" = "Style de jeton :";
 "options_profiles_title" = "Profils de joueur";
 "options_profiles_intro" = "Sauvegardez les noms des joueurs et ajoutez une image de fond personnalisé. Affectez-les en jeu.";
+"options_profiles_search" = "Rechercher";
+"options_profiles_cardName" = "Nom de la carte ...";
 
 "options_contact_discord" = "Des suggestion sur l'app ? Un bug que vous aimeriez que je règle ?";
 "options_contact_discordJoin" = "Rejoignez nous sur Discord !";
@@ -188,7 +191,7 @@
 "options_toggle_bigerLifeTotal" = "Aggrandir le total de point de vie";
 "options_toggle_fullscreenCommanderAndCounters" = "Compteurs et dégâts de commander en plein écran";
 "options_contact_link_title" = "Découvrez mes autres applications MTG";
-"options_contact_linkPC" = "Planechase Companion - iOS";
+"options_contact_linkLife" = "Standalone Life Counter - iOS";
 "options_contact_linkHordeWeb" = "Against the Horde - Web";
 "options_contact_linkHordeiOS" = "Against the Horde - iOS";
 
@@ -203,3 +206,4 @@
 "options_treachery_player" = "Joueur";
 "options_treachery_players" = "Joueurs";
 "options_treachery_role" = "Rôle";
+"options_treachery_roleRepartition" = "Répartition des rôles :";

@@ -17,7 +17,7 @@ extension OptionsMenuView {
         
         var body: some View {
             GeometryReader { geo in
-                VStack(alignment: .leading, spacing: 15) {
+                VStack(alignment: .leading, spacing: 5) {
                     Text("Treachery".translate())
                         .title()
                     
@@ -94,69 +94,82 @@ extension OptionsMenuView {
             @EnvironmentObject var planechaseVM: PlanechaseViewModel
             @State var rolesRepartition: [TreacheryRole] = []
             var body: some View {
-                VStack {
+                VStack(spacing: 15) {
                     HStack {
-                        Text("options_treachery_players".translate())
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .frame(width: 70)
-                        
-                        ForEach(0..<rolesRepartition.count, id: \.self) { i in
-                            Text("\(i + 1)\n\("options_treachery_players".translate())")
-                                .font(UIDevice.isIPhone ? .footnote : .headline)
+                        Text("options_treachery_roleRepartition".translate())
+                            .headline()
+                        Spacer()
+                        Button(action: {
+                            rolesRepartition = TreacheryRole.getDefault()
+                        }, label: {
+                            Text("reset".translate())
+                                .textButtonLabel()
+                        })
+                    }
+                    VStack {
+                        HStack {
+                            Text("options_treachery_players".translate())
+                                .font(.headline)
                                 .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
                                 .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .opacity(i == 0 ? 0 : 1)
+                                .frame(width: 70)
+                            
+                            ForEach(0..<rolesRepartition.count, id: \.self) { i in
+                                Text("\(i + 1)\n\("options_treachery_players".translate())")
+                                    .font(UIDevice.isIPhone ? .footnote : .headline)
+                                    .fontWeight(.bold)
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .opacity(i == 0 ? 0 : 1)
+                            }
                         }
-                    }
-                    HStack {
-                        Text("options_treachery_role".translate())
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .frame(width: 70)
-                        
-                        ForEach(0..<rolesRepartition.count, id: \.self) { i in
-                            Button(action: {
-                                let role = rolesRepartition[i]
-                                withAnimation(.easeInOut(duration: 0.000001)) {
-                                    if role == .leader {
-                                        rolesRepartition[i] = .guardian
-                                    } else if role == .guardian {
-                                        rolesRepartition[i] = .assassin
-                                    } else if role == .assassin {
-                                        rolesRepartition[i] = .traitor
-                                    } else if role == .traitor {
-                                        rolesRepartition[i] = .leader
+                        HStack {
+                            Text("options_treachery_role".translate())
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .frame(width: 70)
+                            
+                            ForEach(0..<rolesRepartition.count, id: \.self) { i in
+                                Button(action: {
+                                    let role = rolesRepartition[i]
+                                    withAnimation(.easeInOut(duration: 0.000001)) {
+                                        if role == .leader {
+                                            rolesRepartition[i] = .guardian
+                                        } else if role == .guardian {
+                                            rolesRepartition[i] = .assassin
+                                        } else if role == .assassin {
+                                            rolesRepartition[i] = .traitor
+                                        } else if role == .traitor {
+                                            rolesRepartition[i] = .leader
+                                        }
                                     }
-                                }
-                            }, label: {
-                                ZStack {
-                                    Rectangle()
-                                        .frame(height: 50)
-                                        .foregroundColor(Color(rolesRepartition[i].color()))
-                                        .cornerRadius(15)
-                                    
-                                    if UIDevice.isIPad {
-                                        Text(rolesRepartition[i].name())
-                                            .font(.headline)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.white)
-                                    } else {
-                                        Text(rolesRepartition[i].name().prefix(1))
-                                            .font(.headline)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.white)
+                                }, label: {
+                                    ZStack {
+                                        Rectangle()
+                                            .frame(height: 50)
+                                            .foregroundColor(Color(rolesRepartition[i].color()))
+                                            .cornerRadius(15)
+                                        
+                                        if UIDevice.isIPad {
+                                            Text(rolesRepartition[i].name())
+                                                .font(.headline)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.white)
+                                        } else {
+                                            Text(rolesRepartition[i].name().prefix(1))
+                                                .font(.headline)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.white)
+                                        }
                                     }
-                                }
-                            }).frame(maxWidth: .infinity)
+                                }).frame(maxWidth: .infinity)
+                            }
                         }
-                    }
-                }.padding(.horizontal, 8).padding(.vertical, 15)
-                .overlay(RoundedRectangle(cornerRadius: 14).stroke(.white, lineWidth: 2))
+                    }.padding(.horizontal, 8).padding(.vertical, 15)
+                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(.white, lineWidth: 2))
+                }
                 .onAppear() {
                     rolesRepartition = SaveManager.getTreacheryRolesRepartition()
                 }.onChange(of: rolesRepartition) { _ in

@@ -228,6 +228,17 @@ enum TreacheryRole: Codable {
     case assassin
     case traitor
     
+    static func getDefault() -> [TreacheryRole] {
+        return [
+            .leader,
+            .traitor,
+            .assassin,
+            .assassin,
+            .guardian,
+            .assassin
+        ]
+    }
+    
     func name() -> String {
         switch self {
         case .leader:

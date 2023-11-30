@@ -129,7 +129,7 @@ class ContentManagerViewModel: ObservableObject {
         for card in importedCardsToChangeType {
             if let index = cardCollection.firstIndex(where: { $0.id == card.0.id }) {
                 var cardType = cardCollection[index].cardType
-                if cardType == .plane {
+                if cardType == .plane || cardType == nil {
                     cardType = .phenomenon
                 } else {
                     cardType = .plane

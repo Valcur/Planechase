@@ -32,12 +32,12 @@ struct ImageBrowserSheet: View {
                         Button(action: {
                             searchField = ""
                         }, label: {
-                            Image(systemName: "xmark")
+                            Image(systemName: "trash")
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .buttonLabel()
                         })
-                        TextField("Search", text: $searchField, onCommit: {
+                        TextField("options_profiles_cardName".translate(), text: $searchField, onCommit: {
                             searchCards()
                         })
                         .font(.title2)
@@ -50,7 +50,7 @@ struct ImageBrowserSheet: View {
                         Button(action: {
                             searchCards()
                         }, label: {
-                            Text("Search")
+                            Text("options_profiles_search".translate())
                                 .buttonLabel()
                         })
                     }.padding(10).blurredBackground()

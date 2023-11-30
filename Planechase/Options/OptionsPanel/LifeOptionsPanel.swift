@@ -244,6 +244,7 @@ extension OptionsMenuView {
                             profileName = profile.name
                         }
                         .onChange(of: profileName) { _ in
+                            if profileName == profile.name { return }
                             if profileName.count > maxNameLength {
                                 profileName = String(profileName.prefix(maxNameLength))
                             }

@@ -132,6 +132,24 @@ struct OptionsMenuView: View {
                             .frame(width: 280, height: 78)
                     }
                 }
+                
+                HStack {
+                    VStack(alignment: .leading, spacing: 20) {
+                        Text("options_contact_link_title".translate())
+                            .title()
+                        
+                        Link(destination: URL(string: "https://against-the-horde.com")!) {
+                            Text("options_contact_linkHordeWeb".translate()).underlinedLink()
+                        }
+                        Link(destination: URL(string: "https://apps.apple.com/us/app/against-the-horde/id1631351942?platform=iphone")!) {
+                            Text("options_contact_linkHordeiOS".translate()).underlinedLink()
+                        }
+                        Link(destination: URL(string: "https://apps.apple.com/us/app/planechase-companion/id6445894290?platform=iphone")!) {
+                            Text("options_contact_linkLife".translate()).underlinedLink()
+                        }
+                    }
+                    Spacer()
+                }
             }.scrollablePanel()
         }
     }
