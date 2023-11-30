@@ -29,7 +29,7 @@ struct CircularButtonView: View {
                                 .font(.title)
                                 .foregroundColor(.white)
                                 .padding()
-                                .frame(width: 48, height: 40)
+                                .frame(width: 49, height: 40)
                                 .rotationEffect(.degrees(showMenu ? 180 : 0))
                                 .offset(x: 8, y: 10)
                         })

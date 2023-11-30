@@ -17,7 +17,7 @@ extension OptionsMenuView {
         
         var body: some View {
             GeometryReader { geo in
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading, spacing: 15) {
                     Text("Treachery".translate())
                         .title()
                     
@@ -28,9 +28,6 @@ extension OptionsMenuView {
                     
                     Toggle("options_treachery_enable".translate(), isOn: $planechaseVM.treacheryOptions.isTreacheryEnabled)
                         .font(.subheadline).foregroundColor(.white)
-                    
-                    Text("Roles repartition :".translate())
-                        .headline()
                     
                     RolesRepartition()
                     
@@ -169,7 +166,7 @@ extension OptionsMenuView {
                         }
                     }.padding(.horizontal, 8).padding(.vertical, 15)
                     .overlay(RoundedRectangle(cornerRadius: 14).stroke(.white, lineWidth: 2))
-                }
+                }.padding(.bottom, 5)
                 .onAppear() {
                     rolesRepartition = SaveManager.getTreacheryRolesRepartition()
                 }.onChange(of: rolesRepartition) { _ in

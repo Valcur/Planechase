@@ -144,7 +144,7 @@ struct OptionsMenuView: View {
                         Link(destination: URL(string: "https://apps.apple.com/us/app/against-the-horde/id1631351942?platform=iphone")!) {
                             Text("options_contact_linkHordeiOS".translate()).underlinedLink()
                         }
-                        Link(destination: URL(string: "https://apps.apple.com/us/app/planechase-companion/id6445894290?platform=iphone")!) {
+                        Link(destination: URL(string: "https://apps.apple.com/us/app/aether-mtg-life-counter/id6471500910?platform=iphone")!) {
                             Text("options_contact_linkLife".translate()).underlinedLink()
                         }
                     }

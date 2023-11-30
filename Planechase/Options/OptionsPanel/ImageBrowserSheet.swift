@@ -45,6 +45,7 @@ struct ImageBrowserSheet: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 10)
                         .padding(.horizontal, 10)
+                        .preferredColorScheme(.dark)
                         .blurredBackground()
                         .cornerRadius(5)
                         Button(action: {

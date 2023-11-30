@@ -23,16 +23,24 @@ struct PlanechaseApp: App {
             UITabBar.appearance().barTintColor = .black
         }
     }
-        // A AJOUTER .defersSystemGestures(on: .all)
 
     var body: some Scene {
         WindowGroup {
             if planechaseVM.isPlaying {
-                GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles, planechaseVM: planechaseVM)
-                    .statusBar(hidden: true)
-                    .environmentObject(planechaseVM)
-                    .environmentObject(planechaseVM.gameVM)
-                    .ignoresSafeArea(edges: [.top, .bottom])
+                if #available(iOS 16.0, *) {
+                    GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles, planechaseVM: planechaseVM)
+                        .statusBar(hidden: true)
+                        .environmentObject(planechaseVM)
+                        .environmentObject(planechaseVM.gameVM)
+                        .ignoresSafeArea(edges: [.top, .bottom])
+                        .defersSystemGestures(on: .all)
+                } else {
+                    GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles, planechaseVM: planechaseVM)
+                        .statusBar(hidden: true)
+                        .environmentObject(planechaseVM)
+                        .environmentObject(planechaseVM.gameVM)
+                        .ignoresSafeArea(edges: [.top, .bottom])
+                }
             } else {
                 TabView {
                     MainMenuView()

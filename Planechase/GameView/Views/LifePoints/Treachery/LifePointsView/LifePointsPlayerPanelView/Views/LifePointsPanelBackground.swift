@@ -32,7 +32,17 @@ extension LifePointsPlayerPanelView {
                     }
                 } else {
                     if planechaseVM.lifeCounterOptions.colorPaletteId == -1 {
-                        VisualEffectView(effect: UIBlurEffect(style: blurEffect))
+                        ZStack {
+                            if !isMiniView {
+                                Color.gray.opacity(0.4)
+                                GeometryReader { geo in
+                                    Image("VignetteOverlay")
+                                        .resizable()
+                                        .clipped()
+                                }
+                            }
+                            VisualEffectView(effect: UIBlurEffect(style: blurEffect))
+                        }
                     } else {
                         if let backgroundStyle = planechaseVM.lifeCounterOptions.backgroundStyleId, backgroundStyle >= 0 {
                             ZStack {
@@ -46,7 +56,6 @@ extension LifePointsPlayerPanelView {
                                     GeometryReader { geo in
                                         Image("VignetteOverlay")
                                             .resizable()
-                                            //.scaledToFit()
                                             .clipped()
                                             .opacity(isMiniView ? 0.2 : 0.4)
                                     }

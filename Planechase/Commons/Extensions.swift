@@ -41,6 +41,7 @@ extension View {
     
     func buttonLabel() -> some View {
         self
+            .foregroundColor(.white)
             .padding()
             .blurredBackground()
             .padding(5)
@@ -90,6 +91,7 @@ extension View {
     
     func genericButtonLabel(style: ViewStyle = .primary) -> some View {
         self
+            .foregroundColor(.white)
             .padding()
             .blurredBackground(style: style)
             .padding(5)
@@ -313,7 +315,12 @@ extension UIImage {
         }
     }
     
-    func compressImage(height: CGFloat = 500) -> UIImage {
+    func compressImage(height: CGFloat = 750) -> UIImage {
+        print(self.size.height)
+        if self.size.height <= height * 2 {
+            print("Image too small, no compressing")
+            return self
+        }
         let resizedImage = self.aspectFittedToHeight(height)
         resizedImage.jpegData(compressionQuality: 0.2)
         print("Compressing")

@@ -50,7 +50,7 @@
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Mise à jour du compteur de points de vie\n- Jouer au mode de jeu Treachery\n- Bouton 'Planeswalk Away' lorsque vous rencontrez un phénomène\n- Changez le type des cartes importées (plan/phénomène)\n- Empêche l'appareil de s'éteindre automatiquement tant que vous êtes sur l'app";
+"whatsNew_content" = "- Mise à jour du compteur de points de vie\n- Jouer au mode de jeu Treachery (nouvel onglet Treachery dans les options)\n- Bouton 'Planeswalk Away' lorsque vous rencontrez un phénomène\n- Changez le type des cartes importées (plan/phénomène)\n- Empêche l'appareil de s'éteindre automatiquement tant que vous êtes sur l'app";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";

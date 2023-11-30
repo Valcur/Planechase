@@ -51,7 +51,7 @@
 "discord_hide_content" = "You can still find a link in the options under 'Contact'";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- Reworked lifecounter\n- Play the Treachery variant\n- 'Planeswalk Away' button when you encounter a phenomenon\n- Change imported card types (plane/phenomenon)\n- Disable screen turning off while on the app";
+"whatsNew_content" = "- Reworked lifecounter\n- Play the Treachery variant (new Treachery panel in the options)\n- 'Planeswalk Away' button when you encounter a phenomenon\n- Change imported card types (plane/phenomenon)\n- Disabled screen turning off while on the app";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
