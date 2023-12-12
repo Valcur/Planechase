@@ -141,7 +141,7 @@ struct ZoomView: View {
                     .frame(width: width, height: height)
                     .cornerRadius(CardSizes.cornerRadiusForWidth(width))
                     .onAppear {
-                        card.cardAppears(isPrioritary: true)
+                        card.cardAppears()
                     }
             } else {
                 Image(uiImage: card.image!)

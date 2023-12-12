@@ -13,12 +13,8 @@ extension ContentManagerView {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var contentVM: ContentManagerViewModel
         private var columns: [GridItem]  {
-            //Array(repeating: GridItem(.flexible()), count: 2)
             [GridItem(.adaptive(minimum: 250, maximum: 350))]
         }
-        /*let columns = [
-            GridItem(.adaptive(minimum: 150, maximum: 150))
-        ]*/
         
         var body: some View {
             GeometryReader { geo in
@@ -35,8 +31,6 @@ extension ContentManagerView {
                             Spacer()
                             Text("\(contentVM.filteredCardCollection.count)/\(contentVM.cardCollection.count)").title()
                         }
-                        
-                        //Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
                         
                         ZStack(alignment: .topLeading) {
                             Text("collection_filter_title_source".translate()).headline().padding(.top, 15)
@@ -65,8 +59,6 @@ extension ContentManagerView {
                                 })
                             }.padding(.leading, 120)
                         }
-                        
-                        //Rectangle().frame(height: 2).foregroundColor(.white).padding(.horizontal, 10)
                         
                         ZStack(alignment: .topLeading) {
                             Text("collection_filter_title_selection".translate()).headline().padding(.top, 15)
@@ -136,18 +128,6 @@ extension ContentManagerView {
                                 }.frame(maxWidth: .infinity)
                             }.padding(.leading, 120)
                         }
-                        
-                        /*
-                        Spacer()
-                        
-                        Group {
-                            Button(action: {
-                                contentVM.removeAllOfficialCards()
-                            }, label: {
-                                Text("Reset")
-                                    .textButtonLabel()
-                            })
-                        }*/
                     }.padding(.horizontal, 30).padding(.top, 30).iPhoneScaler_widthOnly(width: geo.size.width, anchor: .top)
                 }
             }.background(GradientView(gradientId: planechaseVM.gradientId))

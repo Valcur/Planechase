@@ -30,7 +30,7 @@ class GameViewModel: ObservableObject {
         map = [[Card?]](
             repeating: [Card?](repeating: nil, count: 7),
             count: 7
-           )
+        )
         cardToZoomIn = nil
         travelModeEnable = false
         previousPlane = nil
@@ -52,18 +52,13 @@ class GameViewModel: ObservableObject {
         map = [[Card?]](
             repeating: [Card?](repeating: nil, count: 7),
             count: 7
-           )
+        )
         cardToZoomIn = nil
         travelModeEnable = false
         previousPlane = nil
         
         addCardAtCoord(card: drawCard(), center)
         setupNeighbors()
-    }
-    
-    func addCardAtCoord(card: Card, _ coord: Coord) {
-        guard isCoordinateInRange(coord: coord) else { return }
-        map[coord.x][coord.y] = card
     }
     
     func toggleTravelMode() {
@@ -82,65 +77,8 @@ class GameViewModel: ObservableObject {
         }
     }
     
-    func showHellride() {
-        let hellrideCoord = center.getNeighborCoordinates(getDiagnoal: true)
-        
-        for coord in hellrideCoord {
-            if mapAt(coord) == nil {
-                let card = Card.hellride.new()
-                card.id = "HELLRIDE_\(coord.x)_\(coord.y)"
-                addCardAtCoord(card: card, coord)
-            }
-        }
-    }
-    
-    func hideHellride() {
-        let hellrideCoord = center.getNeighborCoordinates(getDiagnoal: true)
-
-        for coord in hellrideCoord {
-            if mapAt(coord)?.imageURL == "HELLRIDE" {
-                map[coord.x][coord.y] = nil
-            }
-        }
-    }
-    
-    func travelTo(_ card: Card) {
-        var coord = center
-        for i in 0..<7 {
-            for j in 0..<7 {
-                let c = map[i][j]
-                if c != nil && c?.id == card.id {
-                    coord = Coord(x: i, y: j)
-                }
-            }
-        }
-        toggleTravelMode()
-
-        let difference = Coord(x: coord.x - center.x, y: coord.y - center.y)
-        print("Moving from \(coord.x) : \(coord.y) in direction \(difference.x) : \(difference.y)")
-        
-        // Move the map to make the place we want to travel the new center
-        moveMap(direction: difference)
-        
-        // Draw new cards
-        if  mapAt(center) == nil {
-            addCardAtCoord(card: drawCard(), center)
-        }
-        
-        map[center.x][center.y]?.state = .selected
-        setupNeighbors()
-        
-        withAnimation(.easeInOut(duration: 0.5).delay(0.5)) {
-            cardToZoomIn = getCenter()
-        }
-    }
-    
-    func getCenter() -> Card {
-        return mapAt(center)!
-    }
-    
     func drawCard() -> Card {
-        // Should only happened when the whole deck is on otherCurrentPlane
+        // Should only happened when the whole deck is on otherCurrentPlane (which means the player is trolling)
         if deck.count == 0 {
             if isPlayingClassicMode {
                 return cardToZoomIn!
@@ -150,7 +88,7 @@ class GameViewModel: ObservableObject {
         }
         
         let card = deck.removeFirst()
-
+        
         // If empty reshuffle deck with all cards not on the map
         if deck.count == 0 {
             deck = deckFull.map({ $0.new() })
@@ -176,9 +114,63 @@ class GameViewModel: ObservableObject {
         return card
     }
     
+    func planeswalkAwayFromPhenomenon() {
+        if isPlayingClassicMode {
+            previousPlane = cardToZoomIn
+        }
+        let card = drawCard()
+        cardToZoomIn = card
+        if !isPlayingClassicMode {
+            addCardAtCoord(card: card, center)
+        }
+    }
+}
+
+// MARK: Eternities map game mode
+extension GameViewModel {
+    func addCardAtCoord(card: Card, _ coord: Coord) {
+        guard isCoordinateInRange(coord: coord) else { return }
+        map[coord.x][coord.y] = card
+    }
+    
+    func travelTo(_ card: Card) {
+        var coord = center
+        for i in 0..<7 {
+            for j in 0..<7 {
+                let c = map[i][j]
+                if c != nil && c?.id == card.id {
+                    coord = Coord(x: i, y: j)
+                }
+            }
+        }
+        toggleTravelMode()
+        
+        let difference = Coord(x: coord.x - center.x, y: coord.y - center.y)
+        print("Moving from \(coord.x) : \(coord.y) in direction \(difference.x) : \(difference.y)")
+        
+        // Move the map to make the place we want to travel the new center
+        moveMap(direction: difference)
+        
+        // Draw new cards
+        if  mapAt(center) == nil {
+            addCardAtCoord(card: drawCard(), center)
+        }
+        
+        map[center.x][center.y]?.state = .selected
+        setupNeighbors()
+        
+        withAnimation(.easeInOut(duration: 0.5).delay(0.5)) {
+            cardToZoomIn = getCenter()
+        }
+    }
+    
     private func mapAt(_ coord: Coord) -> Card? {
         guard isCoordinateInRange(coord: coord) else { return nil }
         return map[coord.x][coord.y]
+    }
+    
+    func getCenter() -> Card {
+        return mapAt(center)!
     }
     
     private func setupNeighbors() {
@@ -258,6 +250,28 @@ class GameViewModel: ObservableObject {
             }
         }
     }
+    
+    func showHellride() {
+        let hellrideCoord = center.getNeighborCoordinates(getDiagnoal: true)
+        
+        for coord in hellrideCoord {
+            if mapAt(coord) == nil {
+                let card = Card.hellride.new()
+                card.id = "HELLRIDE_\(coord.x)_\(coord.y)"
+                addCardAtCoord(card: card, coord)
+            }
+        }
+    }
+    
+    func hideHellride() {
+        let hellrideCoord = center.getNeighborCoordinates(getDiagnoal: true)
+        
+        for coord in hellrideCoord {
+            if mapAt(coord)?.imageURL == "HELLRIDE" {
+                map[coord.x][coord.y] = nil
+            }
+        }
+    }
 }
 
 // MARK: Classic game mode
@@ -291,6 +305,7 @@ extension GameViewModel {
     }
 }
 
+// MARK: - Planar deck Controller
 extension GameViewModel {
     func togglePlanarDeckController() {
         showPlanarDeckController.toggle()
@@ -385,16 +400,5 @@ extension GameViewModel {
     
     private func removeCardFromRevealed(_ card: Card) {
         revealedCards.removeAll(where: { $0.id == card.id })
-    }
-    
-    func planeswalkAwayFromPhenomenon() {
-        if isPlayingClassicMode {
-            previousPlane = cardToZoomIn
-        }
-        let card = drawCard()
-        cardToZoomIn = card
-        if !isPlayingClassicMode {
-            addCardAtCoord(card: card, center)
-        }
     }
 }

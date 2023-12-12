@@ -99,9 +99,6 @@ extension LifePointsPlayerPanelView {
                                     
                             }
                         }.cornerRadius(CardSizes.classic_cornerRadiusForHeight(geo.size.height))
-                        /*.mask(
-                            LinearGradient(gradient: croppingGradient, startPoint: .leading, endPoint: .trailing)
-                        )*/
                         .offset(x: (geo.size.height / 3) * (putCardOnTheRight ? 1 : -1))
                     }
                     if !putCardOnTheRight {

@@ -11,6 +11,17 @@
 		DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3BF29B9E06400C15251 /* DiceOptions.swift */; };
 		DB18E3C329BE14E000C15251 /* OptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3C229BE14E000C15251 /* OptionsPanel.swift */; };
 		DB24CA3B2AB75B760002E17B /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB24CA3A2AB75B760002E17B /* FilterSheet.swift */; };
+		DB2EA3722B2899E600A2E734 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3712B2899E600A2E734 /* View+.swift */; };
+		DB2EA3742B289A0000A2E734 /* Image+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3732B289A0000A2E734 /* Image+.swift */; };
+		DB2EA3762B289A0A00A2E734 /* Text+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3752B289A0A00A2E734 /* Text+.swift */; };
+		DB2EA3782B289A4200A2E734 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3772B289A4200A2E734 /* UIImage+.swift */; };
+		DB2EA37A2B289A8700A2E734 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3792B289A8700A2E734 /* UIDevice+.swift */; };
+		DB2EA37C2B289ADA00A2E734 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA37B2B289ADA00A2E734 /* String+.swift */; };
+		DB2EA37E2B289B3B00A2E734 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA37D2B289B3B00A2E734 /* ImagePicker.swift */; };
+		DB2EA3802B289B6200A2E734 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA37F2B289B6200A2E734 /* GradientView.swift */; };
+		DB2EA3822B289BC100A2E734 /* VisualEffectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3812B289BC100A2E734 /* VisualEffectsView.swift */; };
+		DB2EA3842B28A8CD00A2E734 /* PlanechaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3832B28A8CD00A2E734 /* PlanechaseViewModel.swift */; };
+		DB2EA3862B28AE0F00A2E734 /* DiceRollerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3852B28AE0F00A2E734 /* DiceRollerView.swift */; };
 		DB360F872ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB360F862ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift */; };
 		DB3AB7C929AD051E00B11E17 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AB7C829AD051E00B11E17 /* StoreKit.framework */; };
 		DB3AB7CC29AFAA6900B11E17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3AB7CE29AFAA6900B11E17 /* Localizable.strings */; };
@@ -18,11 +29,9 @@
 		DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */; };
 		DB5098DF29A388DE0058FCCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB5098DE29A388DE0058FCCB /* Assets.xcassets */; };
 		DB5098E229A388DE0058FCCB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB5098E129A388DE0058FCCB /* Preview Assets.xcassets */; };
-		DB5098E929A392880058FCCB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098E829A392880058FCCB /* Extensions.swift */; };
 		DB5098EC29A3940B0058FCCB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098EB29A3940B0058FCCB /* Card.swift */; };
 		DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098EE29A39D880058FCCB /* ContentManagerViewModel.swift */; };
 		DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */; };
-		DB6AD6942B0108A5000B491B /* DiceRollerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6AD6932B0108A5000B491B /* DiceRollerView.swift */; };
 		DB8F80142B10D01700188893 /* ImageBrowserSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8F80132B10D01700188893 /* ImageBrowserSheet.swift */; };
 		DB9C22772A1E378000656BC7 /* Blueprints.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C22762A1E378000656BC7 /* Blueprints.swift */; };
 		DB9C22792A1FCDC400656BC7 /* AlternativeCountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9C22782A1FCDC400656BC7 /* AlternativeCountersView.swift */; };
@@ -88,6 +97,17 @@
 		DB18E3BF29B9E06400C15251 /* DiceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceOptions.swift; sourceTree = "<group>"; };
 		DB18E3C229BE14E000C15251 /* OptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsPanel.swift; sourceTree = "<group>"; };
 		DB24CA3A2AB75B760002E17B /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
+		DB2EA3712B2899E600A2E734 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
+		DB2EA3732B289A0000A2E734 /* Image+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+.swift"; sourceTree = "<group>"; };
+		DB2EA3752B289A0A00A2E734 /* Text+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+.swift"; sourceTree = "<group>"; };
+		DB2EA3772B289A4200A2E734 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		DB2EA3792B289A8700A2E734 /* UIDevice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+.swift"; sourceTree = "<group>"; };
+		DB2EA37B2B289ADA00A2E734 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		DB2EA37D2B289B3B00A2E734 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		DB2EA37F2B289B6200A2E734 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		DB2EA3812B289BC100A2E734 /* VisualEffectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectsView.swift; sourceTree = "<group>"; };
+		DB2EA3832B28A8CD00A2E734 /* PlanechaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanechaseViewModel.swift; sourceTree = "<group>"; };
+		DB2EA3852B28AE0F00A2E734 /* DiceRollerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceRollerView.swift; sourceTree = "<group>"; };
 		DB360F862ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLifeCounterBackgroundStyleChoiceView.swift; sourceTree = "<group>"; };
 		DB3AB7C829AD051E00B11E17 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DB3AB7CD29AFAA6900B11E17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -97,12 +117,10 @@
 		DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManagerView.swift; sourceTree = "<group>"; };
 		DB5098DE29A388DE0058FCCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB5098E129A388DE0058FCCB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		DB5098E829A392880058FCCB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DB5098EB29A3940B0058FCCB /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		DB5098EE29A39D880058FCCB /* ContentManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManagerViewModel.swift; sourceTree = "<group>"; };
 		DB5098F029A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentManagerViewModel+Scryfall.swift"; sourceTree = "<group>"; };
 		DB5098F629A3A1880058FCCB /* PlanechaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanechaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB6AD6932B0108A5000B491B /* DiceRollerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DiceRollerView.swift; path = Planechase/GameView/Views/LifePoints/DiceRollerView.swift; sourceTree = SOURCE_ROOT; };
 		DB8F80132B10D01700188893 /* ImageBrowserSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBrowserSheet.swift; sourceTree = "<group>"; };
 		DB9C22762A1E378000656BC7 /* Blueprints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blueprints.swift; sourceTree = "<group>"; };
 		DB9C22782A1FCDC400656BC7 /* AlternativeCountersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativeCountersView.swift; sourceTree = "<group>"; };
@@ -176,10 +194,23 @@
 		DB18E3C129BE148A00C15251 /* Options */ = {
 			isa = PBXGroup;
 			children = (
-				DB9C22842A29F6EF00656BC7 /* OptionsPanel */,
 				DBD42B0029A78F1B008451BD /* OptionsMenuView.swift */,
+				DB9C22842A29F6EF00656BC7 /* OptionsPanel */,
 			);
 			path = Options;
+			sourceTree = "<group>";
+		};
+		DB2EA3702B2899D100A2E734 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DB2EA3712B2899E600A2E734 /* View+.swift */,
+				DB2EA3732B289A0000A2E734 /* Image+.swift */,
+				DB2EA3752B289A0A00A2E734 /* Text+.swift */,
+				DB2EA3772B289A4200A2E734 /* UIImage+.swift */,
+				DB2EA3792B289A8700A2E734 /* UIDevice+.swift */,
+				DB2EA37B2B289ADA00A2E734 /* String+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		DB3AB7C729AD051E00B11E17 /* Frameworks */ = {
@@ -211,10 +242,12 @@
 		DB5098D929A388DA0058FCCB /* Planechase */ = {
 			isa = PBXGroup;
 			children = (
+				DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */,
+				DB2EA3832B28A8CD00A2E734 /* PlanechaseViewModel.swift */,
 				DB18E3C129BE148A00C15251 /* Options */,
 				DBC339AD29A7DFDF0089CB01 /* Info.plist */,
-				DBA02CEF29A419BA004E94BC /* View */,
-				DBA02CFC29A504E6004E94BC /* GameView */,
+				DBA02CEF29A419BA004E94BC /* MiscViews */,
+				DBA02CFC29A504E6004E94BC /* Game */,
 				DB5098ED29A39D730058FCCB /* ContentManager */,
 				DB5098EA29A393F70058FCCB /* Commons */,
 				DB5098DE29A388DE0058FCCB /* Assets.xcassets */,
@@ -237,12 +270,15 @@
 		DB5098EA29A393F70058FCCB /* Commons */ = {
 			isa = PBXGroup;
 			children = (
-				DB5098E829A392880058FCCB /* Extensions.swift */,
+				DB2EA3702B2899D100A2E734 /* Extensions */,
 				DBA02CEB29A3B6A2004E94BC /* DownloadManager.swift */,
 				DB5098EB29A3940B0058FCCB /* Card.swift */,
 				DBA02CF629A4FDB8004E94BC /* Coord.swift */,
 				DBA02CFF29A61E42004E94BC /* CardSizes.swift */,
 				DB18E3BF29B9E06400C15251 /* DiceOptions.swift */,
+				DB2EA37D2B289B3B00A2E734 /* ImagePicker.swift */,
+				DB2EA37F2B289B6200A2E734 /* GradientView.swift */,
+				DB2EA3812B289BC100A2E734 /* VisualEffectsView.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -267,10 +303,10 @@
 				DBFEBCEF2AFBEC5600A78F16 /* LifePointsView */,
 				DBA757E12ACEC34400DE2D16 /* MonarchTokenView.swift */,
 				DBB78C0D2B063F9C008A3EAD /* FullScreenView.swift */,
-				DB6AD6932B0108A5000B491B /* DiceRollerView.swift */,
 				DBA757F22AE9725600DE2D16 /* CircularButtonView.swift */,
 				DBFEBCF12AFBECE500A78F16 /* LP_Struct.swift */,
 				DB9C22762A1E378000656BC7 /* Blueprints.swift */,
+				DB2EA3852B28AE0F00A2E734 /* DiceRollerView.swift */,
 			);
 			path = LifePoints;
 			sourceTree = "<group>";
@@ -325,24 +361,23 @@
 			path = OptionsPickers;
 			sourceTree = "<group>";
 		};
-		DBA02CEF29A419BA004E94BC /* View */ = {
+		DBA02CEF29A419BA004E94BC /* MiscViews */ = {
 			isa = PBXGroup;
 			children = (
-				DB5098DA29A388DA0058FCCB /* PlanechaseApp.swift */,
 				DBA02CF029A419D1004E94BC /* MainMenuView.swift */,
 				DBC339AE29A8E4BC0089CB01 /* BubbleView.swift */,
 				DBB8311529CDD5FF0023E81A /* WhatsNewBubble.swift */,
 			);
-			path = View;
+			path = MiscViews;
 			sourceTree = "<group>";
 		};
-		DBA02CFC29A504E6004E94BC /* GameView */ = {
+		DBA02CFC29A504E6004E94BC /* Game */ = {
 			isa = PBXGroup;
 			children = (
 				DBA02CF429A4CC4A004E94BC /* GameViewModel.swift */,
 				DBC339BC29ACEDC80089CB01 /* Views */,
 			);
-			path = GameView;
+			path = Game;
 			sourceTree = "<group>";
 		};
 		DBA757E72ADEB8D800DE2D16 /* Treachery */ = {
@@ -509,6 +544,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB2EA3822B289BC100A2E734 /* VisualEffectsView.swift in Sources */,
 				DB9C228F2A29F79200656BC7 /* MenuNumberOfFaceChoiceView.swift in Sources */,
 				DBA833A92AFD26EE004C0096 /* TreacheryOptionsPanel.swift in Sources */,
 				DBA02CFB29A4FFA7004E94BC /* CurrentOtherPlanesView.swift in Sources */,
@@ -518,16 +554,21 @@
 				DBC339BB29ACED690089CB01 /* PlanechaseVM+IAP.swift in Sources */,
 				DB5098DD29A388DA0058FCCB /* ContentManagerView.swift in Sources */,
 				DBA757F32AE9725600DE2D16 /* CircularButtonView.swift in Sources */,
-				DB5098E929A392880058FCCB /* Extensions.swift in Sources */,
+				DB2EA3742B289A0000A2E734 /* Image+.swift in Sources */,
+				DB2EA37E2B289B3B00A2E734 /* ImagePicker.swift in Sources */,
+				DB2EA3862B28AE0F00A2E734 /* DiceRollerView.swift in Sources */,
 				DB9C228B2A29F76400656BC7 /* MenuCustomDiceChoiceView.swift in Sources */,
 				DBB8311429CDBB9F0023E81A /* ContentManagerView+Filter.swift in Sources */,
 				DBFEBCF42AFBED0200A78F16 /* ProfileSelectorView.swift in Sources */,
 				DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */,
 				DBC339B329AB8AC60089CB01 /* PlanarDeckControlView.swift in Sources */,
 				DBA757EB2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift in Sources */,
+				DB2EA3722B2899E600A2E734 /* View+.swift in Sources */,
 				DB18E3C329BE14E000C15251 /* OptionsPanel.swift in Sources */,
 				DBA757E92ADEB8FE00DE2D16 /* Treachery.swift in Sources */,
 				DBA02D0029A61E42004E94BC /* CardSizes.swift in Sources */,
+				DB2EA3802B289B6200A2E734 /* GradientView.swift in Sources */,
+				DB2EA3782B289A4200A2E734 /* UIImage+.swift in Sources */,
 				DB5098F129A39F300058FCCB /* ContentManagerViewModel+Scryfall.swift in Sources */,
 				DBA02CF529A4CC4A004E94BC /* GameViewModel.swift in Sources */,
 				DBC339B729ACEA840089CB01 /* IAPManager.swift in Sources */,
@@ -539,18 +580,20 @@
 				DB9C227B2A26624A00656BC7 /* LifePointsPlayerPanelView.swift in Sources */,
 				DBA757E62ACF192700DE2D16 /* MenuMonarchStyleChoiceView.swift in Sources */,
 				DBA02CF329A41BB7004E94BC /* GameView.swift in Sources */,
-				DB6AD6942B0108A5000B491B /* DiceRollerView.swift in Sources */,
 				DBA758112AEE982400DE2D16 /* LifePointsPanelView.swift in Sources */,
 				DB9C228D2A29F77F00656BC7 /* MenuCustomDiceColorChoiceView.swift in Sources */,
 				DBB78C102B0CE0DF008A3EAD /* PlaneswalkAwayView.swift in Sources */,
 				DB5098DB29A388DA0058FCCB /* PlanechaseApp.swift in Sources */,
 				DB9C22832A29F4BB00656BC7 /* GameViewUIView.swift in Sources */,
 				DB9C22892A29F74D00656BC7 /* MenuCustomBackgroundColorChoiceView.swift in Sources */,
+				DB2EA37C2B289ADA00A2E734 /* String+.swift in Sources */,
 				DB5098EC29A3940B0058FCCB /* Card.swift in Sources */,
 				DBFEBCF62AFBED0E00A78F16 /* LifePointsPanelBackground.swift in Sources */,
 				DBFEBCF82AFBED2200A78F16 /* CommanderDamagesPanel.swift in Sources */,
 				DB5098EF29A39D880058FCCB /* ContentManagerViewModel.swift in Sources */,
+				DB2EA3842B28A8CD00A2E734 /* PlanechaseViewModel.swift in Sources */,
 				DB9C22932A29F7C100656BC7 /* MenuStartingLifeChoiceView.swift in Sources */,
+				DB2EA3762B289A0A00A2E734 /* Text+.swift in Sources */,
 				DB9C22912A29F7AE00656BC7 /* MenuNumberOfPlayerChoiceView.swift in Sources */,
 				DBA757E42ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift in Sources */,
 				DBD8AC4D2AC1D15F00C9F89A /* LifeOptionsPanel.swift in Sources */,
@@ -561,6 +604,7 @@
 				DBC339AF29A8E4BC0089CB01 /* BubbleView.swift in Sources */,
 				DBA02CF729A4FDB8004E94BC /* Coord.swift in Sources */,
 				DBD42B0129A78F1B008451BD /* OptionsMenuView.swift in Sources */,
+				DB2EA37A2B289A8700A2E734 /* UIDevice+.swift in Sources */,
 				DBA02CEE29A3E886004E94BC /* SaveManager.swift in Sources */,
 				DBA02CEC29A3B6A2004E94BC /* DownloadManager.swift in Sources */,
 				DB8F80142B10D01700188893 /* ImageBrowserSheet.swift in Sources */,

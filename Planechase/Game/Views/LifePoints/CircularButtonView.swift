@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: A renommer elle est plus circulaire
 struct CircularButtonView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @EnvironmentObject var lifePointsViewModel: LifePointsViewModel

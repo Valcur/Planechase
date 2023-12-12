@@ -9,13 +9,17 @@ import SwiftUI
 
 class ContentManagerViewModel: ObservableObject {
     weak var planechaseVM: PlanechaseViewModel?
-    @Published var cardCollection: [Card]
-    @Published var filteredCardCollection: [Card] = []
-    @Published var decks: [Deck]
+    
+    @Published var cardCollection: [Card]               // All Planechase cards owned by the user
+    @Published var filteredCardCollection: [Card] = []  // Planechase cards currently showed on screen according to the user filter
+    @Published var decks: [Deck]                        // User decklists
     @Published var selectedCardsInCollection: Int = 0
-    @Published var selectedDeckId: Int
-    @Published var collectionFilter: Filter = Filter()
+    @Published var selectedDeckId: Int                  // Current decklist on screen
+    @Published var collectionFilter: Filter = Filter()  // Filters selected by the user
+    
+    // Cards the user want to change the type but hasn't confirmed yet
     @Published var importedCardsToChangeType: [(Card, Binding<CardTypeLine>)] = []
+    
     var selectedDeck: Deck {
         return decks[selectedDeckId]
     }
@@ -26,6 +30,13 @@ class ContentManagerViewModel: ObservableObject {
         selectedDeckId = SaveManager.getSelectedDeckId()
         changeSelectedDeck(newDeckId: selectedDeckId)
         updateFilteredCardCollection()
+    }
+    
+    // Return a copy of all cards selected by the user to start a new game
+    func getPlanarDeck() -> [Card] {
+        var selectedCards = cardCollection.filter({ $0.state == .selected })
+        selectedCards = selectedCards.map({ $0.new() })
+        return selectedCards
     }
     
     func changeSelectedDeck(newDeckId: Int) {
@@ -61,11 +72,6 @@ class ContentManagerViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.addAllPlanechaseCardsFromScryfall()
         }
-    }
-    
-    // Return all the cards the player want to play with
-    func getSelectedCards() -> [Card] {
-        return cardCollection
     }
     
     private func updateSelectedCardsCountInCollection() {
@@ -115,44 +121,6 @@ class ContentManagerViewModel: ObservableObject {
         SaveManager.saveDecks(decks)
     }
     
-    func switchCardType(_ card: Card, typeLink: Binding<CardTypeLine>) {
-        withAnimation(.easeInOut(duration: 0.3)) {
-            if let index = importedCardsToChangeType.firstIndex(where: { $0.0.id == card.id }) {
-                importedCardsToChangeType.remove(at: index)
-            } else {
-                importedCardsToChangeType.append((card, typeLink))
-            }
-        }
-    }
-    
-    func applyCardTypesChanges() {
-        for card in importedCardsToChangeType {
-            if let index = cardCollection.firstIndex(where: { $0.id == card.0.id }) {
-                var cardType = cardCollection[index].cardType
-                if cardType == .plane || cardType == nil {
-                    cardType = .phenomenon
-                } else {
-                    cardType = .plane
-                }
-                cardCollection[index].cardType = cardType
-            }
-        }
-        applyChangesToCollection(shouldSaveCustomImages: false)
-        importedCardsToChangeType = []
-    }
-    
-    func cancelCardTypeChanges() {
-        for i in 0..<importedCardsToChangeType.count {
-            let cardType = importedCardsToChangeType[i].1.wrappedValue
-            if cardType == .plane {
-                importedCardsToChangeType[i].1.wrappedValue = .phenomenon
-            } else {
-                importedCardsToChangeType[i].1.wrappedValue = .plane
-            }
-        }
-        importedCardsToChangeType = []
-    }
-    
     func selectAll() {
         for card in filteredCardCollection {
             if selectedDeck.deckCardIds.firstIndex(where: { $0 == card.id }) == nil {
@@ -189,18 +157,7 @@ class ContentManagerViewModel: ObservableObject {
     
     func applyChangesToCollection(shouldSaveCustomImages: Bool = true) {
         updateSelectedCardsCountInCollection()
-        saveCollection(shouldSaveCustomImages: shouldSaveCustomImages)
-    }
-    
-    private func saveCollection(shouldSaveCustomImages: Bool = true) {
         SaveManager.saveCardArray(cardCollection, shouldSaveCustomImages: shouldSaveCustomImages)
-    }
-    
-    // Return all cards selected by the user
-    func getDeck() -> [Card] {
-        var selectedCards = cardCollection.filter({ $0.state == .selected })
-        selectedCards = selectedCards.map({ $0.new() })
-        return selectedCards
     }
     
     func removeCardFromCollection(_ card: Card) {
@@ -211,21 +168,6 @@ class ContentManagerViewModel: ObservableObject {
         removeObsoleteCardIds()
         updateSelectedCardsCountInCollection()
         applyChangesToCollection()
-    }
-    
-    func removeAllOfficialCards() {
-        cardCollection.removeAll(where: { $0.imageURL != nil })
-        removeObsoleteCardIds()
-        updateSelectedCardsCountInCollection()
-        applyChangesToCollection()
-    }
-    
-    func removeAllUnofficialCards() {
-        for card in cardCollection {
-            if card.imageURL == nil {
-                removeCardFromCollection(card)
-            }
-        }
     }
     
     func importNewImageToCollection(image: UIImage) {
@@ -242,7 +184,10 @@ class ContentManagerViewModel: ObservableObject {
         print("id for new card : \(beforeId)\(id)")
         return "\(beforeId)\(id)"
     }
-    
+}
+
+// MARK: - Filter collection
+extension ContentManagerViewModel {
     func toggleCardTypeLineFilter(_ typeLine: CardTypeLine) {
         if collectionFilter.cardTypeLine == nil {
             collectionFilter.cardTypeLine = typeLine
@@ -294,6 +239,65 @@ class ContentManagerViewModel: ObservableObject {
                         self.filteredCardCollection = self.filteredCardCollection.filter({ $0.cardType == .phenomenon })
                     }
                 }
+            }
+        }
+    }
+}
+
+// MARK: - Change custom card type
+extension ContentManagerViewModel {
+    func switchCardType(_ card: Card, typeLink: Binding<CardTypeLine>) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            if let index = importedCardsToChangeType.firstIndex(where: { $0.0.id == card.id }) {
+                importedCardsToChangeType.remove(at: index)
+            } else {
+                importedCardsToChangeType.append((card, typeLink))
+            }
+        }
+    }
+
+    func applyCardTypesChanges() {
+        for card in importedCardsToChangeType {
+            if let index = cardCollection.firstIndex(where: { $0.id == card.0.id }) {
+                var cardType = cardCollection[index].cardType
+                if cardType == .plane || cardType == nil {
+                    cardType = .phenomenon
+                } else {
+                    cardType = .plane
+                }
+                cardCollection[index].cardType = cardType
+            }
+        }
+        applyChangesToCollection(shouldSaveCustomImages: false)
+        importedCardsToChangeType = []
+    }
+
+    func cancelCardTypeChanges() {
+        for i in 0..<importedCardsToChangeType.count {
+            let cardType = importedCardsToChangeType[i].1.wrappedValue
+            if cardType == .plane {
+                importedCardsToChangeType[i].1.wrappedValue = .phenomenon
+            } else {
+                importedCardsToChangeType[i].1.wrappedValue = .plane
+            }
+        }
+        importedCardsToChangeType = []
+    }
+}
+
+// MARK: - Unused but needed sometimes
+extension ContentManagerViewModel {
+    func removeAllOfficialCards() {
+        cardCollection.removeAll(where: { $0.imageURL != nil })
+        removeObsoleteCardIds()
+        updateSelectedCardsCountInCollection()
+        applyChangesToCollection()
+    }
+    
+    func removeAllUnofficialCards() {
+        for card in cardCollection {
+            if card.imageURL == nil {
+                removeCardFromCollection(card)
             }
         }
     }

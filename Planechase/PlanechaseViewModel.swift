@@ -1,86 +1,25 @@
 //
-//  PlanechaseApp.swift
+//  PlanechaseViewModel.swift
 //  Planechase
 //
-//  Created by Loic D on 20/02/2023.
-// DICE by juicy_fish
+//  Created by Loic D on 12/12/2023.
+//
 
 import SwiftUI
-
-@main
-struct PlanechaseApp: App {
-    @ObservedObject var planechaseVM = PlanechaseViewModel()
-    
-    init() {
-        if #available(iOS 15, *) {
-            // correct the transparency bug for Tab bars
-            let tabBarAppearance = UITabBarAppearance()
-            tabBarAppearance.configureWithDefaultBackground()
-            tabBarAppearance.backgroundColor = .black
-            UITabBar.appearance().standardAppearance = tabBarAppearance
-            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        } else {
-            UITabBar.appearance().barTintColor = .black
-        }
-    }
-
-    var body: some Scene {
-        WindowGroup {
-            if planechaseVM.isPlaying {
-                if #available(iOS 16.0, *) {
-                    GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles, planechaseVM: planechaseVM)
-                        .statusBar(hidden: true)
-                        .environmentObject(planechaseVM)
-                        .environmentObject(planechaseVM.gameVM)
-                        .ignoresSafeArea(edges: [.top, .bottom])
-                        .defersSystemGestures(on: .all)
-                } else {
-                    GameView(lifeCounterOptions: planechaseVM.lifeCounterOptions, profiles: planechaseVM.lifeCounterProfiles, planechaseVM: planechaseVM)
-                        .statusBar(hidden: true)
-                        .environmentObject(planechaseVM)
-                        .environmentObject(planechaseVM.gameVM)
-                        .ignoresSafeArea(edges: [.top, .bottom])
-                }
-            } else {
-                TabView {
-                    MainMenuView()
-                        .statusBar(hidden: true)
-                        .environmentObject(planechaseVM)
-                        .tabItem {
-                            Image(systemName: "play.fill")
-                            Text("tab_play".translate())
-                        }
-                    ContentManagerView()
-                        .statusBar(hidden: true)
-                        .environmentObject(planechaseVM)
-                        .environmentObject(planechaseVM.contentManagerVM)
-                        .tabItem {
-                            Image(systemName: "list.dash")
-                            Text("tab_collection".translate())
-                        }
-                    OptionsMenuView()
-                        .statusBar(hidden: true)
-                        .environmentObject(planechaseVM)
-                        .tabItem {
-                            Image(systemName: "gear")
-                            Text("tab_options".translate())
-                        }
-                }.accentColor(.white)
-                .onAppear() {
-                    // Not working from init
-                    IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId(), IAPManager.getLifetimeId()], sharedSecret: IAPManager.getSharedSecret())
-                    planechaseVM.testPremium()
-                    UIApplication.shared.isIdleTimerDisabled = true
-                }
-            }
-        }
-    }
-}
 
 class PlanechaseViewModel: ObservableObject {
     var contentManagerVM: ContentManagerViewModel
     var gameVM: GameViewModel
+    
     @Published var isPlaying = false
+    var lifeCounterProfiles: [PlayerCustomProfileInfo]
+    @Published var showDiscordInvite = false
+    @Published var paymentProcessing = false
+    @Published var treacheryData: TreacheryData
+    
+    @Published var isPremium = false
+    
+    // Options
     @Published var gradientId: Int
     @Published var zoomViewType: ZoomViewType
     @Published var useHellridePNG: Bool
@@ -93,17 +32,13 @@ class PlanechaseViewModel: ObservableObject {
     @Published var fullscreenCommanderAndCounters: Bool
     @Published var diceOptions: DiceOptions
     @Published var lifeCounterOptions: LifeOptions
-    var lifeCounterProfiles: [PlayerCustomProfileInfo]
-    @Published var isPremium = false
-    @Published var showDiscordInvite = false
-    @Published var paymentProcessing = false
     @Published var useBlurredBackground = false
     @Published var treacheryOptions: TreacheryOptions
-    @Published var treacheryData: TreacheryData
     
     init() {
         gradientId = SaveManager.getOptions_GradientId()
         zoomViewType = SaveManager.getOptions_ZoomType()
+        
         let optionToggles = SaveManager.getOptions_Toggles()
         biggerCardsOnMap = optionToggles.0
         useHellridePNG = optionToggles.1
@@ -111,10 +46,12 @@ class PlanechaseViewModel: ObservableObject {
         noDice = optionToggles.3
         useBlurredBackground = optionToggles.4
         showCustomCardsTypeButtons = optionToggles.5
+        
         let lifeOptionToggles = SaveManager.getOptions_LifeToggles()
         showPlusMinus = lifeOptionToggles.0
         biggerLifeTotal = lifeOptionToggles.1
         fullscreenCommanderAndCounters = lifeOptionToggles.2
+        
         diceOptions = SaveManager.getOptions_DiceOptions()
         lifeCounterOptions = SaveManager.getOptions_LifeOptions()
         lifeCounterProfiles = SaveManager.getOptions_LifePlayerProfiles()
@@ -135,7 +72,7 @@ class PlanechaseViewModel: ObservableObject {
         }
         
         if isPlaying {
-            gameVM.startGame(withDeck: contentManagerVM.getDeck(), classicGameMode: classicGameMode)
+            gameVM.startGame(withDeck: contentManagerVM.getPlanarDeck(), classicGameMode: classicGameMode)
         }
     }
     

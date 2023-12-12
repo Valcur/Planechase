@@ -66,6 +66,7 @@ extension ContentManagerViewModel {
     }
 }
 
+// TODO: A virer à l'occasion
 extension ContentManagerViewModel {
     
     // MARK: - Welcome

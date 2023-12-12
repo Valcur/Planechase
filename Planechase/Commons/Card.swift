@@ -24,29 +24,14 @@ class Card: ObservableObject {
         self.cardType = cardType
     }
     
-    func cardAppears(isPrioritary: Bool = false) {
+    func cardAppears() {
         if image == nil {
             DispatchQueue.global(qos: .userInitiated).async {
                 // Find saved image or download
                 let dlManager = DownloadManager(card: self, shouldImageBeSaved: true)
-                
-                var interval = DownloadQueue.queue.getDelayBeforeDownload(card: self)
-                if isPrioritary {
-                    interval = -1
-                }
-                interval = -1
-                if interval > 0 {
-                    Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { timer in
-                        dlManager.startDownloading() { img in
-                            self.image = img
-                            self.objectWillChange.send()
-                        }
-                    }
-                } else {
-                    dlManager.startDownloading() { img in
-                        self.image = img
-                        self.objectWillChange.send()
-                    }
+                dlManager.startDownloading() { img in
+                    self.image = img
+                    self.objectWillChange.send()
                 }
             }
         }

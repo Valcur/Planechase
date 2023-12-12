@@ -186,7 +186,7 @@ class SaveManager {
     }
 }
 
-// Options
+// MARK: - Options
 extension SaveManager {
     static func saveOptions_ZoomType(_ zoomViewType: ZoomViewType) {
         if let encoded = try? JSONEncoder().encode(zoomViewType) {
@@ -249,7 +249,7 @@ extension SaveManager {
         for profile in profiles {
             profilesData.append(PlayerCustomProfile(profile: profile))
         }
-
+        
         print(profilesData)
         if let encoded = try? JSONEncoder().encode(profilesData) {
             UserDefaults.standard.set(encoded, forKey: "LifePlayerProfilesOptions")
@@ -269,7 +269,7 @@ extension SaveManager {
     
     static func getOptions_LifePlayerProfiles() -> [PlayerCustomProfileInfo] {
         if let data = UserDefaults.standard.object(forKey: "LifePlayerProfilesOptions") as? Data,
-            var profilesData = try? JSONDecoder().decode([PlayerCustomProfile].self, from: data) {
+           var profilesData = try? JSONDecoder().decode([PlayerCustomProfile].self, from: data) {
             var profiles = [PlayerCustomProfileInfo]()
             for i in 0..<profilesData.count {
                 // Get image
@@ -283,7 +283,7 @@ extension SaveManager {
                     if let image = UIImage(data: decoded) {
                         saveUIImage(uiImage: image, fileName: "ProfileImage_\(profilesData[i].id).txt")
                     }
-                // END OF HANDLING DEPRECATED SYSTEM
+                    // END OF HANDLING DEPRECATED SYSTEM
                 } else {
                     profilesData[i].customImageData = SaveManager.getSavedUIImageData(fileName: "ProfileImage_\(profilesData[i].id).txt")
                 }
@@ -293,21 +293,6 @@ extension SaveManager {
             return profiles
         }
         return []
-    }
-    
-    static func saveLastUsedSetup(_ setup: LastUsedSetup) {
-        if let encoded = try? JSONEncoder().encode(setup) {
-            UserDefaults.standard.set(encoded, forKey: "LastUsedSetup")
-            print("Saving setup")
-        }
-    }
-    
-    static func getLastUsedSetup() -> LastUsedSetup {
-        if let data = UserDefaults.standard.object(forKey: "LastUsedSetup") as? Data,
-           let setup = try? JSONDecoder().decode(LastUsedSetup.self, from: data) {
-            return setup
-        }
-        return LastUsedSetup.getDefaultSetup()
     }
     
     static func saveOptions_GradientId(_ gradientId: Int) {
@@ -349,7 +334,28 @@ extension SaveManager {
         let fullscreenCommanderAndCounters = UserDefaults.standard.object(forKey: "FullscreenCommanderAndCounters") as? Bool ?? UIDevice.isIPhone
         return (showPlusMinus, biggerLifeTotal, fullscreenCommanderAndCounters)
     }
+}
+
+// MARK: - LifeCounter player Setup
+extension SaveManager {
+    static func saveLastUsedSetup(_ setup: LastUsedSetup) {
+        if let encoded = try? JSONEncoder().encode(setup) {
+            UserDefaults.standard.set(encoded, forKey: "LastUsedSetup")
+            print("Saving setup")
+        }
+    }
     
+    static func getLastUsedSetup() -> LastUsedSetup {
+        if let data = UserDefaults.standard.object(forKey: "LastUsedSetup") as? Data,
+           let setup = try? JSONDecoder().decode(LastUsedSetup.self, from: data) {
+            return setup
+        }
+        return LastUsedSetup.getDefaultSetup()
+    }
+}
+
+// MARK: - Treachery
+extension SaveManager {
     static func getTreacheryRolesRepartition() -> [TreacheryRole] {
         if let data = UserDefaults.standard.object(forKey: "TreacheryRolesRepartition") as? Data,
            let decoded = try? JSONDecoder().decode([TreacheryRole].self, from: data) {
