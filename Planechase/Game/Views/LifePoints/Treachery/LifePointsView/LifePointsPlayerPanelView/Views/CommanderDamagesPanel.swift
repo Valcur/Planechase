@@ -158,7 +158,7 @@ extension LifePointsPlayerPanelView {
                             )
                         }
                     }
-                    .frame(width: rotationAngle == 90 ? (isFullscreen ? geo.size.width * 1.3 : geo.size.height) : geo.size.width)
+                    .frame(width: rotationAngle == 90 ? (isFullscreen ? (UIDevice.isIPhone ? geo.size.width * 1.3 : geo.size.width - 115) : geo.size.height) : geo.size.width)
                     .frame(maxHeight: isFullscreen ? geo.size.height : (UIDevice.isIPhone ? 100 : 200))
                     .rotationEffect(.degrees(rotationAngle), anchor: rotationAngle == 90 && !isFullscreen ? .topTrailing : .center)
                     .offset(y: rotationAngle == 90 && !isFullscreen ? geo.size.height : 0)

@@ -13,6 +13,7 @@ extension LifePointsPlayerPanelView {
         @Binding var showPanel: Bool
         @Binding var lifepointHasBeenUsedToggler: Bool
         let isOnTheOppositeSide: Bool
+        @State var hideQRCodeTimer: Timer?
         
         var body: some View {
             GeometryReader { geo in
@@ -30,6 +31,9 @@ extension LifePointsPlayerPanelView {
                                         .onAppear {
                                             value.scrollTo(0, anchor: .bottom)
                                         }
+                                }.onAppear() {
+                                    hideQRCodeTimer?.invalidate()
+
                                 }
                             }
                         } else {
@@ -40,18 +44,16 @@ extension LifePointsPlayerPanelView {
                                 .padding(.horizontal, 45)
                                 .padding(.top, 45)
                                 .padding(.bottom, UIDevice.isIPhone ? 10 : 0)
+                                .onAppear() {
+                                    hideQRCodeTimer?.invalidate()
+                                    hideQRCodeTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { timer in
+                                        showPanel = false
+                                    }
+                                }
+
                         }
                         VStack {
                             HStack(alignment: .top, spacing: 10) {
-                                Spacer().frame(width: 50)
-                                VStack {
-                                    Text(treachery.isRoleRevealed ? "" : "Scan to see your role")
-                                        .font(.footnote)
-                                        .foregroundColor(.white)
-                                    Text(treachery.isRoleRevealed ? "" : "Hold to reveal/Hide")
-                                        .font(.footnote)
-                                        .foregroundColor(.white)
-                                }.frame(maxWidth: .infinity).padding(.top, 5)
                                 Button(action: {
                                     showPanel = false
                                     lifepointHasBeenUsedToggler.toggle()
@@ -61,6 +63,15 @@ extension LifePointsPlayerPanelView {
                                         .frame(width: 15, height: 15)
                                         .genericButtonLabel()
                                 }).frame(width: 50)
+                                VStack {
+                                    Text(treachery.isRoleRevealed ? "" : "Scan to see your role")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                    Text(treachery.isRoleRevealed ? "" : "Hold to reveal/Hide")
+                                        .font(.footnote)
+                                        .foregroundColor(.white)
+                                }.frame(maxWidth: .infinity).padding(.top, 5)
+                                Spacer().frame(width: 50)
                             }.padding(.horizontal, 2).environment(\.layoutDirection, isOnTheOppositeSide ? .rightToLeft : .leftToRight)
                             Spacer()
                         }
@@ -93,10 +104,11 @@ extension LifePointsPlayerPanelView {
                                     .resizable()
                                     .scaledToFit()
                             } else {
+                                /*
                                 Image("TreacheryCardBack")
                                     .resizable()
                                     .scaledToFit()
-                                    
+                                    */
                             }
                         }.cornerRadius(CardSizes.classic_cornerRadiusForHeight(geo.size.height))
                         .offset(x: (geo.size.height / 3) * (putCardOnTheRight ? 1 : -1))
