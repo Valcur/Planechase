@@ -19,14 +19,14 @@ class DownloadManager: ObservableObject {
     }
     
     func startDownloading(completion: @escaping (UIImage) -> Void) {
-        guard card.imageURL != nil else { return }
-        
-        guard let url = URL(string: card.imageURL!) else { return }
-        
-        self.loadData(cardName: card.id, url: url) { (data, error) in
-            // Handle the loaded file data
-            if error == nil {
-                DispatchQueue.main.async {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0) {
+            guard self.card.imageURL != nil else { return }
+            
+            guard let url = URL(string: self.card.imageURL!) else { return }
+            
+            self.loadData(cardName: self.card.id, url: url) { (data, error) in
+                // Handle the loaded file data
+                if error == nil {
                     if data != nil {
                         self.data = data! as Data
                         completion((UIImage(data: self.data) ?? UIImage(named: "NoCard")!).rotate(radians: .pi/2)!)

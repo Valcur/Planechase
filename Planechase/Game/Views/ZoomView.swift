@@ -151,22 +151,22 @@ struct ZoomView: View {
             }
         }
     }
-    
-    struct CardImageBackground: View {
-        @ObservedObject var card: Card
+}
 
-        var body: some View {
-            GeometryReader { geo in
-                if let image = card.image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .blur(radius: 8)
-                        .contrast(0.85)
-                        .scaleEffect(2.5)
-                        .scaledToFill()
-                        .offset(y: geo.size.height * 0.25)
-                        .frame(width: geo.size.width, height: geo.size.height)
-                }
+struct CardImageBackground: View {
+    @ObservedObject var card: Card
+
+    var body: some View {
+        GeometryReader { geo in
+            if let image = card.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .blur(radius: 8)
+                    .contrast(0.85)
+                    .scaleEffect(2.5)
+                    .scaledToFill()
+                    .offset(y: geo.size.height * 0.25)
+                    .frame(width: geo.size.width, height: geo.size.height)
             }
         }
     }

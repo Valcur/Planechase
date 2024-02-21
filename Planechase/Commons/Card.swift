@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class Card: ObservableObject {    
+class Card: ObservableObject, Equatable {
     var id: String
     var image: UIImage?
     var imageURL: String?
@@ -26,10 +26,9 @@ class Card: ObservableObject {
     
     func cardAppears() {
         if image == nil {
-            DispatchQueue.global(qos: .userInitiated).async {
-                // Find saved image or download
-                let dlManager = DownloadManager(card: self, shouldImageBeSaved: true)
-                dlManager.startDownloading() { img in
+            let dlManager = DownloadManager(card: self, shouldImageBeSaved: true)
+            dlManager.startDownloading() { img in
+                DispatchQueue.main.async {
                     self.image = img
                     self.objectWillChange.send()
                 }
@@ -42,6 +41,10 @@ class Card: ObservableObject {
     }
     
     static let hellride = Card(id: "HELLRIDE_UNDEFINED", image: UIImage(named: "NoCard"), imageURL: "HELLRIDE", state: .pickable)
+    
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 enum CardState: Int, Codable {

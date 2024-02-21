@@ -12,6 +12,7 @@ struct ContentManagerView: View {
     @EnvironmentObject var contentManagerVM: ContentManagerViewModel
     @State var smallGridModEnable = true
     @State private var showingFilterSheet = false
+    @State var currentIndex: Int = 0 // A VOIR
     private var gridItemLayout: [GridItem]  {
         Array(repeating: GridItem(.flexible()), count: 2)
     }
@@ -23,6 +24,9 @@ struct ContentManagerView: View {
         GeometryReader { geo in
             ZStack {
                 GradientView(gradientId: planechaseVM.gradientId)
+                
+                CardImageBackground(card: contentManagerVM.filteredCardCollection[currentIndex])
+                Color.black.opacity(0.3)
                 
                 VStack(spacing: UIDevice.isIPhone ? 2 : 8) {
                     // MARK: Top bar
@@ -62,6 +66,7 @@ struct ContentManagerView: View {
                         BottomRow(smallGridModEnable: $smallGridModEnable)
                     }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 44)
                     
+                    /*
                     GeometryReader { scrollGeo in
                         ScrollView {
                             LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
@@ -74,7 +79,12 @@ struct ContentManagerView: View {
                                 EmptyCardCollectionInfo()
                             }
                         }
-                    }
+                    }*/
+                    CardCarouselView(index: $currentIndex, items: contentManagerVM.filteredCardCollection, spacing: 30, id: \.id) {
+                        card, size in
+                        CardView(card: card, width: size.width, height: size.height)
+                            //.frame(width: , height: )
+                    }.padding(.horizontal, -15).padding(.vertical, 45)
                 }
                 
                 ContentManagerInfoView()
@@ -216,6 +226,7 @@ struct ContentManagerView: View {
                         .cornerRadius(CardSizes.cornerRadiusForWidth(width))
                         .onAppear {
                             card.cardAppears()
+                            //print("i appear")
                         }
                 } else {
                     Image(uiImage: card.image!)
