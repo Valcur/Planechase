@@ -26,18 +26,19 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
     
     // MARK: Extra space calculation
     @State var width: CGFloat = 0
-    @State var cWidth: CGFloat = 0
+    var cWidth: CGFloat
     
     // MARK: Swipe transition
     @State var rotation: Double = 0
     
-    init(index: Binding<Int>, items: Item, spacing: CGFloat = 60, cardPadding: CGFloat = 0, id: KeyPath<Item.Element, ID>, @ViewBuilder content: @escaping (Item.Element, CGSize) -> Content) {
+    init(index: Binding<Int>, items: Item, cardWidth: CGFloat, spacing: CGFloat = 60, cardPadding: CGFloat = 0, id: KeyPath<Item.Element, ID>, @ViewBuilder content: @escaping (Item.Element, CGSize) -> Content) {
         self.content = content
         self.id = id
         self._index = index
         self.spacing = spacing
         self.cardPadding = cardPadding
         self.items = items
+        self.cWidth = cardWidth - (cardPadding - spacing)
     }
     
     var body: some View {
@@ -45,18 +46,39 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
             let size = proxy.size
             
             //let cardWidth = size.width - (cardPadding - spacing)
-            let cardWidth = CardSizes.widthtForHeight(size.height) - (cardPadding - spacing)
+            //let cardWidth = CardSizes.widthtForHeight(size.height) - (cardPadding - spacing)
+            let cardWidth = cWidth
             LazyHStack(spacing: spacing) {
                 ForEach(items, id: id) { card in
                     let index = indexOf(item: card)
-                    content(card, CGSize(width: cardWidth - cardPadding, height: size.height))
+                    ZStack {
+                        content(card, CGSize(width: cardWidth - cardPadding, height: size.height))
+                            
+                            //.rotationEffect(.init(degrees: Double(index) * 5), anchor: .bottom)
+                            //.rotationEffect(.init(degrees: rotation), anchor: .bottom)
+                            //.offset(y: offsetY(index: index, cardWidth: cardWidth))
+                            .frame(width: cardWidth - cardPadding, height: size.height)
+                           // .opacity(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.5) + 0.5)
+                            .scaleEffect(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.2) + 0.8)
+                            .rotation3DEffect(.degrees(progressionSide(index: index, cardWidth: cardWidth) * (20 - progressionToValue(index: index, cardWidth: cardWidth, maxValue: 20))), axis: (x: 0, y: 1, z: 0))
                         
-                        //.rotationEffect(.init(degrees: Double(index) * 5), anchor: .bottom)
-                        //.rotationEffect(.init(degrees: rotation), anchor: .bottom)
-                        //.offset(y: offsetY(index: index, cardWidth: cardWidth))
-                        .frame(width: cardWidth - cardPadding, height: size.height)
-                        .opacity(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.5) + 0.5)
-                        .scaleEffect(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.2) + 0.8)
+                        if index != self.index && abs(index - self.index) == 1 {
+                            Color.black.opacity(0.00001)
+                                .onTapGesture {
+                                    currentIndex = -index
+                                    withAnimation(.easeInOut(duration: 0.25)) {
+                                        let extraSpace = extraSpace()
+                                        offset = (cardWidth + spacing) * CGFloat(currentIndex) + extraSpace
+                                        self.index = -currentIndex
+                                        // rotation
+                                        /*
+                                        let progress = (offset - extraSpace) / (cardWidth + spacing)
+                                        rotation = (progress * 5).rounded() - 1*/
+                                    }
+                                    lastStoredOffset = offset
+                                }
+                        }
+                    }
                 }
             }.padding(.horizontal, spacing)
             .offset(x: limitScroll())
@@ -70,7 +92,7 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
             )
             .onAppear {
                 self.width = size.width
-                self.cWidth = cardWidth
+                //self.cWidth = cardWidth
                 let extraSpace = extraSpace()
                 offset = extraSpace
                 lastStoredOffset = extraSpace
@@ -79,21 +101,19 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
         .animation(.easeInOut, value: translation == 0)
     }
     
+    // -1 or 1
+    func progressionSide(index: Int, cardWidth: CGFloat) -> CGFloat {
+        let currentIndex = (offset - extraSpace()) / (cardWidth + spacing) * -1
+        let v = currentIndex - CGFloat(index)
+        return v < 0 ? -1 : 1
+    }
+    
+    // from 1 if middle to 0 on side
     func progressionToValue(index: Int, cardWidth: CGFloat, maxValue: CGFloat) -> CGFloat {
-       /* let progress = ((translation < 0 ? translation : -translation) / cardWidth) * -1
-        let value = progress * maxValue
-
-        let previous = (index - 1) == self.index ? (translation < 0 ? value : 0) : 0
-        let next = (index + 1) == self.index ? (translation < 0 ? 0 : value) : 0
-        let in_between = (index - 1) ==  self.index ? previous : next
-        */
         let currentIndex = (offset - extraSpace()) / (cardWidth + spacing) * -1
         var v = abs(currentIndex - CGFloat(index))
         v = max(0, (1 - v) * maxValue)
-        print(v)
         return v
-        
-        //return index == self.index ? maxValue - value : in_between
     }
     
     func offsetY(index: Int, cardWidth: CGFloat) -> CGFloat {
@@ -116,7 +136,7 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
     }
     
     func extraSpace() -> CGFloat {
-        return (cardPadding / 2) - spacing * 1.25 + (width - cWidth) / 2
+        return (cardPadding / 2) - spacing + (width - cWidth) / 2
     }
     
     func limitScroll() -> CGFloat {
@@ -133,21 +153,13 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
     func onChanged(value: DragGesture.Value, cardWidth: CGFloat) {
         let translationX = value.translation.width
         offset = translationX + lastStoredOffset
-        
-        /*
-        let progress = (offset - extraSpace()) / (cardWidth + spacing)
-        rotation = progress * 5
-         */
     }
     
     func onEnd(value: DragGesture.Value, cardWidth: CGFloat) {
-        var _index = (offset / cardWidth).rounded(.toNearestOrAwayFromZero)
-        _index = max(-CGFloat(items.count - 1), _index)
-        _index = min(_index, 0)
-        
-        var newIndex = Int(_index)
-        if newIndex == currentIndex {
-            // To swipe direction
+        var newIndex = currentIndex
+        let absValue = abs(value.translation.width)
+        print(absValue)
+        if absValue < 500 && absValue > 80 {
             if value.translation.width > 0 {
                 newIndex = currentIndex + 1
             } else {
@@ -158,6 +170,12 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
             } else if newIndex < -items.count + 1 {
                 newIndex = -items.count + 1
             }
+        } else {
+            var _index = ((offset - extraSpace()) / (cardWidth + spacing)).rounded(.toNearestOrAwayFromZero)
+            _index = max(-CGFloat(items.count - 1), _index)
+            _index = min(_index, 0)
+            
+            newIndex = Int(_index)
         }
         currentIndex = newIndex
         
@@ -165,10 +183,6 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
             let extraSpace = extraSpace()
             offset = (cardWidth + spacing) * CGFloat(newIndex) + extraSpace
             index = -currentIndex
-            // rotation
-            /*
-            let progress = (offset - extraSpace) / (cardWidth + spacing)
-            rotation = (progress * 5).rounded() - 1*/
         }
         lastStoredOffset = offset
     }

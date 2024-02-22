@@ -17,6 +17,21 @@ extension Text {
             .padding(5)
     }
     
+    func textButtonLabel(systemName: String, style: ViewStyle = .primary) -> some View {
+        HStack {
+            Image(systemName: systemName)
+                .font(.subheadline)
+                .foregroundColor(.white)
+            
+            self
+                .font(.subheadline)
+                .foregroundColor(.white)
+        }
+        .padding()
+        .blurredBackground(style: style)
+        .padding(5)
+    }
+    
     func largeTitle() -> some View {
         self
             .font(UIDevice.isIPhone ? .title : .largeTitle)

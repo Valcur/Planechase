@@ -112,7 +112,7 @@ struct ZoomView: View {
             .background(
                 ZStack {
                     if planechaseVM.useBlurredBackground, let card = card {
-                        CardImageBackground(card: card)
+                        CardImageBackground(card: card, blurRadius: 8)
                     } else {
                         VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
                     }
@@ -155,13 +155,14 @@ struct ZoomView: View {
 
 struct CardImageBackground: View {
     @ObservedObject var card: Card
+    let blurRadius: CGFloat
 
     var body: some View {
         GeometryReader { geo in
             if let image = card.image {
                 Image(uiImage: image)
                     .resizable()
-                    .blur(radius: 8)
+                    .blur(radius: blurRadius)
                     .contrast(0.85)
                     .scaleEffect(2.5)
                     .scaledToFill()

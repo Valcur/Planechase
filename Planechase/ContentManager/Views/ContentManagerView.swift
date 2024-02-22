@@ -12,7 +12,8 @@ struct ContentManagerView: View {
     @EnvironmentObject var contentManagerVM: ContentManagerViewModel
     @State var smallGridModEnable = true
     @State private var showingFilterSheet = false
-    @State var currentIndex: Int = 0 // A VOIR
+    @State var currentIndex: Int = 0
+    @State var isFullscreen: Bool = false
     private var gridItemLayout: [GridItem]  {
         Array(repeating: GridItem(.flexible()), count: 2)
     }
@@ -25,66 +26,91 @@ struct ContentManagerView: View {
             ZStack {
                 GradientView(gradientId: planechaseVM.gradientId)
                 
-                CardImageBackground(card: contentManagerVM.filteredCardCollection[currentIndex])
-                Color.black.opacity(0.3)
-                
-                VStack(spacing: UIDevice.isIPhone ? 2 : 8) {
-                    // MARK: Top bar
-                    HStack {
-                        Button(action: {
-                            contentManagerVM.downloadPlanechaseCardsFromScryfall()
-                        }, label: {
-                            Text("collection_scryfall".translate())
-                                .textButtonLabel()
-                        })
-                        
-                        ImportButton()
-                        
-                        Spacer()
-                        
-                        Text("\("collection_deckSize".translate()) : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
-                            .headline()
-                        
-                        DeckSelection(selectedDeck: contentManagerVM.selectedDeckId)
-                    }.padding(.horizontal, 15).padding(.top, 5).iPhoneScaler(width: geo.size.width, height: 44)
+                if isFullscreen {
+                    CardImageBackground(card: contentManagerVM.filteredCardCollection[currentIndex], blurRadius: 30)
                     
-                    // MARK: Bottom bar
-                    HStack() {
-                        Button(action: {
-                            showingFilterSheet.toggle()
-                        }, label: {
-                            Image(systemName: "slider.horizontal.3")
-                                .font(.title)
-                                .foregroundColor(.white)
-                        })
-                        .sheet(isPresented: $showingFilterSheet) {
-                            FilterSheet()
-                        }
-                        
-                        Rectangle().frame(width: 2, height: 40).foregroundColor(.white)
-                        
-                        BottomRow(smallGridModEnable: $smallGridModEnable)
-                    }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 44)
+                    // TODO: enlver geometry reader
+                    GeometryReader { carouselGeo in
+                        CardCarouselView(index: $currentIndex, items: contentManagerVM.filteredCardCollection, cardWidth: CardSizes.widthtForHeight(carouselGeo.size.height), spacing: UIDevice.isIPhone ? 0 : -100, id: \.id) {
+                            card, size in
+                            CardView(card: card, width: size.width, height: size.height)
+                        }//.padding(.horizontal, -15)
+                    }.padding(.top, UIDevice.isIPhone ? 12 : 90).padding(.bottom, UIDevice.isIPhone ? 12 : 50)
                     
+                    Text("\(currentIndex + 1)/\(contentManagerVM.filteredCardCollection.count)")
+                        .title()
+                        .frame(width: 200, alignment: .leading)
+                        .position(x: 150, y: UIDevice.isIPhone ? 30 : 50)
+                        .scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .topLeading)
                     /*
-                    GeometryReader { scrollGeo in
-                        ScrollView {
-                            LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
-                                ForEach(contentManagerVM.filteredCardCollection, id: \.id) { card in
-                                    CardView(card: card, width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
-                                        .frame(width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
+                    Text("\(currentIndex + 1)/\(contentManagerVM.filteredCardCollection.count)")
+                        .title()
+                        .frame(width: 200, alignment: .center)
+                        .position(x: geo.size.width / 2, y: 50)
+                        .scaleEffect(0.7, anchor: .top)
+                    */
+                    Button(action: {
+                        isFullscreen = false
+                    }, label: {
+                        Image(systemName: "arrow.up.left.and.arrow.down.right")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    }).position(x: geo.size.width - 50, y: UIDevice.isIPhone ? 30 : 50)
+                        .scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .topTrailing)
+                } else {
+                    VStack(spacing: 0) {
+                        VStack(spacing: UIDevice.isIPhone ? 2 : 8) {
+                            // MARK: Top bar
+                            HStack {
+                                Button(action: {
+                                    contentManagerVM.downloadPlanechaseCardsFromScryfall()
+                                }, label: {
+                                    Text("collection_scryfall".translate())
+                                        .textButtonLabel(systemName: "square.and.arrow.down", style: .secondary)
+                                })
+                                
+                                ImportButton()
+                                
+                                Spacer()
+                                
+                                Text("\("collection_deckSize".translate()) : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
+                                    .headline()
+                                
+                                DeckSelection(selectedDeck: contentManagerVM.selectedDeckId)
+                            }.padding(.horizontal, 15).padding(.top, 5).iPhoneScaler(width: geo.size.width, height: 44)
+                            
+                            // MARK: Bottom bar
+                            HStack() {
+                                Button(action: {
+                                    showingFilterSheet.toggle()
+                                }, label: {
+                                    Image(systemName: "slider.horizontal.3")
+                                        .font(.title)
+                                        .foregroundColor(.white)
+                                })
+                                .sheet(isPresented: $showingFilterSheet) {
+                                    FilterSheet()
                                 }
-                            }.padding(.vertical, 10).padding(.vertical, 5).padding(.horizontal, 7)
-                            if contentManagerVM.cardCollection.count == 0 {
-                                EmptyCardCollectionInfo()
+                                
+                                Rectangle().frame(width: 2, height: 40).foregroundColor(.white)
+                                
+                                BottomRow(smallGridModEnable: $smallGridModEnable, isFullscreen: $isFullscreen)
+                            }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 44)
+                        }.background(Color.black.opacity(0.5).ignoresSafeArea())
+                        GeometryReader { scrollGeo in
+                            ScrollView {
+                                LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
+                                    ForEach(contentManagerVM.filteredCardCollection, id: \.id) { card in
+                                        CardView(card: card, width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
+                                            .frame(width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
+                                    }
+                                }.padding(.vertical, 10).padding(.vertical, 5).padding(.horizontal, 7)
+                                if contentManagerVM.cardCollection.count == 0 {
+                                    EmptyCardCollectionInfo()
+                                }
                             }
                         }
-                    }*/
-                    CardCarouselView(index: $currentIndex, items: contentManagerVM.filteredCardCollection, spacing: 30, id: \.id) {
-                        card, size in
-                        CardView(card: card, width: size.width, height: size.height)
-                            //.frame(width: , height: )
-                    }.padding(.horizontal, -15).padding(.vertical, 45)
+                    }
                 }
                 
                 ContentManagerInfoView()
@@ -93,6 +119,9 @@ struct ContentManagerView: View {
         }
         .onAppear() {
             contentManagerVM.importedCardsToChangeType = []
+        }
+        .onChange(of: contentManagerVM.filteredCardCollection) { _ in
+            currentIndex = 0
         }
     }
     
@@ -336,3 +365,16 @@ struct ContentManagerView_Previews: PreviewProvider {
             .environmentObject(ContentManagerViewModel())
     }
 }
+/*
+extension View {
+    func fullscreenTopSection(isFullscreen: Bool) -> some View {
+        ZStack {
+            if isFullscreen {
+                self.opacity(0).frame(maxHeight: 0)
+            } else {
+                self
+            }
+        }
+    }
+}
+*/

@@ -11,6 +11,7 @@ extension ContentManagerView {
     struct BottomRow: View {
         @EnvironmentObject var contentManagerVM: ContentManagerViewModel
         @Binding var smallGridModEnable: Bool
+        @Binding var isFullscreen: Bool
         
         var body: some View {
             HStack {
@@ -59,6 +60,16 @@ extension ContentManagerView {
                             .font(.title)
                             .foregroundColor(.white)
                     }).opacity(smallGridModEnable ? 0.6 : 1)
+                    
+                    Text("/").font(.title).fontWeight(.light).foregroundColor(.white)
+                    
+                    Button(action: {
+                        isFullscreen = true
+                    }, label: {
+                        Image(systemName: "arrow.up.left.and.arrow.down.right")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    }).opacity(0.6)
                 }
             }
         }

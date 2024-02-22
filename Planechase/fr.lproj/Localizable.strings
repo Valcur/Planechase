@@ -59,7 +59,7 @@
 
 // Mark: Collection
 
-"collection_scryfall" = "Télécharger depuis Scryfall";
+"collection_scryfall" = "Scryfall";
 "collection_import" = "Importer";
 "collection_deckSize" = "Taille du deck";
 "collection_howToUse" = "Appuyez pour ajouter/retirer une carte à votre deck. Maintenez appuyé pour la supprimer de votre collection.";
