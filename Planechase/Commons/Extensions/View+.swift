@@ -14,22 +14,29 @@ extension View {
         }.padding(5).frame(maxWidth: .infinity)
     }
     
-    func shadowed(radius: CGFloat = 4, y: CGFloat = 4) -> some View {
+    func gradientBackground(gradientId: Int) -> some View {
+        ZStack {
+            GradientView(gradientId: gradientId)
+            self
+        }
+    }
+    
+    func shadowed(radius: CGFloat = 4, y: CGFloat = 4, color: Color = Color("ShadowColor")) -> some View {
         self
-            .shadow(color: Color("ShadowColor"), radius: radius, x: 0, y: y)
+            .shadow(color: color, radius: radius, x: 0, y: y)
     }
     
     func blurredBackground(style: ViewStyle = .primary, cornerRadius: CGFloat = 15) -> some View {
         self
             .background( ZStack {
                 if style == .primary {
-                    VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                    VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark))
                         .cornerRadius(cornerRadius)
-                        .shadowed()
+                        .shadowed(color: Color("BlurredShadowColor"))
                 } else if style == .secondary {
                     Color.black
                         .cornerRadius(cornerRadius)
-                        .shadowed()
+                        .shadowed(color: Color("BlurredShadowColor"))
                 }
             })
     }
@@ -89,6 +96,7 @@ extension View {
         }
     }
     
+    // TODO: Doublon avec buttonlabel ???
     func genericButtonLabel(style: ViewStyle = .primary) -> some View {
         self
             .foregroundColor(.white)

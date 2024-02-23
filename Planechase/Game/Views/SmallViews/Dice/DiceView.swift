@@ -81,11 +81,7 @@ struct DiceView: View {
             })
             .disabled(gameVM.travelModeEnable)
             .frame(width: 120, height: 120)
-            .background(
-                VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-                    .cornerRadius(10)
-                    .shadowed()
-            )
+            .blurredBackground(cornerRadius: 15)
         }.opacity(planechaseVM.noDice ? 0 : 1)
     }
     

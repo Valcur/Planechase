@@ -143,6 +143,7 @@ extension OptionsMenuView {
                     }
                 }
             }.scrollablePanel()
+            .gradientBackground(gradientId: planechaseVM.gradientId)
             .onChange(of: planechaseVM.lifeCounterOptions.useLifeCounter) { _ in
                 planechaseVM.setLifeOptions(planechaseVM.lifeCounterOptions)
             }

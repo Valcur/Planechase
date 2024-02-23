@@ -173,6 +173,7 @@ extension OptionsMenuView {
                     }
                 }
             }.scrollablePanel()
+                .gradientBackground(gradientId: planechaseVM.gradientId)
                 .onChange(of: planechaseVM.biggerCardsOnMap) { _ in
                     planechaseVM.saveToggles()
                 }

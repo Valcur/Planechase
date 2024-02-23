@@ -12,42 +12,29 @@ struct OptionsMenuView: View {
     @State var selectedMenu: MenuSelection = .life
     
     var body: some View {
-        ZStack {
-            GradientView(gradientId: planechaseVM.gradientId)
-            
-            HStack {
-                ScrollView(.vertical) {
-                    VStack(alignment: .leading, spacing: 20) {
-                        MenuSelectionView(menu: .life, selectedMenu: $selectedMenu)
-                        
-                        MenuSelectionView(menu: .options, selectedMenu: $selectedMenu)
-                        
-                        MenuSelectionView(menu: .treachery, selectedMenu: $selectedMenu)
-                        
-                        MenuSelectionView(menu: .rules, selectedMenu: $selectedMenu)
-                        
-                        MenuSelectionView(menu: .contact, selectedMenu: $selectedMenu)
-                        
-                        MenuSelectionView(menu: .thanks, selectedMenu: $selectedMenu)
-                        
-                        Spacer()
-                    }.frame(width: 200).padding(.top, 15)
+        NavigationView {
+            List {
+                Section(header: Text("Options")) {
+                    NavigationLink(destination: LifeOptionsPanel().navigationTitle(MenuSelection.life.title())) {
+                        Text(MenuSelection.life.title())
+                    }
+                    NavigationLink(destination: OptionsPanel().navigationTitle(MenuSelection.options.title())) {
+                        Text(MenuSelection.options.title())
+                    }
+                    NavigationLink(destination: TreacheryOptionsPanel().navigationTitle(MenuSelection.treachery.title())) {
+                        Text(MenuSelection.treachery.title())
+                    }
+                    NavigationLink(destination: RulesPanel().navigationTitle(MenuSelection.rules.title())) {
+                        Text(MenuSelection.rules.title())
+                    }
+                    NavigationLink(destination: ContactPanel().navigationTitle(MenuSelection.contact.title())) {
+                        Text(MenuSelection.contact.title())
+                    }
+                    NavigationLink(destination: ThanksPanel().navigationTitle(MenuSelection.thanks.title())) {
+                        Text(MenuSelection.thanks.title())
+                    }
                 }
-                
-                if selectedMenu == .options {
-                    OptionsPanel()
-                } else if selectedMenu == .contact {
-                    ContactPanel()
-                } else if selectedMenu == .thanks {
-                    ThanksPanel()
-                } else if selectedMenu == .rules {
-                    RulesPanel()
-                } else if selectedMenu == .life {
-                    LifeOptionsPanel()
-                } else if selectedMenu == .treachery {
-                    TreacheryOptionsPanel()
-               }
-            }
+            }.preferredColorScheme(.dark)
         }
     }
     
@@ -68,6 +55,8 @@ struct OptionsMenuView: View {
     }
     
     struct RulesPanel: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 30) {
                 Text("options_rules_classic_Title".translate())
@@ -115,10 +104,13 @@ struct OptionsMenuView: View {
                         .headline()
                 }
             }.scrollablePanel()
+            .gradientBackground(gradientId: planechaseVM.gradientId)
         }
     }
     
     struct ContactPanel: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
+        
         var body: some View {
             VStack(spacing: 20) {
                 Text("options_contact_discord".translate())
@@ -151,10 +143,13 @@ struct OptionsMenuView: View {
                     Spacer()
                 }
             }.scrollablePanel()
+            .gradientBackground(gradientId: planechaseVM.gradientId)
         }
     }
     
     struct ThanksPanel: View {
+        @EnvironmentObject var planechaseVM: PlanechaseViewModel
+        
         var body: some View {
             VStack(spacing: 20) {
                 Text("options_thanks_wizards".translate())
@@ -176,6 +171,7 @@ struct OptionsMenuView: View {
                     .headline()
                 // shield by Maniprasanth
             }.scrollablePanel()
+            .gradientBackground(gradientId: planechaseVM.gradientId)
         }
     }
     
