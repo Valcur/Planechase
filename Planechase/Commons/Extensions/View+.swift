@@ -46,11 +46,11 @@ extension View {
             .background(Color.black.cornerRadius(cornerRadius).opacity(0.5))
     }
     
-    func buttonLabel() -> some View {
+    func buttonLabel(style: ViewStyle = .primary) -> some View {
         self
             .foregroundColor(.white)
             .padding()
-            .blurredBackground()
+            .blurredBackground(style: style)
             .padding(5)
     }
     

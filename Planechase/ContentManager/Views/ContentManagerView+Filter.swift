@@ -27,14 +27,14 @@ extension ContentManagerView {
                             contentManagerVM.selectAll()
                         }
                     }, label: {
-                        Text("collection_selectAll".translate()).textButtonLabel()
+                        Text("collection_selectAll".translate()).textButtonLabel(style: .secondary)
                     })
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             contentManagerVM.unselectAll()
                         }
                     }, label: {
-                        Text("collection_unselectAll").textButtonLabel()
+                        Text("collection_unselectAll").textButtonLabel(style: .secondary)
                     })
                 }.padding(.trailing, 20)
                 

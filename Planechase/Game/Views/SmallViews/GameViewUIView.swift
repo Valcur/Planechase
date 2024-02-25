@@ -77,6 +77,21 @@ extension GameView {
                 VStack {
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
+                            gameVM.cancelPlaneswalk()
+                        }
+                    }, label: {
+                        if planechaseVM.noHammerRow {
+                            Image(systemName: "arrow.uturn.backward")
+                                .imageButtonLabel()
+                        } else {
+                            Text("return-untranslated")
+                                .textButtonLabel()
+                        }
+                    }).disabled(gameVM.previousPlane == nil).offset(y: planechaseVM.noHammerRow ? 20 : 0)
+                        .opacity(gameVM.isPlayingClassicMode ? (gameVM.previousPlane == nil ? 0.6 : 1) : 0)
+                    
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
                             gameVM.toggleTravelMode()
                         }
                     }, label: {

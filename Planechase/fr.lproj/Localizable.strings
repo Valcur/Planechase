@@ -62,7 +62,7 @@
 "collection_scryfall" = "Scryfall";
 "collection_import" = "Importer";
 "collection_deckSize" = "Taille du deck";
-"collection_howToUse" = "Appuyez pour ajouter/retirer une carte à votre deck. Maintenez appuyé pour la supprimer de votre collection.";
+"collection_howToUse" = "Appuyez pour ajouter/retirer une carte à votre deck.";
 "collection_selectAll" = "Ajouter tous";
 "collection_unselectAll" = "Retirer tous";
 "collection_SelectDeck" = "Choisir Deck";

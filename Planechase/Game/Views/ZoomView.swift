@@ -168,6 +168,7 @@ struct CardImageBackground: View {
                     .scaledToFill()
                     .offset(y: geo.size.height * 0.25)
                     .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
             }
         }
     }

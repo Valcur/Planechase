@@ -53,37 +53,27 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
                     let index = indexOf(item: card)
                     ZStack {
                         content(card, CGSize(width: cardWidth - cardPadding, height: size.height))
-                            
                             //.rotationEffect(.init(degrees: Double(index) * 5), anchor: .bottom)
                             //.rotationEffect(.init(degrees: rotation), anchor: .bottom)
                             //.offset(y: offsetY(index: index, cardWidth: cardWidth))
-                            .frame(width: cardWidth - cardPadding, height: size.height)
-                           // .opacity(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.5) + 0.5)
-                            .scaleEffect(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.2) + 0.8)
-                            .rotation3DEffect(.degrees(progressionSide(index: index, cardWidth: cardWidth) * (20 - progressionToValue(index: index, cardWidth: cardWidth, maxValue: 20))), axis: (x: 0, y: 1, z: 0))
-                        
-                        if index != self.index && abs(index - self.index) == 1 {
+
+                        // Marche pas si clique vite
+                        if index != self.index {
                             Color.black.opacity(0.00001)
                                 .onTapGesture {
-                                    currentIndex = -index
-                                    withAnimation(.easeInOut(duration: 0.25)) {
-                                        let extraSpace = extraSpace()
-                                        offset = (cardWidth + spacing) * CGFloat(currentIndex) + extraSpace
-                                        self.index = -currentIndex
-                                        // rotation
-                                        /*
-                                        let progress = (offset - extraSpace) / (cardWidth + spacing)
-                                        rotation = (progress * 5).rounded() - 1*/
-                                    }
-                                    lastStoredOffset = offset
+                                    updateIndex(index * -1, cardWidth: cardWidth)
                                 }
                         }
                     }
+                    .frame(width: cardWidth - cardPadding, height: size.height)
+                   // .opacity(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.5) + 0.5)
+                    .scaleEffect(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.2) + 0.8)
+                    .rotation3DEffect(.degrees(progressionSide(index: index, cardWidth: cardWidth) * (20 - progressionToValue(index: index, cardWidth: cardWidth, maxValue: 20))), axis: (x: 0, y: 1, z: 0))
                 }
             }.padding(.horizontal, spacing)
             .offset(x: limitScroll())
             .gesture(
-                DragGesture(minimumDistance: 1)
+                DragGesture(minimumDistance: 0)
                     .updating($translation, body: { value, out, _ in
                         out = value.translation.width
                     })
@@ -93,9 +83,8 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
             .onAppear {
                 self.width = size.width
                 //self.cWidth = cardWidth
-                let extraSpace = extraSpace()
-                offset = extraSpace
-                lastStoredOffset = extraSpace
+
+                updateIndex(index * -1, cardWidth: cardWidth, useAnimation: false)
             }
         }
         .animation(.easeInOut, value: translation == 0)
@@ -114,17 +103,6 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
         var v = abs(currentIndex - CGFloat(index))
         v = max(0, (1 - v) * maxValue)
         return v
-    }
-    
-    func offsetY(index: Int, cardWidth: CGFloat) -> CGFloat {
-        let progress = ((translation < 0 ? translation : -translation) / cardWidth) * 60
-        let yOffset = progress < 60 ? progress : -(progress + 120)
-
-        let previous = (index - 1) == self.index ? (translation < 0 ? yOffset : -yOffset) : 0
-        let next = (index + 1) == self.index ? (translation < 0 ? -yOffset : yOffset) : 0
-        let in_between = (index - 1) ==  self.index ? previous : next
-        
-        return index == self.index ? -60 - yOffset : in_between
     }
     
     func indexOf(item: Item.Element) -> Int {
@@ -177,10 +155,20 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
             
             newIndex = Int(_index)
         }
+        updateIndex(newIndex, cardWidth: cardWidth)
+    }
+    
+    func updateIndex(_ newIndex: Int, cardWidth: CGFloat, useAnimation: Bool = true) {
         currentIndex = newIndex
         
-        withAnimation(.easeInOut(duration: 0.25)) {
-            let extraSpace = extraSpace()
+        let extraSpace = extraSpace()
+        
+        if useAnimation {
+            withAnimation(.easeInOut(duration: 0.25)) {
+                offset = (cardWidth + spacing) * CGFloat(newIndex) + extraSpace
+                index = -currentIndex
+            }
+        } else {
             offset = (cardWidth + spacing) * CGFloat(newIndex) + extraSpace
             index = -currentIndex
         }

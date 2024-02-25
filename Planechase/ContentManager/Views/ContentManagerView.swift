@@ -14,6 +14,7 @@ struct ContentManagerView: View {
     @State private var showingFilterSheet = false
     @State var currentIndex: Int = 0
     @State var isFullscreen: Bool = false
+    @State private var showingDeleteAlert = false
     private var gridItemLayout: [GridItem]  {
         Array(repeating: GridItem(.flexible()), count: 2)
     }
@@ -26,7 +27,7 @@ struct ContentManagerView: View {
             ZStack {
                 GradientView(gradientId: planechaseVM.gradientId)
                 
-                if isFullscreen {
+                if isFullscreen && false {
                     CardImageBackground(card: contentManagerVM.filteredCardCollection[currentIndex], blurRadius: 30)
                     
                     // TODO: enlver geometry reader
@@ -42,13 +43,7 @@ struct ContentManagerView: View {
                         .frame(width: 200, alignment: .leading)
                         .position(x: 150, y: UIDevice.isIPhone ? 30 : 50)
                         .scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .topLeading)
-                    /*
-                    Text("\(currentIndex + 1)/\(contentManagerVM.filteredCardCollection.count)")
-                        .title()
-                        .frame(width: 200, alignment: .center)
-                        .position(x: geo.size.width / 2, y: 50)
-                        .scaleEffect(0.7, anchor: .top)
-                    */
+
                     Button(action: {
                         isFullscreen = false
                     }, label: {
@@ -103,6 +98,24 @@ struct ContentManagerView: View {
                                     ForEach(contentManagerVM.filteredCardCollection, id: \.id) { card in
                                         CardView(card: card, width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
                                             .frame(width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
+                                            .onTapGesture {
+                                                withAnimation(.easeInOut(duration: 0.3)) {
+                                                    if card.state == .selected {
+                                                        card.state = .showed
+                                                        contentManagerVM.removeFromDeck(card)
+                                                    } else {
+                                                        card.state = .selected
+                                                        contentManagerVM.addToDeck(card)
+                                                    }
+                                                    card.objectWillChange.send()
+                                                }
+                                            }
+                                            .onLongPressGesture(minimumDuration: 0.5) {
+                                                if let newIndex = contentManagerVM.filteredCardCollection.firstIndex(of: card) {
+                                                    isFullscreen = true
+                                                    currentIndex = newIndex
+                                                }
+                                            }
                                     }
                                 }.padding(.vertical, 10).padding(.vertical, 5).padding(.horizontal, 7)
                                 if contentManagerVM.cardCollection.count == 0 {
@@ -110,6 +123,73 @@ struct ContentManagerView: View {
                                 }
                             }
                         }
+                    }.fullScreenCover(isPresented: $isFullscreen) {
+                        ZStack {
+                            Text("\(currentIndex + 1)/\(contentManagerVM.filteredCardCollection.count)")
+                                .title()
+                                .frame(width: 200, alignment: .leading)
+                                .position(x: 150, y: UIDevice.isIPhone ? 30 : 50)
+                                .scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .topLeading)
+
+                            Button(action: {
+                                isFullscreen = false
+                            }, label: {
+                                Image(systemName: "arrow.down.right.and.arrow.up.left")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                            }).position(x: geo.size.width - 50, y: UIDevice.isIPhone ? 30 : 50)
+                            
+                            let selectedCard = contentManagerVM.filteredCardCollection[currentIndex]
+                            Button(action: {
+                                if selectedCard.state == .selected {
+                                    selectedCard.state = .showed
+                                    contentManagerVM.removeFromDeck(selectedCard)
+                                } else {
+                                    selectedCard.state = .selected
+                                    contentManagerVM.addToDeck(selectedCard)
+                                }
+                                selectedCard.objectWillChange.send()
+                            }, label: {
+                                Image(systemName: selectedCard.state == .selected ? "checkmark.circle.fill" : "checkmark.circle")
+                                    .imageButtonLabel()
+                            }).position(x: geo.size.width - 50, y: geo.size.height - (UIDevice.isIPhone ? -10 : 50))
+                            
+                            Button(action: {
+                                showingDeleteAlert = true
+                            }, label: {
+                                Image(systemName: "trash.circle")
+                                    .imageButtonLabel()
+                            }).position(x: 50, y: geo.size.height - (UIDevice.isIPhone ? -10 : 50))
+                                .alert(isPresented: $showingDeleteAlert) {
+                                    Alert(
+                                        title: Text("collection_delete_title".translate()),
+                                        message: Text("collection_delete_content".translate()),
+                                        primaryButton: .destructive(Text("delete".translate())) {
+                                            withAnimation(.easeInOut(duration: 0.3)) {
+                                                contentManagerVM.removeCardFromCollection(selectedCard)
+                                            }
+                                        },
+                                        secondaryButton: .cancel()
+                                    )
+                                }
+                        }.statusBar(hidden: true)
+                            .background(
+                                ZStack {
+                                    CardImageBackground(card: contentManagerVM.filteredCardCollection[currentIndex], blurRadius: 30)
+                                    
+                                    // TODO: enlver geometry reader
+                                    GeometryReader { carouselGeo in
+                                        CardCarouselView(index: $currentIndex, items: contentManagerVM.filteredCardCollection, cardWidth: CardSizes.widthtForHeight(carouselGeo.size.height), spacing: UIDevice.isIPhone ? 0 : -100, id: \.id) {
+                                            card, size in
+                                            ZStack {
+                                                Color.black.opacity(0.000001)
+                                                CardView(card: card, width: size.width, height: CardSizes.heightForWidth(size.width))
+                                                    .allowsHitTesting(false)
+                                            }
+                                        }
+                                    }.padding(.top, UIDevice.isIPhone ? 12 : 90).padding(.bottom, UIDevice.isIPhone ? 12 : 50)
+                                }.ignoresSafeArea()
+                            )
                     }
                 }
                 
@@ -187,7 +267,7 @@ struct ContentManagerView: View {
                     } else {
                         Text(contentManagerVM.decks[0].name).tag(contentManagerVM.decks[0].deckId)
                     }
-                }.pickerStyle(.menu).accentColor(.white).font(.subheadline).frame(height: 20).buttonLabel().opacity(planechaseVM.isPremium ? 1 : 0.6).frame(width: 200)
+                }.pickerStyle(.menu).accentColor(.white).font(.subheadline).frame(height: 20).buttonLabel(style: .secondary).opacity(planechaseVM.isPremium ? 1 : 0.6).frame(width: 200)
                 .onChange(of: deckSelected) { newValue in
                     withAnimation(.easeInOut(duration: 0.3)) {
                         contentManagerVM.changeSelectedDeck(newDeckId: newValue)
@@ -221,7 +301,7 @@ struct ContentManagerView: View {
                 showingImagePicker = true
             }, label: {
                 Text("collection_import".translate())
-                    .textButtonLabel()
+                    .textButtonLabel(style: .secondary)
             })
             .onChange(of: inputImage) { _ in addNewImageToCollection() }
             .sheet(isPresented: $showingImagePicker) {
@@ -286,33 +366,6 @@ struct ContentManagerView: View {
                 RoundedRectangle(cornerRadius: CardSizes.cornerRadiusForWidth(width) + CardSizes.selectionBorderAdditionalCornerRadius)
                     .stroke(card.state == .selected ? .white : .clear, lineWidth: 4)
             )
-            .onTapGesture {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    if card.state == .selected {
-                        card.state = .showed
-                        contentManagerVM.removeFromDeck(card)
-                    } else {
-                        card.state = .selected
-                        contentManagerVM.addToDeck(card)
-                    }
-                    card.objectWillChange.send()
-                }
-            }
-            .onLongPressGesture(minimumDuration: 0.5) {
-                showingDeleteAlert = true
-            }
-            .alert(isPresented: $showingDeleteAlert) {
-                Alert(
-                    title: Text("collection_delete_title".translate()),
-                    message: Text("collection_delete_content".translate()),
-                    primaryButton: .destructive(Text("delete".translate())) {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            contentManagerVM.removeCardFromCollection(card)
-                        }
-                    },
-                    secondaryButton: .cancel()
-                )
-            }
         }
     }
     
