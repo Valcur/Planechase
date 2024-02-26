@@ -55,7 +55,6 @@ class GameViewModel: ObservableObject {
         )
         cardToZoomIn = nil
         travelModeEnable = false
-        previousPlane = nil
         
         addCardAtCoord(card: drawCard(), center)
         setupNeighbors()
@@ -290,6 +289,7 @@ extension GameViewModel {
            )
         cardToZoomIn = drawCard()
         travelModeEnable = false
+        previousPlane = nil
     }
     
     func cancelPlaneswalk() {

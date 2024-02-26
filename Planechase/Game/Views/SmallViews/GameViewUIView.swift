@@ -61,34 +61,39 @@ extension GameView {
         @EnvironmentObject var gameVM: GameViewModel
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @State var showTools = false
-        private let height: CGFloat = 150
+        private let height: CGFloat = 200
+        @State var size: CGSize = .zero
         
         var body: some View {
-            VStack {
-                Button(action: {
-                    withAnimation(.spring()) {
-                        showTools.toggle()
-                    }
-                }, label: {
-                    Image(systemName: "hammer.fill")
-                        .imageButtonLabel()
-                }).opacity(planechaseVM.noHammerRow ? 0 : 1)
-                
-                VStack {
-                    Button(action: {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            gameVM.cancelPlaneswalk()
-                        }
-                    }, label: {
-                        if planechaseVM.noHammerRow {
-                            Image(systemName: "arrow.uturn.backward")
+            ChildSizeReader(size: $size) {
+                VStack(alignment: .trailing, spacing: 0) {
+                    if !planechaseVM.noHammerRow {
+                        Button(action: {
+                            withAnimation(.spring()) {
+                                showTools.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "hammer.fill")
                                 .imageButtonLabel()
-                        } else {
-                            Text("return-untranslated")
-                                .textButtonLabel()
-                        }
-                    }).disabled(gameVM.previousPlane == nil).offset(y: planechaseVM.noHammerRow ? 20 : 0)
-                        .opacity(gameVM.isPlayingClassicMode ? (gameVM.previousPlane == nil ? 0.6 : 1) : 0)
+                        })
+                    }
+                    
+                    if gameVM.isPlayingClassicMode {
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                gameVM.cancelPlaneswalk()
+                            }
+                        }, label: {
+                            if planechaseVM.noHammerRow {
+                                Image(systemName: "arrow.uturn.backward")
+                                    .imageButtonLabel()
+                            } else {
+                                Text("game_tool_previousPlane".translate())
+                                    .textButtonLabel()
+                            }
+                        }).disabled(gameVM.previousPlane == nil)
+                        .opacity(gameVM.previousPlane == nil ? 0.6 : 1)
+                    }
                     
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
@@ -102,7 +107,7 @@ extension GameView {
                             Text(gameVM.travelModeEnable ? "game_tool_disablePlaneswalk".translate() : "game_tool_enablePlaneswalk".translate())
                                 .textButtonLabel()
                         }
-                    }).offset(y: planechaseVM.noHammerRow ? 10 : 0)
+                    })
                     
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
@@ -117,8 +122,37 @@ extension GameView {
                                 .textButtonLabel()
                         }
                     })
-                }.offset(x: planechaseVM.noHammerRow ? 0 : (UIDevice.isIPhone ? -50 : -60))
-            }.frame(height: height).offset(y: showTools || planechaseVM.noHammerRow ? -height / 2 : height / 2).offset(y: -3)
+                }.frame(width: 300, alignment: .trailing).offset(y: showTools || planechaseVM.noHammerRow ? -size.height / 2 + 35 : size.height / 2 - 35)
+                    .offset(x: -115)
+            }
+        }
+        
+        struct ChildSizeReader<Content: View>: View {
+            @Binding var size: CGSize
+            let content: () -> Content
+            var body: some View {
+                ZStack {
+                    content()
+                        .background(
+                            GeometryReader { proxy in
+                                Color.clear
+                                    .preference(key: SizePreferenceKey.self, value: proxy.size)
+                            }
+                        )
+                }
+                .onPreferenceChange(SizePreferenceKey.self) { preferences in
+                    self.size = preferences
+                }
+            }
+        }
+
+        struct SizePreferenceKey: PreferenceKey {
+            typealias Value = CGSize
+            static var defaultValue: Value = .zero
+
+            static func reduce(value _: inout Value, nextValue: () -> Value) {
+                _ = nextValue()
+            }
         }
     }
     
