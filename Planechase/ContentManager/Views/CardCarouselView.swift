@@ -72,6 +72,7 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
                 }
             }.padding(.horizontal, spacing)
             .offset(x: limitScroll())
+            .background(Color.black.opacity(0.00001))
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .updating($translation, body: { value, out, _ in

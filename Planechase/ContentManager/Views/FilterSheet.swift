@@ -13,8 +13,9 @@ extension ContentManagerView {
         @EnvironmentObject var planechaseVM: PlanechaseViewModel
         @EnvironmentObject var contentVM: ContentManagerViewModel
         private var columns: [GridItem]  {
-            [GridItem(.adaptive(minimum: 250, maximum: 350))]
+            [GridItem(.adaptive(minimum: 230, maximum: 370))]
         }
+        private let leadingOffset: CGFloat = 100
         
         var body: some View {
             GeometryReader { geo in
@@ -30,10 +31,10 @@ extension ContentManagerView {
                             Text("collection_filter_onlyShow".translate()).title()
                             Spacer()
                             Text("\(contentVM.filteredCardCollection.count)/\(contentVM.cardCollection.count)").title()
-                        }
+                        }//.background(Color.black.opacity(0.6))
                         
                         ZStack(alignment: .topLeading) {
-                            Text("collection_filter_title_source".translate()).headline().padding(.top, 15)
+                            Text("collection_filter_title_source".translate()).headline().padding(.top, 20)
                             HStack {
                                 Button(action: {
                                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -42,7 +43,7 @@ extension ContentManagerView {
                                     }
                                 }, label: {
                                     Text("collection_filter_official".translate())
-                                        .textButtonLabel(style: contentVM.collectionFilter.cardType == .official ? .secondary : .primary)
+                                        .textButtonLabel(style: contentVM.collectionFilter.cardType == .official ? .secondary : .noBackground)
                                 })
                                 
                                 Button(action: {
@@ -55,13 +56,13 @@ extension ContentManagerView {
                                     }
                                 }, label: {
                                     Text("collection_filter_unofficial".translate())
-                                        .textButtonLabel(style: contentVM.collectionFilter.cardType == .unofficial ? .secondary : .primary)
+                                        .textButtonLabel(style: contentVM.collectionFilter.cardType == .unofficial ? .secondary : .noBackground)
                                 })
-                            }.padding(.leading, 120)
-                        }
+                            }.padding(.leading, leadingOffset)
+                        }.frame(maxWidth: .infinity, alignment: .topLeading).padding(10).blurredBackground()
                         
                         ZStack(alignment: .topLeading) {
-                            Text("collection_filter_title_selection".translate()).headline().padding(.top, 15)
+                            Text("collection_filter_title_selection".translate()).headline().padding(.top, 20)
                             HStack {
                                 Button(action: {
                                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -70,7 +71,7 @@ extension ContentManagerView {
                                     }
                                 }, label: {
                                     Text("collection_filter_present".translate())
-                                        .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .present ? .secondary : .primary)
+                                        .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .present ? .secondary : .noBackground)
                                 })
                                 
                                 Button(action: {
@@ -80,7 +81,7 @@ extension ContentManagerView {
                                     }
                                 }, label: {
                                     Text("collection_filter_absent".translate())
-                                        .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absent ? .secondary : .primary)
+                                        .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absent ? .secondary : .noBackground)
                                 })
                                 
                                 Button(action: {
@@ -90,13 +91,13 @@ extension ContentManagerView {
                                     }
                                 }, label: {
                                     Text("collection_filter_absentAll".translate())
-                                        .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absentInAll ? .secondary : .primary)
+                                        .textButtonLabel(style: contentVM.collectionFilter.cardsInDeck == .absentInAll ? .secondary : .noBackground)
                                 })
-                            }.padding(.leading, 120)
-                        }
+                            }.padding(.leading, leadingOffset)
+                        }.frame(maxWidth: .infinity, alignment: .topLeading).padding(10).blurredBackground()
                         
                         ZStack(alignment: .topLeading) {
-                            Text("collection_filter_title_type".translate()).headline().padding(.top, 15)
+                            Text("collection_filter_title_type".translate()).headline().padding(.top, 20)
                             HStack {
                                 Button(action: {
                                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -104,7 +105,7 @@ extension ContentManagerView {
                                     }
                                 }, label: {
                                     Text("plane".translate())
-                                        .textButtonLabel(style: contentVM.collectionFilter.cardTypeLine == .plane ? .secondary : .primary)
+                                        .textButtonLabel(style: contentVM.collectionFilter.cardTypeLine == .plane ? .secondary : .noBackground)
                                 })
                                 
                                 Button(action: {
@@ -113,21 +114,21 @@ extension ContentManagerView {
                                     }
                                 }, label: {
                                     Text("phenomenon".translate())
-                                        .textButtonLabel(style: contentVM.collectionFilter.cardTypeLine == .phenomenon ? .secondary : .primary)
+                                        .textButtonLabel(style: contentVM.collectionFilter.cardTypeLine == .phenomenon ? .secondary : .noBackground)
                                 })
-                            }.padding(.leading, 120)
-                        }
+                            }.padding(.leading, leadingOffset)
+                        }.frame(maxWidth: .infinity, alignment: .topLeading).padding(10).blurredBackground()
                         
                         ZStack(alignment: .topLeading) {
-                            Text("collection_filter_title_set".translate()).headline().padding(.top, 15)
+                            Text("collection_filter_title_set".translate()).headline().padding(.top, 20)
                             HStack(alignment: .top) {
-                                LazyVGrid(columns: columns, spacing: 15) {
+                                LazyVGrid(columns: columns, spacing: 5) {
                                     ForEach(CardSet.getAll(), id: \.self) { cardSet in
                                         CardSetButtonView(cardSet: cardSet)
                                     }
                                 }.frame(maxWidth: .infinity)
-                            }.padding(.leading, 120)
-                        }
+                            }.padding(.leading, leadingOffset)
+                        }.frame(maxWidth: .infinity, alignment: .topLeading).padding(10).blurredBackground()
                     }.padding(.horizontal, 30).padding(.top, 30).iPhoneScaler_widthOnly(width: geo.size.width, anchor: .top)
                 }
             }.background(GradientView(gradientId: planechaseVM.gradientId))
@@ -153,8 +154,8 @@ extension ContentManagerView {
                         contentVM.updateFilteredCardCollection()
                     }, label: {
                         Text(cardSet.setName())
-                            .textButtonLabel(style: isSelected ? .secondary : .primary)
-                            .frame(height: 50)
+                            .textButtonLabel(style: isSelected ? .secondary : .noBackground)
+                            .frame(maxHeight: 70)
                     })
                     Spacer()
                 }

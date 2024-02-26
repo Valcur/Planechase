@@ -9,12 +9,26 @@ import SwiftUI
 
 extension Text {
     func textButtonLabel(style: ViewStyle = .primary) -> some View {
-        self
-            .font(.subheadline)
-            .foregroundColor(.white)
-            .padding()
-            .blurredBackground(style: style)
-            .padding(5)
+        ZStack {
+            if style == .noBackground {
+                self
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.white, lineWidth: 2)
+                    )
+                    .padding(5)
+            } else {
+                self
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .blurredBackground(style: style)
+                    .padding(5)
+            }
+        }
     }
     
     func textButtonLabel(systemName: String, style: ViewStyle = .primary) -> some View {

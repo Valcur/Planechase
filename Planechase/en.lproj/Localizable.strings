@@ -63,7 +63,7 @@
 "collection_scryfall" = "Scryfall";
 "collection_import" = "Import";
 "collection_deckSize" = "Deck size";
-"collection_howToUse" = "Tap a card to add/remove it from your deck.";
+"collection_howToUse" = "Tap a card to add/remove it from your deck. Hold to zoom.";
 "collection_selectAll" = "Select all";
 "collection_unselectAll" = "Unselect all";
 "collection_SelectDeck" = "Select Deck";
@@ -108,6 +108,7 @@
 "game_deckController_putBottom" = "Put bottom";
 "game_deckController_planeswalk" = "Planeswalk";
 "game_deckController_planeswalkAdd" = "Add";
+"game_tool_previousPlane" = "Previous plane";
 
 "lifepoints_counters_title" = "Counters";
 "lifepoints_counters_poison" = "Poison";

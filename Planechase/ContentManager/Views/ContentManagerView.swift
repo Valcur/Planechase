@@ -27,170 +27,145 @@ struct ContentManagerView: View {
             ZStack {
                 GradientView(gradientId: planechaseVM.gradientId)
                 
-                if isFullscreen && false {
-                    CardImageBackground(card: contentManagerVM.filteredCardCollection[currentIndex], blurRadius: 30)
-                    
-                    // TODO: enlver geometry reader
-                    GeometryReader { carouselGeo in
-                        CardCarouselView(index: $currentIndex, items: contentManagerVM.filteredCardCollection, cardWidth: CardSizes.widthtForHeight(carouselGeo.size.height), spacing: UIDevice.isIPhone ? 0 : -100, id: \.id) {
-                            card, size in
-                            CardView(card: card, width: size.width, height: size.height)
-                        }//.padding(.horizontal, -15)
-                    }.padding(.top, UIDevice.isIPhone ? 12 : 90).padding(.bottom, UIDevice.isIPhone ? 12 : 50)
-                    
-                    Text("\(currentIndex + 1)/\(contentManagerVM.filteredCardCollection.count)")
-                        .title()
-                        .frame(width: 200, alignment: .leading)
-                        .position(x: 150, y: UIDevice.isIPhone ? 30 : 50)
-                        .scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .topLeading)
-
-                    Button(action: {
-                        isFullscreen = false
-                    }, label: {
-                        Image(systemName: "arrow.up.left.and.arrow.down.right")
-                            .font(.title)
-                            .foregroundColor(.white)
-                    }).position(x: geo.size.width - 50, y: UIDevice.isIPhone ? 30 : 50)
-                        .scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .topTrailing)
-                } else {
-                    VStack(spacing: 0) {
-                        VStack(spacing: UIDevice.isIPhone ? 2 : 8) {
-                            // MARK: Top bar
-                            HStack {
-                                Button(action: {
-                                    contentManagerVM.downloadPlanechaseCardsFromScryfall()
-                                }, label: {
-                                    Text("collection_scryfall".translate())
-                                        .textButtonLabel(systemName: "square.and.arrow.down", style: .secondary)
-                                })
-                                
-                                ImportButton()
-                                
-                                Spacer()
-                                
-                                Text("\("collection_deckSize".translate()) : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
-                                    .headline()
-                                
-                                DeckSelection(selectedDeck: contentManagerVM.selectedDeckId)
-                            }.padding(.horizontal, 15).padding(.top, 5).iPhoneScaler(width: geo.size.width, height: 44)
-                            
-                            // MARK: Bottom bar
-                            HStack() {
-                                Button(action: {
-                                    showingFilterSheet.toggle()
-                                }, label: {
-                                    Image(systemName: "slider.horizontal.3")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                })
-                                .sheet(isPresented: $showingFilterSheet) {
-                                    FilterSheet()
-                                }
-                                
-                                Rectangle().frame(width: 2, height: 40).foregroundColor(.white)
-                                
-                                BottomRow(smallGridModEnable: $smallGridModEnable, isFullscreen: $isFullscreen)
-                            }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 44)
-                        }.background(Color.black.opacity(0.5).ignoresSafeArea())
-                        GeometryReader { scrollGeo in
-                            ScrollView {
-                                LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
-                                    ForEach(contentManagerVM.filteredCardCollection, id: \.id) { card in
-                                        CardView(card: card, width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
-                                            .frame(width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
-                                            .onTapGesture {
-                                                withAnimation(.easeInOut(duration: 0.3)) {
-                                                    if card.state == .selected {
-                                                        card.state = .showed
-                                                        contentManagerVM.removeFromDeck(card)
-                                                    } else {
-                                                        card.state = .selected
-                                                        contentManagerVM.addToDeck(card)
-                                                    }
-                                                    card.objectWillChange.send()
-                                                }
-                                            }
-                                            .onLongPressGesture(minimumDuration: 0.5) {
-                                                if let newIndex = contentManagerVM.filteredCardCollection.firstIndex(of: card) {
-                                                    isFullscreen = true
-                                                    currentIndex = newIndex
-                                                }
-                                            }
-                                    }
-                                }.padding(.vertical, 10).padding(.vertical, 5).padding(.horizontal, 7)
-                                if contentManagerVM.cardCollection.count == 0 {
-                                    EmptyCardCollectionInfo()
-                                }
-                            }
-                        }
-                    }.fullScreenCover(isPresented: $isFullscreen) {
-                        ZStack {
-                            Text("\(currentIndex + 1)/\(contentManagerVM.filteredCardCollection.count)")
-                                .title()
-                                .frame(width: 200, alignment: .leading)
-                                .position(x: 150, y: UIDevice.isIPhone ? 30 : 50)
-                                .scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .topLeading)
-
+                VStack(spacing: 0) {
+                    VStack(spacing: UIDevice.isIPhone ? 2 : 2) {
+                        // MARK: Top bar
+                        HStack {
                             Button(action: {
-                                isFullscreen = false
+                                contentManagerVM.downloadPlanechaseCardsFromScryfall()
                             }, label: {
-                                Image(systemName: "arrow.down.right.and.arrow.up.left")
+                                Text("collection_scryfall".translate())
+                                    .textButtonLabel(systemName: "square.and.arrow.down", style: .secondary)
+                            })
+                            
+                            ImportButton()
+                            
+                            Spacer()
+                            
+                            Text("\("collection_deckSize".translate()) : \(contentManagerVM.selectedCardsInCollection)/\(contentManagerVM.cardCollection.count)")
+                                .headline()
+                            
+                            DeckSelection(selectedDeck: contentManagerVM.selectedDeckId)
+                        }.padding(.horizontal, 15).padding(.top, 5).iPhoneScaler(width: geo.size.width, height: 44)
+                        
+                        // MARK: Bottom bar
+                        HStack() {
+                            Button(action: {
+                                showingFilterSheet.toggle()
+                            }, label: {
+                                Image(systemName: "slider.horizontal.3")
                                     .font(.title)
                                     .foregroundColor(.white)
-                            }).position(x: geo.size.width - 50, y: UIDevice.isIPhone ? 30 : 50)
+                            })
+                            .sheet(isPresented: $showingFilterSheet) {
+                                FilterSheet()
+                            }
                             
-                            let selectedCard = contentManagerVM.filteredCardCollection[currentIndex]
-                            Button(action: {
-                                if selectedCard.state == .selected {
-                                    selectedCard.state = .showed
-                                    contentManagerVM.removeFromDeck(selectedCard)
-                                } else {
-                                    selectedCard.state = .selected
-                                    contentManagerVM.addToDeck(selectedCard)
-                                }
-                                selectedCard.objectWillChange.send()
-                            }, label: {
-                                Image(systemName: selectedCard.state == .selected ? "checkmark.circle.fill" : "checkmark.circle")
-                                    .imageButtonLabel()
-                            }).position(x: geo.size.width - 50, y: geo.size.height - (UIDevice.isIPhone ? -10 : 50))
+                            Rectangle().frame(width: 2, height: 40).foregroundColor(.white)
                             
-                            Button(action: {
-                                showingDeleteAlert = true
-                            }, label: {
-                                Image(systemName: "trash.circle")
-                                    .imageButtonLabel()
-                            }).position(x: 50, y: geo.size.height - (UIDevice.isIPhone ? -10 : 50))
-                                .alert(isPresented: $showingDeleteAlert) {
-                                    Alert(
-                                        title: Text("collection_delete_title".translate()),
-                                        message: Text("collection_delete_content".translate()),
-                                        primaryButton: .destructive(Text("delete".translate())) {
+                            BottomRow(smallGridModEnable: $smallGridModEnable, isFullscreen: $isFullscreen)
+                        }.padding(.horizontal, 15).iPhoneScaler(width: geo.size.width, height: 44)
+                    }.background(Color.black.opacity(0.5).ignoresSafeArea())
+                    GeometryReader { scrollGeo in
+                        ScrollView {
+                            LazyVGrid(columns: smallGridModEnable ? smallGridItemLayout : gridItemLayout, spacing: 20) {
+                                ForEach(contentManagerVM.filteredCardCollection, id: \.id) { card in
+                                    CardView(card: card, width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
+                                        .frame(width: cardWidth(scrollViewWidth: scrollGeo.size.width), height: cardHeight(scrollViewWidth: scrollGeo.size.width))
+                                        .onTapGesture {
                                             withAnimation(.easeInOut(duration: 0.3)) {
-                                                contentManagerVM.removeCardFromCollection(selectedCard)
-                                            }
-                                        },
-                                        secondaryButton: .cancel()
-                                    )
-                                }
-                        }.statusBar(hidden: true)
-                            .background(
-                                ZStack {
-                                    CardImageBackground(card: contentManagerVM.filteredCardCollection[currentIndex], blurRadius: 30)
-                                    
-                                    // TODO: enlver geometry reader
-                                    GeometryReader { carouselGeo in
-                                        CardCarouselView(index: $currentIndex, items: contentManagerVM.filteredCardCollection, cardWidth: CardSizes.widthtForHeight(carouselGeo.size.height), spacing: UIDevice.isIPhone ? 0 : -100, id: \.id) {
-                                            card, size in
-                                            ZStack {
-                                                Color.black.opacity(0.000001)
-                                                CardView(card: card, width: size.width, height: CardSizes.heightForWidth(size.width))
-                                                    .allowsHitTesting(false)
+                                                if card.state == .selected {
+                                                    card.state = .showed
+                                                    contentManagerVM.removeFromDeck(card)
+                                                } else {
+                                                    card.state = .selected
+                                                    contentManagerVM.addToDeck(card)
+                                                }
+                                                card.objectWillChange.send()
                                             }
                                         }
-                                    }.padding(.top, UIDevice.isIPhone ? 12 : 90).padding(.bottom, UIDevice.isIPhone ? 12 : 50)
-                                }.ignoresSafeArea()
-                            )
+                                        .onLongPressGesture(minimumDuration: 0.5) {
+                                            if let newIndex = contentManagerVM.filteredCardCollection.firstIndex(of: card) {
+                                                isFullscreen = true
+                                                currentIndex = newIndex
+                                            }
+                                        }
+                                }
+                            }.padding(.vertical, 10).padding(.vertical, 5).padding(.horizontal, 7)
+                            if contentManagerVM.cardCollection.count == 0 {
+                                EmptyCardCollectionInfo()
+                            }
+                        }
                     }
+                }.fullScreenCover(isPresented: $isFullscreen) {
+                    ZStack {
+                        Text("\(currentIndex + 1)/\(contentManagerVM.filteredCardCollection.count)")
+                            .title()
+                            .frame(width: 200, alignment: .leading)
+                            .position(x: 150, y: UIDevice.isIPhone ? 30 : 50)
+                            .scaleEffect(UIDevice.isIPhone ? 0.7 : 1, anchor: .topLeading)
+
+                        Button(action: {
+                            isFullscreen = false
+                        }, label: {
+                            Image(systemName: "arrow.down.right.and.arrow.up.left")
+                                .font(.title)
+                                .foregroundColor(.white)
+                        }).position(x: geo.size.width - 50, y: UIDevice.isIPhone ? 30 : 50)
+                        
+                        let selectedCard = contentManagerVM.filteredCardCollection[currentIndex]
+                        Button(action: {
+                            if selectedCard.state == .selected {
+                                selectedCard.state = .showed
+                                contentManagerVM.removeFromDeck(selectedCard)
+                            } else {
+                                selectedCard.state = .selected
+                                contentManagerVM.addToDeck(selectedCard)
+                            }
+                            selectedCard.objectWillChange.send()
+                        }, label: {
+                            Image(systemName: selectedCard.state == .selected ? "checkmark.circle.fill" : "checkmark.circle")
+                                .imageButtonLabel()
+                        }).position(x: geo.size.width - 50, y: geo.size.height - (UIDevice.isIPhone ? -10 : 50))
+                        
+                        Button(action: {
+                            showingDeleteAlert = true
+                        }, label: {
+                            Image(systemName: "trash.circle")
+                                .imageButtonLabel()
+                        }).position(x: 50, y: geo.size.height - (UIDevice.isIPhone ? -10 : 50))
+                            .alert(isPresented: $showingDeleteAlert) {
+                                Alert(
+                                    title: Text("collection_delete_title".translate()),
+                                    message: Text("collection_delete_content".translate()),
+                                    primaryButton: .destructive(Text("delete".translate())) {
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            contentManagerVM.removeCardFromCollection(selectedCard)
+                                        }
+                                    },
+                                    secondaryButton: .cancel()
+                                )
+                            }
+                    }.statusBar(hidden: true)
+                        .background(
+                            ZStack {
+                                Color.black
+                                
+                                CardImageBackground(card: contentManagerVM.filteredCardCollection[currentIndex], blurRadius: 30)
+                                
+                                // TODO: enlver geometry reader
+                                GeometryReader { carouselGeo in
+                                    CardCarouselView(index: $currentIndex, items: contentManagerVM.filteredCardCollection, cardWidth: CardSizes.widthtForHeight(carouselGeo.size.height), spacing: UIDevice.isIPhone ? 0 : -100, id: \.id) {
+                                        card, size in
+                                        ZStack {
+                                            Color.black.opacity(0.000001)
+                                            CardView(card: card, width: size.width, height: CardSizes.heightForWidth(size.width))
+                                                .allowsHitTesting(false)
+                                        }
+                                    }
+                                }.padding(.top, UIDevice.isIPhone ? 12 : 90).padding(.bottom, UIDevice.isIPhone ? 12 : 50)
+                            }.ignoresSafeArea()
+                        )
                 }
                 
                 ContentManagerInfoView()
