@@ -6,7 +6,15 @@
 //
 
 import SwiftUI
-
+extension UISplitViewController {
+    open override func viewDidLoad() {
+        preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
+        
+        // remove sidebar button, make sidebar always appear !
+       presentsWithGesture = displayMode != .oneBesideSecondary
+        
+    }
+}
 struct OptionsMenuView: View {
     @EnvironmentObject var planechaseVM: PlanechaseViewModel
     @State var selectedMenu: MenuSelection = .life
@@ -24,6 +32,8 @@ struct OptionsMenuView: View {
                     NavigationLink(destination: TreacheryOptionsPanel().navigationTitle(MenuSelection.treachery.title())) {
                         Text(MenuSelection.treachery.title())
                     }
+                }
+                Section(header: Text("Other")) {
                     NavigationLink(destination: RulesPanel().navigationTitle(MenuSelection.rules.title())) {
                         Text(MenuSelection.rules.title())
                     }
@@ -35,7 +45,7 @@ struct OptionsMenuView: View {
                     }
                 }
             }.preferredColorScheme(.dark)
-        }
+        }.navigationTitle("Options")
     }
     
     struct MenuSelectionView: View {

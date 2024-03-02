@@ -22,6 +22,8 @@
 		DB2EA3822B289BC100A2E734 /* VisualEffectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3812B289BC100A2E734 /* VisualEffectsView.swift */; };
 		DB2EA3842B28A8CD00A2E734 /* PlanechaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3832B28A8CD00A2E734 /* PlanechaseViewModel.swift */; };
 		DB2EA3862B28AE0F00A2E734 /* DiceRollerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2EA3852B28AE0F00A2E734 /* DiceRollerView.swift */; };
+		DB34CA1A2B84CFE900ACA199 /* CardCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB34CA192B84CFE900ACA199 /* CardCarouselView.swift */; };
+		DB34CA1C2B8643A900ACA199 /* DispatchQueue+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB34CA1B2B8643A900ACA199 /* DispatchQueue+.swift */; };
 		DB360F872ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB360F862ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift */; };
 		DB3AB7C929AD051E00B11E17 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3AB7C829AD051E00B11E17 /* StoreKit.framework */; };
 		DB3AB7CC29AFAA6900B11E17 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3AB7CE29AFAA6900B11E17 /* Localizable.strings */; };
@@ -108,6 +110,8 @@
 		DB2EA3812B289BC100A2E734 /* VisualEffectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectsView.swift; sourceTree = "<group>"; };
 		DB2EA3832B28A8CD00A2E734 /* PlanechaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanechaseViewModel.swift; sourceTree = "<group>"; };
 		DB2EA3852B28AE0F00A2E734 /* DiceRollerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceRollerView.swift; sourceTree = "<group>"; };
+		DB34CA192B84CFE900ACA199 /* CardCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCarouselView.swift; sourceTree = "<group>"; };
+		DB34CA1B2B8643A900ACA199 /* DispatchQueue+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+.swift"; sourceTree = "<group>"; };
 		DB360F862ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLifeCounterBackgroundStyleChoiceView.swift; sourceTree = "<group>"; };
 		DB3AB7C829AD051E00B11E17 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DB3AB7CD29AFAA6900B11E17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 				DB2EA3772B289A4200A2E734 /* UIImage+.swift */,
 				DB2EA3792B289A8700A2E734 /* UIDevice+.swift */,
 				DB2EA37B2B289ADA00A2E734 /* String+.swift */,
+				DB34CA1B2B8643A900ACA199 /* DispatchQueue+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -419,6 +424,7 @@
 				DB5098DC29A388DA0058FCCB /* ContentManagerView.swift */,
 				DBB8311329CDBB9F0023E81A /* ContentManagerView+Filter.swift */,
 				DB24CA3A2AB75B760002E17B /* FilterSheet.swift */,
+				DB34CA192B84CFE900ACA199 /* CardCarouselView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -598,12 +604,14 @@
 				DBA757E42ACF06DC00DE2D16 /* MenuHideLifeCooldownView.swift in Sources */,
 				DBD8AC4D2AC1D15F00C9F89A /* LifeOptionsPanel.swift in Sources */,
 				DB9C22872A29F72300656BC7 /* ZoomViewTypeView.swift in Sources */,
+				DB34CA1C2B8643A900ACA199 /* DispatchQueue+.swift in Sources */,
 				DBA757E22ACEC34400DE2D16 /* MonarchTokenView.swift in Sources */,
 				DBA757F52AED399A00DE2D16 /* LifePointsViewModel.swift in Sources */,
 				DB360F872ACC759100D36E79 /* MenuLifeCounterBackgroundStyleChoiceView.swift in Sources */,
 				DBC339AF29A8E4BC0089CB01 /* BubbleView.swift in Sources */,
 				DBA02CF729A4FDB8004E94BC /* Coord.swift in Sources */,
 				DBD42B0129A78F1B008451BD /* OptionsMenuView.swift in Sources */,
+				DB34CA1A2B84CFE900ACA199 /* CardCarouselView.swift in Sources */,
 				DB2EA37A2B289A8700A2E734 /* UIDevice+.swift in Sources */,
 				DBA02CEE29A3E886004E94BC /* SaveManager.swift in Sources */,
 				DBA02CEC29A3B6A2004E94BC /* DownloadManager.swift in Sources */,
@@ -788,7 +796,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.1;
+				MARKETING_VERSION = 5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -823,7 +831,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.1;
+				MARKETING_VERSION = 5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

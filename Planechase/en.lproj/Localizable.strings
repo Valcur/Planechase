@@ -51,7 +51,7 @@
 "discord_hide_content" = "You can still find a link in the options under 'Contact'";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- Reworked lifecounter\n- Play the Treachery variant (new Treachery panel in the options)\n- 'Planeswalk Away' button when you encounter a phenomenon\n- Change imported card types (plane/phenomenon)\n- Disabled screen turning off while on the app";
+"whatsNew_content" = "- Hold on a plane in your collection to open it in fullscreen\n- Commander damages now increase/decrease by tapping the top/bottom";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
@@ -184,7 +184,7 @@
 
 "options_rules_lifepointsCounter_Title" = "Using lifepoint counter";
 "options_rules_lifepointsCounter_01"  = "Tap the top to add, tap the bottom to remove or hold and move up/down to add/remove.";
-"options_rules_lifepointsCounter_02"  = "Tap commander damages recap to open the commander damages panel. Tap to add, hold to reset. When not in fullscreen, the panel dismiss itself after a few seconds.";
+"options_rules_lifepointsCounter_02"  = "Tap commander damages recap to open the commander damages panel. When not in fullscreen, the panel dismiss itself after a few seconds.";
 "options_rules_lifepointsCounter_03"  = "Tap commander the life total or the counters recap to open the counters panel. Tap the top to add, tap the bottom to remove or hold and move up/down to add/remove. When not in fullscreen, the panel dismiss itself after a few seconds.";
 
 

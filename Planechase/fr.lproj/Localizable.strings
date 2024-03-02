@@ -50,7 +50,7 @@
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Mise à jour du compteur de points de vie\n- Jouer au mode de jeu Treachery (nouvel onglet Treachery dans les options)\n- Bouton 'Planeswalk Away' lorsque vous rencontrez un phénomène\n- Changez le type des cartes importées (plan/phénomène)\n- Empêche l'appareil de s'éteindre automatiquement tant que vous êtes sur l'app";
+"whatsNew_content" = "- Gardez appuyé une carte de votre collection pour la voir en plein écran\n- Les dégâts de commander augmentent/baissent en appuyant sur le haut/bas du compteur";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -182,7 +182,7 @@
 
 "options_rules_lifepointsCounter_Title" = "Utiliser le compteur";
 "options_rules_lifepointsCounter_01"  = "Appuyez en haut pour rajouter des points de vie, sur le base pour en enlever. Ou gardez appuyé puis bouger de haut en bas pour ajouter/enlever rapidement";
-"options_rules_lifepointsCounter_02"  = "Appuyez sur le récapitulatif des dégâts de commander pour ouvrir le menu des dégâts de commander. Appuyez pour augmenter. Gardez appuyé pour remettre à zéro. Le menu disparaît automatiquement après quelque secondes d'inactivité si vous n'êtes pas en mode plein écran.";
+"options_rules_lifepointsCounter_02"  = "Appuyez sur le récapitulatif des dégâts de commander pour ouvrir le menu des dégâts de commander. Le menu disparaît automatiquement après quelque secondes d'inactivité si vous n'êtes pas en mode plein écran.";
 "options_rules_lifepointsCounter_03"  = "Appuyez sur le le total de point de vie ou sur l'affichage des compteurs pour ouvrir le menu des compteurs. Appuyez en haut pour ajouter, en bas pour diminuer, ou gardez appuyé puis bougez de haut en bas. Le menu disparaît automatiquement après quelque secondes d'inactivité si vous n'êtes pas en mode plein écran.";
 
 
