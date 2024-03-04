@@ -8,15 +8,18 @@
 import Foundation
 
 extension ContentManagerViewModel {
-    func addAllPlanechaseCardsFromScryfall() {
+    func addAllPlanechaseCardsFromScryfall(_ lang: String) {
         for set in CardSet.getAll() {
-            fetchCardsImageURLForSet(set.setCode())
+            var downloadLang = lang
+            if set.setCode() == "OHOP" {
+                downloadLang = "en"
+            }
+            fetchCardsImageURLForSet(set.setCode(), lang: downloadLang)
         }
     }
     
-    func fetchCardsImageURLForSet(_ setCode: String) {
-        let ulrBase = "https://api.scryfall.com/cards/search?q=set%3A\(setCode)+%28type%3Aphenomenon+OR+type%3Aplane%29+&unique=prints"
-
+    func fetchCardsImageURLForSet(_ setCode: String, lang: String) {
+        let ulrBase = "https://api.scryfall.com/cards/search?q=lang%3A\(lang)+set%3A\(setCode)+%28type%3Aphenomenon+OR+type%3Aplane%29+&unique=prints"
         print(ulrBase)
         
         // Create URL
@@ -46,7 +49,6 @@ extension ContentManagerViewModel {
                 print(error)
                 return
             }
-            
         }.resume()
     }
     

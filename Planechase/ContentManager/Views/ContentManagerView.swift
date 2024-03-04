@@ -15,6 +15,7 @@ struct ContentManagerView: View {
     @State var currentIndex: Int = 0
     @State var isFullscreen: Bool = false
     @State private var showingDeleteAlert = false
+    @State private var showingDownloadLangAlert = false
     private var gridItemLayout: [GridItem]  {
         Array(repeating: GridItem(.flexible()), count: 2)
     }
@@ -32,11 +33,31 @@ struct ContentManagerView: View {
                         // MARK: Top bar
                         HStack {
                             Button(action: {
-                                contentManagerVM.downloadPlanechaseCardsFromScryfall()
+                                //contentManagerVM.downloadPlanechaseCardsFromScryfall()
+                                showingDownloadLangAlert = true
                             }, label: {
                                 Text("collection_scryfall".translate())
                                     .textButtonLabel(systemName: "square.and.arrow.down", style: .secondary)
-                            })
+                            }).actionSheet(isPresented: $showingDownloadLangAlert) {
+                                ActionSheet(title: Text("Resume Workout Recording"),
+                                                    message: Text("Choose a destination for workout data"),
+                                                    buttons: [
+                                                        .cancel(),
+                                                        .default(
+                                                            Text("FR 🇫🇷"),
+                                                            action: {
+                                                                contentManagerVM.downloadPlanechaseCardsFromScryfall("fr")
+                                                            }
+                                                        ),
+                                                        .default(
+                                                            Text("EN 🇺🇸"),
+                                                            action: {
+                                                                contentManagerVM.downloadPlanechaseCardsFromScryfall("en")
+                                                            }
+                                                        )
+                                                    ]
+                                )
+                            }.preferredColorScheme(.dark)
                             
                             ImportButton()
                             

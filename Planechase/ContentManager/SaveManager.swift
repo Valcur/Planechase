@@ -82,7 +82,7 @@ class SaveManager {
         let customImageURL = documentsURL.appendingPathComponent(fileName)
         do {
             try FileManager.default.removeItem(at: customImageURL)
-            print("Successfully deleted file")
+            print("Successfully deleted file \(fileName)")
         } catch {
             print("Error deleting file: \(error)")
         }
@@ -148,6 +148,10 @@ class SaveManager {
     
     static func deleteCustomImageFromCard(_ card: Card) {
         SaveManager.deleteFromFileManager(fileName: "ImportedImage_\(card.id).txt")
+    }
+    
+    static func deleteOfficialImageFromCard(_ card: Card) {
+        SaveManager.deleteFromFileManager(fileName: "\(card.id).png")
     }
     
     static func saveDecks(_ decks: [Deck]) {

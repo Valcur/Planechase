@@ -68,9 +68,9 @@ class ContentManagerViewModel: ObservableObject {
         }
     }
     
-    func downloadPlanechaseCardsFromScryfall() {
+    func downloadPlanechaseCardsFromScryfall(_ lang: String = "en") {
         DispatchQueue.main.async {
-            self.addAllPlanechaseCardsFromScryfall()
+            self.addAllPlanechaseCardsFromScryfall(lang)
         }
     }
     
@@ -86,7 +86,7 @@ class ContentManagerViewModel: ObservableObject {
                 for card in cards {
                     let cardIndex = self.cardCollection.firstIndex(where: { $0.id == card.id })
                     if let cardIndex = cardIndex {
-                        // For older user, update so they don't have to delete/redownload all cards
+                        // Upadting data
                         if let cardSet = card.cardSets?.first {
                             if self.cardCollection[cardIndex].cardSets == nil {
                                 self.cardCollection[cardIndex].cardSets = [cardSet]
@@ -96,6 +96,13 @@ class ContentManagerViewModel: ObservableObject {
                             }
                         }
                         self.cardCollection[cardIndex].cardType = card.cardType
+                        
+                        // Update card image if diffrent lang
+                        if self.cardCollection[cardIndex].imageURL != card.imageURL {
+                            SaveManager.deleteOfficialImageFromCard(card)
+                            self.cardCollection[cardIndex].imageURL = card.imageURL
+                            self.cardCollection[cardIndex].image = nil
+                        }
                     } else {
                         if card.imageURL != nil {
                             self.cardCollection.append(card)
