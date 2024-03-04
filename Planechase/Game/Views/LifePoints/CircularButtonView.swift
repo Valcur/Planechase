@@ -38,7 +38,7 @@ struct CircularButtonView: View {
                     }
                     
                     if showMenu {
-                        VStack {
+                        VStack(spacing: 10) {
                             Spacer()
                             
                             buttons[0]
@@ -51,7 +51,7 @@ struct CircularButtonView: View {
                     }
                 }
             } else {
-                VStack {
+                VStack(spacing: 50) {
                     Spacer()
                     
                     buttons[0]

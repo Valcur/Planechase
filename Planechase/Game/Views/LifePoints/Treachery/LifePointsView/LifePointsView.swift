@@ -140,7 +140,9 @@ struct LifePointsView: View {
                         }
                     }).offset(y: UIDevice.isIPhone ? -10 : 0)
                 }
-                FullScreenView(fullscreenView: $lifePointsViewModel.fullscreenView)
+                if !isMiniView {
+                    FullScreenView(fullscreenView: $lifePointsViewModel.fullscreenView)
+                }
             }.frame(width: geo.size.width, height: geo.size.height)
                 .background(
                     Color.black.opacity(isMiniView ? 0 : 1)
