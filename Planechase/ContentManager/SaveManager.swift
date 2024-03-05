@@ -23,7 +23,8 @@ class SaveManager {
                     imageURL: card.imageURL,
                     state: card.state,
                     cardSets: card.cardSets,
-                    cardType: card.cardType
+                    cardType: card.cardType,
+                    cardLang: card.cardLang
                 ))
             }
             // Card from scryfall
@@ -34,7 +35,8 @@ class SaveManager {
                     imageURL: card.imageURL,
                     state: card.state,
                     cardSets: card.cardSets,
-                    cardType: card.cardType
+                    cardType: card.cardType,
+                    cardLang: card.cardLang
                 ))
             }
         }
@@ -58,7 +60,8 @@ class SaveManager {
                                           imageURL: nil,
                                           state: card.state,
                                           cardSets: card.cardSets,
-                                          cardType: card.cardType
+                                          cardType: card.cardType,
+                                          cardLang: card.cardLang ?? "en"
                                          ))
                     }
                 }
@@ -69,7 +72,8 @@ class SaveManager {
                                       imageURL: card.imageURL,
                                       state: card.state,
                                       cardSets: card.cardSets,
-                                      cardType: card.cardType
+                                      cardType: card.cardType,
+                                      cardLang: card.cardLang ?? "en"
                                      ))
                 }
             }
@@ -187,6 +191,7 @@ class SaveManager {
         var state: CardState
         var cardSets: [CardSet]?
         var cardType: CardTypeLine?
+        var cardLang: String?
     }
 }
 

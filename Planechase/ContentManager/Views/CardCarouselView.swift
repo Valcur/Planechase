@@ -66,7 +66,6 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
                         }
                     }
                     .frame(width: cardWidth - cardPadding, height: size.height)
-                   // .opacity(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.5) + 0.5)
                     .scaleEffect(progressionToValue(index: index, cardWidth: cardWidth, maxValue: 0.2) + 0.8)
                     .rotation3DEffect(.degrees(progressionSide(index: index, cardWidth: cardWidth) * (20 - progressionToValue(index: index, cardWidth: cardWidth, maxValue: 20))), axis: (x: 0, y: 1, z: 0))
                 }
@@ -137,7 +136,6 @@ struct CardCarouselView<Content: View, Item, ID>: View where Item: RandomAccessC
     func onEnd(value: DragGesture.Value, cardWidth: CGFloat) {
         var newIndex = currentIndex
         let absValue = abs(value.translation.width)
-        print(absValue)
         if absValue < 500 && absValue > 80 {
             if value.translation.width > 0 {
                 newIndex = currentIndex + 1

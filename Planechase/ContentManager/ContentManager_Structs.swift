@@ -18,6 +18,7 @@ struct Filter {
     var cardsInDeck: CollectionCardsInDeckFilter = .both
     var cardSet: CardSet?
     var cardTypeLine: CardTypeLine?
+    var cardLang: String?
     
     enum CollectionCardTypeFilter {
         case official

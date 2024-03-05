@@ -24,12 +24,14 @@ class DownloadManager: ObservableObject {
             
             guard let url = URL(string: self.card.imageURL!) else { return }
             
+            let rotation = (self.card.imageURL?.contains("wizards") ?? false) ? 0 : (Float.pi / 2)
+            
             self.loadData(cardName: self.card.id, url: url) { (data, error) in
                 // Handle the loaded file data
                 if error == nil {
                     if data != nil {
                         self.data = data! as Data
-                        completion((UIImage(data: self.data) ?? UIImage(named: "NoCard")!).rotate(radians: .pi/2)!)
+                        completion((UIImage(data: self.data) ?? UIImage(named: "NoCard")!).rotate(radians: rotation)!)
                     }
                 }
             }

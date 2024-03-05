@@ -14,14 +14,16 @@ class Card: ObservableObject, Equatable {
     var state: CardState
     var cardSets: [CardSet]?
     var cardType: CardTypeLine?
+    var cardLang: String
     
-    init(id: String, image: UIImage? = nil, imageURL: String? = nil, state: CardState, cardSets: [CardSet]? = nil, cardType: CardTypeLine? = nil) {
+    init(id: String, image: UIImage? = nil, imageURL: String? = nil, state: CardState, cardSets: [CardSet]? = nil, cardType: CardTypeLine? = nil, cardLang: String = "en") {
         self.state = state
         self.image = image
         self.imageURL = imageURL
         self.id = id
         self.cardSets = cardSets
         self.cardType = cardType
+        self.cardLang = cardLang
     }
     
     func cardAppears() {

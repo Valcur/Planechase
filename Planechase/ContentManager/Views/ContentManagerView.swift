@@ -22,7 +22,7 @@ struct ContentManagerView: View {
     private var smallGridItemLayout: [GridItem]  {
         Array(repeating: GridItem(.flexible()), count: 3)
     }
-
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -39,25 +39,55 @@ struct ContentManagerView: View {
                                 Text("collection_scryfall".translate())
                                     .textButtonLabel(systemName: "square.and.arrow.down", style: .secondary)
                             }).actionSheet(isPresented: $showingDownloadLangAlert) {
-                                ActionSheet(title: Text("Resume Workout Recording"),
-                                                    message: Text("Choose a destination for workout data"),
+                                ActionSheet(title: Text("Choose download language"),
+                                                    message: Text("Cards not available in the chosen language will be downloaded in english. (Be aware that card quality wil be inequal when not choosing en)"),
                                                     buttons: [
                                                         .cancel(),
                                                         .default(
-                                                            Text("FR 🇫🇷"),
+                                                            Text("lang_EN".translate()),
+                                                            action: {
+                                                                contentManagerVM.downloadPlanechaseCardsFromScryfall("en")
+                                                            }
+                                                        ),
+                                                        .default(
+                                                            Text("lang_FR".translate()),
                                                             action: {
                                                                 contentManagerVM.downloadPlanechaseCardsFromScryfall("fr")
                                                             }
                                                         ),
                                                         .default(
-                                                            Text("EN 🇺🇸"),
+                                                            Text("lang_FR_HD".translate()),
                                                             action: {
-                                                                contentManagerVM.downloadPlanechaseCardsFromScryfall("en")
+                                                                contentManagerVM.downloadPlanechaseCardsFromScryfall("fr", hdOnly: true)
+                                                            }
+                                                        ),
+                                                        .default(
+                                                            Text("lang_DE".translate()),
+                                                            action: {
+                                                                contentManagerVM.downloadPlanechaseCardsFromScryfall("de")
+                                                            }
+                                                        ),
+                                                        .default(
+                                                            Text("lang_DE_HD".translate()),
+                                                            action: {
+                                                                contentManagerVM.downloadPlanechaseCardsFromScryfall("de", hdOnly: true)
+                                                            }
+                                                        ),
+                                                        .default(
+                                                            Text("lang_IT".translate()),
+                                                            action: {
+                                                                contentManagerVM.downloadPlanechaseCardsFromScryfall("it")
+                                                            }
+                                                        ),
+                                                        .default(
+                                                            Text("lang_IT_HD".translate()),
+                                                            action: {
+                                                                contentManagerVM.downloadPlanechaseCardsFromScryfall("it", hdOnly: true)
                                                             }
                                                         )
                                                     ]
                                 )
-                            }.preferredColorScheme(.dark)
+                            }
                             
                             ImportButton()
                             
@@ -186,6 +216,9 @@ struct ContentManagerView: View {
                                     }
                                 }.padding(.top, UIDevice.isIPhone ? 12 : 90).padding(.bottom, UIDevice.isIPhone ? 12 : 50)
                             }.ignoresSafeArea()
+                                .onChange(of: currentIndex) { _ in
+                                    print("Currently at \(contentManagerVM.filteredCardCollection[currentIndex].id)")
+                                }
                         )
                 }
                 
@@ -198,6 +231,12 @@ struct ContentManagerView: View {
         }
         .onChange(of: contentManagerVM.filteredCardCollection) { _ in
             currentIndex = 0
+        }
+        .onAppear {
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            if let firstWindow = scene?.windows.first {
+                firstWindow.overrideUserInterfaceStyle = .dark
+            }
         }
     }
     

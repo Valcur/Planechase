@@ -68,9 +68,9 @@ class ContentManagerViewModel: ObservableObject {
         }
     }
     
-    func downloadPlanechaseCardsFromScryfall(_ lang: String = "en") {
+    func downloadPlanechaseCardsFromScryfall(_ lang: String = "en", hdOnly: Bool = false) {
         DispatchQueue.main.async {
-            self.addAllPlanechaseCardsFromScryfall(lang)
+            self.addAllPlanechaseCardsFromScryfall(lang, hdOnly: hdOnly)
         }
     }
     
@@ -80,13 +80,13 @@ class ContentManagerViewModel: ObservableObject {
         planechaseVM?.objectWillChange.send()
     }
     
-    func addToCollection(_ cards: [Card]) {
+    func addToCollection(_ cards: [Card], targetLang: String) {
         DispatchQueue.main.async {
             withAnimation(.easeInOut(duration: 0.3)) {
                 for card in cards {
                     let cardIndex = self.cardCollection.firstIndex(where: { $0.id == card.id })
                     if let cardIndex = cardIndex {
-                        // Upadting data
+                        // Updating data
                         if let cardSet = card.cardSets?.first {
                             if self.cardCollection[cardIndex].cardSets == nil {
                                 self.cardCollection[cardIndex].cardSets = [cardSet]
@@ -97,11 +97,13 @@ class ContentManagerViewModel: ObservableObject {
                         }
                         self.cardCollection[cardIndex].cardType = card.cardType
                         
-                        // Update card image if diffrent lang
-                        if self.cardCollection[cardIndex].imageURL != card.imageURL {
+                        // Update card image if different lang
+                        // TODO: only if moving to prefered lang
+                        if self.cardCollection[cardIndex].cardLang != card.cardLang && card.cardLang == targetLang {
                             SaveManager.deleteOfficialImageFromCard(card)
                             self.cardCollection[cardIndex].imageURL = card.imageURL
                             self.cardCollection[cardIndex].image = nil
+                            self.cardCollection[cardIndex].cardLang = card.cardLang
                         }
                     } else {
                         if card.imageURL != nil {
@@ -179,7 +181,7 @@ class ContentManagerViewModel: ObservableObject {
     
     func importNewImageToCollection(image: UIImage) {
         let newCard = Card(id: createIdForNewImportedCard(), image: image, state: .showed)
-        addToCollection([newCard])
+        addToCollection([newCard], targetLang: "en")
     }
     
     private func createIdForNewImportedCard() -> String {
@@ -203,6 +205,19 @@ extension ContentManagerViewModel {
                 collectionFilter.cardTypeLine = nil
             } else {
                 collectionFilter.cardTypeLine = typeLine
+            }
+        }
+        updateFilteredCardCollection()
+    }
+    
+    func toggleCardLangFilter(_ lang: String) {
+        if collectionFilter.cardLang == nil {
+            collectionFilter.cardLang = lang
+        } else {
+            if collectionFilter.cardLang == lang {
+                collectionFilter.cardLang = nil
+            } else {
+                collectionFilter.cardLang = lang
             }
         }
         updateFilteredCardCollection()
@@ -244,6 +259,14 @@ extension ContentManagerViewModel {
                     }
                     if cardTypeFilter == .phenomenon {
                         self.filteredCardCollection = self.filteredCardCollection.filter({ $0.cardType == .phenomenon })
+                    }
+                }
+                
+                if let lang = self.collectionFilter.cardLang {
+                    if lang == "en" {
+                        self.filteredCardCollection = self.filteredCardCollection.filter({ $0.cardLang == "en" })
+                    } else if lang == "non-en" {
+                        self.filteredCardCollection = self.filteredCardCollection.filter({ $0.cardLang != "en" })
                     }
                 }
             }

@@ -18,6 +18,14 @@
 "close" = "Close";
 "reset" = "Reset";
 
+"lang_FR" = "French 🇫🇷";
+"lang_FR_HD" = "French (HD only) 🇫🇷";
+"lang_EN" = "English 🇺🇸";
+"lang_DE" = "Deutsch 🇩🇪";
+"lang_DE_HD" = "Deutsch (HD only) 🇩🇪";
+"lang_IT" = "Italia 🇮🇹";
+"lang_IT_HD" = "Italia (HD only) 🇮🇹";
+
 // Mark: Play
 
 "play_app_title" = "Planechase Companion";
@@ -85,6 +93,9 @@
 "collection_filter_title_selection" = "Selection :";
 "collection_filter_title_type" = "Type :";
 "collection_filter_title_set" = "Set :";
+"collection_filter_title_lang" = "Lang :";
+"collection_filter_lang_en" = "English";
+"collection_filter_lang_non-en" = "Not english";
 "collection_confirmTypeChange" = "Confirm type changes";
 
 // Mark: Game

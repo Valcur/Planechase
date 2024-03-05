@@ -129,6 +129,22 @@ extension ContentManagerView {
                                 }.frame(maxWidth: .infinity)
                             }.padding(.leading, leadingOffset)
                         }.frame(maxWidth: .infinity, alignment: .topLeading).padding(10).blurredBackground()
+                        
+                        ZStack(alignment: .topLeading) {
+                            Text("collection_filter_title_lang".translate()).headline().padding(.top, 20)
+                            HStack(alignment: .top) {
+                                ForEach(["en", "non-en"], id: \.self) { cardLang in
+                                    Button(action: {
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            contentVM.toggleCardLangFilter(cardLang)
+                                        }
+                                    }, label: {
+                                        Text("collection_filter_lang_\(cardLang)".translate())
+                                            .textButtonLabel(style: contentVM.collectionFilter.cardLang == cardLang ? .secondary : .noBackground)
+                                    })
+                                }
+                            }.padding(.leading, leadingOffset)
+                        }.frame(maxWidth: .infinity, alignment: .topLeading).padding(10).blurredBackground()
                     }.padding(.horizontal, 30).padding(.top, 30).iPhoneScaler_widthOnly(width: geo.size.width, anchor: .top)
                 }
             }.background(GradientView(gradientId: planechaseVM.gradientId))
