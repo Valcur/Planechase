@@ -99,6 +99,11 @@ class ScryfallToWizardsBridge {
     }
     
     private static func wizardUrl(id: String, lang: String) -> String {
-        return "https://media.wizards.com/2023/mom/\(lang)_\(id).png"
+        var lan = lang
+        // Spanish is es in Scryfall but sp for media.wizards
+        if lang == "es" {
+            lan = "sp"
+        }
+        return "https://media.wizards.com/2023/mom/\(lan)_\(id).png"
     }
 }

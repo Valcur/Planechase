@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DB0028DE29FE98C200E3DD74 /* LifePointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0028DD29FE98C200E3DD74 /* LifePointsView.swift */; };
+		DB14B3CC2B95F3E70024821D /* ScryfallToWizardsBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB14B3CB2B95F3E70024821D /* ScryfallToWizardsBridge.swift */; };
 		DB18E3C029B9E06400C15251 /* DiceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3BF29B9E06400C15251 /* DiceOptions.swift */; };
 		DB18E3C329BE14E000C15251 /* OptionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB18E3C229BE14E000C15251 /* OptionsPanel.swift */; };
 		DB24CA3B2AB75B760002E17B /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB24CA3A2AB75B760002E17B /* FilterSheet.swift */; };
@@ -96,6 +97,7 @@
 
 /* Begin PBXFileReference section */
 		DB0028DD29FE98C200E3DD74 /* LifePointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifePointsView.swift; sourceTree = "<group>"; };
+		DB14B3CB2B95F3E70024821D /* ScryfallToWizardsBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScryfallToWizardsBridge.swift; sourceTree = "<group>"; };
 		DB18E3BF29B9E06400C15251 /* DiceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceOptions.swift; sourceTree = "<group>"; };
 		DB18E3C229BE14E000C15251 /* OptionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsPanel.swift; sourceTree = "<group>"; };
 		DB24CA3A2AB75B760002E17B /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				DBA02CED29A3E886004E94BC /* SaveManager.swift */,
 				DBB8311129CDB8AB0023E81A /* ContentManager_Structs.swift */,
 				DBC339BD29ACEDD80089CB01 /* Views */,
+				DB14B3CB2B95F3E70024821D /* ScryfallToWizardsBridge.swift */,
 			);
 			path = ContentManager;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				DBC339B329AB8AC60089CB01 /* PlanarDeckControlView.swift in Sources */,
 				DBA757EB2AE0093100DE2D16 /* LifePointsPlayerPanelView+Treachery.swift in Sources */,
 				DB2EA3722B2899E600A2E734 /* View+.swift in Sources */,
+				DB14B3CC2B95F3E70024821D /* ScryfallToWizardsBridge.swift in Sources */,
 				DB18E3C329BE14E000C15251 /* OptionsPanel.swift in Sources */,
 				DBA757E92ADEB8FE00DE2D16 /* Treachery.swift in Sources */,
 				DBA02D0029A61E42004E94BC /* CardSizes.swift in Sources */,
@@ -796,7 +800,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.2;
+				MARKETING_VERSION = 5.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -831,7 +835,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.2;
+				MARKETING_VERSION = 5.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Planechase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

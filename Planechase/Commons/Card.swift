@@ -39,7 +39,7 @@ class Card: ObservableObject, Equatable {
     }
     
     func new() -> Card {
-        return Card(id: self.id, image: self.image, imageURL: self.imageURL, state: self.state, cardSets: self.cardSets, cardType: self.cardType)
+        return Card(id: self.id, image: self.image, imageURL: self.imageURL, state: self.state, cardSets: self.cardSets, cardType: self.cardType, cardLang: self.cardLang)
     }
     
     static let hellride = Card(id: "HELLRIDE_UNDEFINED", image: UIImage(named: "NoCard"), imageURL: "HELLRIDE", state: .pickable)

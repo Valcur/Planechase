@@ -20,11 +20,13 @@
 
 "lang_FR" = "French 🇫🇷";
 "lang_FR_HD" = "French (HD only) 🇫🇷";
-"lang_EN" = "English 🇺🇸";
-"lang_DE" = "Deutsch 🇩🇪";
-"lang_DE_HD" = "Deutsch (HD only) 🇩🇪";
-"lang_IT" = "Italia 🇮🇹";
-"lang_IT_HD" = "Italia (HD only) 🇮🇹";
+"lang_EN" = "English 🇺🇸/🇬🇧";
+"lang_ES" = "Spanish 🇪🇸";
+"lang_ES_HD" = "Spanish (HD only) 🇪🇸";
+"lang_DE" = "German 🇩🇪";
+"lang_DE_HD" = "German (HD only) 🇩🇪";
+"lang_IT" = "Italian 🇮🇹";
+"lang_IT_HD" = "Italian (HD only) 🇮🇹";
 
 // Mark: Play
 
@@ -59,7 +61,7 @@
 "discord_hide_content" = "You can still find a link in the options under 'Contact'";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- Hold on a plane in your collection to open it in fullscreen\n- Commander damages now increase/decrease by tapping the top/bottom";
+"whatsNew_content" = "Download cards in English, French, Spanish, Italian and German. Press the download from Scryfall button to update your collection to the desired language";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
@@ -69,6 +71,8 @@
 // Mark: Collection
 
 "collection_scryfall" = "Scryfall";
+"collection_scryfall_download_title" = "Choose download language";
+"collection_scryfall_download_content" = "Cards not available in the chosen language will be downloaded in english. To only download cards when the quality is good enough, choose the HD only option.";
 "collection_import" = "Import";
 "collection_deckSize" = "Deck size";
 "collection_howToUse" = "Tap a card to add/remove it from your deck. Hold to zoom.";
@@ -95,7 +99,7 @@
 "collection_filter_title_set" = "Set :";
 "collection_filter_title_lang" = "Lang :";
 "collection_filter_lang_en" = "English";
-"collection_filter_lang_non-en" = "Not english";
+"collection_filter_lang_non-en" = "Other";
 "collection_confirmTypeChange" = "Confirm type changes";
 
 // Mark: Game

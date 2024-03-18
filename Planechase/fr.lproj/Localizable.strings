@@ -18,13 +18,15 @@
 "close" = "Fermer";
 "reset" = "Réinitialiser";
 
-"lang_FR" = "French 🇫🇷";
-"lang_FR_HD" = "French (HD only) 🇫🇷";
-"lang_EN" = "English 🇺🇸";
-"lang_DE" = "Deutsch 🇩🇪";
-"lang_DE_HD" = "Deutsch (HD only) 🇩🇪";
-"lang_IT" = "Italia 🇮🇹";
-"lang_IT_HD" = "Italia (HD only) 🇮🇹";
+"lang_FR" = "Francais 🇫🇷";
+"lang_FR_HD" = "Francais (HD uniquement) 🇫🇷";
+"lang_EN" = "Anglais 🇺🇸/🇬🇧";
+"lang_ES" = "Espagnol 🇪🇸";
+"lang_ES_HD" = "Espagnol (HD uniquement) 🇪🇸";
+"lang_DE" = "Allemand 🇩🇪";
+"lang_DE_HD" = "Allemand (HD uniquement) 🇩🇪";
+"lang_IT" = "Italien 🇮🇹";
+"lang_IT_HD" = "Italien (HD uniquement) 🇮🇹";
 
 // Mark: Play
 
@@ -58,7 +60,7 @@
 "discord_hide_content" = "Vous pourrez toujours retrouver le lien dans les options sous le menu 'Contact'";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Gardez appuyé une carte de votre collection pour la voir en plein écran\n- Les dégâts de commander augmentent/baissent en appuyant sur le haut/bas du compteur";
+"whatsNew_content" = "Télécharger les cartes en Anglais, Francais, Espagnol, Italien et Allemand. Appuyez sur le bouton télécharger depuis Scryfall pour mettre à jour la langue des cartes dans votre collection.";
 "whatsNew_rateUs_title" = "Vous appréciez l'app ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -68,6 +70,8 @@
 // Mark: Collection
 
 "collection_scryfall" = "Scryfall";
+"collection_scryfall_download_title" = "Choisissez la langue";
+"collection_scryfall_download_content" = "Les cartes non disponible dans la langue choisie seront téléchargées en anglais. Pour ne télécharger que les cartes dont l'image est de bonne qualité, choisissez l'option HD uniquement. ";
 "collection_import" = "Importer";
 "collection_deckSize" = "Taille du deck";
 "collection_howToUse" = "Appuyez pour ajouter/retirer une carte à votre deck. Maintenez appuyé pour zoomer.";
@@ -92,9 +96,9 @@
 "collection_filter_title_selection" = "Sélection :";
 "collection_filter_title_type" = "Type :";
 "collection_filter_title_set" = "Extension :";
-"collection_filter_title_lang" = "Lang :";
-"collection_filter_lang_en" = "English";
-"collection_filter_lang_non-en" = "Not english";
+"collection_filter_title_lang" = "Langue :";
+"collection_filter_lang_en" = "Anglais";
+"collection_filter_lang_non-en" = "Autre";
 "collection_confirmTypeChange" = "Confirmer les changements de type";
 
 // Mark: Game

@@ -98,8 +98,9 @@ class ContentManagerViewModel: ObservableObject {
                         self.cardCollection[cardIndex].cardType = card.cardType
                         
                         // Update card image if different lang
-                        // TODO: only if moving to prefered lang
-                        if self.cardCollection[cardIndex].cardLang != card.cardLang && card.cardLang == targetLang {
+                        if self.cardCollection[cardIndex].imageURL != nil   // On ignore les cartes custom
+                            && card.cardLang != self.cardCollection[cardIndex].cardLang // Si on est bien sur un changement de langue
+                        {
                             SaveManager.deleteOfficialImageFromCard(card)
                             self.cardCollection[cardIndex].imageURL = card.imageURL
                             self.cardCollection[cardIndex].image = nil

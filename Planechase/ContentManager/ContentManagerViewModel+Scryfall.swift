@@ -9,57 +9,58 @@ import Foundation
 
 extension ContentManagerViewModel {
     func addAllPlanechaseCardsFromScryfall(_ lang: String, hdOnly: Bool) {
-        for set in CardSet.getAll() {
-            fetchCardsImageURLForSet(set.setCode(), lang: "en")
-        }
-        for set in CardSet.getAll() {
-            if set.setCode() != "OHOP" && set.setCode() != "OPCA" {
-                if set.setCode() == "OPC2" {
-                    if !hdOnly {
-                        fetchCardsImageURLForSet(set.setCode(), lang: lang)
+        Task {
+            var cards = [Card]()
+            for set in CardSet.getAll() {
+                cards += await fetchCardsImageURLForSet(set.setCode(), lang: "en")
+            }
+            if lang != "en" {
+                for set in CardSet.getAll() {
+                    if set.setCode() != "OHOP" && set.setCode() != "OPCA" {
+                        if set.setCode() == "OPC2" {
+                            if !hdOnly {
+                                cards += await fetchCardsImageURLForSet(set.setCode(), lang: lang)
+                            }
+                        } else {
+                            cards += await fetchCardsImageURLForSet(set.setCode(), lang: lang)
+                        }
                     }
-                } else {
-                    fetchCardsImageURLForSet(set.setCode(), lang: lang)
                 }
             }
+    
+            self.addToCollection(cards, targetLang: lang)
         }
     }
     
-    func fetchCardsImageURLForSet(_ setCode: String, lang: String) {
+    func fetchCardsImageURLForSet(_ setCode: String, lang: String) async -> [Card] {
         let ulrBase = "https://api.scryfall.com/cards/search?q=lang%3A\(lang)+set%3A\(setCode)+%28type%3Aphenomenon+OR+type%3Aplane%29+&unique=prints"
         print(ulrBase)
         
         // Create URL
         guard let url = URL(string: ulrBase + setCode) else {
             print("url error for \(setCode)")
-            return
+            return []
         }
         
         // Create URL session data task
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            guard let data = data else {
-                print("Missing data")
-                return
-            }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
             
             do {
                 // Parse the JSON data
                 let planechaseResult = try JSONDecoder().decode(PlanechaseURLs.self, from: data)
-                self.addCardsScryfallResults(planechaseResult, setCode: setCode, lang: lang)
+                return self.addCardsScryfallResults(planechaseResult, setCode: setCode, lang: lang)
             } catch {
                 print(error)
-                return
+                return []
             }
-        }.resume()
+        } catch {
+            print(error)
+            return []
+        }
     }
     
-    func addCardsScryfallResults(_ planechaseURLs: PlanechaseURLs, setCode: String, lang: String) {
+    func addCardsScryfallResults(_ planechaseURLs: PlanechaseURLs, setCode: String, lang: String) -> [Card] {
         var cards: [Card] = []
         
         for plane in planechaseURLs.data {
@@ -76,8 +77,7 @@ extension ContentManagerViewModel {
                 cards.append(card)
             }
         }
-
-        self.addToCollection(cards, targetLang: lang)
+        return cards
     }
 }
 
